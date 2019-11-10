@@ -77,4 +77,11 @@ func main() {
 		log.Println("Done")
 		os.Exit(0)
 	})
+
+	//
+	// start server
+
+	p := strconv.Itoa(config.Port)
+	log.Println("Initialization complete. Starting server on port " + p)
+	http.ListenAndServe(":"+p, nil)
 }

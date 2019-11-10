@@ -13,15 +13,18 @@ let me = null;
 (async function() {
     //
     await fetch("/api/about").then(x => x.json()).then(x => {
+        console.info(x);
         el_2.innerText = x.name;
     });
 
     //
     await fetch("/api/users/@me").then(x => x.json()).then(x => {
+        console.info(x);
         if (x.success === false) {
             location.assign("../");
         }
         else {
+            console.info(x.message);
             me = x.message.me;
             const n = me.nickname || me.name;
             el_3.children[0].textContent = `@${n}`;
@@ -37,7 +40,9 @@ let me = null;
 
     //
     await fetch("/api/channels/@me").then(x => x.json()).then(x => {
+        console.info(x);
         for (const item of x.message) {
+            console.info(item);
             ui.addChannel(item.uuid, item.name);
         }
         ui.setActiveChannel(x.message[0].uuid);
@@ -74,7 +79,7 @@ let me = null;
     });
 
     await fetch("/api/users/online").then(x => x.json()).then(x => {
-        console.log(x);
+        console.info(x);
         for (const item of x.message) {
             ui.setMemberOnline(item);
         }

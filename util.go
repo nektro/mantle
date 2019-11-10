@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"log"
 	"net/http"
 	"strings"
@@ -79,6 +80,9 @@ func writeAPIResponse(r *http.Request, w http.ResponseWriter, good bool, status 
 	w.WriteHeader(status)
 	w.Header().Add("content-type", "application/json")
 	w.Write(dat)
+	if !good {
+		return errors.New("")
+	}
 	return nil
 }
 

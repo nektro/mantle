@@ -178,5 +178,12 @@ body {
         grid-row: 1 / 4;
         grid-column: 3 / 4;
         border-left: 2px solid #268bd2;
+
+        & > div {
+            padding: .9em;
+            margin: 0;
+            text-align: center;
+            border-bottom: 1px solid $based1;
+        }
     }
 }

@@ -164,3 +164,10 @@ body #users-online-list {
   grid-column: 3 / 4;
   border-left: 2px solid #268bd2;
 }
+
+body #users-online-list > div {
+  padding: .9em;
+  margin: 0;
+  text-align: center;
+  border-bottom: 1px solid #586e75;
+}

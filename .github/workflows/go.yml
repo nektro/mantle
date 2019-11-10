@@ -28,9 +28,8 @@ jobs:
       - run: ./build_all.sh
         env:
           GOPATH: /home/runner/work/mantle/go
-      - name: Upload artifact
-        uses: actions/upload-artifact@v1.0.0
+      - uses: xresloader/upload-to-github-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: linux-amd64
-          path: ./bin/mantle-linux-amd64
-        
+          file: "./bin/mantle-linux-amd64"

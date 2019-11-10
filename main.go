@@ -23,4 +23,7 @@ type Config struct {
 
 func main() {
 	log.Println("Welcome to " + Name + ".")
+
+	//
+	etc.Init("mantle", &config, "./invite", helperSaveCallbackInfo)
 }

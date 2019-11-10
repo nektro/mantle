@@ -26,4 +26,13 @@ func main() {
 
 	//
 	etc.Init("mantle", &config, "./invite", helperSaveCallbackInfo)
+
+	//
+	// database initialization
+
+	etc.Database.CreateTableStruct(cTableSettings, RowSetting{})
+	etc.Database.CreateTableStruct(cTableUsers, RowUser{})
+	etc.Database.CreateTableStruct(cTableChannels, RowChannel{})
+	etc.Database.CreateTableStruct(cTableRoles, RowRole{})
+	etc.Database.CreateTableStruct(cTableChannelRolePerms, RowChannelRolePerms{})
 }

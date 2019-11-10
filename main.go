@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -106,6 +108,11 @@ func main() {
 			w.Header().Add("Location", "./chat/")
 			w.WriteHeader(http.StatusFound)
 		}
+	})
+
+	http.HandleFunc("/api/about", func(w http.ResponseWriter, r *http.Request) {
+		dat, _ := json.Marshal(props.GetAll())
+		fmt.Fprint(w, string(dat))
 	})
 
 	//

@@ -169,7 +169,11 @@ func main() {
 			fmt.Fprintln(w, "missing post value")
 			return
 		}
-		cv := wsConnCache[user.UUID]
+		cv, ok := wsConnCache[user.UUID]
+		if !ok {
+			fmt.Fprintln(w, "unable to find user in ws connection cache")
+			return
+		}
 		if !cv.Perms.ManageChannels {
 			fmt.Fprintln(w, "user missing 'Perms.ManageChannels'")
 			return

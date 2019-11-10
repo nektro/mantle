@@ -72,3 +72,14 @@ Output of `go list -f '{{ join .Imports "\n" }}'` sans stdlib packages.
 We listen to issues all the time right here on GitHub. Labels are extensively to show the progress through the fixing process. Question issues are okay but make sure to close the issue when it has been answered! Off-topic and '+1' comments will be deleted. Please use post/comment reactions for this purpose.
 
 When making a pull request, please have it be associated with an issue and make a comment on the issue saying that you're working on it so everyone else knows what's going on :D
+
+## Donate
+[![paypal](https://img.shields.io/badge/paypal.me-nektro-009cdf)](https://paypal.me/nektro)
+
+## Contact
+- hello@nektro.net
+- Meghan#2032 on discordapp.com
+- https://twitter.com/nektro
+
+## License
+Apache 2.0

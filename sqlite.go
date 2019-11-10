@@ -2,6 +2,10 @@ package main
 
 import (
 	"database/sql"
+
+	etc "github.com/nektro/go.etc"
+
+	. "github.com/nektro/go-util/alias"
 )
 
 // // //
@@ -25,3 +29,26 @@ func scanRole(rows *sql.Rows) RowRole {
 }
 
 // // //
+
+func queryUserBySnowflake(provider string, flake string, name string) RowUser {
+	rows := etc.Database.Build().Se("*").Fr(cTableUsers).Wh("provider", provider).An("snowflake", flake).Exe()
+	if rows.Next() {
+		ru := scanUser(rows)
+		rows.Close()
+		return ru
+	}
+	// else
+	id := etc.Database.QueryNextID(cTableUsers)
+	uid := newUUID()
+	now := T()
+	roles := ""
+	if id == 1 {
+		roles += "o"
+	}
+	etc.Database.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%s', '%s', '0', '0', ?, '', '%s', '%s', '%s')", cTableUsers, id, provider, flake, uid, now, now, roles), name)
+	return queryUserBySnowflake(provider, flake, name)
+}
+
+func queryAssertUserName(uid string, name string) {
+	etc.Database.Build().Up(cTableUsers, "name", name).Wh("uuid", uid).Exe()
+}

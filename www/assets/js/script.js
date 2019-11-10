@@ -64,5 +64,8 @@ import { el_1, el_2, el_3, getUserFromUUID } from "./util.js";
                 });
             }
         });
+        el_1.querySelector("ol").addEventListener("click", (ev) => {
+            ui.setActiveChannel(ev.target.dataset.uuid);
+        });
     });
 })();

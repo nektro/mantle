@@ -109,6 +109,7 @@ let me = null;
             }
             case "user-disconnect": {
                 ui.setMemberOffline(d.user);
+                if (d.user === me.uuid) socket.close();
                 break;
             }
             default: {

@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+init() {
+    go get -v -u github.com/rakyll/statik
+    $GOPATH/bin/statik -src="./www/"
+}
 build_template() {
     export CGO_ENABLED=1
     export GOOS=$1
@@ -11,6 +15,7 @@ build_template() {
     go build -ldflags="-s -w" -o ./bin/mantle-v$TAG-$GOOS-$GOARCH$EXT
 }
 
+init
 # build_template darwin 386
 # build_template darwin amd64
 # build_template dragonfly amd64

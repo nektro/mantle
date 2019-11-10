@@ -1,6 +1,7 @@
 package main
 
 import (
+	"container/list"
 	"encoding/json"
 	"errors"
 	"log"
@@ -117,5 +118,23 @@ func calculateUserPermissions(user *RowUser) *UserPerms {
 func broadcastMessage(message map[string]string) {
 	for _, item := range wsConnCache {
 		item.conn.WriteJSON(message)
+	}
+}
+
+func listHas(l *list.List, n interface{}) bool {
+	for e := l.Front(); e != nil; e = e.Next() {
+		if e.Value == n {
+			return true
+		}
+	}
+	return false
+}
+
+func listRemove(l *list.List, n interface{}) {
+	for e := l.Front(); e != nil; e = e.Next() {
+		if e.Value == n {
+			l.Remove(e)
+			break
+		}
 	}
 }

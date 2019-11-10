@@ -1,6 +1,7 @@
 package main
 
 import (
+	"container/list"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -23,6 +24,7 @@ var (
 	wsUpgrader  = websocket.Upgrader{ReadBufferSize: 1024, WriteBufferSize: 1024}
 	wsConnCache = map[string]ConnCacheValue{}
 	roleCache   = map[string]RowRole{}
+	connected   = list.New()
 )
 
 type Config struct {
@@ -185,11 +187,16 @@ func main() {
 		perms := calculateUserPermissions(user)
 		wsConnCache[user.UUID] = ConnCacheValue{conn, user, perms}
 
+		// connect
+		if !listHas(connected, user.UUID) {
+			connected.PushBack(user.UUID)
+		}
+		// message intake loop
 		for {
 			// Read message from browser
 			_, msg, err := conn.ReadMessage()
 			if err != nil {
-				return
+				break
 			}
 
 			// broadcast message to all connected clients
@@ -200,6 +207,10 @@ func main() {
 				"from":    user.UUID,
 				"message": smsg[32:],
 			})
+		}
+		// disconnect
+		if listHas(connected, user.UUID) {
+			listRemove(connected, user.UUID)
 		}
 	})
 

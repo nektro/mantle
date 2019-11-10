@@ -7,5 +7,5 @@ import (
 )
 
 func main() {
-	log.Println(F("Welcome to %s.", Name))
+	log.Println("Welcome to " + Name + ".")
 }

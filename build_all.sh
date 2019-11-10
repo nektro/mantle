@@ -10,9 +10,9 @@ build_template() {
     export GOARCH=$2
     export GOARM=7
     EXT=$3
-    TAG=$(date +'%Y.%m.%d').$(git log --format=%h -1)
-    echo $TAG-$GOOS-$GOARCH
-    go build -ldflags="-s -w" -o ./bin/mantle-v$TAG-$GOOS-$GOARCH$EXT
+    echo $(date +'%Y.%m.%d').$(git log --format=%h -1)
+    echo $GOOS-$GOARCH
+    go build -ldflags="-s -w" -o ./bin/mantle-$GOOS-$GOARCH$EXT
 }
 
 init

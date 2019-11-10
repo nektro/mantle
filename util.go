@@ -109,3 +109,9 @@ func calculateUserPermissions(user *RowUser) *UserPerms {
 	}
 	return &perms
 }
+
+func broadcastMessage(message map[string]string) {
+	for _, item := range wsConnCache {
+		item.conn.WriteJSON(message)
+	}
+}

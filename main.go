@@ -8,6 +8,7 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/gorilla/websocket"
 	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
 	oauth2 "github.com/nektro/go.oauth2"
@@ -19,6 +20,8 @@ import (
 
 var (
 	config      *Config
+	wsUpgrader  = websocket.Upgrader{ReadBufferSize: 1024, WriteBufferSize: 1024}
+	wsConnCache = map[string]ConnCacheValue{}
 	roleCache   = map[string]RowRole{}
 )
 
@@ -90,6 +93,11 @@ func main() {
 		log.Println("Saving database to disk")
 		etc.Database.Close()
 
+		log.Println("Closing all remaining active WebSocket connections")
+		for _, item := range wsConnCache {
+			item.conn.Close()
+		}
+
 		log.Println("Done")
 		os.Exit(0)
 	})
@@ -158,6 +166,41 @@ func main() {
 		}
 		name := r.Form.Get("name")
 		cuid := createChannel(name)
+		broadcastMessage(map[string]string{
+			"type": "new-channel",
+			"uuid": cuid,
+			"name": name,
+		})
+	})
+
+	//
+	// create websocket service
+
+	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+		_, user, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
+		if err != nil {
+			return
+		}
+		conn, _ := wsUpgrader.Upgrade(w, r, nil)
+		perms := calculateUserPermissions(user)
+		wsConnCache[user.UUID] = ConnCacheValue{conn, user, perms}
+
+		for {
+			// Read message from browser
+			_, msg, err := conn.ReadMessage()
+			if err != nil {
+				return
+			}
+
+			// broadcast message to all connected clients
+			smsg := string(msg)
+			broadcastMessage(map[string]string{
+				"type":    "message",
+				"in":      smsg[:32],
+				"from":    user.UUID,
+				"message": smsg[32:],
+			})
+		}
 	})
 
 	//

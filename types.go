@@ -1,5 +1,7 @@
 package main
 
+import "github.com/gorilla/websocket"
+
 type RowSetting struct {
 	ID    int    `json:"id"`
 	Key   string `json:"key" sqlite:"text"`
@@ -47,6 +49,12 @@ type RowChannelRolePerms struct {
 type APIResponse struct {
 	Success bool        `json:"success"`
 	Message interface{} `json:"message"`
+}
+
+type ConnCacheValue struct {
+	conn  *websocket.Conn
+	User  *RowUser
+	Perms *UserPerms
 }
 
 type UserPerms struct {

@@ -68,4 +68,40 @@ import { el_1, el_2, el_3, getUserFromUUID } from "./util.js";
             ui.setActiveChannel(ev.target.dataset.uuid);
         });
     });
+
+    //
+    const input = document.getElementById("input").children[0];
+    const socket = new WebSocket(`ws://${location.hostname}/ws`);
+
+    socket.addEventListener("open", function() {
+        el_2.classList.add("online");
+        ui.addMessage(undefined, {name:"System Status"}, "Connected", true, false);
+    });
+    socket.addEventListener("close", function() {
+        el_2.classList.remove("online");
+    });
+    socket.addEventListener("message", async function(e) {
+        const d = JSON.parse(e.data);
+        switch (d.type) {
+            case "message": {
+                const u = await getUserFromUUID(d.from);
+                ui.addMessage(d.in, u, d.message);
+                break;
+            }
+            case "new-channel": {
+                ui.addChannel(d.uuid, d.name);
+                break;
+            }
+            default: {
+                console.log(d);
+            }
+        }
+    });
+
+    input.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+            socket.send(ui.volatile.activeChannel.dataset.uuid + this.value);
+            this.value = "";
+        }
+    });
 })();

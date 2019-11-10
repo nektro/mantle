@@ -28,4 +28,9 @@ jobs:
       - run: ./build_all.sh
         env:
           GOPATH: /home/runner/work/mantle/go
-
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: linux-amd64
+          path: ./linux-amd64
+        

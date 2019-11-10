@@ -1,0 +1,182 @@
+//////////////////
+//////////////////
+$based3:  #002b36;
+$based2:  #073642;
+$based1:  #586e75;
+$based0:  #657b83;
+$basel0:  #839496;
+$basel1:  #93a1a1;
+$basel2:  #eee8d5;
+$basel3:  #fdf6e3;
+//////////////////
+$orange:  #cb4b16;
+$yellow:  #b58900;
+$red:     #dc322f;
+$magenta: #d33682;
+$violet:  #6c71c4;
+$blue:    #268bd2;
+$cyan:    #2aa198;
+$green:   #859900;
+//////////////////
+$fg:      $basel0;
+$bg:      $based3;
+$hl:      $based2;
+$emph:    $basel1;
+$comment: $based1;
+//////////////////
+//////////////////
+* {
+    box-sizing: border-box;
+}
+span, img, input {
+    display: block;
+}
+button {
+    cursor: pointer;
+}
+html, body {
+    height: 100vh;
+}
+body {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 15rem 1fr 15rem;
+    grid-template-rows: 3rem 1fr 3rem;
+    background-color: $based3;
+    color: $fg;
+    font-family: '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Ubuntu', 'Open Sans', sans-serif;
+
+    button {
+        margin: 1em;
+        border: 0;
+        padding: .25em .5em;
+        border-radius: .2em;
+        background-color: $based3;
+        color: $basel3;
+    }
+}
+body {
+    #server-name {
+        text-align: center;
+        line-height: 3rem;
+        color: $fg;
+
+        &::after {
+            content: " ❌";
+            font-family: '-apple-system', 'BlinkMacSystemFont', 'Segoe UI Emoji';
+        }
+        &.online::after {
+            content: " ✔";
+        }
+    }
+    #channel-name {
+        background-color: $based2;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-left: 1em;
+
+        span {
+            padding-right: 1em;
+            color: $basel1;
+
+            &:first-child {
+                &::before {
+                    content: "# ";
+                }
+            }
+            &:last-child {
+                color: $basel0;
+            }
+        }
+    }
+    #channel-list {
+        background-color: $based2;
+        text-align: center;
+
+        ol {
+            list-style-type: none;
+            padding-left: 0;
+            text-align: left;
+
+            li {
+                padding: .25em;
+                margin: 0 .5em;
+                border-radius: .25em;
+                cursor: pointer;
+
+                &::before {
+                    content: "# ";
+                }
+                &.active {
+                    background-color: $based3;
+                }
+            }
+        }
+        hr {
+            margin: 0 1em;
+            border-color: $based2;
+        }
+    }
+    #messages {
+        background-color: $based3;
+        color: $comment;
+        display: flex;
+        flex-direction: column;
+        padding: 1em;
+        padding-right: 0;
+        justify-content: flex-end;
+        overflow-y: hidden;
+        font-family: 'Roboto Mono', 'Courier New', 'Courier', monospace;
+        font-size: .9em;
+
+        > div {
+            overflow-y: scroll;
+
+            > div {
+                padding-top: .5em;
+                display: flex;
+                flex-direction: row;
+
+                > div {
+                    color: white;
+                    vertical-align: middle;
+
+                    &:nth-child(1) {
+                        padding-right: .2em;
+                        font-weight: 500;
+                    }
+                    &:nth-child(2) {
+                        font-weight: 300;
+                    }
+                }
+            }
+        }
+    }
+    #me {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        div {
+            padding: 0 1em;
+        }
+    }
+    #input {
+        input[type="text"] {
+            background-color: $based2;
+            color: $fg;
+            margin: .25em;
+            width: calc(100% - 1em);
+            border: .1em solid $based1;
+            border-radius: .25em;
+            padding: .5em;
+        }
+    }
+    #users-online-list {
+        background-color: $based3;
+        grid-row: 1 / 4;
+        grid-column: 3 / 4;
+        border-left: 2px solid #268bd2;
+    }
+}

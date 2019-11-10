@@ -71,9 +71,6 @@ We listen to issues all the time right here on GitHub. Labels are extensively to
 
 When making a pull request, please have it be associated with an issue and make a comment on the issue saying that you're working on it so everyone else knows what's going on :D
 
-## Donate
-[![paypal](https://img.shields.io/badge/paypal.me-nektro-009cdf)](https://paypal.me/nektro)
-
 ## Contact
 - hello@nektro.net
 - Meghan#2032 on discordapp.com

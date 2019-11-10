@@ -41,5 +41,28 @@ import { el_1, el_2, el_3, getUserFromUUID } from "./util.js";
         const el2 = document.getElementById("channel-name");
         el2.children[0].textContent = x.message[0].name;
         el2.children[1].textContent = x.message[0].description;
+
+        el_1.querySelector("button").addEventListener("click", async (e) => {
+            const {value: name} = await Swal({
+                title: "Enter the new channel's name",
+                input: "text",
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    return !value && "You need to write something!"
+                },
+            });
+            if (name !== undefined) {
+                const fd = new URLSearchParams();
+                fd.append("name", name);
+                return fetch("/api/channels/create", {
+                    method: "post",
+                    credentials: "include",
+                    headers: {
+                        "content-type": "application/x-www-form-urlencoded",
+                    },
+                    body: fd,
+                });
+            }
+        });
     });
 })();

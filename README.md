@@ -64,3 +64,11 @@ Output of `go list -f '{{ join .Imports "\n" }}'` sans stdlib packages.
 - github.com/nektro/go.oauth2
 - github.com/nektro/mantle/statik
 - github.com/satori/go.uuid
+
+## Contributing
+[![issues](https://img.shields.io/github/issues/nektro/mantle.svg)](https://github.com/nektro/mantle/issues)
+[![pulls](https://img.shields.io/github/issues-pr/nektro/mantle.svg)](https://github.com/nektro/mantle/pulls)
+
+We listen to issues all the time right here on GitHub. Labels are extensively to show the progress through the fixing process. Question issues are okay but make sure to close the issue when it has been answered! Off-topic and '+1' comments will be deleted. Please use post/comment reactions for this purpose.
+
+When making a pull request, please have it be associated with an issue and make a comment on the issue saying that you're working on it so everyone else knows what's going on :D

@@ -23,3 +23,21 @@ In the `.mantle` folder make a `config.json` file and put the following data ins
 The current config version is `1`. See [docs/config](./docs/config/) for more info on setting up this info to be read by Mantle.
 
 Once fully configured, you're ready to obtain a binary to run Mantle from either the [Development](#development) or [Deployment](#deployment) sections depending on your needs.
+
+## Development
+
+### Prerequisites
+- A directory you wish to proxy through Mantle
+- The Go Language 1.12+ (https://golang.org/dl/)
+
+### Installing
+Run
+```
+$ go get -u -v github.com/nektro/mantle
+```
+and then make your way to `$GOPATH/src/github.com/nektro/mantle/`.
+
+Once there, run:
+```
+$ ./start.sh
+```

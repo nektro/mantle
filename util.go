@@ -138,3 +138,11 @@ func listRemove(l *list.List, n interface{}) {
 		}
 	}
 }
+
+func listToArray(l *list.List) []string {
+	res := []string{}
+	for e := l.Front(); e != nil; e = e.Next() {
+		res = append(res, e.Value.(string))
+	}
+	return res
+}

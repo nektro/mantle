@@ -73,6 +73,13 @@ let me = null;
         });
     });
 
+    await fetch("/api/users/online").then(x => x.json()).then(x => {
+        console.log(x);
+        for (const item of x.message) {
+            ui.setMemberOnline(item);
+        }
+    });
+
     //
     const input = document.getElementById("input").children[0];
     const socket = new WebSocket(`ws://${location.hostname}/ws`);
@@ -94,6 +101,14 @@ let me = null;
             }
             case "new-channel": {
                 ui.addChannel(d.uuid, d.name);
+                break;
+            }
+            case "user-connect": {
+                ui.setMemberOnline(d.user);
+                break;
+            }
+            case "user-disconnect": {
+                ui.setMemberOffline(d.user);
                 break;
             }
             default: {

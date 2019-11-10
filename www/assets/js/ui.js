@@ -1,7 +1,7 @@
 /**
  */
 //
-import { el_1, el_2, el_3, create_element, dcTN, messageCache, output, getUserFromUUID } from "./util.js";
+import { el_1, el_2, el_3, create_element, dcTN, messageCache, output, getUserFromUUID, el_4 } from "./util.js";
 
 //
 
@@ -42,5 +42,24 @@ export async function setActiveChannel(uid) {
     const new_message_history = messageCache.get(uid);
     for (const item of new_message_history) {
         addMessage(uid, await getUserFromUUID(item[0]), item[1], false, false);
+    }
+}
+
+export async function setMemberOnline(uid) {
+    console.debug("user-ws-connect", uid);
+    const ue = el_4.querySelector(`[data-user=${uid}]`);
+    if (ue === null) {
+        const u = await getUserFromUUID(uid);
+        el_4.appendChild(create_element("li", [["data-user",uid]], [
+            dcTN(u.name)
+        ]));
+    }
+}
+
+export async function setMemberOffline(uid) {
+    console.debug("user-ws-disconnect", uid);
+    const ue = el_4.querySelector(`[data-user=${uid}]`);
+    if (ue !== null) {
+        ue.remove();
     }
 }

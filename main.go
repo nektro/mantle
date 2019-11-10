@@ -146,6 +146,14 @@ func main() {
 		writeAPIResponse(r, w, ok, http.StatusOK, u)
 	})
 
+	http.HandleFunc("/api/users/online", func(w http.ResponseWriter, r *http.Request) {
+		_, _, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
+		if err != nil {
+			return
+		}
+		writeAPIResponse(r, w, true, http.StatusOK, listToArray(connected))
+	})
+
 	http.HandleFunc("/api/channels/@me", func(w http.ResponseWriter, r *http.Request) {
 		channels := queryAllChannels()
 		writeAPIResponse(r, w, true, http.StatusOK, channels)
@@ -190,6 +198,10 @@ func main() {
 		// connect
 		if !listHas(connected, user.UUID) {
 			connected.PushBack(user.UUID)
+			broadcastMessage(map[string]string{
+				"type": "user-connect",
+				"user": user.UUID,
+			})
 		}
 		// message intake loop
 		for {
@@ -210,7 +222,12 @@ func main() {
 		}
 		// disconnect
 		if listHas(connected, user.UUID) {
+			delete(wsConnCache, user.UUID)
 			listRemove(connected, user.UUID)
+			broadcastMessage(map[string]string{
+				"type": "user-disconnect",
+				"user": user.UUID,
+			})
 		}
 	})
 

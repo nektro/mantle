@@ -3,13 +3,13 @@
  * @author Meghan Denny <https://nektro.net>
  */
 //
-import * as ut from "./util.js";
+import { el_1, el_2, el_3, getUserFromUUID } from "./util.js";
 
 //
 (async function() {
     //
     await fetch("/api/about").then(x => x.json()).then(x => {
-        ut.el_2.innerText = x.name;
+        el_2.innerText = x.name;
     });
 
     //
@@ -20,7 +20,7 @@ import * as ut from "./util.js";
         else {
             const u = x.message.me;
             const n = u.nickname || u.name;
-            ut.el_3.children[0].textContent = `@${n}`;
+            el_3.children[0].textContent = `@${n}`;
 
             const p = x.message.perms;
             for (const key in p) {

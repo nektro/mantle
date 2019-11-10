@@ -48,4 +48,12 @@ func main() {
 	if len(_chans) == 0 {
 		createChannel("chat")
 	}
+
+	//
+	// initialize server properties
+
+	props.SetDefault("name", Name)
+	props.SetDefault("owner", "")
+	props.SetDefault("public", "true")
+	props.Init()
 }

@@ -64,4 +64,17 @@ func main() {
 	for _, item := range queryAllRoles() {
 		roleCache[item.UUID] = item
 	}
+
+	//
+	// setup graceful stop
+
+	util.RunOnClose(func() {
+		log.Println("Gracefully shutting down...")
+
+		log.Println("Saving database to disk")
+		etc.Database.Close()
+
+		log.Println("Done")
+		os.Exit(0)
+	})
 }

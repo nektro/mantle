@@ -43,3 +43,8 @@ type RowChannelRolePerms struct {
 	Channel string `json:"channel" sqlite:"text"`
 	Role    string `json:"role" sqlite:"text"`
 }
+
+type APIResponse struct {
+	Success bool        `json:"success"`
+	Message interface{} `json:"message"`
+}

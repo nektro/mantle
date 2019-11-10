@@ -41,6 +41,16 @@ func queryAllChannels() []RowChannel {
 	return result
 }
 
+func queryUserByUUID(uid string) (RowUser, bool) {
+	rows := etc.Database.Build().Se("*").Fr(cTableUsers).Wh("uuid", uid).Exe()
+	if !rows.Next() {
+		return RowUser{}, false
+	}
+	ru := scanUser(rows)
+	rows.Close()
+	return ru, true
+}
+
 func queryUserBySnowflake(provider string, flake string, name string) RowUser {
 	rows := etc.Database.Build().Se("*").Fr(cTableUsers).Wh("provider", provider).An("snowflake", flake).Exe()
 	if rows.Next() {
@@ -62,4 +72,14 @@ func queryUserBySnowflake(provider string, flake string, name string) RowUser {
 
 func queryAssertUserName(uid string, name string) {
 	etc.Database.Build().Up(cTableUsers, "name", name).Wh("uuid", uid).Exe()
+}
+
+func queryAllRoles() []RowRole {
+	result := []RowRole{}
+	rows := etc.Database.Build().Se("*").Fr(cTableRoles).Or("position", "asc").Exe()
+	for rows.Next() {
+		result = append(result, scanRole(rows))
+	}
+	rows.Close()
+	return result
 }

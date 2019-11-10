@@ -81,3 +81,11 @@ func writeAPIResponse(r *http.Request, w http.ResponseWriter, good bool, status 
 	w.Write(dat)
 	return nil
 }
+
+func createRole(name string) string {
+	id := etc.Database.QueryNextID(cTableRoles)
+	uid := newUUID()
+	log.Println("[role-create]", uid, name)
+	etc.Database.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%d', ?, '', 1, 1)", cTableRoles, id, uid, id), name)
+	return uid
+}

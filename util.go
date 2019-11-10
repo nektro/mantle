@@ -89,3 +89,23 @@ func createRole(name string) string {
 	etc.Database.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%d', ?, '', 1, 1)", cTableRoles, id, uid, id), name)
 	return uid
 }
+
+func calculateUserPermissions(user *RowUser) *UserPerms {
+	perms := UserPerms{}
+	for _, item := range strings.Split(user.Roles, ",") {
+		if item == "" {
+			continue
+		}
+		role := roleCache[item]
+
+		switch role.PermManageChannels {
+		case PermDeny, PermAllow:
+			perms.ManageChannels = GetPermColumnRealVal(role.PermManageChannels)
+		}
+		switch role.PermManageRoles {
+		case PermDeny, PermAllow:
+			perms.ManageRoles = GetPermColumnRealVal(role.PermManageRoles)
+		}
+	}
+	return &perms
+}

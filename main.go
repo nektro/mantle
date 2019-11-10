@@ -115,6 +115,17 @@ func main() {
 		fmt.Fprint(w, string(dat))
 	})
 
+	http.HandleFunc("/api/users/@me", func(w http.ResponseWriter, r *http.Request) {
+		_, user, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
+		if err != nil {
+			return
+		}
+		writeAPIResponse(r, w, true, http.StatusOK, map[string]interface{}{
+			"me":    user,
+			"perms": calculateUserPermissions(user),
+		})
+	})
+
 	//
 	// start server
 

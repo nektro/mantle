@@ -93,6 +93,22 @@ func main() {
 	})
 
 	//
+	// create http service
+
+	http.HandleFunc("/invite", func(w http.ResponseWriter, r *http.Request) {
+		_, user, _ := apiBootstrapRequireLogin(r, w, http.MethodGet, false)
+
+		if props.Get("public") == "true" {
+			if user.IsMember == false {
+				etc.Database.Build().Up(cTableUsers, "is_member", "1").Wh("uuid", user.UUID).Exe()
+				log.Println("[user-join]", F("User %s just became a member and joined the server", user.UUID))
+			}
+			w.Header().Add("Location", "./chat/")
+			w.WriteHeader(http.StatusFound)
+		}
+	})
+
+	//
 	// start server
 
 	p := strconv.Itoa(config.Port)

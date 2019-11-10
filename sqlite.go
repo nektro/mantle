@@ -30,6 +30,17 @@ func scanRole(rows *sql.Rows) RowRole {
 
 // // //
 
+func queryAllChannels() []RowChannel {
+	result := []RowChannel{}
+	rows := etc.Database.Build().Se("*").Fr(cTableChannels).Exe()
+	for rows.Next() {
+		rch := scanChannel(rows)
+		result = append(result, rch)
+	}
+	rows.Close()
+	return result
+}
+
 func queryUserBySnowflake(provider string, flake string, name string) RowUser {
 	rows := etc.Database.Build().Se("*").Fr(cTableUsers).Wh("provider", provider).An("snowflake", flake).Exe()
 	if rows.Next() {

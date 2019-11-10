@@ -8,4 +8,5 @@ const (
 	cTableChannels         = "channels"
 	cTableRoles            = "roles"
 	cTableChannelRolePerms = "channel_role_perms"
+	cTableMessagesPrefix   = "channel_messages__"
 )

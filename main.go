@@ -35,4 +35,10 @@ func main() {
 	etc.Database.CreateTableStruct(cTableChannels, RowChannel{})
 	etc.Database.CreateTableStruct(cTableRoles, RowRole{})
 	etc.Database.CreateTableStruct(cTableChannelRolePerms, RowChannelRolePerms{})
+
+	// for loop create channel message tables
+	_chans := queryAllChannels()
+	for _, item := range _chans {
+		assertChannelMessagesTableExists(item.UUID)
+	}
 }

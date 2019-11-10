@@ -7,6 +7,9 @@ import { el_1, el_2, el_3, getUserFromUUID } from "./util.js";
 import * as ui from "./ui.js";
 
 //
+let me = null;
+
+//
 (async function() {
     //
     await fetch("/api/about").then(x => x.json()).then(x => {
@@ -19,8 +22,8 @@ import * as ui from "./ui.js";
             location.assign("../");
         }
         else {
-            const u = x.message.me;
-            const n = u.nickname || u.name;
+            me = x.message.me;
+            const n = me.nickname || me.name;
             el_3.children[0].textContent = `@${n}`;
 
             const p = x.message.perms;

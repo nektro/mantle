@@ -28,3 +28,4 @@ jobs:
       - run: ./build_all.sh
         env:
           GOPATH: /home/runner/work/mantle/go
+

@@ -58,11 +58,9 @@ If you decide to pass Mantle through a reverse proxy, be sure to check out the [
 Output of `go list -f '{{ join .Imports "\n" }}'` sans stdlib packages.
 - github.com/gorilla/sessions
 - github.com/gorilla/websocket
-- github.com/nektro/go-util/alias
-- github.com/nektro/go-util/util
+- github.com/nektro/go-util
 - github.com/nektro/go.etc
 - github.com/nektro/go.oauth2
-- github.com/nektro/mantle/statik
 - github.com/satori/go.uuid
 
 ## Contributing

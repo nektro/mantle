@@ -32,5 +32,5 @@ jobs:
         uses: actions/upload-artifact@v1.0.0
         with:
           name: linux-amd64
-          path: ./linux-amd64
+          path: ./bin/mantle-linux-amd64
         

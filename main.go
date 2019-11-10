@@ -59,6 +59,15 @@ func main() {
 	props.Init()
 
 	//
+	// create server 'Owner' Role
+	//		uneditable, and has all perms always
+
+	pa := PermAllow
+	roleCache["o"] = RowRole{
+		0, "o", 0, "Owner", "", pa, pa,
+	}
+
+	//
 	// load roles into local cache
 
 	for _, item := range queryAllRoles() {

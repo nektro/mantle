@@ -162,16 +162,16 @@ func main() {
 	http.HandleFunc("/api/channels/create", func(w http.ResponseWriter, r *http.Request) {
 		_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPost, true)
 		if err != nil {
-			fmt.Fprintln(w, 1, err.Error())
+			fmt.Fprintln(w, err.Error())
 			return
 		}
 		if etc.AssertPostFormValuesExist(r, "name") != nil {
-			fmt.Fprintln(w, 2, "missing post value")
+			fmt.Fprintln(w, "missing post value")
 			return
 		}
 		cv := wsConnCache[user.UUID]
 		if !cv.Perms.ManageChannels {
-			fmt.Fprintln(w, 3, "user missing 'Perms.ManageChannels'")
+			fmt.Fprintln(w, "user missing 'Perms.ManageChannels'")
 			return
 		}
 		name := r.Form.Get("name")

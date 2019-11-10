@@ -12,6 +12,7 @@ import (
 
 var (
 	config      *Config
+	roleCache   = map[string]RowRole{}
 )
 
 type Config struct {
@@ -56,4 +57,11 @@ func main() {
 	props.SetDefault("owner", "")
 	props.SetDefault("public", "true")
 	props.Init()
+
+	//
+	// load roles into local cache
+
+	for _, item := range queryAllRoles() {
+		roleCache[item.UUID] = item
+	}
 }

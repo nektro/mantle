@@ -136,6 +136,11 @@ func main() {
 		writeAPIResponse(r, w, ok, http.StatusOK, u)
 	})
 
+	http.HandleFunc("/api/channels/@me", func(w http.ResponseWriter, r *http.Request) {
+		channels := queryAllChannels()
+		writeAPIResponse(r, w, true, http.StatusOK, channels)
+	})
+
 	//
 	// start server
 

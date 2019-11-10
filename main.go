@@ -126,6 +126,16 @@ func main() {
 		})
 	})
 
+	http.HandleFunc("/api/users/", func(w http.ResponseWriter, r *http.Request) {
+		_, _, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
+		if err != nil {
+			return
+		}
+		uu := r.URL.Path[len("/api/users/"):]
+		u, ok := queryUserByUUID(uu)
+		writeAPIResponse(r, w, ok, http.StatusOK, u)
+	})
+
 	//
 	// start server
 

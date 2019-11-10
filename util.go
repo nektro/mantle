@@ -24,6 +24,15 @@ func newUUID() string {
 	return strings.Replace(uuid.Must(uuid.NewV4()).String(), "-", "", -1)
 }
 
+func createChannel(name string) string {
+	id := etc.Database.QueryNextID(cTableChannels)
+	uid := newUUID()
+	log.Println("[channel-create]", uid, "#"+name)
+	etc.Database.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%d', ?, '')", cTableChannels, id, uid, id), name)
+	assertChannelMessagesTableExists(uid)
+	return uid
+}
+
 func assertChannelMessagesTableExists(uid string) {
 	etc.Database.CreateTable(F("%s%s", cTableMessagesPrefix, strings.Replace(uid, "-", "_", -1)), []string{"id", "int primary key"}, [][]string{
 		{"uuid", "text"},

@@ -30,4 +30,16 @@ import { el_1, el_2, el_3, getUserFromUUID } from "./util.js";
             }
         }
     });
+
+    //
+    await fetch("/api/channels/@me").then(x => x.json()).then(x => {
+        for (const item of x.message) {
+            ui.addChannel(item.uuid, item.name);
+        }
+        ui.setActiveChannel(x.message[0].uuid);
+
+        const el2 = document.getElementById("channel-name");
+        el2.children[0].textContent = x.message[0].name;
+        el2.children[1].textContent = x.message[0].description;
+    });
 })();

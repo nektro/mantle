@@ -87,7 +87,7 @@ let me = null;
 
     //
     const input = document.getElementById("input").children[0];
-    const socket = new WebSocket(`ws://${location.host}/ws`);
+    const socket = new WebSocket(`ws${location.protocol.substring(4)}//${location.host}/ws`);
 
     socket.addEventListener("open", function() {
         el_2.classList.add("online");

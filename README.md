@@ -6,6 +6,7 @@
 [![circleci](https://circleci.com/gh/nektro/mantle.svg?style=svg)](https://circleci.com/gh/nektro/mantle)
 [![goreportcard](https://goreportcard.com/badge/github.com/nektro/mantle)](https://goreportcard.com/report/github.com/nektro/mantle)
 [![astronomer](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fastronomer.ullaakut.eu%2Fshields%3Fowner%3Dnektro%26name%3Dmantle)](https://github.com/Ullaakut/astronomer)
+
 Easy and effective communication is the foundation of any successful team or community. That's where Mantle comes in, providing you the messaging and voice platform that puts you in charge of both the conversation and the data.
 
 ## Getting Started

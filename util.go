@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/nektro/mantle/pkg/itypes"
+
 	"github.com/gorilla/sessions"
 	etc "github.com/nektro/go.etc"
 	uuid "github.com/satori/go.uuid"
@@ -47,7 +49,7 @@ func assertChannelMessagesTableExists(uid string) {
 	})
 }
 
-func apiBootstrapRequireLogin(r *http.Request, w http.ResponseWriter, method string, assertMembership bool) (*sessions.Session, *RowUser, error) {
+func apiBootstrapRequireLogin(r *http.Request, w http.ResponseWriter, method string, assertMembership bool) (*sessions.Session, *itypes.RowUser, error) {
 	if r.Method != method {
 		return nil, nil, writeAPIResponse(r, w, false, http.StatusMethodNotAllowed, "This action requires using HTTP "+method)
 	}
@@ -76,7 +78,7 @@ func apiBootstrapRequireLogin(r *http.Request, w http.ResponseWriter, method str
 }
 
 func writeAPIResponse(r *http.Request, w http.ResponseWriter, good bool, status int, message interface{}) error {
-	resp := APIResponse{good, message}
+	resp := itypes.APIResponse{good, message}
 	dat, _ := json.Marshal(resp)
 	w.WriteHeader(status)
 	w.Header().Add("content-type", "application/json")
@@ -95,8 +97,8 @@ func createRole(name string) string {
 	return uid
 }
 
-func calculateUserPermissions(user *RowUser) *UserPerms {
-	perms := UserPerms{}
+func calculateUserPermissions(user *itypes.RowUser) *itypes.UserPerms {
+	perms := itypes.UserPerms{}
 	for _, item := range strings.Split(user.Roles, ",") {
 		if item == "" {
 			continue
@@ -117,7 +119,7 @@ func calculateUserPermissions(user *RowUser) *UserPerms {
 
 func broadcastMessage(message map[string]string) {
 	for _, item := range wsConnCache {
-		item.conn.WriteJSON(message)
+		item.Conn.WriteJSON(message)
 	}
 }
 

@@ -3,6 +3,8 @@ package main
 import (
 	"sync"
 
+	"github.com/nektro/mantle/pkg/itypes"
+
 	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
 
@@ -30,7 +32,7 @@ func (p *Properties) Init() {
 	p.cache = sync.Map{}
 	rows := etc.Database.Build().Se("*").Fr(cTableSettings).Exe()
 	for rows.Next() {
-		sr := RowSetting{}
+		sr := itypes.RowSetting{}
 		rows.Scan(&sr.ID, &sr.Key, &sr.Value)
 		p.cache.Store(sr.Key, sr.Value)
 	}

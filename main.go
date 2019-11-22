@@ -9,6 +9,8 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/nektro/mantle/pkg/itypes"
+
 	"github.com/gorilla/websocket"
 	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
@@ -22,8 +24,8 @@ import (
 var (
 	config      *Config
 	wsUpgrader  = websocket.Upgrader{ReadBufferSize: 1024, WriteBufferSize: 1024}
-	wsConnCache = map[string]ConnCacheValue{}
-	roleCache   = map[string]RowRole{}
+	wsConnCache = map[string]itypes.ConnCacheValue{}
+	roleCache   = map[string]itypes.RowRole{}
 	connected   = list.New()
 )
 
@@ -43,11 +45,11 @@ func main() {
 	//
 	// database initialization
 
-	etc.Database.CreateTableStruct(cTableSettings, RowSetting{})
-	etc.Database.CreateTableStruct(cTableUsers, RowUser{})
-	etc.Database.CreateTableStruct(cTableChannels, RowChannel{})
-	etc.Database.CreateTableStruct(cTableRoles, RowRole{})
-	etc.Database.CreateTableStruct(cTableChannelRolePerms, RowChannelRolePerms{})
+	etc.Database.CreateTableStruct(cTableSettings, itypes.RowSetting{})
+	etc.Database.CreateTableStruct(cTableUsers, itypes.RowUser{})
+	etc.Database.CreateTableStruct(cTableChannels, itypes.RowChannel{})
+	etc.Database.CreateTableStruct(cTableRoles, itypes.RowRole{})
+	etc.Database.CreateTableStruct(cTableChannelRolePerms, itypes.RowChannelRolePerms{})
 
 	// for loop create channel message tables
 	_chans := queryAllChannels()
@@ -75,7 +77,7 @@ func main() {
 	//		uneditable, and has all perms always
 
 	pa := PermAllow
-	roleCache["o"] = RowRole{
+	roleCache["o"] = itypes.RowRole{
 		0, "o", 0, "Owner", "", pa, pa,
 	}
 
@@ -97,7 +99,7 @@ func main() {
 
 		log.Println("Closing all remaining active WebSocket connections")
 		for _, item := range wsConnCache {
-			item.conn.Close()
+			item.Conn.Close()
 		}
 
 		log.Println("Done")
@@ -197,7 +199,7 @@ func main() {
 		}
 		conn, _ := wsUpgrader.Upgrade(w, r, nil)
 		perms := calculateUserPermissions(user)
-		wsConnCache[user.UUID] = ConnCacheValue{conn, user, perms}
+		wsConnCache[user.UUID] = itypes.ConnCacheValue{conn, user, perms}
 
 		// connect
 		if !listHas(connected, user.UUID) {

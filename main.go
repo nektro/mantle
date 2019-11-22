@@ -76,7 +76,7 @@ func main() {
 	// create server 'Owner' Role
 	//		uneditable, and has all perms always
 
-	pa := PermAllow
+	pa := uint8(PermAllow)
 	roleCache["o"] = itypes.RowRole{
 		0, "o", 0, "Owner", "", pa, pa,
 	}

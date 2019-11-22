@@ -1,5 +1,9 @@
 package main
 
+import (
+	"github.com/nektro/mantle/pkg/itypes"
+)
+
 const (
 	Name = "Mantle"
 
@@ -12,12 +16,12 @@ const (
 )
 
 const (
-	PermDeny uint8 = iota
+	PermDeny itypes.Perm = iota
 	PermIgnore
 	PermAllow
 )
 
-func GetPermColumnRealVal(p uint8) bool {
+func GetPermColumnRealVal(p itypes.Perm) bool {
 	if p == PermAllow {
 		return true
 	}

@@ -105,13 +105,13 @@ func calculateUserPermissions(user *itypes.RowUser) *itypes.UserPerms {
 		}
 		role := roleCache[item]
 
-		switch role.PermManageChannels {
+		switch itypes.Perm(role.PermManageChannels) {
 		case PermDeny, PermAllow:
-			perms.ManageChannels = GetPermColumnRealVal(role.PermManageChannels)
+			perms.ManageChannels = GetPermColumnRealVal(itypes.Perm(role.PermManageChannels))
 		}
-		switch role.PermManageRoles {
+		switch itypes.Perm(role.PermManageRoles) {
 		case PermDeny, PermAllow:
-			perms.ManageRoles = GetPermColumnRealVal(role.PermManageRoles)
+			perms.ManageRoles = GetPermColumnRealVal(itypes.Perm(role.PermManageRoles))
 		}
 	}
 	return &perms

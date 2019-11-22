@@ -28,7 +28,6 @@ Once fully configured, you're ready to obtain a binary to run Mantle from either
 ## Development
 
 ### Prerequisites
-- A directory you wish to proxy through Mantle
 - The Go Language 1.12+ (https://golang.org/dl/)
 
 ### Installing

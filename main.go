@@ -4,7 +4,6 @@ import (
 	"container/list"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -37,7 +36,7 @@ type Config struct {
 }
 
 func main() {
-	log.Println("Welcome to " + Name + ".")
+	util.Log("Welcome to " + Name + ".")
 
 	//
 	etc.Init("mantle", &config, "./invite", helperSaveCallbackInfo)
@@ -92,17 +91,17 @@ func main() {
 	// setup graceful stop
 
 	util.RunOnClose(func() {
-		log.Println("Gracefully shutting down...")
+		util.Log("Gracefully shutting down...")
 
-		log.Println("Saving database to disk")
+		util.Log("Saving database to disk")
 		etc.Database.Close()
 
-		log.Println("Closing all remaining active WebSocket connections")
+		util.Log("Closing all remaining active WebSocket connections")
 		for _, item := range wsConnCache {
 			item.Conn.Close()
 		}
 
-		log.Println("Done")
+		util.Log("Done")
 		os.Exit(0)
 	})
 
@@ -115,7 +114,7 @@ func main() {
 		if props.Get("public") == "true" {
 			if user.IsMember == false {
 				etc.Database.Build().Up(cTableUsers, "is_member", "1").Wh("uuid", user.UUID).Exe()
-				log.Println("[user-join]", F("User %s just became a member and joined the server", user.UUID))
+				util.Log("[user-join]", F("User %s just became a member and joined the server", user.UUID))
 			}
 			w.Header().Add("Location", "./chat/")
 			w.WriteHeader(http.StatusFound)
@@ -241,6 +240,6 @@ func main() {
 	// start server
 
 	p := strconv.Itoa(config.Port)
-	log.Println("Initialization complete. Starting server on port " + p)
+	util.Log("Initialization complete. Starting server on port " + p)
 	http.ListenAndServe(":"+p, nil)
 }

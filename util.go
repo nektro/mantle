@@ -4,13 +4,13 @@ import (
 	"container/list"
 	"encoding/json"
 	"errors"
-	"log"
 	"net/http"
 	"strings"
 
 	"github.com/nektro/mantle/pkg/itypes"
 
 	"github.com/gorilla/sessions"
+	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
 	uuid "github.com/satori/go.uuid"
 
@@ -19,7 +19,7 @@ import (
 
 func helperSaveCallbackInfo(w http.ResponseWriter, r *http.Request, provider string, id string, name string, oa2resp map[string]interface{}) {
 	ru := queryUserBySnowflake(provider, id, name)
-	log.Println("[user-login]", provider, id, ru.UUID, name)
+	util.Log("[user-login]", provider, id, ru.UUID, name)
 	sess := etc.GetSession(r)
 	sess.Values["user"] = ru.UUID
 	sess.Save(r, w)
@@ -33,7 +33,7 @@ func newUUID() string {
 func createChannel(name string) string {
 	id := etc.Database.QueryNextID(cTableChannels)
 	uid := newUUID()
-	log.Println("[channel-create]", uid, "#"+name)
+	util.Log("[channel-create]", uid, "#"+name)
 	etc.Database.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%d', ?, '')", cTableChannels, id, uid, id), name)
 	assertChannelMessagesTableExists(uid)
 	return uid
@@ -92,7 +92,7 @@ func writeAPIResponse(r *http.Request, w http.ResponseWriter, good bool, status 
 func createRole(name string) string {
 	id := etc.Database.QueryNextID(cTableRoles)
 	uid := newUUID()
-	log.Println("[role-create]", uid, name)
+	util.Log("[role-create]", uid, name)
 	etc.Database.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%d', ?, '', 1, 1)", cTableRoles, id, uid, id), name)
 	return uid
 }

@@ -39,6 +39,9 @@ func main() {
 	util.Log("Welcome to " + Name + ".")
 
 	//
+	etc.PreInit()
+
+	//
 	etc.Init("mantle", &config, "./invite", helperSaveCallbackInfo)
 
 	//

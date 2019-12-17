@@ -14,6 +14,7 @@ import (
 	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
 	oauth2 "github.com/nektro/go.oauth2"
+	"github.com/spf13/pflag"
 
 	. "github.com/nektro/go-util/alias"
 
@@ -39,10 +40,14 @@ func main() {
 	util.Log("Welcome to " + Name + ".")
 
 	//
+	flagPort := pflag.Int("port", 0, "The port to bind the web server to.")
 	etc.PreInit()
 
 	//
 	etc.Init("mantle", &config, "./invite", helperSaveCallbackInfo)
+
+	//
+	config.Port = firstNonZero(*flagPort, config.Port, 8080)
 
 	//
 	// database initialization

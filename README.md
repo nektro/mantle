@@ -55,13 +55,13 @@ $ ./mantle-{date}-{tag}-{os}-{arch}
 If you decide to pass Mantle through a reverse proxy, be sure to check out the [documentation](./docs/deployment/) for more info.
 
 ## Built With
-Output of `go list -f '{{ join .Imports "\n" }}'` sans stdlib packages.
-- github.com/gorilla/sessions
-- github.com/gorilla/websocket
-- github.com/nektro/go-util
-- github.com/nektro/go.etc
-- github.com/nektro/go.oauth2
-- github.com/satori/go.uuid
+- http://github.com/gorilla/sessions
+- http://github.com/gorilla/websocket
+- http://github.com/nektro/go-util
+- http://github.com/nektro/go.etc
+- http://github.com/nektro/go.oauth2
+- http://github.com/satori/go.uuid
+- http://github.com/spf13/pflag
 
 ## Contributing
 [![issues](https://img.shields.io/github/issues/nektro/mantle.svg)](https://github.com/nektro/mantle/issues)

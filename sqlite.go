@@ -54,7 +54,7 @@ func queryUserByUUID(uid string) (itypes.RowUser, bool) {
 }
 
 func queryUserBySnowflake(provider string, flake string, name string) itypes.RowUser {
-	rows := etc.Database.Build().Se("*").Fr(cTableUsers).Wh("provider", provider).An("snowflake", flake).Exe()
+	rows := etc.Database.Build().Se("*").Fr(cTableUsers).Wh("provider", provider).Wh("snowflake", flake).Exe()
 	if rows.Next() {
 		ru := scanUser(rows)
 		rows.Close()

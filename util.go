@@ -4,11 +4,13 @@ import (
 	"container/list"
 	"encoding/json"
 	"errors"
-	"log"
 	"net/http"
 	"strings"
 
+	"github.com/nektro/mantle/pkg/itypes"
+
 	"github.com/gorilla/sessions"
+	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
 	uuid "github.com/satori/go.uuid"
 
@@ -17,7 +19,7 @@ import (
 
 func helperSaveCallbackInfo(w http.ResponseWriter, r *http.Request, provider string, id string, name string, oa2resp map[string]interface{}) {
 	ru := queryUserBySnowflake(provider, id, name)
-	log.Println("[user-login]", provider, id, ru.UUID, name)
+	util.Log("[user-login]", provider, id, ru.UUID, name)
 	sess := etc.GetSession(r)
 	sess.Values["user"] = ru.UUID
 	sess.Save(r, w)
@@ -31,7 +33,7 @@ func newUUID() string {
 func createChannel(name string) string {
 	id := etc.Database.QueryNextID(cTableChannels)
 	uid := newUUID()
-	log.Println("[channel-create]", uid, "#"+name)
+	util.Log("[channel-create]", uid, "#"+name)
 	etc.Database.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%d', ?, '')", cTableChannels, id, uid, id), name)
 	assertChannelMessagesTableExists(uid)
 	return uid
@@ -47,7 +49,7 @@ func assertChannelMessagesTableExists(uid string) {
 	})
 }
 
-func apiBootstrapRequireLogin(r *http.Request, w http.ResponseWriter, method string, assertMembership bool) (*sessions.Session, *RowUser, error) {
+func apiBootstrapRequireLogin(r *http.Request, w http.ResponseWriter, method string, assertMembership bool) (*sessions.Session, *itypes.RowUser, error) {
 	if r.Method != method {
 		return nil, nil, writeAPIResponse(r, w, false, http.StatusMethodNotAllowed, "This action requires using HTTP "+method)
 	}
@@ -76,7 +78,7 @@ func apiBootstrapRequireLogin(r *http.Request, w http.ResponseWriter, method str
 }
 
 func writeAPIResponse(r *http.Request, w http.ResponseWriter, good bool, status int, message interface{}) error {
-	resp := APIResponse{good, message}
+	resp := itypes.APIResponse{good, message}
 	dat, _ := json.Marshal(resp)
 	w.WriteHeader(status)
 	w.Header().Add("content-type", "application/json")
@@ -90,26 +92,26 @@ func writeAPIResponse(r *http.Request, w http.ResponseWriter, good bool, status 
 func createRole(name string) string {
 	id := etc.Database.QueryNextID(cTableRoles)
 	uid := newUUID()
-	log.Println("[role-create]", uid, name)
+	util.Log("[role-create]", uid, name)
 	etc.Database.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%d', ?, '', 1, 1)", cTableRoles, id, uid, id), name)
 	return uid
 }
 
-func calculateUserPermissions(user *RowUser) *UserPerms {
-	perms := UserPerms{}
+func calculateUserPermissions(user *itypes.RowUser) *itypes.UserPerms {
+	perms := itypes.UserPerms{}
 	for _, item := range strings.Split(user.Roles, ",") {
 		if item == "" {
 			continue
 		}
 		role := roleCache[item]
 
-		switch role.PermManageChannels {
+		switch itypes.Perm(role.PermManageChannels) {
 		case PermDeny, PermAllow:
-			perms.ManageChannels = GetPermColumnRealVal(role.PermManageChannels)
+			perms.ManageChannels = GetPermColumnRealVal(itypes.Perm(role.PermManageChannels))
 		}
-		switch role.PermManageRoles {
+		switch itypes.Perm(role.PermManageRoles) {
 		case PermDeny, PermAllow:
-			perms.ManageRoles = GetPermColumnRealVal(role.PermManageRoles)
+			perms.ManageRoles = GetPermColumnRealVal(itypes.Perm(role.PermManageRoles))
 		}
 	}
 	return &perms
@@ -117,7 +119,7 @@ func calculateUserPermissions(user *RowUser) *UserPerms {
 
 func broadcastMessage(message map[string]string) {
 	for _, item := range wsConnCache {
-		item.conn.WriteJSON(message)
+		item.Conn.WriteJSON(message)
 	}
 }
 
@@ -145,4 +147,13 @@ func listToArray(l *list.List) []string {
 		res = append(res, e.Value.(string))
 	}
 	return res
+}
+
+func firstNonZero(x ...int) int {
+	for _, item := range x {
+		if item != 0 {
+			return item
+		}
+	}
+	return 0
 }

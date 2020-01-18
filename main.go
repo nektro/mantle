@@ -4,15 +4,17 @@ import (
 	"container/list"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"strconv"
+
+	"github.com/nektro/mantle/pkg/itypes"
 
 	"github.com/gorilla/websocket"
 	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
 	oauth2 "github.com/nektro/go.oauth2"
+	"github.com/spf13/pflag"
 
 	. "github.com/nektro/go-util/alias"
 
@@ -22,8 +24,8 @@ import (
 var (
 	config      *Config
 	wsUpgrader  = websocket.Upgrader{ReadBufferSize: 1024, WriteBufferSize: 1024}
-	wsConnCache = map[string]ConnCacheValue{}
-	roleCache   = map[string]RowRole{}
+	wsConnCache = map[string]itypes.ConnCacheValue{}
+	roleCache   = map[string]itypes.RowRole{}
 	connected   = list.New()
 )
 
@@ -35,19 +37,26 @@ type Config struct {
 }
 
 func main() {
-	log.Println("Welcome to " + Name + ".")
+	util.Log("Welcome to " + Name + ".")
+
+	//
+	flagPort := pflag.Int("port", 0, "The port to bind the web server to.")
+	etc.PreInit()
 
 	//
 	etc.Init("mantle", &config, "./invite", helperSaveCallbackInfo)
 
 	//
+	config.Port = firstNonZero(*flagPort, config.Port, 8080)
+
+	//
 	// database initialization
 
-	etc.Database.CreateTableStruct(cTableSettings, RowSetting{})
-	etc.Database.CreateTableStruct(cTableUsers, RowUser{})
-	etc.Database.CreateTableStruct(cTableChannels, RowChannel{})
-	etc.Database.CreateTableStruct(cTableRoles, RowRole{})
-	etc.Database.CreateTableStruct(cTableChannelRolePerms, RowChannelRolePerms{})
+	etc.Database.CreateTableStruct(cTableSettings, itypes.RowSetting{})
+	etc.Database.CreateTableStruct(cTableUsers, itypes.RowUser{})
+	etc.Database.CreateTableStruct(cTableChannels, itypes.RowChannel{})
+	etc.Database.CreateTableStruct(cTableRoles, itypes.RowRole{})
+	etc.Database.CreateTableStruct(cTableChannelRolePerms, itypes.RowChannelRolePerms{})
 
 	// for loop create channel message tables
 	_chans := queryAllChannels()
@@ -74,8 +83,8 @@ func main() {
 	// create server 'Owner' Role
 	//		uneditable, and has all perms always
 
-	pa := PermAllow
-	roleCache["o"] = RowRole{
+	pa := uint8(PermAllow)
+	roleCache["o"] = itypes.RowRole{
 		0, "o", 0, "Owner", "", pa, pa,
 	}
 
@@ -90,17 +99,17 @@ func main() {
 	// setup graceful stop
 
 	util.RunOnClose(func() {
-		log.Println("Gracefully shutting down...")
+		util.Log("Gracefully shutting down...")
 
-		log.Println("Saving database to disk")
+		util.Log("Saving database to disk")
 		etc.Database.Close()
 
-		log.Println("Closing all remaining active WebSocket connections")
+		util.Log("Closing all remaining active WebSocket connections")
 		for _, item := range wsConnCache {
-			item.conn.Close()
+			item.Conn.Close()
 		}
 
-		log.Println("Done")
+		util.Log("Done")
 		os.Exit(0)
 	})
 
@@ -113,7 +122,7 @@ func main() {
 		if props.Get("public") == "true" {
 			if user.IsMember == false {
 				etc.Database.Build().Up(cTableUsers, "is_member", "1").Wh("uuid", user.UUID).Exe()
-				log.Println("[user-join]", F("User %s just became a member and joined the server", user.UUID))
+				util.Log("[user-join]", F("User %s just became a member and joined the server", user.UUID))
 			}
 			w.Header().Add("Location", "./chat/")
 			w.WriteHeader(http.StatusFound)
@@ -197,7 +206,7 @@ func main() {
 		}
 		conn, _ := wsUpgrader.Upgrade(w, r, nil)
 		perms := calculateUserPermissions(user)
-		wsConnCache[user.UUID] = ConnCacheValue{conn, user, perms}
+		wsConnCache[user.UUID] = itypes.ConnCacheValue{conn, user, perms}
 
 		// connect
 		if !listHas(connected, user.UUID) {
@@ -238,7 +247,15 @@ func main() {
 	//
 	// start server
 
+	if !util.IsPortAvailable(config.Port) {
+		util.DieOnError(
+			E(F("Binding to port %d failed.", config.Port)),
+			"It may be taken or you may not have permission to. Aborting!",
+		)
+		return
+	}
+
 	p := strconv.Itoa(config.Port)
-	log.Println("Initialization complete. Starting server on port " + p)
+	util.Log("Initialization complete. Starting server on port " + p)
 	http.ListenAndServe(":"+p, nil)
 }

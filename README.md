@@ -1,11 +1,10 @@
 # Mantle
-![loc](https://tokei.rs/b1/github/nektro/mantle)
+![loc](https://sloc.xyz/github/nektro/mantle)
 [![license](https://img.shields.io/github/license/nektro/mantle.svg)](https://github.com/nektro/mantle/blob/master/LICENSE)
 [![discord](https://img.shields.io/discord/551971034593755159.svg)](https://discord.gg/P6Y4zQC)
 [![paypal](https://img.shields.io/badge/donate-paypal-009cdf)](https://paypal.me/nektro)
 [![circleci](https://circleci.com/gh/nektro/mantle.svg?style=svg)](https://circleci.com/gh/nektro/mantle)
 [![goreportcard](https://goreportcard.com/badge/github.com/nektro/mantle)](https://goreportcard.com/report/github.com/nektro/mantle)
-[![astronomer](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fastronomer.ullaakut.eu%2Fshields%3Fowner%3Dnektro%26name%3Dmantle)](https://github.com/Ullaakut/astronomer)
 
 Easy and effective communication is the foundation of any successful team or community. That's where Mantle comes in, providing you the messaging and voice platform that puts you in charge of both the conversation and the data.
 
@@ -28,7 +27,6 @@ Once fully configured, you're ready to obtain a binary to run Mantle from either
 ## Development
 
 ### Prerequisites
-- A directory you wish to proxy through Mantle
 - The Go Language 1.12+ (https://golang.org/dl/)
 
 ### Installing
@@ -56,13 +54,13 @@ $ ./mantle-{date}-{tag}-{os}-{arch}
 If you decide to pass Mantle through a reverse proxy, be sure to check out the [documentation](./docs/deployment/) for more info.
 
 ## Built With
-Output of `go list -f '{{ join .Imports "\n" }}'` sans stdlib packages.
-- github.com/gorilla/sessions
-- github.com/gorilla/websocket
-- github.com/nektro/go-util
-- github.com/nektro/go.etc
-- github.com/nektro/go.oauth2
-- github.com/satori/go.uuid
+- http://github.com/gorilla/sessions
+- http://github.com/gorilla/websocket
+- http://github.com/nektro/go-util
+- http://github.com/nektro/go.etc
+- http://github.com/nektro/go.oauth2
+- http://github.com/satori/go.uuid
+- http://github.com/spf13/pflag
 
 ## Contributing
 [![issues](https://img.shields.io/github/issues/nektro/mantle.svg)](https://github.com/nektro/mantle/issues)

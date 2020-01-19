@@ -30,7 +30,6 @@ var (
 )
 
 type Config struct {
-	Version   int               `json:"version"`
 	Clients   []oauth2.AppConf  `json:"clients"`
 	Providers []oauth2.Provider `json:"providers"`
 	Port      int

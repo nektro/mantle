@@ -1,6 +1,6 @@
 package itypes
 
-type RowRole struct {
+type Role struct {
 	ID                 int    `json:"id"`
 	UUID               string `json:"uuid" sqlite:"text"`
 	Position           int    `json:"position" sqlite:"int"`

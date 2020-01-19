@@ -49,7 +49,7 @@ func assertChannelMessagesTableExists(uid string) {
 	})
 }
 
-func apiBootstrapRequireLogin(r *http.Request, w http.ResponseWriter, method string, assertMembership bool) (*sessions.Session, *itypes.RowUser, error) {
+func apiBootstrapRequireLogin(r *http.Request, w http.ResponseWriter, method string, assertMembership bool) (*sessions.Session, *itypes.User, error) {
 	if r.Method != method {
 		return nil, nil, writeAPIResponse(r, w, false, http.StatusMethodNotAllowed, "This action requires using HTTP "+method)
 	}
@@ -97,7 +97,7 @@ func createRole(name string) string {
 	return uid
 }
 
-func calculateUserPermissions(user *itypes.RowUser) *itypes.UserPerms {
+func calculateUserPermissions(user *itypes.User) *itypes.UserPerms {
 	perms := itypes.UserPerms{}
 	for _, item := range strings.Split(user.Roles, ",") {
 		if item == "" {

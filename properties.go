@@ -32,7 +32,7 @@ func (p *Properties) Init() {
 	p.cache = sync.Map{}
 	rows := etc.Database.Build().Se("*").Fr(cTableSettings).Exe()
 	for rows.Next() {
-		sr := itypes.RowSetting{}
+		sr := itypes.Setting{}
 		rows.Scan(&sr.ID, &sr.Key, &sr.Value)
 		p.cache.Store(sr.Key, sr.Value)
 	}

@@ -1,6 +1,6 @@
 package itypes
 
-type RowChannel struct {
+type Channel struct {
 	ID          int    `json:"id"`
 	UUID        string `json:"uuid" sqlite:"text"`
 	Position    int    `json:"position" sqlite:"int"`

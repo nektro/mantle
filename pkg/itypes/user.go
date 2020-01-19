@@ -1,6 +1,6 @@
 package itypes
 
-type RowUser struct {
+type User struct {
 	ID         int    `json:"id"`
 	Provider   string `json:"provider" sqlite:"text"`
 	Snowflake  string `json:"snowflake" sqlite:"text"`

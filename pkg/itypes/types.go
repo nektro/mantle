@@ -11,7 +11,7 @@ type APIResponse struct {
 
 type ConnCacheValue struct {
 	Conn  *websocket.Conn
-	User  *RowUser
+	User  *User
 	Perms *UserPerms
 }
 

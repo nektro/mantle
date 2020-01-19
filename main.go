@@ -25,7 +25,7 @@ var (
 	config      *Config
 	wsUpgrader  = websocket.Upgrader{ReadBufferSize: 1024, WriteBufferSize: 1024}
 	wsConnCache = map[string]itypes.ConnCacheValue{}
-	roleCache   = map[string]itypes.RowRole{}
+	roleCache   = map[string]itypes.Role{}
 	connected   = list.New()
 )
 
@@ -49,11 +49,11 @@ func main() {
 	//
 	// database initialization
 
-	etc.Database.CreateTableStruct(cTableSettings, itypes.RowSetting{})
-	etc.Database.CreateTableStruct(cTableUsers, itypes.RowUser{})
-	etc.Database.CreateTableStruct(cTableChannels, itypes.RowChannel{})
-	etc.Database.CreateTableStruct(cTableRoles, itypes.RowRole{})
-	etc.Database.CreateTableStruct(cTableChannelRolePerms, itypes.RowChannelRolePerms{})
+	etc.Database.CreateTableStruct(cTableSettings, itypes.Setting{})
+	etc.Database.CreateTableStruct(cTableUsers, itypes.User{})
+	etc.Database.CreateTableStruct(cTableChannels, itypes.Channel{})
+	etc.Database.CreateTableStruct(cTableRoles, itypes.Role{})
+	etc.Database.CreateTableStruct(cTableChannelRolePerms, itypes.ChannelRolePerms{})
 
 	// for loop create channel message tables
 	_chans := queryAllChannels()
@@ -81,7 +81,7 @@ func main() {
 	//		uneditable, and has all perms always
 
 	pa := uint8(PermAllow)
-	roleCache["o"] = itypes.RowRole{
+	roleCache["o"] = itypes.Role{
 		0, "o", 0, "Owner", "", pa, pa,
 	}
 

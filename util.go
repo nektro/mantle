@@ -148,12 +148,3 @@ func listToArray(l *list.List) []string {
 	}
 	return res
 }
-
-func firstNonZero(x ...int) int {
-	for _, item := range x {
-		if item != 0 {
-			return item
-		}
-	}
-	return 0
-}

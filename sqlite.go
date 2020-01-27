@@ -67,6 +67,7 @@ func queryUserBySnowflake(provider string, flake string, name string) itypes.Use
 	roles := ""
 	if id == 1 {
 		roles += "o"
+		props.Set("owner", uid)
 	}
 	etc.Database.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%s', '%s', '0', '0', ?, '', '%s', '%s', '%s')", cTableUsers, id, provider, flake, uid, now, now, roles), name)
 	return queryUserBySnowflake(provider, flake, name)

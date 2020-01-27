@@ -51,8 +51,6 @@ Once downloaded, run the following with the values applicable to you.
 $ ./mantle-{date}-{tag}-{os}-{arch}
 ```
 
-If you decide to pass Mantle through a reverse proxy, be sure to check out the [documentation](./docs/deployment/) for more info.
-
 ## Built With
 - http://github.com/gorilla/sessions
 - http://github.com/gorilla/websocket

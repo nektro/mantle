@@ -56,5 +56,7 @@ func (p *Properties) Get(key string) string {
 	return ""
 }
 
-func (p *Properties) Set() {
+func (p *Properties) Set(key string, val string) {
+	etc.Database.Build().Up(cTableSettings, key, val)
+	p.cache.Store(key, val)
 }

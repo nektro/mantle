@@ -31,9 +31,11 @@ let me = null;
 
             const p = x.message.perms;
             for (const key in p) {
-                document.querySelectorAll(`[data-requires^="${key}"]`).forEach((el) => {
-                    el.removeAttribute("hidden");
-                });
+                if (!p[key]) {
+                    document.querySelectorAll(`[data-requires^="${key}"]`).forEach((el) => {
+                        el.setAttribute("hidden", "");
+                    });
+                }
             }
         }
     });

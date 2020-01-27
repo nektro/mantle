@@ -125,7 +125,11 @@ let me = null;
 
     input.addEventListener("keydown", function(e) {
         if (e.key === "Enter") {
-            socket.send(ui.volatile.activeChannel.dataset.uuid + this.value);
+            socket.send(JSON.stringify({
+                type: "message",
+                in: ui.volatile.activeChannel.dataset.uuid,
+                message: this.value,
+            }));
             this.value = "";
         }
     });

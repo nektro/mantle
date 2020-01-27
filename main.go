@@ -12,6 +12,7 @@ import (
 	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
 	"github.com/spf13/pflag"
+	"github.com/valyala/fastjson"
 
 	. "github.com/nektro/go-util/alias"
 
@@ -205,13 +206,19 @@ func main() {
 			}
 
 			// broadcast message to all connected clients
-			smsg := string(msg)
-			broadcastMessage(map[string]string{
-				"type":    "message",
-				"in":      smsg[:32],
-				"from":    user.UUID,
-				"message": smsg[32:],
-			})
+			smg, err := fastjson.ParseBytes(msg)
+			if err != nil {
+				continue
+			}
+			switch string(smg.GetStringBytes("type")) {
+			case "message":
+				broadcastMessage(map[string]string{
+					"type":    "message",
+					"in":      string(smg.GetStringBytes("in")),
+					"from":    user.UUID,
+					"message": string(smg.GetStringBytes("message")),
+				})
+			}
 		}
 		// disconnect
 		if listHas(idata.Connected, user.UUID) {

@@ -211,6 +211,11 @@ func main() {
 				continue
 			}
 			switch string(smg.GetStringBytes("type")) {
+			case "ping":
+				// do nothing, keep connection alive
+				conn.WriteJSON(map[string]string{
+					"type": "pong",
+				})
 			case "message":
 				broadcastMessage(map[string]string{
 					"type":    "message",

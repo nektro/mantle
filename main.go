@@ -24,7 +24,7 @@ func main() {
 	util.Log("Welcome to " + Name + ".")
 
 	//
-	pflag.IntVar(&idata.Config.Port, "port", 8080, "The port to bind the web server to.")
+	pflag.IntVar(&idata.Config.Port, "port", 8000, "The port to bind the web server to.")
 	etc.PreInit()
 
 	//

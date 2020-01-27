@@ -30,6 +30,7 @@ Once fully configured, you're ready to obtain a binary to run Mantle from either
 
 ### Prerequisites
 - The Go Language 1.12+ (https://golang.org/dl/)
+- GCC on your PATH (for the https://github.com/mattn/go-sqlite3 installation)
 
 ### Installing
 Run

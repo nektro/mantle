@@ -18,13 +18,14 @@ In order to allow users to log in to Mantle, you will need to create an app on y
 
 Here you can also fill out a picture and description that will be displayed during the authorization of users on your chosen Identity Provider. When prompted for the "Redirect URI" during the app setup process, the URL to use will be `http://mantle/callback`, replacing `mantle` with any origins you wish Mantle to be usable from, such as `example.com` or `localhost:800`.
 
-Once you have finished the app creation process and obtained the Client ID and Client Secret, create a folder in your home directory at the path of `~/.config/mantle/`. All of Mantle's config and local save files will go here. This directory will be referred to as `.mantle` going forward.
+Once you have finished the app creation process you should now have a Client ID and Client Secret. These are passed into Mantle through flags as well.
 
-In the `.mantle` folder make a `config.json` file and put the following data inside, replacing `AUTH` with whichever Identity Provider you chose, such as `discord`, `reddit`, etc. And `CLIENT_ID` and `CLIENT_SECRET` with their respective values. Do not worry, this folder will remain entirely private, even to users with full access.
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `--auth-{IDP-ID}-id` | `string` | none. | Client ID. |
+| `--auth-{IDP-ID}-secret` | `string` | none. | Client Secret. |
 
-The current config version is `1`. See [docs/config](./docs/config/) for more info on setting up this info to be read by Mantle.
-
-Once fully configured, you're ready to obtain a binary to run Mantle from either the [Development](#development) or [Deployment](#deployment) sections depending on your needs.
+The Identity Provider IDs can be found from the table in the [nektro/go.oauth2](https://github.com/nektro/go.oauth2#readme) documentation.
 
 ## Development
 

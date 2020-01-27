@@ -44,13 +44,11 @@ $ ./start.sh
 ```
 
 ## Deployment
-[![CircleCI](https://circleci.com/gh/nektro/mantle.svg?style=svg)](https://circleci.com/gh/nektro/mantle)
+Pre-compiled binaries can be obtained from https://github.com/nektro/mantle/releases/latest.
 
-Pre-compiled binaries are published on Circle CI at https://circleci.com/gh/nektro/mantle. To download a binary, navigate to the most recent build and click on 'Artifacts'. Here there will be a list of files. Click on the one appropriate for your system.
-
-Once downloaded, run the following with the values applicable to you.
+Or you can build from source:
 ```
-$ ./mantle-{date}-{tag}-{os}-{arch}
+$ ./build_all.sh
 ```
 
 ## Built With

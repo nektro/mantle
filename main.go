@@ -21,7 +21,7 @@ import (
 
 
 func main() {
-	util.Log("Welcome to " + Name + ".")
+	util.Log("Welcome to " + Name + " " + Version + ".")
 
 	//
 	pflag.IntVar(&idata.Config.Port, "port", 8000, "The port to bind the web server to.")

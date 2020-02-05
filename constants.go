@@ -5,7 +5,8 @@ import (
 )
 
 const (
-	Name = "Mantle"
+	Name    = "Mantle"
+	Version = "vMASTER"
 
 	cTableSettings         = "server_settings"
 	cTableUsers            = "users"

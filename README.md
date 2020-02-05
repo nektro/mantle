@@ -6,7 +6,7 @@
 [![circleci](https://circleci.com/gh/nektro/mantle.svg?style=svg)](https://circleci.com/gh/nektro/mantle)
 [![release](https://img.shields.io/github/v/release/nektro/mantle)](https://github.com/nektro/mantle/releases/latest)
 [![goreportcard](https://goreportcard.com/badge/github.com/nektro/mantle)](https://goreportcard.com/report/github.com/nektro/mantle)
-[![codefactor](https://www.codefactor.io/repository/github/nektro/skarn/badge)](https://www.codefactor.io/repository/github/nektro/skarn)
+[![codefactor](https://www.codefactor.io/repository/github/nektro/mantle/badge)](https://www.codefactor.io/repository/github/nektro/mantle)
 
 Easy and effective communication is the foundation of any successful team or community. That's where Mantle comes in, providing you the messaging and voice platform that puts you in charge of both the conversation and the data.
 

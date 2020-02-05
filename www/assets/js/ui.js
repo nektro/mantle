@@ -21,9 +21,9 @@ export async function addMessage(channel=volatile.activeChannel.dataset.uuid, fr
     const uuid = raw_from ? "" : from.uuid;
     const name = from.nickname || from.name;
     if (raw_from || output.dataset.active === channel) {
-        output.appendChild(create_element("div", [], [
-            create_element("div", [], [dcTN(name + ": ")]),
-            create_element("div", [], [dcTN(message)])
+        output.appendChild(create_element("div", [["class","msg"]], [
+            create_element("div", [["class","usr"]], [dcTN(name + ": ")]),
+            create_element("div", [["class","dat"]], [dcTN(message)])
         ]));
     }
     if (at_bottom) output.scrollTop = output.scrollHeight;

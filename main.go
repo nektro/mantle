@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/nektro/mantle/pkg/idata"
 	"github.com/nektro/mantle/pkg/itypes"
@@ -222,7 +223,7 @@ func main() {
 					"in":      string(smg.GetStringBytes("in")),
 					"from":    user.UUID,
 					"message": string(smg.GetStringBytes("message")),
-					"at":      T(),
+					"at":      time.Now().UTC().Format("2 Jan 2006 15:04:05 MST"),
 				})
 			}
 		}

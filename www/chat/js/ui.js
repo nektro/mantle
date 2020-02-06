@@ -2,6 +2,7 @@
  */
 //
 import { el_1, el_2, el_3, create_element, dcTN, messageCache, output, getUserFromUUID, el_4 } from "./util.js";
+import { Channel } from "./ui.channel.js";
 
 //
 
@@ -32,25 +33,19 @@ export async function addMessage(channel=volatile.activeChannel.dataset.uuid, fr
         ]));
     }
     if (output.dataset.active !== channel) {
-        const c = getChannel(channel);
-        const ur = parseInt(c.dataset.unread);
-        c.dataset.unread = (ur+1).toString();
-        c.querySelector(".unred").textContent = (ur+1).toString();
+        const c = new Channel(channel);
+        c.unread += 1;
     }
     if (at_bottom) output.scrollTop = output.scrollHeight;
     if (save===true) messageCache.get(channel).push([uuid, message]);
-}
-
-export function getChannel(uid) {
-    return el_1.querySelector(`[data-uuid="${uid}"]`);
 }
 
 export async function setActiveChannel(uid) {
     console.debug("channel-switch:", uid);
     let ac = el_1.querySelector(".active");
     if (ac !== null) ac.classList.remove("active");
-    const c = getChannel(uid);
-    volatile.activeChannel = c;
+    const c = new Channel(uid);
+    volatile.activeChannel = c.el;
     volatile.activeChannel.classList.add("active");
     //
     output.dataset.active = uid;
@@ -60,8 +55,7 @@ export async function setActiveChannel(uid) {
         addMessage(uid, await getUserFromUUID(item[0]), item[1], false, false);
     }
     //
-    c.dataset.unread = (0).toString();
-    c.querySelector(".unred").textContent = (0).toString();
+    c.unread = 0;
 }
 
 export async function setMemberOnline(uid) {

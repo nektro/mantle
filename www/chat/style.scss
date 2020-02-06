@@ -133,8 +133,8 @@ body {
         > div {
             overflow-y: scroll;
 
-            > div {
                 padding-top: .5em;
+            > div.msg {
                 display: flex;
                 flex-direction: row;
 
@@ -142,11 +142,11 @@ body {
                     color: white;
                     vertical-align: middle;
 
-                    &:nth-child(1) {
                         padding-right: .2em;
+                    &.usr {
                         font-weight: 500;
                     }
-                    &:nth-child(2) {
+                    &.dat {
                         font-weight: 300;
                     }
                 }

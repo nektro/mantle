@@ -32,11 +32,16 @@ export async function addMessage(channel=volatile.activeChannel.dataset.uuid, fr
     if (save===true) messageCache.get(channel).push([uuid, message]);
 }
 
+export function getChannel(uid) {
+    return el_1.querySelector(`[data-uuid="${uid}"]`);
+}
+
 export async function setActiveChannel(uid) {
     console.debug("channel-switch:", uid);
     let ac = el_1.querySelector(".active");
     if (ac !== null) ac.classList.remove("active");
-    volatile.activeChannel = el_1.querySelector(`[data-uuid="${uid}"]`);
+    const c = getChannel(uid);
+    volatile.activeChannel = c;
     volatile.activeChannel.classList.add("active");
     //
     output.dataset.active = uid;

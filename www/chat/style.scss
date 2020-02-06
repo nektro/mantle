@@ -138,6 +138,9 @@ body {
                 display: flex;
                 flex-direction: row;
 
+                &:hover {
+                    background-color: darken($based3, 2%);
+                }
                 > div {
                     color: white;
                     vertical-align: middle;

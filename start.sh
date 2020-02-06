@@ -2,6 +2,7 @@
 
 set -e
 set -x
+
 go test
 go build
 ./mantle \

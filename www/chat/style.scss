@@ -104,6 +104,10 @@ body {
                 margin: 0 .5em;
                 border-radius: .25em;
                 cursor: pointer;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
 
                 &.active {
                     background-color: $based3;

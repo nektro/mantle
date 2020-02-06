@@ -105,11 +105,13 @@ body {
                 border-radius: .25em;
                 cursor: pointer;
 
-                &::before {
-                    content: "# ";
-                }
                 &.active {
                     background-color: $based3;
+                }
+                div {
+                    &:nth-child(1)::before {
+                        content: "# ";
+                    }
                 }
             }
         }

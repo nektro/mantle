@@ -31,9 +31,9 @@ body #channel-list ol { list-style-type: none; padding-left: 0; text-align: left
 
 body #channel-list ol li { padding: .25em; margin: 0 .5em; border-radius: .25em; cursor: pointer; }
 
-body #channel-list ol li::before { content: "# "; }
-
 body #channel-list ol li.active { background-color: #002b36; }
+
+body #channel-list ol li div:nth-child(1)::before { content: "# "; }
 
 body #channel-list hr { margin: 0 1em; border-color: #073642; }
 

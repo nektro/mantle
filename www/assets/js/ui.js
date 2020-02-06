@@ -12,7 +12,9 @@ export const volatile = {
 //
 
 export function addChannel(uuid, name) {
-    el_1.firstElementChild.appendChild(create_element("li", [["data-uuid",uuid]], [dcTN(name)]))
+    el_1.firstElementChild.appendChild(create_element("li", [["data-uuid",uuid]], [
+        create_element("div", [], [dcTN(name)]),
+    ]))
     messageCache.set(uuid, []);
 }
 

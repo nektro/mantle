@@ -151,6 +151,8 @@ body {
                     }
                     &.dat {
                         font-weight: 300;
+                        word-wrap: anywhere;
+                        hyphens: auto;
                     }
                 }
             }

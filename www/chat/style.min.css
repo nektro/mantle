@@ -33,7 +33,11 @@ body #channel-list ol li { padding: .25em; margin: 0 .5em; border-radius: .25em;
 
 body #channel-list ol li.active { background-color: #002b36; }
 
+body #channel-list ol li[data-unread="0"] div.unred { display: none; }
+
 body #channel-list ol li div:nth-child(1)::before { content: "# "; }
+
+body #channel-list ol li div.unred { padding: 0 .25em; background-color: #586e75; border-radius: 50%; justify-self: right; }
 
 body #channel-list hr { margin: 0 1em; border-color: #073642; }
 

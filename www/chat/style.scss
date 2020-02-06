@@ -108,9 +108,18 @@ body {
                 &.active {
                     background-color: $based3;
                 }
+                &[data-unread="0"] div.unred {
+                    display: none;
+                }
                 div {
                     &:nth-child(1)::before {
                         content: "# ";
+                    }
+                    &.unred {
+                        padding: 0 .25em;
+                        background-color: $based1;
+                        border-radius: 50%;
+                        justify-self: right;
                     }
                 }
             }

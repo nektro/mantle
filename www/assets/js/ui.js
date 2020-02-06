@@ -12,8 +12,9 @@ export const volatile = {
 //
 
 export function addChannel(uuid, name) {
-    el_1.firstElementChild.appendChild(create_element("li", [["data-uuid",uuid]], [
+    el_1.firstElementChild.appendChild(create_element("li", [["data-uuid",uuid],["data-unread","0"]], [
         create_element("div", [], [dcTN(name)]),
+        create_element("div", [["class","unred"]], [dcTN("0")]),
     ]))
     messageCache.set(uuid, []);
 }
@@ -29,6 +30,12 @@ export async function addMessage(channel=volatile.activeChannel.dataset.uuid, fr
             create_element("div", [["class","usr"]], [dcTN(name + ": ")]),
             create_element("div", [["class","dat"]], [dcTN(message)])
         ]));
+    }
+    if (output.dataset.active !== channel) {
+        const c = getChannel(channel);
+        const ur = parseInt(c.dataset.unread);
+        c.dataset.unread = (ur+1).toString();
+        c.querySelector(".unred").textContent = (ur+1).toString();
     }
     if (at_bottom) output.scrollTop = output.scrollHeight;
     if (save===true) messageCache.get(channel).push([uuid, message]);
@@ -52,6 +59,9 @@ export async function setActiveChannel(uid) {
     for (const item of new_message_history) {
         addMessage(uid, await getUserFromUUID(item[0]), item[1], false, false);
     }
+    //
+    c.dataset.unread = (0).toString();
+    c.querySelector(".unred").textContent = (0).toString();
 }
 
 export async function setMemberOnline(uid) {

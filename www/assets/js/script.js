@@ -108,7 +108,7 @@ let me = null;
             }
             case "message": {
                 const u = await getUserFromUUID(d.from);
-                ui.addMessage(d.in, u, d.message);
+                ui.addMessage(d.in, u, d.message, undefined, undefined, Date.parse(d.at));
                 break;
             }
             case "new-channel": {

@@ -16,12 +16,14 @@ export function addChannel(uuid, name) {
     messageCache.set(uuid, []);
 }
 
-export async function addMessage(channel=volatile.activeChannel.dataset.uuid, from, message, raw_from=false, save=true) {
+export async function addMessage(channel=volatile.activeChannel.dataset.uuid, from, message, raw_from=false, save=true, at=Date.now()) {
     const at_bottom = output.scrollTop === output.scrollTopMax;
     const uuid = raw_from ? "" : from.uuid;
     const name = from.nickname || from.name;
+    const time = new Date(at).toLocaleString();
     if (raw_from || output.dataset.active === channel) {
         output.appendChild(create_element("div", [["class","msg"]], [
+            create_element("div", [["class","ts"],["title",time]], [dcTN(time.substring(time.indexOf(" ")))]),
             create_element("div", [["class","usr"]], [dcTN(name + ": ")]),
             create_element("div", [["class","dat"]], [dcTN(message)])
         ]));

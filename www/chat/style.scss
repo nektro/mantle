@@ -145,6 +145,11 @@ body {
                     color: white;
                     vertical-align: middle;
 
+                    &.ts {
+                        padding-right: .5em;
+                        color: $based1;
+                        white-space: nowrap;
+                    }
                     &.usr {
                         padding-right: .5em;
                         font-weight: 500;

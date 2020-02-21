@@ -7,6 +7,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/nektro/mantle/pkg/iconst"
 	"github.com/nektro/mantle/pkg/idata"
 	"github.com/nektro/mantle/pkg/itypes"
 
@@ -22,7 +23,7 @@ import (
 
 
 func main() {
-	util.Log("Welcome to " + Name + " " + Version + ".")
+	util.Log("Welcome to " + iconst.Name + " " + iconst.Version + ".")
 
 	//
 	pflag.IntVar(&idata.Config.Port, "port", 8000, "The port to bind the web server to.")
@@ -35,11 +36,11 @@ func main() {
 	//
 	// database initialization
 
-	etc.Database.CreateTableStruct(cTableSettings, itypes.Setting{})
-	etc.Database.CreateTableStruct(cTableUsers, itypes.User{})
-	etc.Database.CreateTableStruct(cTableChannels, itypes.Channel{})
-	etc.Database.CreateTableStruct(cTableRoles, itypes.Role{})
-	etc.Database.CreateTableStruct(cTableChannelPerms, itypes.ChannelPerms{})
+	etc.Database.CreateTableStruct(iconst.TableSettings, itypes.Setting{})
+	etc.Database.CreateTableStruct(iconst.TableUsers, itypes.User{})
+	etc.Database.CreateTableStruct(iconst.TableChannels, itypes.Channel{})
+	etc.Database.CreateTableStruct(iconst.TableRoles, itypes.Role{})
+	etc.Database.CreateTableStruct(iconst.TableChannelPerms, itypes.ChannelPerms{})
 
 	// for loop create channel message tables
 	_chans := queryAllChannels()
@@ -57,7 +58,7 @@ func main() {
 	//
 	// initialize server properties
 
-	props.SetDefault("name", Name)
+	props.SetDefault("name", iconst.Name)
 	props.SetDefault("owner", "")
 	props.SetDefault("public", "true")
 	props.Init()
@@ -104,7 +105,7 @@ func main() {
 
 		if props.Get("public") == "true" {
 			if user.IsMember == false {
-				etc.Database.Build().Up(cTableUsers, "is_member", "1").Wh("uuid", user.UUID).Exe()
+				etc.Database.Build().Up(iconst.TableUsers, "is_member", "1").Wh("uuid", user.UUID).Exe()
 				util.Log("[user-join]", F("User %s just became a member and joined the server", user.UUID))
 			}
 			w.Header().Add("Location", "./chat/")

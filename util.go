@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/nektro/mantle/pkg/iconst"
 	"github.com/nektro/mantle/pkg/idata"
 	"github.com/nektro/mantle/pkg/itypes"
 
@@ -32,16 +33,16 @@ func newUUID() string {
 }
 
 func createChannel(name string) string {
-	id := etc.Database.QueryNextID(cTableChannels)
+	id := etc.Database.QueryNextID(iconst.TableChannels)
 	uid := newUUID()
 	util.Log("[channel-create]", uid, "#"+name)
-	etc.Database.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%d', ?, '')", cTableChannels, id, uid, id), name)
+	etc.Database.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%d', ?, '')", iconst.TableChannels, id, uid, id), name)
 	assertChannelMessagesTableExists(uid)
 	return uid
 }
 
 func assertChannelMessagesTableExists(uid string) {
-	etc.Database.CreateTable(F("%s%s", cTableMessagesPrefix, strings.Replace(uid, "-", "_", -1)), []string{"id", "int primary key"}, [][]string{
+	etc.Database.CreateTable(F("%s%s", iconst.TableMessagesPrefix, strings.Replace(uid, "-", "_", -1)), []string{"id", "int primary key"}, [][]string{
 		{"uuid", "text"},
 		{"sent_at", "text"},
 		{"sent_by", "text"},
@@ -91,10 +92,10 @@ func writeAPIResponse(r *http.Request, w http.ResponseWriter, good bool, status 
 }
 
 func createRole(name string) string {
-	id := etc.Database.QueryNextID(cTableRoles)
+	id := etc.Database.QueryNextID(iconst.TableRoles)
 	uid := newUUID()
 	util.Log("[role-create]", uid, name)
-	etc.Database.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%d', ?, '', 1, 1)", cTableRoles, id, uid, id), name)
+	etc.Database.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%d', ?, '', 1, 1)", iconst.TableRoles, id, uid, id), name)
 	return uid
 }
 

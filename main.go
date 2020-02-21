@@ -26,7 +26,8 @@ func main() {
 
 	//
 	pflag.IntVar(&idata.Config.Port, "port", 8000, "The port to bind the web server to.")
-	etc.PreInit("mantle")
+	etc.AppID = "mantle"
+	etc.PreInit()
 
 	//
 	etc.Init("mantle", &idata.Config, "./invite", helperSaveCallbackInfo)

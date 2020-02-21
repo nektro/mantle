@@ -8,12 +8,12 @@ const (
 	Name    = "Mantle"
 	Version = "vMASTER"
 
-	cTableSettings         = "server_settings"
-	cTableUsers            = "users"
-	cTableChannels         = "channels"
-	cTableRoles            = "roles"
-	cTableChannelRolePerms = "channel_role_perms"
-	cTableMessagesPrefix   = "channel_messages__"
+	cTableSettings       = "server_settings"
+	cTableUsers          = "users"
+	cTableChannels       = "channels"
+	cTableRoles          = "roles"
+	cTableChannelPerms   = "channel_perms"
+	cTableMessagesPrefix = "channel_messages__"
 )
 
 const (

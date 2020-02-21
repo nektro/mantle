@@ -38,7 +38,7 @@ func main() {
 	etc.Database.CreateTableStruct(cTableUsers, itypes.User{})
 	etc.Database.CreateTableStruct(cTableChannels, itypes.Channel{})
 	etc.Database.CreateTableStruct(cTableRoles, itypes.Role{})
-	etc.Database.CreateTableStruct(cTableChannelRolePerms, itypes.ChannelRolePerms{})
+	etc.Database.CreateTableStruct(cTableChannelPerms, itypes.ChannelPerms{})
 
 	// for loop create channel message tables
 	_chans := queryAllChannels()

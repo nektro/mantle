@@ -1,9 +1,5 @@
 package main
 
-import (
-	"github.com/nektro/mantle/pkg/itypes"
-)
-
 const (
 	Name    = "Mantle"
 	Version = "vMASTER"
@@ -15,16 +11,3 @@ const (
 	cTableChannelPerms   = "channel_perms"
 	cTableMessagesPrefix = "channel_messages__"
 )
-
-const (
-	PermDeny itypes.Perm = iota
-	PermIgnore
-	PermAllow
-)
-
-func GetPermColumnRealVal(p itypes.Perm) bool {
-	if p == PermAllow {
-		return true
-	}
-	return false
-}

@@ -8,7 +8,8 @@ import (
 )
 
 var (
-	DB dbstorage.Database
+	DB    dbstorage.Database
+	Props = Properties{}
 )
 
 func Init() {

@@ -54,10 +54,10 @@ func main() {
 	//
 	// initialize server properties
 
-	props.SetDefault("name", iconst.Name)
-	props.SetDefault("owner", "")
-	props.SetDefault("public", "true")
-	props.Init()
+	db.Props.SetDefault("name", iconst.Name)
+	db.Props.SetDefault("owner", "")
+	db.Props.SetDefault("public", "true")
+	db.Props.Init()
 
 	//
 	// create server 'Owner' Role
@@ -99,7 +99,7 @@ func main() {
 	http.HandleFunc("/invite", func(w http.ResponseWriter, r *http.Request) {
 		_, user, _ := apiBootstrapRequireLogin(r, w, http.MethodGet, false)
 
-		if props.Get("public") == "true" {
+		if db.Props.Get("public") == "true" {
 			if user.IsMember == false {
 				db.DB.Build().Up(iconst.TableUsers, "is_member", "1").Wh("uuid", user.UUID).Exe()
 				util.Log("[user-join]", F("User %s just became a member and joined the server", user.UUID))
@@ -110,7 +110,7 @@ func main() {
 	})
 
 	http.HandleFunc("/api/about", func(w http.ResponseWriter, r *http.Request) {
-		dat, _ := json.Marshal(props.GetAll())
+		dat, _ := json.Marshal(db.Props.GetAll())
 		fmt.Fprint(w, string(dat))
 	})
 

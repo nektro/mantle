@@ -66,7 +66,7 @@ func queryUserBySnowflake(provider string, flake string, name string) db.User {
 	roles := ""
 	if id == 1 {
 		roles += "o"
-		props.Set("owner", uid)
+		db.Props.Set("owner", uid)
 	}
 	db.DB.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%s', '%s', '0', '0', ?, '', '%s', '%s', '%s')", iconst.TableUsers, id, provider, flake, uid, now, now, roles), name)
 	return queryUserBySnowflake(provider, flake, name)

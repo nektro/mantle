@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/nektro/mantle/pkg/db"
+	"github.com/nektro/mantle/pkg/handler"
 	"github.com/nektro/mantle/pkg/iconst"
 	"github.com/nektro/mantle/pkg/idata"
 	"github.com/nektro/mantle/pkg/itypes"
@@ -32,7 +33,7 @@ func main() {
 	etc.PreInit()
 
 	//
-	etc.Init("mantle", &idata.Config, "./invite", helperSaveCallbackInfo)
+	etc.Init("mantle", &idata.Config, "./invite", handler.SaveOAuth2InfoCb)
 
 	//
 	// database initialization

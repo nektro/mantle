@@ -9,18 +9,8 @@ import (
 	"github.com/nektro/mantle/pkg/itypes"
 
 	"github.com/gorilla/sessions"
-	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
 )
-
-func helperSaveCallbackInfo(w http.ResponseWriter, r *http.Request, provider string, id string, name string, oa2resp map[string]interface{}) {
-	ru := db.QueryUserBySnowflake(provider, id, name)
-	util.Log("[user-login]", provider, id, ru.UUID, name)
-	sess := etc.GetSession(r)
-	sess.Values["user"] = ru.UUID
-	sess.Save(r, w)
-	db.QueryAssertUserName(ru.UUID, name)
-}
 
 func apiBootstrapRequireLogin(r *http.Request, w http.ResponseWriter, method string, assertMembership bool) (*sessions.Session, *db.User, error) {
 	if r.Method != method {

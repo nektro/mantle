@@ -15,7 +15,7 @@ type User struct {
 }
 
 func (v User) From(r *http.Request, w http.ResponseWriter, user *db.User) *User {
-	conn, _ := ReqUpgrader.Upgrade(w, r, nil)
+	conn, _ := reqUpgrader.Upgrade(w, r, nil)
 	return &User{
 		conn,
 		user,
@@ -25,7 +25,7 @@ func (v User) From(r *http.Request, w http.ResponseWriter, user *db.User) *User 
 
 func (u *User) Connect() {
 	if !u.IsConnected() {
-		Connected.PushBack(u.User.UUID)
+		connected.PushBack(u.User.UUID)
 		BroadcastMessage(map[string]string{
 			"type": "user-connect",
 			"user": u.User.UUID,
@@ -35,8 +35,8 @@ func (u *User) Connect() {
 
 func (u *User) Disconnect() {
 	if u.IsConnected() {
-		delete(ConnCache, u.User.UUID)
-		listRemove(Connected, u.User.UUID)
+		delete(connCache, u.User.UUID)
+		listRemove(connected, u.User.UUID)
 		BroadcastMessage(map[string]string{
 			"type": "user-disconnect",
 			"user": u.User.UUID,
@@ -45,7 +45,7 @@ func (u *User) Disconnect() {
 }
 
 func (u *User) IsConnected() bool {
-	return listHas(Connected, u.User.UUID)
+	return listHas(connected, u.User.UUID)
 }
 
 func (u *User) SendMessage(msg map[string]string) {

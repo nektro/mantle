@@ -9,18 +9,18 @@ import (
 )
 
 var (
-	ReqUpgrader = websocket.Upgrader{ReadBufferSize: 1024, WriteBufferSize: 1024}
-	ConnCache   = map[string]*User{}
-	RoleCache   = map[string]db.Role{}
-	Connected   = list.New() // user UUIDs
+	reqUpgrader = websocket.Upgrader{ReadBufferSize: 1024, WriteBufferSize: 1024}
+	connCache   = map[string]*User{}
+	roleCache   = map[string]db.Role{}
+	connected   = list.New() // user UUIDs
 )
 
 func BroadcastMessage(message map[string]string) {
-	for _, item := range ConnCache {
+	for _, item := range connCache {
 		item.Conn.WriteJSON(message)
 	}
 }
 
 func AllOnlineIDs() []string {
-	return listToArray(Connected)
+	return listToArray(connected)
 }

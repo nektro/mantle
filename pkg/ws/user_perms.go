@@ -17,7 +17,7 @@ func (v UserPerms) From(user *db.User) *UserPerms {
 		if item == "" {
 			continue
 		}
-		role := RoleCache[item]
+		role := roleCache[item]
 
 		switch itypes.Perm(role.PermManageChannels) {
 		case itypes.PermDeny, itypes.PermAllow:

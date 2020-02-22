@@ -11,7 +11,7 @@ func queryAllChannels() []db.Channel {
 	result := []db.Channel{}
 	rows := db.DB.Build().Se("*").Fr(iconst.TableChannels).Exe()
 	for rows.Next() {
-		result = append(result, *db.ScanChannel(rows))
+		result = append(result, *db.Channel{}.Scan(rows))
 	}
 	rows.Close()
 	return result
@@ -22,7 +22,7 @@ func queryUserByUUID(uid string) (*db.User, bool) {
 	if !rows.Next() {
 		return &db.User{}, false
 	}
-	ru := db.ScanUser(rows)
+	ru := db.User{}.Scan(rows)
 	rows.Close()
 	return ru, true
 }
@@ -30,7 +30,7 @@ func queryUserByUUID(uid string) (*db.User, bool) {
 func queryUserBySnowflake(provider string, flake string, name string) *db.User {
 	rows := db.DB.Build().Se("*").Fr(iconst.TableUsers).Wh("provider", provider).Wh("snowflake", flake).Exe()
 	if rows.Next() {
-		ru := db.ScanUser(rows)
+		ru := db.User{}.Scan(rows)
 		rows.Close()
 		return ru
 	}
@@ -55,7 +55,7 @@ func queryAllRoles() []db.Role {
 	result := []db.Role{}
 	rows := db.DB.Build().Se("*").Fr(iconst.TableRoles).Or("position", "asc").Exe()
 	for rows.Next() {
-		result = append(result, *db.ScanRole(rows))
+		result = append(result, *db.Role{}.Scan(rows))
 	}
 	rows.Close()
 	return result

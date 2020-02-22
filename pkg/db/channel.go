@@ -12,8 +12,7 @@ type Channel struct {
 	Description string `json:"description" sqlite:"text"`
 }
 
-func ScanChannel(rows *sql.Rows) *Channel {
-	var v Channel
+func (v Channel) Scan(rows *sql.Rows) *Channel {
 	rows.Scan(&v.ID, &v.UUID, &v.Position, &v.Name, &v.Description)
 	return &v
 }

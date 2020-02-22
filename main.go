@@ -184,9 +184,8 @@ func main() {
 		if err != nil {
 			return
 		}
-		conn, _ := ws.ReqUpgrader.Upgrade(w, r, nil)
-		perms := ws.UserPerms{}.From(user)
-		ws.ConnCache[user.UUID] = ws.User{conn, user, perms}
+		wuser := ws.User{}.From(r, w, user)
+		ws.ConnCache[user.UUID] = wuser
 
 		// connect
 		if !listHas(ws.Connected, user.UUID) {
@@ -199,7 +198,7 @@ func main() {
 		// message intake loop
 		for {
 			// Read message from browser
-			_, msg, err := conn.ReadMessage()
+			_, msg, err := wuser.Conn.ReadMessage()
 			if err != nil {
 				break
 			}
@@ -212,7 +211,7 @@ func main() {
 			switch string(smg.GetStringBytes("type")) {
 			case "ping":
 				// do nothing, keep connection alive
-				conn.WriteJSON(map[string]string{
+				wuser.Conn.WriteJSON(map[string]string{
 					"type": "pong",
 				})
 			case "message":

@@ -10,7 +10,7 @@ import (
 
 var (
 	ReqUpgrader = websocket.Upgrader{ReadBufferSize: 1024, WriteBufferSize: 1024}
-	ConnCache   = map[string]User{}
+	ConnCache   = map[string]*User{}
 	RoleCache   = map[string]db.Role{}
 	Connected   = list.New() // user UUIDs
 )

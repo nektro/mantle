@@ -1,41 +1,17 @@
 package main
 
 import (
-	"database/sql"
-
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/iconst"
 
 	. "github.com/nektro/go-util/alias"
 )
 
-// // //
-
-func scanChannel(rows *sql.Rows) db.Channel {
-	var v db.Channel
-	rows.Scan(&v.ID, &v.UUID, &v.Position, &v.Name, &v.Description)
-	return v
-}
-
-func scanUser(rows *sql.Rows) db.User {
-	var v db.User
-	rows.Scan(&v.ID, &v.Provider, &v.Snowflake, &v.UUID, &v.IsMember, &v.IsBanned, &v.Name, &v.Nickname, &v.JoindedOn, &v.LastActive, &v.Roles)
-	return v
-}
-
-func scanRole(rows *sql.Rows) db.Role {
-	var v db.Role
-	rows.Scan(v.ID, v.UUID, v.Position, v.Name, v.Color, v.PermManageChannels, v.PermManageRoles)
-	return v
-}
-
-// // //
-
 func queryAllChannels() []db.Channel {
 	result := []db.Channel{}
 	rows := db.DB.Build().Se("*").Fr(iconst.TableChannels).Exe()
 	for rows.Next() {
-		rch := scanChannel(rows)
+		rch := db.ScanChannel(rows)
 		result = append(result, rch)
 	}
 	rows.Close()
@@ -47,7 +23,7 @@ func queryUserByUUID(uid string) (db.User, bool) {
 	if !rows.Next() {
 		return db.User{}, false
 	}
-	ru := scanUser(rows)
+	ru := db.ScanUser(rows)
 	rows.Close()
 	return ru, true
 }
@@ -55,7 +31,7 @@ func queryUserByUUID(uid string) (db.User, bool) {
 func queryUserBySnowflake(provider string, flake string, name string) db.User {
 	rows := db.DB.Build().Se("*").Fr(iconst.TableUsers).Wh("provider", provider).Wh("snowflake", flake).Exe()
 	if rows.Next() {
-		ru := scanUser(rows)
+		ru := db.ScanUser(rows)
 		rows.Close()
 		return ru
 	}
@@ -80,7 +56,7 @@ func queryAllRoles() []db.Role {
 	result := []db.Role{}
 	rows := db.DB.Build().Se("*").Fr(iconst.TableRoles).Or("position", "asc").Exe()
 	for rows.Next() {
-		result = append(result, scanRole(rows))
+		result = append(result, db.ScanRole(rows))
 	}
 	rows.Close()
 	return result

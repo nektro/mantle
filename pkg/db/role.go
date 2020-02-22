@@ -1,5 +1,9 @@
 package db
 
+import (
+	"database/sql"
+)
+
 type Role struct {
 	ID                 int    `json:"id"`
 	UUID               string `json:"uuid" sqlite:"text"`
@@ -8,4 +12,10 @@ type Role struct {
 	Color              string `json:"color" sqlite:"text"`
 	PermManageChannels uint8  `json:"perm_manage_channels" sqlite:"tinyint(1)"`
 	PermManageRoles    uint8  `json:"perm_manage_roles" sqlite:"tinyint(1)"`
+}
+
+func ScanRole(rows *sql.Rows) Role {
+	var v Role
+	rows.Scan(v.ID, v.UUID, v.Position, v.Name, v.Color, v.PermManageChannels, v.PermManageRoles)
+	return v
 }

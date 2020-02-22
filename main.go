@@ -186,7 +186,7 @@ func main() {
 		}
 		conn, _ := ws.ReqUpgrader.Upgrade(w, r, nil)
 		perms := calculateUserPermissions(user)
-		ws.ConnCache[user.UUID] = itypes.ConnCacheValue{conn, user, perms}
+		ws.ConnCache[user.UUID] = ws.ConnCacheValue{conn, user, perms}
 
 		// connect
 		if !listHas(ws.Connected, user.UUID) {

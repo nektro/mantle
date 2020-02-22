@@ -47,3 +47,7 @@ func (u *User) Disconnect() {
 func (u *User) IsConnected() bool {
 	return listHas(Connected, u.User.UUID)
 }
+
+func (u *User) SendMessage(msg map[string]string) {
+	u.Conn.WriteJSON(msg)
+}

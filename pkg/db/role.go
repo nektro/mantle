@@ -14,8 +14,8 @@ type Role struct {
 	PermManageRoles    uint8  `json:"perm_manage_roles" sqlite:"tinyint(1)"`
 }
 
-func ScanRole(rows *sql.Rows) Role {
+func ScanRole(rows *sql.Rows) *Role {
 	var v Role
 	rows.Scan(v.ID, v.UUID, v.Position, v.Name, v.Color, v.PermManageChannels, v.PermManageRoles)
-	return v
+	return &v
 }

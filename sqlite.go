@@ -11,24 +11,23 @@ func queryAllChannels() []db.Channel {
 	result := []db.Channel{}
 	rows := db.DB.Build().Se("*").Fr(iconst.TableChannels).Exe()
 	for rows.Next() {
-		rch := db.ScanChannel(rows)
-		result = append(result, rch)
+		result = append(result, *db.ScanChannel(rows))
 	}
 	rows.Close()
 	return result
 }
 
-func queryUserByUUID(uid string) (db.User, bool) {
+func queryUserByUUID(uid string) (*db.User, bool) {
 	rows := db.DB.Build().Se("*").Fr(iconst.TableUsers).Wh("uuid", uid).Exe()
 	if !rows.Next() {
-		return db.User{}, false
+		return &db.User{}, false
 	}
 	ru := db.ScanUser(rows)
 	rows.Close()
 	return ru, true
 }
 
-func queryUserBySnowflake(provider string, flake string, name string) db.User {
+func queryUserBySnowflake(provider string, flake string, name string) *db.User {
 	rows := db.DB.Build().Se("*").Fr(iconst.TableUsers).Wh("provider", provider).Wh("snowflake", flake).Exe()
 	if rows.Next() {
 		ru := db.ScanUser(rows)
@@ -56,7 +55,7 @@ func queryAllRoles() []db.Role {
 	result := []db.Role{}
 	rows := db.DB.Build().Se("*").Fr(iconst.TableRoles).Or("position", "asc").Exe()
 	for rows.Next() {
-		result = append(result, db.ScanRole(rows))
+		result = append(result, *db.ScanRole(rows))
 	}
 	rows.Close()
 	return result

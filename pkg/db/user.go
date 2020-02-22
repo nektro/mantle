@@ -18,8 +18,8 @@ type User struct {
 	Roles      string `json:"roles" sqlite:"text"`
 }
 
-func ScanUser(rows *sql.Rows) User {
+func ScanUser(rows *sql.Rows) *User {
 	var v User
 	rows.Scan(&v.ID, &v.Provider, &v.Snowflake, &v.UUID, &v.IsMember, &v.IsBanned, &v.Name, &v.Nickname, &v.JoindedOn, &v.LastActive, &v.Roles)
-	return v
+	return &v
 }

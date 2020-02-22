@@ -77,7 +77,7 @@ func apiBootstrapRequireLogin(r *http.Request, w http.ResponseWriter, method str
 		return nil, nil, writeAPIResponse(r, w, false, http.StatusForbidden, "This action requires being a member of this server. ("+userID+")")
 	}
 
-	return sess, &user, nil
+	return sess, user, nil
 }
 
 func writeAPIResponse(r *http.Request, w http.ResponseWriter, good bool, status int, message interface{}) error {

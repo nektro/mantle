@@ -169,7 +169,7 @@ func main() {
 		}
 		name := r.Form.Get("name")
 		cuid := createChannel(name)
-		broadcastMessage(map[string]string{
+		ws.BroadcastMessage(map[string]string{
 			"type": "new-channel",
 			"uuid": cuid,
 			"name": name,
@@ -191,7 +191,7 @@ func main() {
 		// connect
 		if !listHas(ws.Connected, user.UUID) {
 			ws.Connected.PushBack(user.UUID)
-			broadcastMessage(map[string]string{
+			ws.BroadcastMessage(map[string]string{
 				"type": "user-connect",
 				"user": user.UUID,
 			})
@@ -216,7 +216,7 @@ func main() {
 					"type": "pong",
 				})
 			case "message":
-				broadcastMessage(map[string]string{
+				ws.BroadcastMessage(map[string]string{
 					"type":    "message",
 					"in":      string(smg.GetStringBytes("in")),
 					"from":    user.UUID,
@@ -229,7 +229,7 @@ func main() {
 		if listHas(ws.Connected, user.UUID) {
 			delete(ws.ConnCache, user.UUID)
 			listRemove(ws.Connected, user.UUID)
-			broadcastMessage(map[string]string{
+			ws.BroadcastMessage(map[string]string{
 				"type": "user-disconnect",
 				"user": user.UUID,
 			})

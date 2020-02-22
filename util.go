@@ -120,12 +120,6 @@ func calculateUserPermissions(user *db.User) *itypes.UserPerms {
 	return &perms
 }
 
-func broadcastMessage(message map[string]string) {
-	for _, item := range ws.ConnCache {
-		item.Conn.WriteJSON(message)
-	}
-}
-
 func listHas(l *list.List, n interface{}) bool {
 	for e := l.Front(); e != nil; e = e.Next() {
 		if e.Value == n {

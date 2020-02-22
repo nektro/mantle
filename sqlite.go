@@ -5,35 +5,34 @@ import (
 
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/iconst"
-	"github.com/nektro/mantle/pkg/itypes"
 
 	. "github.com/nektro/go-util/alias"
 )
 
 // // //
 
-func scanChannel(rows *sql.Rows) itypes.Channel {
-	var v itypes.Channel
+func scanChannel(rows *sql.Rows) db.Channel {
+	var v db.Channel
 	rows.Scan(&v.ID, &v.UUID, &v.Position, &v.Name, &v.Description)
 	return v
 }
 
-func scanUser(rows *sql.Rows) itypes.User {
-	var v itypes.User
+func scanUser(rows *sql.Rows) db.User {
+	var v db.User
 	rows.Scan(&v.ID, &v.Provider, &v.Snowflake, &v.UUID, &v.IsMember, &v.IsBanned, &v.Name, &v.Nickname, &v.JoindedOn, &v.LastActive, &v.Roles)
 	return v
 }
 
-func scanRole(rows *sql.Rows) itypes.Role {
-	var v itypes.Role
+func scanRole(rows *sql.Rows) db.Role {
+	var v db.Role
 	rows.Scan(v.ID, v.UUID, v.Position, v.Name, v.Color, v.PermManageChannels, v.PermManageRoles)
 	return v
 }
 
 // // //
 
-func queryAllChannels() []itypes.Channel {
-	result := []itypes.Channel{}
+func queryAllChannels() []db.Channel {
+	result := []db.Channel{}
 	rows := db.DB.Build().Se("*").Fr(iconst.TableChannels).Exe()
 	for rows.Next() {
 		rch := scanChannel(rows)
@@ -43,17 +42,17 @@ func queryAllChannels() []itypes.Channel {
 	return result
 }
 
-func queryUserByUUID(uid string) (itypes.User, bool) {
+func queryUserByUUID(uid string) (db.User, bool) {
 	rows := db.DB.Build().Se("*").Fr(iconst.TableUsers).Wh("uuid", uid).Exe()
 	if !rows.Next() {
-		return itypes.User{}, false
+		return db.User{}, false
 	}
 	ru := scanUser(rows)
 	rows.Close()
 	return ru, true
 }
 
-func queryUserBySnowflake(provider string, flake string, name string) itypes.User {
+func queryUserBySnowflake(provider string, flake string, name string) db.User {
 	rows := db.DB.Build().Se("*").Fr(iconst.TableUsers).Wh("provider", provider).Wh("snowflake", flake).Exe()
 	if rows.Next() {
 		ru := scanUser(rows)
@@ -77,8 +76,8 @@ func queryAssertUserName(uid string, name string) {
 	db.DB.Build().Up(iconst.TableUsers, "name", name).Wh("uuid", uid).Exe()
 }
 
-func queryAllRoles() []itypes.Role {
-	result := []itypes.Role{}
+func queryAllRoles() []db.Role {
+	result := []db.Role{}
 	rows := db.DB.Build().Se("*").Fr(iconst.TableRoles).Or("position", "asc").Exe()
 	for rows.Next() {
 		result = append(result, scanRole(rows))

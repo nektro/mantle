@@ -1,4 +1,4 @@
-package itypes
+package db
 
 type ChannelPerms struct {
 	ID        int    `json:"id"`

@@ -1,4 +1,4 @@
-package itypes
+package db
 
 type Role struct {
 	ID                 int    `json:"id"`

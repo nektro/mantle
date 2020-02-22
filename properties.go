@@ -5,7 +5,6 @@ import (
 
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/iconst"
-	"github.com/nektro/mantle/pkg/itypes"
 
 	"github.com/nektro/go-util/util"
 
@@ -33,7 +32,7 @@ func (p *Properties) Init() {
 	p.cache = sync.Map{}
 	rows := db.DB.Build().Se("*").Fr(iconst.TableSettings).Exe()
 	for rows.Next() {
-		sr := itypes.Setting{}
+		sr := db.Setting{}
 		rows.Scan(&sr.ID, &sr.Key, &sr.Value)
 		p.cache.Store(sr.Key, sr.Value)
 	}

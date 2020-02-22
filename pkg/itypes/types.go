@@ -1,6 +1,8 @@
 package itypes
 
 import (
+	"github.com/nektro/mantle/pkg/db"
+
 	"github.com/gorilla/websocket"
 )
 
@@ -11,7 +13,7 @@ type APIResponse struct {
 
 type ConnCacheValue struct {
 	Conn  *websocket.Conn
-	User  *User
+	User  *db.User
 	Perms *UserPerms
 }
 

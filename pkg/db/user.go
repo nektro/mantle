@@ -1,4 +1,4 @@
-package itypes
+package db
 
 type User struct {
 	ID         int    `json:"id"`

@@ -1,4 +1,4 @@
-package itypes
+package db
 
 type Setting struct {
 	ID    int    `json:"id"`

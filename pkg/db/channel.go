@@ -1,4 +1,4 @@
-package itypes
+package db
 
 type Channel struct {
 	ID          int    `json:"id"`

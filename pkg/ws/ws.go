@@ -8,7 +8,7 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-type ConnCacheValue struct {
+type User struct {
 	Conn  *websocket.Conn
 	User  *db.User
 	Perms *UserPerms
@@ -16,7 +16,7 @@ type ConnCacheValue struct {
 
 var (
 	ReqUpgrader = websocket.Upgrader{ReadBufferSize: 1024, WriteBufferSize: 1024}
-	ConnCache   = map[string]ConnCacheValue{}
+	ConnCache   = map[string]User{}
 	RoleCache   = map[string]db.Role{}
 	Connected   = list.New() // user UUIDs
 )

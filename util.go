@@ -9,8 +9,8 @@ import (
 
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/iconst"
-	"github.com/nektro/mantle/pkg/idata"
 	"github.com/nektro/mantle/pkg/itypes"
+	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/gorilla/sessions"
 	"github.com/nektro/go-util/util"
@@ -106,7 +106,7 @@ func calculateUserPermissions(user *db.User) *itypes.UserPerms {
 		if item == "" {
 			continue
 		}
-		role := idata.RoleCache[item]
+		role := ws.RoleCache[item]
 
 		switch itypes.Perm(role.PermManageChannels) {
 		case itypes.PermDeny, itypes.PermAllow:
@@ -121,7 +121,7 @@ func calculateUserPermissions(user *db.User) *itypes.UserPerms {
 }
 
 func broadcastMessage(message map[string]string) {
-	for _, item := range idata.WsConnCache {
+	for _, item := range ws.ConnCache {
 		item.Conn.WriteJSON(message)
 	}
 }

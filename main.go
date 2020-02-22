@@ -11,6 +11,7 @@ import (
 	"github.com/nektro/mantle/pkg/iconst"
 	"github.com/nektro/mantle/pkg/idata"
 	"github.com/nektro/mantle/pkg/itypes"
+	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
@@ -64,7 +65,7 @@ func main() {
 	//		uneditable, and has all perms always
 
 	pa := uint8(itypes.PermAllow)
-	idata.RoleCache["o"] = db.Role{
+	ws.RoleCache["o"] = db.Role{
 		0, "o", 0, "Owner", "", pa, pa,
 	}
 
@@ -72,7 +73,7 @@ func main() {
 	// load roles into local cache
 
 	for _, item := range (db.Role{}.All()) {
-		idata.RoleCache[item.UUID] = item
+		ws.RoleCache[item.UUID] = item
 	}
 
 	//
@@ -85,7 +86,7 @@ func main() {
 		db.DB.Close()
 
 		util.Log("Closing all remaining active WebSocket connections")
-		for _, item := range idata.WsConnCache {
+		for _, item := range ws.ConnCache {
 			item.Conn.Close()
 		}
 
@@ -140,7 +141,7 @@ func main() {
 		if err != nil {
 			return
 		}
-		writeAPIResponse(r, w, true, http.StatusOK, listToArray(idata.Connected))
+		writeAPIResponse(r, w, true, http.StatusOK, listToArray(ws.Connected))
 	})
 
 	http.HandleFunc("/api/channels/@me", func(w http.ResponseWriter, r *http.Request) {
@@ -157,7 +158,7 @@ func main() {
 			fmt.Fprintln(w, "missing post value")
 			return
 		}
-		cv, ok := idata.WsConnCache[user.UUID]
+		cv, ok := ws.ConnCache[user.UUID]
 		if !ok {
 			fmt.Fprintln(w, "unable to find user in ws connection cache")
 			return
@@ -183,13 +184,13 @@ func main() {
 		if err != nil {
 			return
 		}
-		conn, _ := idata.WsUpgrader.Upgrade(w, r, nil)
+		conn, _ := ws.ReqUpgrader.Upgrade(w, r, nil)
 		perms := calculateUserPermissions(user)
-		idata.WsConnCache[user.UUID] = itypes.ConnCacheValue{conn, user, perms}
+		ws.ConnCache[user.UUID] = itypes.ConnCacheValue{conn, user, perms}
 
 		// connect
-		if !listHas(idata.Connected, user.UUID) {
-			idata.Connected.PushBack(user.UUID)
+		if !listHas(ws.Connected, user.UUID) {
+			ws.Connected.PushBack(user.UUID)
 			broadcastMessage(map[string]string{
 				"type": "user-connect",
 				"user": user.UUID,
@@ -225,9 +226,9 @@ func main() {
 			}
 		}
 		// disconnect
-		if listHas(idata.Connected, user.UUID) {
-			delete(idata.WsConnCache, user.UUID)
-			listRemove(idata.Connected, user.UUID)
+		if listHas(ws.Connected, user.UUID) {
+			delete(ws.ConnCache, user.UUID)
+			listRemove(ws.Connected, user.UUID)
 			broadcastMessage(map[string]string{
 				"type": "user-disconnect",
 				"user": user.UUID,

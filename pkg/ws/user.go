@@ -24,7 +24,7 @@ func (v User) From(r *http.Request, w http.ResponseWriter, user *db.User) *User 
 }
 
 func (u *User) Connect() {
-	if !listHas(Connected, u.User.UUID) {
+	if !u.IsConnected() {
 		Connected.PushBack(u.User.UUID)
 		BroadcastMessage(map[string]string{
 			"type": "user-connect",
@@ -34,7 +34,7 @@ func (u *User) Connect() {
 }
 
 func (u *User) Disconnect() {
-	if listHas(Connected, u.User.UUID) {
+	if u.IsConnected() {
 		delete(ConnCache, u.User.UUID)
 		listRemove(Connected, u.User.UUID)
 		BroadcastMessage(map[string]string{
@@ -42,4 +42,8 @@ func (u *User) Disconnect() {
 			"user": u.User.UUID,
 		})
 	}
+}
+
+func (u *User) IsConnected() bool {
+	return listHas(Connected, u.User.UUID)
 }

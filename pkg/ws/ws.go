@@ -14,12 +14,12 @@ var (
 )
 
 var (
-	ConnCache = map[string]*User{}
+	UserCache = map[string]*User{}
 	RoleCache = map[string]db.Role{}
 )
 
 func BroadcastMessage(message map[string]string) {
-	for _, item := range ConnCache {
+	for _, item := range UserCache {
 		item.Conn.WriteJSON(message)
 	}
 }

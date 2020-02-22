@@ -24,7 +24,7 @@ func (v User) From(r *http.Request, w http.ResponseWriter, user *db.User) *User 
 }
 
 func (u *User) Connect() {
-	ConnCache[u.User.UUID] = u
+	UserCache[u.User.UUID] = u
 
 	if !u.IsConnected() {
 		connected.PushBack(u.User.UUID)
@@ -37,7 +37,7 @@ func (u *User) Connect() {
 
 func (u *User) Disconnect() {
 	if u.IsConnected() {
-		delete(ConnCache, u.User.UUID)
+		delete(UserCache, u.User.UUID)
 		listRemove(connected, u.User.UUID)
 		BroadcastMessage(map[string]string{
 			"type": "user-disconnect",

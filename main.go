@@ -86,7 +86,7 @@ func main() {
 		db.DB.Close()
 
 		util.Log("Closing all remaining active WebSocket connections")
-		for _, item := range ws.ConnCache {
+		for _, item := range ws.UserCache {
 			item.Conn.Close()
 		}
 
@@ -158,7 +158,7 @@ func main() {
 			fmt.Fprintln(w, "missing post value")
 			return
 		}
-		cv, ok := ws.ConnCache[user.UUID]
+		cv, ok := ws.UserCache[user.UUID]
 		if !ok {
 			fmt.Fprintln(w, "unable to find user in ws connection cache")
 			return

@@ -8,12 +8,6 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-type User struct {
-	Conn  *websocket.Conn
-	User  *db.User
-	Perms *UserPerms
-}
-
 var (
 	ReqUpgrader = websocket.Upgrader{ReadBufferSize: 1024, WriteBufferSize: 1024}
 	ConnCache   = map[string]User{}

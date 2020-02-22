@@ -10,13 +10,16 @@ import (
 
 var (
 	reqUpgrader = websocket.Upgrader{ReadBufferSize: 1024, WriteBufferSize: 1024}
-	connCache   = map[string]*User{}
-	roleCache   = map[string]db.Role{}
 	connected   = list.New() // user UUIDs
 )
 
+var (
+	ConnCache = map[string]*User{}
+	RoleCache = map[string]db.Role{}
+)
+
 func BroadcastMessage(message map[string]string) {
-	for _, item := range connCache {
+	for _, item := range ConnCache {
 		item.Conn.WriteJSON(message)
 	}
 }

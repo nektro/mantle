@@ -82,7 +82,7 @@ func main() {
 		util.Log("Gracefully shutting down...")
 
 		util.Log("Saving database to disk")
-		etc.Database.Close()
+		db.DB.Close()
 
 		util.Log("Closing all remaining active WebSocket connections")
 		for _, item := range idata.WsConnCache {
@@ -101,7 +101,7 @@ func main() {
 
 		if props.Get("public") == "true" {
 			if user.IsMember == false {
-				etc.Database.Build().Up(iconst.TableUsers, "is_member", "1").Wh("uuid", user.UUID).Exe()
+				db.DB.Build().Up(iconst.TableUsers, "is_member", "1").Wh("uuid", user.UUID).Exe()
 				util.Log("[user-join]", F("User %s just became a member and joined the server", user.UUID))
 			}
 			w.Header().Add("Location", "./chat/")

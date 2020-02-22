@@ -3,10 +3,9 @@ package main
 import (
 	"database/sql"
 
+	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/iconst"
 	"github.com/nektro/mantle/pkg/itypes"
-
-	etc "github.com/nektro/go.etc"
 
 	. "github.com/nektro/go-util/alias"
 )
@@ -35,7 +34,7 @@ func scanRole(rows *sql.Rows) itypes.Role {
 
 func queryAllChannels() []itypes.Channel {
 	result := []itypes.Channel{}
-	rows := etc.Database.Build().Se("*").Fr(iconst.TableChannels).Exe()
+	rows := db.DB.Build().Se("*").Fr(iconst.TableChannels).Exe()
 	for rows.Next() {
 		rch := scanChannel(rows)
 		result = append(result, rch)
@@ -45,7 +44,7 @@ func queryAllChannels() []itypes.Channel {
 }
 
 func queryUserByUUID(uid string) (itypes.User, bool) {
-	rows := etc.Database.Build().Se("*").Fr(iconst.TableUsers).Wh("uuid", uid).Exe()
+	rows := db.DB.Build().Se("*").Fr(iconst.TableUsers).Wh("uuid", uid).Exe()
 	if !rows.Next() {
 		return itypes.User{}, false
 	}
@@ -55,14 +54,14 @@ func queryUserByUUID(uid string) (itypes.User, bool) {
 }
 
 func queryUserBySnowflake(provider string, flake string, name string) itypes.User {
-	rows := etc.Database.Build().Se("*").Fr(iconst.TableUsers).Wh("provider", provider).Wh("snowflake", flake).Exe()
+	rows := db.DB.Build().Se("*").Fr(iconst.TableUsers).Wh("provider", provider).Wh("snowflake", flake).Exe()
 	if rows.Next() {
 		ru := scanUser(rows)
 		rows.Close()
 		return ru
 	}
 	// else
-	id := etc.Database.QueryNextID(iconst.TableUsers)
+	id := db.DB.QueryNextID(iconst.TableUsers)
 	uid := newUUID()
 	now := T()
 	roles := ""
@@ -70,17 +69,17 @@ func queryUserBySnowflake(provider string, flake string, name string) itypes.Use
 		roles += "o"
 		props.Set("owner", uid)
 	}
-	etc.Database.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%s', '%s', '0', '0', ?, '', '%s', '%s', '%s')", iconst.TableUsers, id, provider, flake, uid, now, now, roles), name)
+	db.DB.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%s', '%s', '0', '0', ?, '', '%s', '%s', '%s')", iconst.TableUsers, id, provider, flake, uid, now, now, roles), name)
 	return queryUserBySnowflake(provider, flake, name)
 }
 
 func queryAssertUserName(uid string, name string) {
-	etc.Database.Build().Up(iconst.TableUsers, "name", name).Wh("uuid", uid).Exe()
+	db.DB.Build().Up(iconst.TableUsers, "name", name).Wh("uuid", uid).Exe()
 }
 
 func queryAllRoles() []itypes.Role {
 	result := []itypes.Role{}
-	rows := etc.Database.Build().Se("*").Fr(iconst.TableRoles).Or("position", "asc").Exe()
+	rows := db.DB.Build().Se("*").Fr(iconst.TableRoles).Or("position", "asc").Exe()
 	for rows.Next() {
 		result = append(result, scanRole(rows))
 	}

@@ -3,11 +3,11 @@ package main
 import (
 	"sync"
 
+	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/iconst"
 	"github.com/nektro/mantle/pkg/itypes"
 
 	"github.com/nektro/go-util/util"
-	etc "github.com/nektro/go.etc"
 
 	. "github.com/nektro/go-util/alias"
 )
@@ -21,9 +21,9 @@ var (
 )
 
 func (p *Properties) SetDefault(key string, value string) {
-	id := etc.Database.QueryNextID(iconst.TableSettings)
-	etc.Database.QueryPrepared(true, F("insert into %s(id,key,value) select %d,'%s',? where not exists(select 1 from %s where key = '%s' and value = ?)", iconst.TableSettings, id, key, iconst.TableSettings, key), value, value)
-	id2 := etc.Database.QueryNextID(iconst.TableSettings)
+	id := db.DB.QueryNextID(iconst.TableSettings)
+	db.DB.QueryPrepared(true, F("insert into %s(id,key,value) select %d,'%s',? where not exists(select 1 from %s where key = '%s' and value = ?)", iconst.TableSettings, id, key, iconst.TableSettings, key), value, value)
+	id2 := db.DB.QueryNextID(iconst.TableSettings)
 	if id2 > id {
 		util.Log(F("Added missing property '%s' with default value '%s'", key, value))
 	}
@@ -31,7 +31,7 @@ func (p *Properties) SetDefault(key string, value string) {
 
 func (p *Properties) Init() {
 	p.cache = sync.Map{}
-	rows := etc.Database.Build().Se("*").Fr(iconst.TableSettings).Exe()
+	rows := db.DB.Build().Se("*").Fr(iconst.TableSettings).Exe()
 	for rows.Next() {
 		sr := itypes.Setting{}
 		rows.Scan(&sr.ID, &sr.Key, &sr.Value)
@@ -58,6 +58,6 @@ func (p *Properties) Get(key string) string {
 }
 
 func (p *Properties) Set(key string, val string) {
-	etc.Database.Build().Up(iconst.TableSettings, key, val)
+	db.DB.Build().Up(iconst.TableSettings, key, val)
 	p.cache.Store(key, val)
 }

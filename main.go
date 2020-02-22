@@ -185,7 +185,6 @@ func main() {
 			return
 		}
 		wuser := ws.User{}.From(r, w, user)
-		ws.ConnCache[user.UUID] = wuser
 
 		wuser.Connect()
 

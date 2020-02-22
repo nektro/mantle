@@ -24,6 +24,8 @@ func (v User) From(r *http.Request, w http.ResponseWriter, user *db.User) *User 
 }
 
 func (u *User) Connect() {
+	connCache[u.User.UUID] = u
+
 	if !u.IsConnected() {
 		connected.PushBack(u.User.UUID)
 		BroadcastMessage(map[string]string{

@@ -141,7 +141,7 @@ func main() {
 		if err != nil {
 			return
 		}
-		writeAPIResponse(r, w, true, http.StatusOK, listToArray(ws.Connected))
+		writeAPIResponse(r, w, true, http.StatusOK, ws.AllOnlineIDs())
 	})
 
 	http.HandleFunc("/api/channels/@me", func(w http.ResponseWriter, r *http.Request) {

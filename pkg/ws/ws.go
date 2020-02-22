@@ -20,3 +20,7 @@ func BroadcastMessage(message map[string]string) {
 		item.Conn.WriteJSON(message)
 	}
 }
+
+func AllOnlineIDs() []string {
+	return listToArray(Connected)
+}

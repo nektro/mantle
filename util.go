@@ -10,7 +10,6 @@ import (
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/iconst"
 	"github.com/nektro/mantle/pkg/itypes"
-	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/gorilla/sessions"
 	"github.com/nektro/go-util/util"
@@ -98,26 +97,6 @@ func createRole(name string) string {
 	util.Log("[role-create]", uid, name)
 	db.DB.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%d', ?, '', 1, 1)", iconst.TableRoles, id, uid, id), name)
 	return uid
-}
-
-func calculateUserPermissions(user *db.User) *ws.UserPerms {
-	perms := ws.UserPerms{}
-	for _, item := range strings.Split(user.Roles, ",") {
-		if item == "" {
-			continue
-		}
-		role := ws.RoleCache[item]
-
-		switch itypes.Perm(role.PermManageChannels) {
-		case itypes.PermDeny, itypes.PermAllow:
-			perms.ManageChannels = itypes.Perm(role.PermManageChannels).ToBool()
-		}
-		switch itypes.Perm(role.PermManageRoles) {
-		case itypes.PermDeny, itypes.PermAllow:
-			perms.ManageRoles = itypes.Perm(role.PermManageRoles).ToBool()
-		}
-	}
-	return &perms
 }
 
 func listHas(l *list.List, n interface{}) bool {

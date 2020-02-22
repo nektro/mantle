@@ -122,7 +122,7 @@ func main() {
 		}
 		writeAPIResponse(r, w, true, http.StatusOK, map[string]interface{}{
 			"me":    user,
-			"perms": calculateUserPermissions(user),
+			"perms": ws.UserPerms{}.From(user),
 		})
 	})
 
@@ -185,7 +185,7 @@ func main() {
 			return
 		}
 		conn, _ := ws.ReqUpgrader.Upgrade(w, r, nil)
-		perms := calculateUserPermissions(user)
+		perms := ws.UserPerms{}.From(user)
 		ws.ConnCache[user.UUID] = ws.ConnCacheValue{conn, user, perms}
 
 		// connect

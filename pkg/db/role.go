@@ -2,6 +2,8 @@ package db
 
 import (
 	"database/sql"
+
+	dbstorage "github.com/nektro/go.dbstorage"
 )
 
 type Role struct {
@@ -14,7 +16,7 @@ type Role struct {
 	PermManageRoles    uint8  `json:"perm_manage_roles" sqlite:"tinyint(1)"`
 }
 
-func (v Role) Scan(rows *sql.Rows) *Role {
+func (v Role) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(v.ID, v.UUID, v.Position, v.Name, v.Color, v.PermManageChannels, v.PermManageRoles)
 	return &v
 }

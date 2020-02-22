@@ -2,6 +2,8 @@ package db
 
 import (
 	"database/sql"
+
+	dbstorage "github.com/nektro/go.dbstorage"
 )
 
 type Channel struct {
@@ -12,7 +14,7 @@ type Channel struct {
 	Description string `json:"description" sqlite:"text"`
 }
 
-func (v Channel) Scan(rows *sql.Rows) *Channel {
+func (v Channel) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(&v.ID, &v.UUID, &v.Position, &v.Name, &v.Description)
 	return &v
 }

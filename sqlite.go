@@ -4,17 +4,18 @@ import (
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/iconst"
 
+	dbstorage "github.com/nektro/go.dbstorage"
+
 	. "github.com/nektro/go-util/alias"
 )
 
 func queryAllChannels() []db.Channel {
-	result := []db.Channel{}
-	rows := db.DB.Build().Se("*").Fr(iconst.TableChannels).Exe()
-	for rows.Next() {
-		result = append(result, *db.Channel{}.Scan(rows))
+	arr := dbstorage.ScanAll(db.DB.Build().Se("*").Fr(iconst.TableChannels), db.Channel{})
+	res := []db.Channel{}
+	for _, item := range arr {
+		res = append(res, *item.(*db.Channel))
 	}
-	rows.Close()
-	return result
+	return res
 }
 
 func queryUserByUUID(uid string) (*db.User, bool) {
@@ -22,7 +23,7 @@ func queryUserByUUID(uid string) (*db.User, bool) {
 	if !rows.Next() {
 		return &db.User{}, false
 	}
-	ru := db.User{}.Scan(rows)
+	ru := db.User{}.Scan(rows).(*db.User)
 	rows.Close()
 	return ru, true
 }
@@ -30,7 +31,7 @@ func queryUserByUUID(uid string) (*db.User, bool) {
 func queryUserBySnowflake(provider string, flake string, name string) *db.User {
 	rows := db.DB.Build().Se("*").Fr(iconst.TableUsers).Wh("provider", provider).Wh("snowflake", flake).Exe()
 	if rows.Next() {
-		ru := db.User{}.Scan(rows)
+		ru := db.User{}.Scan(rows).(*db.User)
 		rows.Close()
 		return ru
 	}
@@ -52,11 +53,10 @@ func queryAssertUserName(uid string, name string) {
 }
 
 func queryAllRoles() []db.Role {
-	result := []db.Role{}
-	rows := db.DB.Build().Se("*").Fr(iconst.TableRoles).Or("position", "asc").Exe()
-	for rows.Next() {
-		result = append(result, *db.Role{}.Scan(rows))
+	arr := dbstorage.ScanAll(db.DB.Build().Se("*").Fr(iconst.TableRoles).Or("position", "asc"), db.Role{})
+	res := []db.Role{}
+	for _, item := range arr {
+		res = append(res, *item.(*db.Role))
 	}
-	rows.Close()
-	return result
+	return res
 }

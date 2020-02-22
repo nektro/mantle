@@ -2,6 +2,8 @@ package db
 
 import (
 	"database/sql"
+
+	dbstorage "github.com/nektro/go.dbstorage"
 )
 
 type User struct {
@@ -18,7 +20,7 @@ type User struct {
 	Roles      string `json:"roles" sqlite:"text"`
 }
 
-func (v User) Scan(rows *sql.Rows) *User {
+func (v User) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(&v.ID, &v.Provider, &v.Snowflake, &v.UUID, &v.IsMember, &v.IsBanned, &v.Name, &v.Nickname, &v.JoindedOn, &v.LastActive, &v.Roles)
 	return &v
 }

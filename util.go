@@ -1,7 +1,6 @@
 package main
 
 import (
-	"container/list"
 	"encoding/json"
 	"errors"
 	"net/http"
@@ -97,30 +96,4 @@ func createRole(name string) string {
 	util.Log("[role-create]", uid, name)
 	db.DB.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%d', ?, '', 1, 1)", iconst.TableRoles, id, uid, id), name)
 	return uid
-}
-
-func listHas(l *list.List, n interface{}) bool {
-	for e := l.Front(); e != nil; e = e.Next() {
-		if e.Value == n {
-			return true
-		}
-	}
-	return false
-}
-
-func listRemove(l *list.List, n interface{}) {
-	for e := l.Front(); e != nil; e = e.Next() {
-		if e.Value == n {
-			l.Remove(e)
-			break
-		}
-	}
-}
-
-func listToArray(l *list.List) []string {
-	res := []string{}
-	for e := l.Front(); e != nil; e = e.Next() {
-		res = append(res, e.Value.(string))
-	}
-	return res
 }

@@ -187,14 +187,8 @@ func main() {
 		wuser := ws.User{}.From(r, w, user)
 		ws.ConnCache[user.UUID] = wuser
 
-		// connect
-		if !listHas(ws.Connected, user.UUID) {
-			ws.Connected.PushBack(user.UUID)
-			ws.BroadcastMessage(map[string]string{
-				"type": "user-connect",
-				"user": user.UUID,
-			})
-		}
+		wuser.Connect()
+
 		// message intake loop
 		for {
 			// Read message from browser
@@ -224,15 +218,8 @@ func main() {
 				})
 			}
 		}
-		// disconnect
-		if listHas(ws.Connected, user.UUID) {
-			delete(ws.ConnCache, user.UUID)
-			listRemove(ws.Connected, user.UUID)
-			ws.BroadcastMessage(map[string]string{
-				"type": "user-disconnect",
-				"user": user.UUID,
-			})
-		}
+
+		wuser.Disconnect()
 	})
 
 	//

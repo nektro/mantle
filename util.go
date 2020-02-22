@@ -100,8 +100,8 @@ func createRole(name string) string {
 	return uid
 }
 
-func calculateUserPermissions(user *db.User) *itypes.UserPerms {
-	perms := itypes.UserPerms{}
+func calculateUserPermissions(user *db.User) *ws.UserPerms {
+	perms := ws.UserPerms{}
 	for _, item := range strings.Split(user.Roles, ",") {
 		if item == "" {
 			continue

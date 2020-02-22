@@ -4,7 +4,6 @@ import (
 	"container/list"
 
 	"github.com/nektro/mantle/pkg/db"
-	"github.com/nektro/mantle/pkg/itypes"
 
 	"github.com/gorilla/websocket"
 )
@@ -12,7 +11,7 @@ import (
 type ConnCacheValue struct {
 	Conn  *websocket.Conn
 	User  *db.User
-	Perms *itypes.UserPerms
+	Perms *UserPerms
 }
 
 var (

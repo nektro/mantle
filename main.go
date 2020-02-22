@@ -144,8 +144,7 @@ func main() {
 	})
 
 	http.HandleFunc("/api/channels/@me", func(w http.ResponseWriter, r *http.Request) {
-		channels := (db.Channel{}.All())
-		writeAPIResponse(r, w, true, http.StatusOK, channels)
+		writeAPIResponse(r, w, true, http.StatusOK, db.Channel{}.All())
 	})
 
 	http.HandleFunc("/api/channels/create", func(w http.ResponseWriter, r *http.Request) {

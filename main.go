@@ -42,14 +42,14 @@ func main() {
 	// for loop create channel message tables
 	_chans := (db.Channel{}.All())
 	for _, item := range _chans {
-		assertChannelMessagesTableExists(item.UUID)
+		db.AssertChannelMessagesTableExists(item.UUID)
 	}
 
 	//
 	// add default channel, if none exist
 
 	if len(_chans) == 0 {
-		createChannel("chat")
+		db.CreateChannel("chat")
 	}
 
 	//
@@ -132,7 +132,7 @@ func main() {
 			return
 		}
 		uu := r.URL.Path[len("/api/users/"):]
-		u, ok := queryUserByUUID(uu)
+		u, ok := db.QueryUserByUUID(uu)
 		writeAPIResponse(r, w, ok, http.StatusOK, u)
 	})
 
@@ -168,7 +168,7 @@ func main() {
 			return
 		}
 		name := r.Form.Get("name")
-		cuid := createChannel(name)
+		cuid := db.CreateChannel(name)
 		ws.BroadcastMessage(map[string]string{
 			"type": "new-channel",
 			"uuid": cuid,

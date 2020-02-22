@@ -21,7 +21,6 @@ import (
 	_ "github.com/nektro/mantle/statik"
 )
 
-
 func main() {
 	util.Log("Welcome to " + iconst.Name + " " + iconst.Version + ".")
 

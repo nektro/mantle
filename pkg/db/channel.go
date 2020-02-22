@@ -3,6 +3,8 @@ package db
 import (
 	"database/sql"
 
+	"github.com/nektro/mantle/pkg/iconst"
+
 	dbstorage "github.com/nektro/go.dbstorage"
 )
 
@@ -17,4 +19,13 @@ type Channel struct {
 func (v Channel) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(&v.ID, &v.UUID, &v.Position, &v.Name, &v.Description)
 	return &v
+}
+
+func (v Channel) All() []Channel {
+	arr := dbstorage.ScanAll(DB.Build().Se("*").Fr(iconst.TableChannels), Channel{})
+	res := []Channel{}
+	for _, item := range arr {
+		res = append(res, *item.(*Channel))
+	}
+	return res
 }

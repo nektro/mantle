@@ -4,19 +4,8 @@ import (
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/iconst"
 
-	dbstorage "github.com/nektro/go.dbstorage"
-
 	. "github.com/nektro/go-util/alias"
 )
-
-func queryAllChannels() []db.Channel {
-	arr := dbstorage.ScanAll(db.DB.Build().Se("*").Fr(iconst.TableChannels), db.Channel{})
-	res := []db.Channel{}
-	for _, item := range arr {
-		res = append(res, *item.(*db.Channel))
-	}
-	return res
-}
 
 func queryUserByUUID(uid string) (*db.User, bool) {
 	rows := db.DB.Build().Se("*").Fr(iconst.TableUsers).Wh("uuid", uid).Exe()
@@ -50,13 +39,4 @@ func queryUserBySnowflake(provider string, flake string, name string) *db.User {
 
 func queryAssertUserName(uid string, name string) {
 	db.DB.Build().Up(iconst.TableUsers, "name", name).Wh("uuid", uid).Exe()
-}
-
-func queryAllRoles() []db.Role {
-	arr := dbstorage.ScanAll(db.DB.Build().Se("*").Fr(iconst.TableRoles).Or("position", "asc"), db.Role{})
-	res := []db.Role{}
-	for _, item := range arr {
-		res = append(res, *item.(*db.Role))
-	}
-	return res
 }

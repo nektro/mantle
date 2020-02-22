@@ -39,7 +39,7 @@ func main() {
 	db.Init()
 
 	// for loop create channel message tables
-	_chans := queryAllChannels()
+	_chans := (db.Channel{}.All())
 	for _, item := range _chans {
 		assertChannelMessagesTableExists(item.UUID)
 	}
@@ -71,7 +71,7 @@ func main() {
 	//
 	// load roles into local cache
 
-	for _, item := range queryAllRoles() {
+	for _, item := range (db.Role{}.All()) {
 		idata.RoleCache[item.UUID] = item
 	}
 
@@ -144,7 +144,7 @@ func main() {
 	})
 
 	http.HandleFunc("/api/channels/@me", func(w http.ResponseWriter, r *http.Request) {
-		channels := queryAllChannels()
+		channels := (db.Channel{}.All())
 		writeAPIResponse(r, w, true, http.StatusOK, channels)
 	})
 

@@ -3,6 +3,8 @@ package db
 import (
 	"database/sql"
 
+	"github.com/nektro/mantle/pkg/iconst"
+
 	dbstorage "github.com/nektro/go.dbstorage"
 )
 
@@ -19,4 +21,13 @@ type Role struct {
 func (v Role) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(v.ID, v.UUID, v.Position, v.Name, v.Color, v.PermManageChannels, v.PermManageRoles)
 	return &v
+}
+
+func (v Role) All() []Role {
+	arr := dbstorage.ScanAll(DB.Build().Se("*").Fr(iconst.TableRoles).Or("position", "asc"), Role{})
+	res := []Role{}
+	for _, item := range arr {
+		res = append(res, *item.(*Role))
+	}
+	return res
 }

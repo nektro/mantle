@@ -7,6 +7,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/iconst"
 	"github.com/nektro/mantle/pkg/idata"
 	"github.com/nektro/mantle/pkg/itypes"
@@ -35,11 +36,7 @@ func main() {
 	//
 	// database initialization
 
-	etc.Database.CreateTableStruct(iconst.TableSettings, itypes.Setting{})
-	etc.Database.CreateTableStruct(iconst.TableUsers, itypes.User{})
-	etc.Database.CreateTableStruct(iconst.TableChannels, itypes.Channel{})
-	etc.Database.CreateTableStruct(iconst.TableRoles, itypes.Role{})
-	etc.Database.CreateTableStruct(iconst.TableChannelPerms, itypes.ChannelPerms{})
+	db.Init()
 
 	// for loop create channel message tables
 	_chans := queryAllChannels()

@@ -185,9 +185,7 @@ func main() {
 		if err != nil {
 			return
 		}
-		wuser := ws.User{}.From(r, w, user)
-
-		wuser.Connect()
+		wuser := ws.Connect(user, w, r)
 
 		// message intake loop
 		for {

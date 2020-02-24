@@ -36,4 +36,5 @@ func Init() {
 	Props.SetDefault("owner", "")
 	Props.SetDefault("public", "true")
 	Props.Init()
+	Props.Set("version", idata.Version)
 }

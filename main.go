@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"strings"
 
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/handler"
@@ -21,7 +22,7 @@ func main() {
 
 	//
 	pflag.IntVar(&idata.Config.Port, "port", 8000, "The port to bind the web server to.")
-	etc.AppID = "mantle"
+	etc.AppID = strings.ToLower(idata.Name)
 	etc.PreInit()
 
 	//

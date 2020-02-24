@@ -41,7 +41,7 @@ func main() {
 	// for loop create channel message tables
 	_chans := (db.Channel{}.All())
 	for _, item := range _chans {
-		db.AssertChannelMessagesTableExists(item.UUID)
+		item.AssertMessageTableExists()
 	}
 
 	//

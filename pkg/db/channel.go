@@ -27,3 +27,7 @@ func (v Channel) All() []*Channel {
 	}
 	return res
 }
+
+func (c *Channel) AssertMessageTableExists() {
+	DB.CreateTableStruct(cTableMessagesPrefix+c.UUID, Message{})
+}

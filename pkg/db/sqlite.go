@@ -1,8 +1,6 @@
 package db
 
 import (
-	"strings"
-
 	"github.com/nektro/go-util/alias"
 	"github.com/nektro/go-util/util"
 )
@@ -49,11 +47,8 @@ func CreateChannel(name string) string {
 	id := DB.QueryNextID(cTableChannels)
 	uid := newUUID()
 	util.Log("[channel-create]", uid, "#"+name)
+	ch := &Channel{id, uid, int(id), name, ""}
 	DB.QueryPrepared(true, "insert into "+cTableChannels+" values (?, ?, ?, ?, '')", id, uid, id, name)
-	AssertChannelMessagesTableExists(uid)
+	ch.AssertMessageTableExists()
 	return uid
-}
-
-func AssertChannelMessagesTableExists(uid string) {
-	DB.CreateTableStruct(cTableMessagesPrefix+strings.Replace(uid, "-", "_", -1), Message{})
 }

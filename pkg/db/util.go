@@ -7,5 +7,5 @@ import (
 )
 
 func newUUID() string {
-	return strings.Replace(uuid.Must(uuid.NewV4()).String(), "-", "", -1)
+	return strings.ReplaceAll(uuid.Must(uuid.NewV4()).String(), "-", "")
 }

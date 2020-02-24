@@ -3,6 +3,7 @@ package db
 import (
 	"database/sql"
 
+	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
 )
 
@@ -13,6 +14,22 @@ type Channel struct {
 	Name        string `json:"name" sqlite:"text"`
 	Description string `json:"description" sqlite:"text"`
 }
+
+//
+//
+
+func CreateChannel(name string) string {
+	id := DB.QueryNextID(cTableChannels)
+	uid := newUUID()
+	util.Log("[channel-create]", uid, "#"+name)
+	ch := &Channel{id, uid, int(id), name, ""}
+	DB.QueryPrepared(true, "insert into "+cTableChannels+" values (?, ?, ?, ?, '')", id, uid, id, name)
+	ch.AssertMessageTableExists()
+	return uid
+}
+
+//
+//
 
 func (v Channel) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(&v.ID, &v.UUID, &v.Position, &v.Name, &v.Description)

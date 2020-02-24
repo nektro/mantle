@@ -3,6 +3,7 @@ package db
 import (
 	"database/sql"
 
+	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
 )
 
@@ -15,6 +16,20 @@ type Role struct {
 	PermManageChannels uint8  `json:"perm_manage_channels" sqlite:"tinyint(1)"`
 	PermManageRoles    uint8  `json:"perm_manage_roles" sqlite:"tinyint(1)"`
 }
+
+//
+//
+
+func CreateRole(name string) string {
+	id := DB.QueryNextID(cTableRoles)
+	uid := newUUID()
+	util.Log("[role-create]", uid, name)
+	DB.QueryPrepared(true, "insert into "+cTableRoles+" values (?, ?, ?, ?, '', 1, 1)", id, uid, id, name)
+	return uid
+}
+
+//
+//
 
 func (v Role) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(v.ID, v.UUID, v.Position, v.Name, v.Color, v.PermManageChannels, v.PermManageRoles)

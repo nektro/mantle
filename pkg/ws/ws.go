@@ -38,6 +38,13 @@ func Connect(user *db.User, w http.ResponseWriter, r *http.Request) *User {
 	return u
 }
 
+func Close() {
+	// disconnect all remaining users
+	for _, item := range UserCache {
+		item.Conn.Close()
+	}
+}
+
 func BroadcastMessage(message map[string]string) {
 	for _, item := range UserCache {
 		item.Conn.WriteJSON(message)

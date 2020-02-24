@@ -77,9 +77,7 @@ func main() {
 		db.Close()
 
 		util.Log("Closing all remaining active WebSocket connections")
-		for _, item := range ws.UserCache {
-			item.Conn.Close()
-		}
+		ws.Close()
 
 		util.Log("Done")
 		os.Exit(0)

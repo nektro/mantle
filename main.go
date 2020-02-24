@@ -5,7 +5,6 @@ import (
 
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/handler"
-	"github.com/nektro/mantle/pkg/iconst"
 	"github.com/nektro/mantle/pkg/idata"
 	"github.com/nektro/mantle/pkg/itypes"
 	"github.com/nektro/mantle/pkg/ws"
@@ -18,7 +17,7 @@ import (
 )
 
 func main() {
-	util.Log("Welcome to " + iconst.Name + " " + iconst.Version + ".")
+	util.Log("Welcome to " + idata.Name + " " + idata.Version + ".")
 
 	//
 	pflag.IntVar(&idata.Config.Port, "port", 8000, "The port to bind the web server to.")

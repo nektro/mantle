@@ -1,9 +1,6 @@
 package iconst
 
 const (
-	Name    = "Mantle"
-	Version = "vMASTER"
-
 	TableSettings       = "server_settings"
 	TableUsers          = "users"
 	TableChannels       = "channels"

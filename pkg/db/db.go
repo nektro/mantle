@@ -2,6 +2,7 @@ package db
 
 import (
 	"github.com/nektro/mantle/pkg/iconst"
+	"github.com/nektro/mantle/pkg/idata"
 
 	dbstorage "github.com/nektro/go.dbstorage"
 	etc "github.com/nektro/go.etc"
@@ -23,7 +24,7 @@ func Init() {
 	DB.CreateTableStruct(iconst.TableChannelPerms, ChannelPerms{})
 
 	// load server properties
-	Props.SetDefault("name", iconst.Name)
+	Props.SetDefault("name", idata.Name)
 	Props.SetDefault("owner", "")
 	Props.SetDefault("public", "true")
 	Props.Init()

@@ -99,7 +99,7 @@ func main() {
 
 	r.HandleFunc("/api/users/@me", handler.UsersMe)
 	r.HandleFunc("/api/users/online", handler.UsersOnline)
-	r.HandleFunc("/api/users/{uuid}", handler.UsersRead)
+	r.HandleFunc("/api/users/{uuid:[0-9a-f]{32}}", handler.UsersRead)
 
 	r.HandleFunc("/api/channels/@me", handler.ChannelsMe)
 	r.HandleFunc("/api/channels/create", handler.ChannelCreate)

@@ -1,8 +1,6 @@
 package handler
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/nektro/mantle/pkg/db"
@@ -37,6 +35,5 @@ func Invite(w http.ResponseWriter, r *http.Request) {
 
 // ApiAbout is handler for /api/about
 func ApiAbout(w http.ResponseWriter, r *http.Request) {
-	dat, _ := json.Marshal(db.Props.GetAll())
-	fmt.Fprint(w, string(dat))
+	writeAPIResponse(r, w, true, http.StatusOK, db.Props.GetAll())
 }

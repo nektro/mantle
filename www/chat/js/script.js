@@ -14,7 +14,7 @@ let me = null;
     //
     await fetch("/api/about").then(x => x.json()).then(x => {
         console.info(x);
-        el_2.innerText = x.name;
+        el_2.innerText = x.message.name;
     });
 
     //

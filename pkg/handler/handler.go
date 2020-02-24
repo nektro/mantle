@@ -12,6 +12,7 @@ import (
 	etc "github.com/nektro/go.etc"
 )
 
+// SaveOAuth2InfoCb saves info from go.oauth to user session cookie
 func SaveOAuth2InfoCb(w http.ResponseWriter, r *http.Request, provider string, id string, name string, oa2resp map[string]interface{}) {
 	ru := db.QueryUserBySnowflake(provider, id, name)
 	util.Log("[user-login]", provider, id, ru.UUID, name)
@@ -21,6 +22,7 @@ func SaveOAuth2InfoCb(w http.ResponseWriter, r *http.Request, provider string, i
 	db.QueryAssertUserName(ru.UUID, name)
 }
 
+// Invite is handler for /invite
 func Invite(w http.ResponseWriter, r *http.Request) {
 	_, user, _ := apiBootstrapRequireLogin(r, w, http.MethodGet, false)
 
@@ -34,6 +36,7 @@ func Invite(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// ApiAbout is handler for /api/about
 func ApiAbout(w http.ResponseWriter, r *http.Request) {
 	dat, _ := json.Marshal(db.Props.GetAll())
 	fmt.Fprint(w, string(dat))

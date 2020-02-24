@@ -8,6 +8,7 @@ import (
 	"github.com/valyala/fastjson"
 )
 
+// Websocket is the handler for /ws
 func Websocket(w http.ResponseWriter, r *http.Request) {
 	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
 	if err != nil {

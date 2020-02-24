@@ -7,6 +7,7 @@ import (
 	"github.com/nektro/mantle/pkg/ws"
 )
 
+// UsersMe is handler for /api/users/@me
 func UsersMe(w http.ResponseWriter, r *http.Request) {
 	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
 	if err != nil {
@@ -18,6 +19,7 @@ func UsersMe(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+// UsersRead is handler for /api/users/
 func UsersRead(w http.ResponseWriter, r *http.Request) {
 	_, _, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
 	if err != nil {
@@ -28,6 +30,7 @@ func UsersRead(w http.ResponseWriter, r *http.Request) {
 	writeAPIResponse(r, w, ok, http.StatusOK, u)
 }
 
+// UsersOnline is handler for /api/users/online
 func UsersOnline(w http.ResponseWriter, r *http.Request) {
 	_, _, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
 	if err != nil {

@@ -19,11 +19,11 @@ func (v Channel) Scan(rows *sql.Rows) dbstorage.Scannable {
 	return &v
 }
 
-func (v Channel) All() []Channel {
+func (v Channel) All() []*Channel {
 	arr := dbstorage.ScanAll(DB.Build().Se("*").Fr(cTableChannels), Channel{})
-	res := []Channel{}
+	res := []*Channel{}
 	for _, item := range arr {
-		res = append(res, *item.(*Channel))
+		res = append(res, item.(*Channel))
 	}
 	return res
 }

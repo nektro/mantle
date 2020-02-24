@@ -17,21 +17,21 @@ const (
 )
 
 var (
-	DB dbstorage.Database
+	db dbstorage.Database
 )
 var (
 	Props = Properties{}
 )
 
 func Init() {
-	DB = etc.Database
+	db = etc.Database
 
 	// table init
-	DB.CreateTableStruct(cTableSettings, Setting{})
-	DB.CreateTableStruct(cTableUsers, User{})
-	DB.CreateTableStruct(cTableChannels, Channel{})
-	DB.CreateTableStruct(cTableRoles, Role{})
-	DB.CreateTableStruct(cTableChannelPerms, ChannelPerms{})
+	db.CreateTableStruct(cTableSettings, Setting{})
+	db.CreateTableStruct(cTableUsers, User{})
+	db.CreateTableStruct(cTableChannels, Channel{})
+	db.CreateTableStruct(cTableRoles, Role{})
+	db.CreateTableStruct(cTableChannelPerms, ChannelPerms{})
 
 	// load server properties
 	Props.SetDefault("name", idata.Name)
@@ -43,5 +43,5 @@ func Init() {
 
 func Close() {
 	// close db
-	DB.Close()
+	db.Close()
 }

@@ -21,10 +21,10 @@ type Role struct {
 //
 
 func CreateRole(name string) string {
-	id := DB.QueryNextID(cTableRoles)
+	id := db.QueryNextID(cTableRoles)
 	uid := newUUID()
 	util.Log("[role-create]", uid, name)
-	DB.QueryPrepared(true, "insert into "+cTableRoles+" values (?, ?, ?, ?, '', 1, 1)", id, uid, id, name)
+	db.QueryPrepared(true, "insert into "+cTableRoles+" values (?, ?, ?, ?, '', 1, 1)", id, uid, id, name)
 	return uid
 }
 
@@ -37,7 +37,7 @@ func (v Role) Scan(rows *sql.Rows) dbstorage.Scannable {
 }
 
 func (v Role) All() []*Role {
-	arr := dbstorage.ScanAll(DB.Build().Se("*").Fr(cTableRoles).Or("position", "asc"), Role{})
+	arr := dbstorage.ScanAll(db.Build().Se("*").Fr(cTableRoles).Or("position", "asc"), Role{})
 	res := []*Role{}
 	for _, item := range arr {
 		res = append(res, item.(*Role))

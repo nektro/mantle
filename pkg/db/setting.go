@@ -15,7 +15,7 @@ type Setting struct {
 //
 
 func QuerySettingByKey(key string) *Setting {
-	rows := DB.Build().Se("*").Fr(cTableSettings).Wh("key", key).Exe()
+	rows := db.Build().Se("*").Fr(cTableSettings).Wh("key", key).Exe()
 	defer rows.Close()
 	if !rows.Next() {
 		return nil
@@ -31,7 +31,7 @@ func (v Setting) Scan(rows *sql.Rows) dbstorage.Scannable {
 }
 
 func (v Setting) All() []*Setting {
-	arr := dbstorage.ScanAll(DB.Build().Se("*").Fr(cTableSettings), Setting{})
+	arr := dbstorage.ScanAll(db.Build().Se("*").Fr(cTableSettings), Setting{})
 	res := []*Setting{}
 	for _, item := range arr {
 		res = append(res, item.(*Setting))

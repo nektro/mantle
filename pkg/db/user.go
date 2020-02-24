@@ -27,7 +27,7 @@ type User struct {
 //
 
 func QueryUserByUUID(uid string) (*User, bool) {
-	rows := DB.Build().Se("*").Fr(cTableUsers).Wh("uuid", uid).Exe()
+	rows := db.Build().Se("*").Fr(cTableUsers).Wh("uuid", uid).Exe()
 	if !rows.Next() {
 		return &User{}, false
 	}
@@ -37,14 +37,14 @@ func QueryUserByUUID(uid string) (*User, bool) {
 }
 
 func QueryUserBySnowflake(provider string, flake string, name string) *User {
-	rows := DB.Build().Se("*").Fr(cTableUsers).Wh("provider", provider).Wh("snowflake", flake).Exe()
+	rows := db.Build().Se("*").Fr(cTableUsers).Wh("provider", provider).Wh("snowflake", flake).Exe()
 	if rows.Next() {
 		ru := User{}.Scan(rows).(*User)
 		rows.Close()
 		return ru
 	}
 	// else
-	id := DB.QueryNextID(cTableUsers)
+	id := db.QueryNextID(cTableUsers)
 	uid := newUUID()
 	now := alias.T()
 	roles := ""
@@ -52,7 +52,7 @@ func QueryUserBySnowflake(provider string, flake string, name string) *User {
 		roles += "o"
 		Props.Set("owner", uid)
 	}
-	DB.QueryPrepared(true, "insert into "+cTableUsers+" values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", id, provider, flake, uid, 0, 0, name, "", now, now, roles)
+	db.QueryPrepared(true, "insert into "+cTableUsers+" values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", id, provider, flake, uid, 0, 0, name, "", now, now, roles)
 	return QueryUserBySnowflake(provider, flake, name)
 }
 
@@ -65,11 +65,11 @@ func (v User) Scan(rows *sql.Rows) dbstorage.Scannable {
 }
 
 func (u *User) SetAsMember(b bool) {
-	DB.Build().Up(cTableUsers, "is_member", strconv.Itoa(util.Btoi(b))).Wh("uuid", u.UUID).Exe()
+	db.Build().Up(cTableUsers, "is_member", strconv.Itoa(util.Btoi(b))).Wh("uuid", u.UUID).Exe()
 	u.IsMember = b
 }
 
 func (u *User) SetName(s string) {
-	DB.Build().Up(cTableUsers, "name", s).Wh("uuid", u.UUID).Exe()
+	db.Build().Up(cTableUsers, "name", s).Wh("uuid", u.UUID).Exe()
 	u.Name = s
 }

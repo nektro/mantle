@@ -19,11 +19,11 @@ type Channel struct {
 //
 
 func CreateChannel(name string) *Channel {
-	id := DB.QueryNextID(cTableChannels)
+	id := db.QueryNextID(cTableChannels)
 	uid := newUUID()
 	util.Log("[channel-create]", uid, "#"+name)
 	ch := &Channel{id, uid, int(id), name, ""}
-	DB.QueryPrepared(true, "insert into "+cTableChannels+" values (?, ?, ?, ?, ?)", id, uid, id, name, "")
+	db.QueryPrepared(true, "insert into "+cTableChannels+" values (?, ?, ?, ?, ?)", id, uid, id, name, "")
 	ch.AssertMessageTableExists()
 	return ch
 }
@@ -37,7 +37,7 @@ func (v Channel) Scan(rows *sql.Rows) dbstorage.Scannable {
 }
 
 func (v Channel) All() []*Channel {
-	arr := dbstorage.ScanAll(DB.Build().Se("*").Fr(cTableChannels), Channel{})
+	arr := dbstorage.ScanAll(db.Build().Se("*").Fr(cTableChannels), Channel{})
 	res := []*Channel{}
 	for _, item := range arr {
 		res = append(res, item.(*Channel))
@@ -46,5 +46,5 @@ func (v Channel) All() []*Channel {
 }
 
 func (c *Channel) AssertMessageTableExists() {
-	DB.CreateTableStruct(cTableMessagesPrefix+c.UUID, Message{})
+	db.CreateTableStruct(cTableMessagesPrefix+c.UUID, Message{})
 }

@@ -13,8 +13,8 @@ func (p *Properties) SetDefault(key string, value string) {
 	if s != nil {
 		return
 	}
-	id := DB.QueryNextID(cTableSettings)
-	DB.QueryPrepared(true, "insert into "+cTableSettings+" values (?,?,?)", id, key, value)
+	id := db.QueryNextID(cTableSettings)
+	db.QueryPrepared(true, "insert into "+cTableSettings+" values (?,?,?)", id, key, value)
 }
 
 func (p *Properties) Init() {
@@ -43,6 +43,6 @@ func (p *Properties) Get(key string) string {
 
 func (p *Properties) Set(key string, val string) {
 	p.SetDefault(key, "")
-	DB.Build().Up(cTableSettings, "value", val).Wh("key", key).Exe()
+	db.Build().Up(cTableSettings, "value", val).Wh("key", key).Exe()
 	p.cache.Store(key, val)
 }

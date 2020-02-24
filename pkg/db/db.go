@@ -40,3 +40,8 @@ func Init() {
 	Props.Init()
 	Props.Set("version", idata.Version)
 }
+
+func Close() {
+	// close db
+	DB.Close()
+}

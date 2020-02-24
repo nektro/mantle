@@ -74,7 +74,7 @@ func main() {
 		util.Log("Gracefully shutting down...")
 
 		util.Log("Saving database to disk")
-		db.DB.Close()
+		db.Close()
 
 		util.Log("Closing all remaining active WebSocket connections")
 		for _, item := range ws.UserCache {

@@ -34,7 +34,7 @@ func QueryUserBySnowflake(provider string, flake string, name string) *User {
 		roles += "o"
 		Props.Set("owner", uid)
 	}
-	DB.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%s', '%s', '0', '0', ?, '', '%s', '%s', '%s')", cTableUsers, id, provider, flake, uid, now, now, roles), name)
+	DB.QueryPrepared(true, F("insert into %s values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", cTableUsers), id, provider, flake, uid, 0, 0, name, "", now, now, roles)
 	return QueryUserBySnowflake(provider, flake, name)
 }
 
@@ -46,7 +46,7 @@ func CreateRole(name string) string {
 	id := DB.QueryNextID(cTableRoles)
 	uid := newUUID()
 	util.Log("[role-create]", uid, name)
-	DB.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%d', ?, '', 1, 1)", cTableRoles, id, uid, id), name)
+	DB.QueryPrepared(true, F("insert into %s values (?, ?, ?, ?, '', 1, 1)", cTableRoles), id, uid, id, name)
 	return uid
 }
 
@@ -54,11 +54,11 @@ func CreateChannel(name string) string {
 	id := DB.QueryNextID(cTableChannels)
 	uid := newUUID()
 	util.Log("[channel-create]", uid, "#"+name)
-	DB.QueryPrepared(true, F("insert into %s values ('%d', '%s', '%d', ?, '')", cTableChannels, id, uid, id), name)
+	DB.QueryPrepared(true, F("insert into %s values (?, ?, ?, ?, '')", cTableChannels), id, uid, id, name)
 	AssertChannelMessagesTableExists(uid)
 	return uid
 }
 
 func AssertChannelMessagesTableExists(uid string) {
-	DB.CreateTableStruct(F("%s%s", cTableMessagesPrefix, strings.Replace(uid, "-", "_", -1)), Message{})
+	DB.CreateTableStruct(cTableMessagesPrefix+strings.Replace(uid, "-", "_", -1), Message{})
 }

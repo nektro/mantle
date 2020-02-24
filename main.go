@@ -97,17 +97,11 @@ func main() {
 	http.HandleFunc("/api/about", handler.ApiAbout)
 
 	http.HandleFunc("/api/users/@me", handler.UsersMe)
-
 	http.HandleFunc("/api/users/", handler.UsersRead)
-
 	http.HandleFunc("/api/users/online", handler.UsersOnline)
 
 	http.HandleFunc("/api/channels/@me", handler.ChannelsMe)
-
 	http.HandleFunc("/api/channels/create", handler.ChannelCreate)
-
-	//
-	// create websocket service
 
 	http.HandleFunc("/ws", handler.Websocket)
 

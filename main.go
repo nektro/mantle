@@ -1,7 +1,6 @@
 package main
 
 import (
-	"net/http"
 	"os"
 
 	"github.com/nektro/mantle/pkg/db"
@@ -92,18 +91,20 @@ func main() {
 	//
 	// create http service
 
-	http.HandleFunc("/invite", handler.Invite)
+	r := etc.Router
 
-	http.HandleFunc("/api/about", handler.ApiAbout)
+	r.HandleFunc("/invite", handler.Invite)
 
-	http.HandleFunc("/api/users/@me", handler.UsersMe)
-	http.HandleFunc("/api/users/", handler.UsersRead)
-	http.HandleFunc("/api/users/online", handler.UsersOnline)
+	r.HandleFunc("/api/about", handler.ApiAbout)
 
-	http.HandleFunc("/api/channels/@me", handler.ChannelsMe)
-	http.HandleFunc("/api/channels/create", handler.ChannelCreate)
+	r.HandleFunc("/api/users/@me", handler.UsersMe)
+	r.HandleFunc("/api/users/online", handler.UsersOnline)
+	r.HandleFunc("/api/users/{uuid}", handler.UsersRead)
 
-	http.HandleFunc("/ws", handler.Websocket)
+	r.HandleFunc("/api/channels/@me", handler.ChannelsMe)
+	r.HandleFunc("/api/channels/create", handler.ChannelCreate)
+
+	r.HandleFunc("/ws", handler.Websocket)
 
 	//
 	// start server

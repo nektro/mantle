@@ -5,6 +5,8 @@ import (
 
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/ws"
+
+	"github.com/gorilla/mux"
 )
 
 // UsersMe is handler for /api/users/@me
@@ -19,13 +21,13 @@ func UsersMe(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// UsersRead is handler for /api/users/
+// UsersRead is handler for /api/users/{uuid}
 func UsersRead(w http.ResponseWriter, r *http.Request) {
 	_, _, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
 	if err != nil {
 		return
 	}
-	uu := r.URL.Path[len("/api/users/"):]
+	uu := mux.Vars(r)["uuid"]
 	u, ok := db.QueryUserByUUID(uu)
 	writeAPIResponse(r, w, ok, http.StatusOK, u)
 }

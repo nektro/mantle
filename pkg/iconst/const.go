@@ -9,5 +9,5 @@ const (
 	TableChannels       = "channels"
 	TableRoles          = "roles"
 	TableChannelPerms   = "channel_perms"
-	TableMessagesPrefix = "channel_messages__"
+	TableMessagesPrefix = "channel_messages_"
 )

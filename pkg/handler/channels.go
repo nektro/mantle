@@ -35,10 +35,10 @@ func ChannelCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	name := r.Form.Get("name")
-	cuid := db.CreateChannel(name)
+	nch := db.CreateChannel(name)
 	ws.BroadcastMessage(map[string]string{
 		"type": "new-channel",
-		"uuid": cuid,
+		"uuid": nch.UUID,
 		"name": name,
 	})
 }

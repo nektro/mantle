@@ -18,14 +18,14 @@ type Channel struct {
 //
 //
 
-func CreateChannel(name string) string {
+func CreateChannel(name string) *Channel {
 	id := DB.QueryNextID(cTableChannels)
 	uid := newUUID()
 	util.Log("[channel-create]", uid, "#"+name)
 	ch := &Channel{id, uid, int(id), name, ""}
-	DB.QueryPrepared(true, "insert into "+cTableChannels+" values (?, ?, ?, ?, '')", id, uid, id, name)
+	DB.QueryPrepared(true, "insert into "+cTableChannels+" values (?, ?, ?, ?, ?)", id, uid, id, name, "")
 	ch.AssertMessageTableExists()
-	return uid
+	return ch
 }
 
 //

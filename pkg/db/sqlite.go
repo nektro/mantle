@@ -37,10 +37,6 @@ func QueryUserBySnowflake(provider string, flake string, name string) *User {
 	return QueryUserBySnowflake(provider, flake, name)
 }
 
-func QueryAssertUserName(uid string, name string) {
-	DB.Build().Up(cTableUsers, "name", name).Wh("uuid", uid).Exe()
-}
-
 func CreateRole(name string) string {
 	id := DB.QueryNextID(cTableRoles)
 	uid := newUUID()

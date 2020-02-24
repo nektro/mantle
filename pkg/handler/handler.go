@@ -18,7 +18,7 @@ func SaveOAuth2InfoCb(w http.ResponseWriter, r *http.Request, provider string, i
 	sess := etc.GetSession(r)
 	sess.Values["user"] = ru.UUID
 	sess.Save(r, w)
-	db.QueryAssertUserName(ru.UUID, name)
+	ru.SetName(name)
 }
 
 // Invite is handler for /invite

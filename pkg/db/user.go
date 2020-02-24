@@ -31,3 +31,8 @@ func (u *User) SetAsMember(b bool) {
 	DB.Build().Up(cTableUsers, "is_member", strconv.Itoa(util.Btoi(b))).Wh("uuid", u.UUID).Exe()
 	u.IsMember = b
 }
+
+func (u *User) SetName(s string) {
+	DB.Build().Up(cTableUsers, "name", s).Wh("uuid", u.UUID).Exe()
+	u.Name = s
+}

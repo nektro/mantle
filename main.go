@@ -18,6 +18,7 @@ import (
 	_ "github.com/nektro/mantle/statik"
 )
 
+// Version takes in version string from build_all.sh
 var Version = "vMASTER"
 
 func main() {

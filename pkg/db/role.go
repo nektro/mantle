@@ -3,8 +3,6 @@ package db
 import (
 	"database/sql"
 
-	"github.com/nektro/mantle/pkg/iconst"
-
 	dbstorage "github.com/nektro/go.dbstorage"
 )
 
@@ -24,7 +22,7 @@ func (v Role) Scan(rows *sql.Rows) dbstorage.Scannable {
 }
 
 func (v Role) All() []Role {
-	arr := dbstorage.ScanAll(DB.Build().Se("*").Fr(iconst.TableRoles).Or("position", "asc"), Role{})
+	arr := dbstorage.ScanAll(DB.Build().Se("*").Fr(cTableRoles).Or("position", "asc"), Role{})
 	res := []Role{}
 	for _, item := range arr {
 		res = append(res, *item.(*Role))

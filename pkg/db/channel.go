@@ -3,8 +3,6 @@ package db
 import (
 	"database/sql"
 
-	"github.com/nektro/mantle/pkg/iconst"
-
 	dbstorage "github.com/nektro/go.dbstorage"
 )
 
@@ -22,7 +20,7 @@ func (v Channel) Scan(rows *sql.Rows) dbstorage.Scannable {
 }
 
 func (v Channel) All() []Channel {
-	arr := dbstorage.ScanAll(DB.Build().Se("*").Fr(iconst.TableChannels), Channel{})
+	arr := dbstorage.ScanAll(DB.Build().Se("*").Fr(cTableChannels), Channel{})
 	res := []Channel{}
 	for _, item := range arr {
 		res = append(res, *item.(*Channel))

@@ -1,11 +1,19 @@
 package db
 
 import (
-	"github.com/nektro/mantle/pkg/iconst"
 	"github.com/nektro/mantle/pkg/idata"
 
 	dbstorage "github.com/nektro/go.dbstorage"
 	etc "github.com/nektro/go.etc"
+)
+
+const (
+	cTableSettings       = "server_settings"
+	cTableUsers          = "users"
+	cTableChannels       = "channels"
+	cTableRoles          = "roles"
+	cTableChannelPerms   = "channel_perms"
+	cTableMessagesPrefix = "channel_messages_"
 )
 
 var (
@@ -17,11 +25,11 @@ func Init() {
 	DB = etc.Database
 
 	// table init
-	DB.CreateTableStruct(iconst.TableSettings, Setting{})
-	DB.CreateTableStruct(iconst.TableUsers, User{})
-	DB.CreateTableStruct(iconst.TableChannels, Channel{})
-	DB.CreateTableStruct(iconst.TableRoles, Role{})
-	DB.CreateTableStruct(iconst.TableChannelPerms, ChannelPerms{})
+	DB.CreateTableStruct(cTableSettings, Setting{})
+	DB.CreateTableStruct(cTableUsers, User{})
+	DB.CreateTableStruct(cTableChannels, Channel{})
+	DB.CreateTableStruct(cTableRoles, Role{})
+	DB.CreateTableStruct(cTableChannelPerms, ChannelPerms{})
 
 	// load server properties
 	Props.SetDefault("name", idata.Name)

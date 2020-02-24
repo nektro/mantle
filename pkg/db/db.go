@@ -21,4 +21,10 @@ func Init() {
 	DB.CreateTableStruct(iconst.TableChannels, Channel{})
 	DB.CreateTableStruct(iconst.TableRoles, Role{})
 	DB.CreateTableStruct(iconst.TableChannelPerms, ChannelPerms{})
+
+	// load server properties
+	Props.SetDefault("name", iconst.Name)
+	Props.SetDefault("owner", "")
+	Props.SetDefault("public", "true")
+	Props.Init()
 }

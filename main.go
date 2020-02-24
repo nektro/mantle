@@ -47,14 +47,6 @@ func main() {
 	}
 
 	//
-	// initialize server properties
-
-	db.Props.SetDefault("name", iconst.Name)
-	db.Props.SetDefault("owner", "")
-	db.Props.SetDefault("public", "true")
-	db.Props.Init()
-
-	//
 	// create server 'Owner' Role
 	//		uneditable, and has all perms always
 

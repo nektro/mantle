@@ -48,7 +48,7 @@ func main() {
 	// add default channel, if none exist
 
 	if len(_chans) == 0 {
-		db.CreateChannel("chat")
+		db.CreateChannel("general")
 	}
 
 	//

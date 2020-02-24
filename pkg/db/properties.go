@@ -2,10 +2,6 @@ package db
 
 import (
 	"sync"
-
-	"github.com/nektro/go-util/util"
-
-	. "github.com/nektro/go-util/alias"
 )
 
 type Properties struct {
@@ -13,23 +9,19 @@ type Properties struct {
 }
 
 func (p *Properties) SetDefault(key string, value string) {
-	id := DB.QueryNextID(cTableSettings)
-	DB.QueryPrepared(true, F("insert into %s(id,key,value) select %d,'%s',? where not exists(select 1 from %s where key = '%s' and value = ?)", cTableSettings, id, key, cTableSettings, key), value, value)
-	id2 := DB.QueryNextID(cTableSettings)
-	if id2 > id {
-		util.Log(F("Added missing property '%s' with default value '%s'", key, value))
+	s := QuerySettingByKey(key)
+	if s != nil {
+		return
 	}
+	id := DB.QueryNextID(cTableSettings)
+	DB.QueryPrepared(true, "insert into "+cTableSettings+" values (?,?,?)", id, key, value)
 }
 
 func (p *Properties) Init() {
 	p.cache = sync.Map{}
-	rows := DB.Build().Se("*").Fr(cTableSettings).Exe()
-	for rows.Next() {
-		sr := Setting{}
-		rows.Scan(&sr.ID, &sr.Key, &sr.Value)
-		p.cache.Store(sr.Key, sr.Value)
+	for _, item := range (Setting{}.All()) {
+		p.cache.Store(item.Key, item.Value)
 	}
-	rows.Close()
 }
 
 func (p *Properties) GetAll() map[string]string {
@@ -50,6 +42,7 @@ func (p *Properties) Get(key string) string {
 }
 
 func (p *Properties) Set(key string, val string) {
-	DB.Build().Up(cTableSettings, key, val)
+	p.SetDefault(key, "")
+	DB.Build().Up(cTableSettings, "value", val).Wh("key", key).Exe()
 	p.cache.Store(key, val)
 }

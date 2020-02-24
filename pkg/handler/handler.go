@@ -6,7 +6,6 @@ import (
 	"net/http"
 
 	"github.com/nektro/mantle/pkg/db"
-	"github.com/nektro/mantle/pkg/iconst"
 
 	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
@@ -28,7 +27,7 @@ func Invite(w http.ResponseWriter, r *http.Request) {
 
 	if db.Props.Get("public") == "true" {
 		if user.IsMember == false {
-			db.DB.Build().Up(iconst.TableUsers, "is_member", "1").Wh("uuid", user.UUID).Exe()
+			user.SetAsMember(true)
 			util.Log("[user-join]", "User", user.UUID, "just became a member and joined the server")
 		}
 		w.Header().Add("Location", "./chat/")

@@ -2,7 +2,9 @@ package db
 
 import (
 	"database/sql"
+	"strconv"
 
+	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
 )
 
@@ -23,4 +25,9 @@ type User struct {
 func (v User) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(&v.ID, &v.Provider, &v.Snowflake, &v.UUID, &v.IsMember, &v.IsBanned, &v.Name, &v.Nickname, &v.JoindedOn, &v.LastActive, &v.Roles)
 	return &v
+}
+
+func (u *User) SetAsMember(b bool) {
+	DB.Build().Up(cTableUsers, "is_member", strconv.Itoa(util.Btoi(b))).Wh("uuid", u.UUID).Exe()
+	u.IsMember = b
 }

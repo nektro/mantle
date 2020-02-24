@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"runtime"
 	"strings"
 
 	"github.com/nektro/mantle/pkg/db"
@@ -17,7 +18,10 @@ import (
 	_ "github.com/nektro/mantle/statik"
 )
 
+var Version = "vMASTER"
+
 func main() {
+	idata.Version = etc.FixBareVersion(Version) + "-" + runtime.Version()
 	util.Log("Welcome to " + idata.Name + " " + idata.Version + ".")
 
 	//

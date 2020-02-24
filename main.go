@@ -1,11 +1,8 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/http"
 	"os"
-	"time"
 
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/handler"
@@ -17,9 +14,6 @@ import (
 	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
 	"github.com/spf13/pflag"
-	"github.com/valyala/fastjson"
-
-	. "github.com/nektro/go-util/alias"
 
 	_ "github.com/nektro/mantle/statik"
 )
@@ -98,127 +92,24 @@ func main() {
 	//
 	// create http service
 
-	http.HandleFunc("/invite", func(w http.ResponseWriter, r *http.Request) {
-		_, user, _ := apiBootstrapRequireLogin(r, w, http.MethodGet, false)
+	http.HandleFunc("/invite", handler.Invite)
 
-		if db.Props.Get("public") == "true" {
-			if user.IsMember == false {
-				db.DB.Build().Up(iconst.TableUsers, "is_member", "1").Wh("uuid", user.UUID).Exe()
-				util.Log("[user-join]", F("User %s just became a member and joined the server", user.UUID))
-			}
-			w.Header().Add("Location", "./chat/")
-			w.WriteHeader(http.StatusFound)
-		}
-	})
+	http.HandleFunc("/api/about", handler.ApiAbout)
 
-	http.HandleFunc("/api/about", func(w http.ResponseWriter, r *http.Request) {
-		dat, _ := json.Marshal(db.Props.GetAll())
-		fmt.Fprint(w, string(dat))
-	})
+	http.HandleFunc("/api/users/@me", handler.UsersMe)
 
-	http.HandleFunc("/api/users/@me", func(w http.ResponseWriter, r *http.Request) {
-		_, user, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
-		if err != nil {
-			return
-		}
-		writeAPIResponse(r, w, true, http.StatusOK, map[string]interface{}{
-			"me":    user,
-			"perms": ws.UserPerms{}.From(user),
-		})
-	})
+	http.HandleFunc("/api/users/", handler.UsersRead)
 
-	http.HandleFunc("/api/users/", func(w http.ResponseWriter, r *http.Request) {
-		_, _, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
-		if err != nil {
-			return
-		}
-		uu := r.URL.Path[len("/api/users/"):]
-		u, ok := db.QueryUserByUUID(uu)
-		writeAPIResponse(r, w, ok, http.StatusOK, u)
-	})
+	http.HandleFunc("/api/users/online", handler.UsersOnline)
 
-	http.HandleFunc("/api/users/online", func(w http.ResponseWriter, r *http.Request) {
-		_, _, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
-		if err != nil {
-			return
-		}
-		writeAPIResponse(r, w, true, http.StatusOK, ws.AllOnlineIDs())
-	})
+	http.HandleFunc("/api/channels/@me", handler.ChannelsMe)
 
-	http.HandleFunc("/api/channels/@me", func(w http.ResponseWriter, r *http.Request) {
-		writeAPIResponse(r, w, true, http.StatusOK, db.Channel{}.All())
-	})
-
-	http.HandleFunc("/api/channels/create", func(w http.ResponseWriter, r *http.Request) {
-		_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPost, true)
-		if err != nil {
-			fmt.Fprintln(w, err.Error())
-			return
-		}
-		if etc.AssertPostFormValuesExist(r, "name") != nil {
-			fmt.Fprintln(w, "missing post value")
-			return
-		}
-		cv, ok := ws.UserCache[user.UUID]
-		if !ok {
-			fmt.Fprintln(w, "unable to find user in ws connection cache")
-			return
-		}
-		if !cv.Perms.ManageChannels {
-			fmt.Fprintln(w, "user missing 'Perms.ManageChannels'")
-			return
-		}
-		name := r.Form.Get("name")
-		cuid := db.CreateChannel(name)
-		ws.BroadcastMessage(map[string]string{
-			"type": "new-channel",
-			"uuid": cuid,
-			"name": name,
-		})
-	})
+	http.HandleFunc("/api/channels/create", handler.ChannelCreate)
 
 	//
 	// create websocket service
 
-	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-		_, user, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
-		if err != nil {
-			return
-		}
-		wuser := ws.Connect(user, w, r)
-
-		// message intake loop
-		for {
-			// Read message from browser
-			_, msg, err := wuser.Conn.ReadMessage()
-			if err != nil {
-				break
-			}
-
-			// broadcast message to all connected clients
-			smg, err := fastjson.ParseBytes(msg)
-			if err != nil {
-				continue
-			}
-			switch string(smg.GetStringBytes("type")) {
-			case "ping":
-				// do nothing, keep connection alive
-				wuser.SendMessage(map[string]string{
-					"type": "pong",
-				})
-			case "message":
-				ws.BroadcastMessage(map[string]string{
-					"type":    "message",
-					"in":      string(smg.GetStringBytes("in")),
-					"from":    user.UUID,
-					"message": string(smg.GetStringBytes("message")),
-					"at":      time.Now().UTC().Format("2 Jan 2006 15:04:05 MST"),
-				})
-			}
-		}
-
-		wuser.Disconnect()
-	})
+	http.HandleFunc("/ws", handler.Websocket)
 
 	//
 	// start server

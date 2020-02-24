@@ -1,9 +1,12 @@
 package handler
 
 import (
+	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/nektro/mantle/pkg/db"
+	"github.com/nektro/mantle/pkg/iconst"
 
 	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
@@ -16,4 +19,22 @@ func SaveOAuth2InfoCb(w http.ResponseWriter, r *http.Request, provider string, i
 	sess.Values["user"] = ru.UUID
 	sess.Save(r, w)
 	db.QueryAssertUserName(ru.UUID, name)
+}
+
+func Invite(w http.ResponseWriter, r *http.Request) {
+	_, user, _ := apiBootstrapRequireLogin(r, w, http.MethodGet, false)
+
+	if db.Props.Get("public") == "true" {
+		if user.IsMember == false {
+			db.DB.Build().Up(iconst.TableUsers, "is_member", "1").Wh("uuid", user.UUID).Exe()
+			util.Log("[user-join]", "User", user.UUID, "just became a member and joined the server")
+		}
+		w.Header().Add("Location", "./chat/")
+		w.WriteHeader(http.StatusFound)
+	}
+}
+
+func ApiAbout(w http.ResponseWriter, r *http.Request) {
+	dat, _ := json.Marshal(db.Props.GetAll())
+	fmt.Fprint(w, string(dat))
 }

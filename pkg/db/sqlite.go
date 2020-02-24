@@ -3,9 +3,8 @@ package db
 import (
 	"strings"
 
+	"github.com/nektro/go-util/alias"
 	"github.com/nektro/go-util/util"
-
-	. "github.com/nektro/go-util/alias"
 )
 
 func QueryUserByUUID(uid string) (*User, bool) {
@@ -28,13 +27,13 @@ func QueryUserBySnowflake(provider string, flake string, name string) *User {
 	// else
 	id := DB.QueryNextID(cTableUsers)
 	uid := newUUID()
-	now := T()
+	now := alias.T()
 	roles := ""
 	if id == 1 {
 		roles += "o"
 		Props.Set("owner", uid)
 	}
-	DB.QueryPrepared(true, F("insert into %s values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", cTableUsers), id, provider, flake, uid, 0, 0, name, "", now, now, roles)
+	DB.QueryPrepared(true, "insert into "+cTableUsers+" values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", id, provider, flake, uid, 0, 0, name, "", now, now, roles)
 	return QueryUserBySnowflake(provider, flake, name)
 }
 
@@ -46,7 +45,7 @@ func CreateRole(name string) string {
 	id := DB.QueryNextID(cTableRoles)
 	uid := newUUID()
 	util.Log("[role-create]", uid, name)
-	DB.QueryPrepared(true, F("insert into %s values (?, ?, ?, ?, '', 1, 1)", cTableRoles), id, uid, id, name)
+	DB.QueryPrepared(true, "insert into "+cTableRoles+" values (?, ?, ?, ?, '', 1, 1)", id, uid, id, name)
 	return uid
 }
 
@@ -54,7 +53,7 @@ func CreateChannel(name string) string {
 	id := DB.QueryNextID(cTableChannels)
 	uid := newUUID()
 	util.Log("[channel-create]", uid, "#"+name)
-	DB.QueryPrepared(true, F("insert into %s values (?, ?, ?, ?, '')", cTableChannels), id, uid, id, name)
+	DB.QueryPrepared(true, "insert into "+cTableChannels+" values (?, ?, ?, ?, '')", id, uid, id, name)
 	AssertChannelMessagesTableExists(uid)
 	return uid
 }

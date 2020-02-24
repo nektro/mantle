@@ -16,7 +16,7 @@ var (
 
 var (
 	UserCache = map[string]*User{}
-	RoleCache = map[string]db.Role{}
+	RoleCache = map[string]*db.Role{}
 )
 
 func Connect(user *db.User, w http.ResponseWriter, r *http.Request) *User {

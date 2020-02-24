@@ -56,7 +56,7 @@ func main() {
 	//		uneditable, and has all perms always
 
 	pa := uint8(itypes.PermAllow)
-	ws.RoleCache["o"] = db.Role{
+	ws.RoleCache["o"] = &db.Role{
 		0, "o", 0, "Owner", "", pa, pa,
 	}
 

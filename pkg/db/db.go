@@ -17,7 +17,9 @@ const (
 )
 
 var (
-	DB    dbstorage.Database
+	DB dbstorage.Database
+)
+var (
 	Props = Properties{}
 )
 

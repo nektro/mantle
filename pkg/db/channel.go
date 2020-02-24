@@ -7,7 +7,7 @@ import (
 )
 
 type Channel struct {
-	ID          int    `json:"id"`
+	ID          int64  `json:"id"`
 	UUID        string `json:"uuid" sqlite:"text"`
 	Position    int    `json:"position" sqlite:"int"`
 	Name        string `json:"name" sqlite:"text"`

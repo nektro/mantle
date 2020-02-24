@@ -9,7 +9,7 @@ import (
 )
 
 type User struct {
-	ID         int    `json:"id"`
+	ID         int64  `json:"id"`
 	Provider   string `json:"provider" sqlite:"text"`
 	Snowflake  string `json:"snowflake" sqlite:"text"`
 	UUID       string `json:"uuid" sqlite:"text"`

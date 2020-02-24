@@ -62,11 +62,5 @@ func CreateChannel(name string) string {
 }
 
 func AssertChannelMessagesTableExists(uid string) {
-	DB.CreateTable(F("%s%s", iconst.TableMessagesPrefix, strings.Replace(uid, "-", "_", -1)), []string{"id", "int primary key"}, [][]string{
-		{"uuid", "text"},
-		{"sent_at", "text"},
-		{"sent_by", "text"},
-		{"text", "text"},
-		{"test", "text"},
-	})
+	DB.CreateTableStruct(F("%s%s", iconst.TableMessagesPrefix, strings.Replace(uid, "-", "_", -1)), Message{})
 }

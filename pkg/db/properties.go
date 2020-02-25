@@ -9,8 +9,8 @@ type Properties struct {
 }
 
 func (p *Properties) SetDefault(key string, value string) {
-	s := QuerySettingByKey(key)
-	if s != nil {
+	_, ok := QuerySettingByKey(key)
+	if !ok {
 		return
 	}
 	id := db.QueryNextID(cTableSettings)

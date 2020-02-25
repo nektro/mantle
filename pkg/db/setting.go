@@ -14,12 +14,9 @@ type Setting struct {
 
 //
 
-func QuerySettingByKey(key string) *Setting {
-	ds := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableSettings).Wh("key", key), Setting{})
-	if ds == nil {
-		return nil
-	}
-	return ds.(*Setting)
+func QuerySettingByKey(key string) (*Setting, bool) {
+	ds, ok := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableSettings).Wh("key", key), Setting{}).(*Setting)
+	return ds, ok
 }
 
 //

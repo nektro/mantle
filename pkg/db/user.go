@@ -27,21 +27,17 @@ type User struct {
 //
 
 func QueryUserByUUID(uid string) (*User, bool) {
-	rows := db.Build().Se("*").Fr(cTableUsers).Wh("uuid", uid).Exe()
-	if !rows.Next() {
-		return &User{}, false
+	ch := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableUsers).Wh("uuid", uid), User{})
+	if ch == nil {
+		return nil, false
 	}
-	ru := User{}.Scan(rows).(*User)
-	rows.Close()
-	return ru, true
+	return ch.(*User), true
 }
 
 func QueryUserBySnowflake(provider string, flake string, name string) *User {
-	rows := db.Build().Se("*").Fr(cTableUsers).Wh("provider", provider).Wh("snowflake", flake).Exe()
-	if rows.Next() {
-		ru := User{}.Scan(rows).(*User)
-		rows.Close()
-		return ru
+	us := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableUsers).Wh("provider", provider).Wh("snowflake", flake), User{})
+	if us != nil {
+		return us.(*User)
 	}
 	// else
 	id := db.QueryNextID(cTableUsers)

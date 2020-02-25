@@ -15,12 +15,11 @@ type Setting struct {
 //
 
 func QuerySettingByKey(key string) *Setting {
-	rows := db.Build().Se("*").Fr(cTableSettings).Wh("key", key).Exe()
-	defer rows.Close()
-	if !rows.Next() {
+	ds := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableSettings).Wh("key", key), Setting{})
+	if ds == nil {
 		return nil
 	}
-	return Setting{}.Scan(rows).(*Setting)
+	return ds.(*Setting)
 }
 
 //

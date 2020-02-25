@@ -47,7 +47,7 @@ func Close() {
 
 func BroadcastMessage(message map[string]string) {
 	for _, item := range UserCache {
-		item.Conn.WriteJSON(message)
+		item.SendMessageRaw(message)
 	}
 }
 

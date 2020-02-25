@@ -39,7 +39,7 @@ func QueryChannelByUUID(uid string) (*Channel, bool) {
 //
 
 func (v Channel) Scan(rows *sql.Rows) dbstorage.Scannable {
-	rows.Scan(&v.ID, &v.UUID, &v.Position, &v.Name, &v.Description)
+	rows.Scan(&v.ID, &v.UUID, &v.Position, &v.Name, &v.Description, &v.HistoryOn, &v.LatestMsg)
 	return &v
 }
 

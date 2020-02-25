@@ -13,6 +13,7 @@ type Channel struct {
 	Position    int    `json:"position" sqlite:"int"`
 	Name        string `json:"name" sqlite:"text"`
 	Description string `json:"description" sqlite:"text"`
+	LatestMsg   string `json:"latest_message" sqlite:"text"`
 }
 
 //
@@ -22,8 +23,8 @@ func CreateChannel(name string) *Channel {
 	id := db.QueryNextID(cTableChannels)
 	uid := newUUID()
 	util.Log("[channel-create]", uid, "#"+name)
-	ch := &Channel{id, uid, int(id), name, ""}
-	db.QueryPrepared(true, "insert into "+cTableChannels+" values (?, ?, ?, ?, ?)", id, uid, id, name, "")
+	ch := &Channel{id, uid, int(id), name, "", ""}
+	db.QueryPrepared(true, "insert into "+cTableChannels+" values (?,?,?,?,?,?)", id, uid, id, name, "", "")
 	ch.AssertMessageTableExists()
 	return ch
 }

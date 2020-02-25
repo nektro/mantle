@@ -34,7 +34,7 @@ func Websocket(w http.ResponseWriter, r *http.Request) {
 		switch string(smg.GetStringBytes("type")) {
 		case "ping":
 			// do nothing, keep connection alive
-			wuser.SendMessage(map[string]string{
+			wuser.SendMessageRaw(map[string]string{
 				"type": "pong",
 			})
 		case "message":

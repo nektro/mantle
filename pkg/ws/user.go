@@ -27,6 +27,6 @@ func (u *User) IsConnected() bool {
 	return listHas(connected, u.User.UUID)
 }
 
-func (u *User) SendMessage(msg map[string]string) {
+func (u *User) SendMessageRaw(msg map[string]string) {
 	u.Conn.WriteJSON(msg)
 }

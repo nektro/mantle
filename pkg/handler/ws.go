@@ -37,6 +37,7 @@ func Websocket(w http.ResponseWriter, r *http.Request) {
 			wuser.SendMessageRaw(map[string]string{
 				"type": "pong",
 			})
+
 		case "message":
 			c, ok := db.QueryChannelByUUID(string(smg.GetStringBytes("in")))
 			if !ok {

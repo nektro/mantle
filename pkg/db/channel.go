@@ -28,6 +28,14 @@ func CreateChannel(name string) *Channel {
 	return ch
 }
 
+func QueryChannelByUUID(uid string) (*Channel, bool) {
+	ch := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableChannels).Wh("uuid", uid), Channel{})
+	if ch == nil {
+		return nil, false
+	}
+	return ch.(*Channel), true
+}
+
 //
 //
 

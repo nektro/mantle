@@ -93,7 +93,7 @@ let me = null;
 
     socket.addEventListener("open", function() {
         el_2.classList.add("online");
-        ui.addMessage(null, {name:"Connection Status"}, {body:"Active"}, true, false);
+        ui.addMessage(null, {name:"Connection Status"}, {body:"Active"}, false);
     });
     socket.addEventListener("close", function() {
         el_2.classList.remove("online");

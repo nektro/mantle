@@ -12,13 +12,13 @@ let me = null;
 //
 (async function() {
     //
-    await fetch("/api/about").then(x => x.json()).then(x => {
+    await fetch("./../api/about").then(x => x.json()).then(x => {
         console.info(x);
         el_2.innerText = x.message.name;
     });
 
     //
-    await fetch("/api/users/@me").then(x => x.json()).then(x => {
+    await fetch("./../api/users/@me").then(x => x.json()).then(x => {
         console.info(x);
         if (x.success === false) {
             location.assign("../");
@@ -41,7 +41,7 @@ let me = null;
     });
 
     //
-    await fetch("/api/channels/@me").then(x => x.json()).then(x => {
+    await fetch("./../api/channels/@me").then(x => x.json()).then(x => {
         console.info(x);
         for (const item of x.message) {
             console.info(item);
@@ -65,7 +65,7 @@ let me = null;
             if (name !== undefined) {
                 const fd = new URLSearchParams();
                 fd.append("name", name);
-                return fetch("/api/channels/create", {
+                return fetch("./../api/channels/create", {
                     method: "post",
                     credentials: "include",
                     headers: {
@@ -80,7 +80,7 @@ let me = null;
         });
     });
 
-    await fetch("/api/users/online").then(x => x.json()).then(x => {
+    await fetch("./../api/users/online").then(x => x.json()).then(x => {
         console.info(x);
         for (const item of x.message) {
             ui.setMemberOnline(item);

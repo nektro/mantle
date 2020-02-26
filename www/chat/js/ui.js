@@ -28,8 +28,8 @@ export async function addChannel(ch) {
 
 export async function addMessage(channel=volatile.activeChannel.dataset.uuid, from, message, save=true, at=Date.now()) {
     const at_bottom = output.scrollTop === output.scrollTopMax;
-    message.time = message.time.replace(" ","T")+"Z";
     from.uuid = from.uuid ? from.uuid : "";
+    message.time = message.time ? (message.time.replace(" ","T")+"Z") : Date.now()
     message.time = new Date(message.time).toLocaleString();
     if (channel===null || output.dataset.active === channel) {
         output.appendChild(createMessage(from, message));

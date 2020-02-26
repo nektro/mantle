@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/nektro/mantle/pkg/db"
 
@@ -23,8 +24,8 @@ func SaveOAuth2InfoCb(w http.ResponseWriter, r *http.Request, provider string, i
 func Invite(w http.ResponseWriter, r *http.Request) {
 	_, user, _ := apiBootstrapRequireLogin(r, w, http.MethodGet, false)
 
-	if db.Props.Get("public") == "true" {
-		if user.IsMember == false {
+	if o, _ := strconv.ParseBool(db.Props.Get("public")); o {
+		if !user.IsMember {
 			user.SetAsMember(true)
 			util.Log("[user-join]", "User", user.UUID, "just became a member and joined the server")
 		}

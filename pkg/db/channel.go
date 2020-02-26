@@ -13,7 +13,7 @@ type Channel struct {
 	Position    int    `json:"position" sqlite:"int"`
 	Name        string `json:"name" sqlite:"text"`
 	Description string `json:"description" sqlite:"text"`
-	HistoryOn   bool   `json:"history_on" sqlite:"tinyint(1)"`
+	HistoryOff  bool   `json:"history_off" sqlite:"tinyint(1)"`
 	LatestMsg   string `json:"latest_message" sqlite:"text"`
 }
 
@@ -25,7 +25,7 @@ func CreateChannel(name string) *Channel {
 	uid := newUUID()
 	util.Log("[channel-create]", uid, "#"+name)
 	ch := &Channel{id, uid, int(id), name, "", true, ""}
-	db.QueryPrepared(true, "insert into "+cTableChannels+" values (?,?,?,?,?,?,?)", id, uid, id, name, "", true, "")
+	db.QueryPrepared(true, "insert into "+cTableChannels+" values (?,?,?,?,?,?,?)", id, uid, id, name, "", false, "")
 	ch.AssertMessageTableExists()
 	return ch
 }
@@ -39,7 +39,7 @@ func QueryChannelByUUID(uid string) (*Channel, bool) {
 //
 
 func (v Channel) Scan(rows *sql.Rows) dbstorage.Scannable {
-	rows.Scan(&v.ID, &v.UUID, &v.Position, &v.Name, &v.Description, &v.HistoryOn, &v.LatestMsg)
+	rows.Scan(&v.ID, &v.UUID, &v.Position, &v.Name, &v.Description, &v.HistoryOff, &v.LatestMsg)
 	return &v
 }
 

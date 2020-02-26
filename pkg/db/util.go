@@ -1,11 +1,16 @@
 package db
 
 import (
-	"strings"
+	"math/rand"
+	"time"
 
-	uuid "github.com/satori/go.uuid"
+	"github.com/oklog/ulid"
 )
 
+var epoch, _ = time.Parse("Jan 2 2006", "Jan 1 2020")
+
 func newUUID() string {
-	return strings.ReplaceAll(uuid.Must(uuid.NewV4()).String(), "-", "")
+	t := time.Unix(0, time.Now().UnixNano()-epoch.UnixNano())
+	var entropy = ulid.Monotonic(rand.New(rand.NewSource(t.UnixNano())), 0)
+	return ulid.MustNew(ulid.Timestamp(t), entropy).String()
 }

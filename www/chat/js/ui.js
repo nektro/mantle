@@ -22,7 +22,7 @@ export async function addChannel(ch) {
 
 export async function addMessage(channel=volatile.activeChannel.dataset.uuid, from, message, raw_from=false, save=true, at=Date.now()) {
     const at_bottom = output.scrollTop === output.scrollTopMax;
-    const uuid = raw_from ? "" : from.uuid;
+    from.uuid = raw_from ? "" : from.uuid;
     const name = from.nickname || from.name;
     const time = new Date(at).toLocaleString();
     if (raw_from || output.dataset.active === channel) {
@@ -37,7 +37,7 @@ export async function addMessage(channel=volatile.activeChannel.dataset.uuid, fr
         c.unread += 1;
     }
     if (at_bottom) output.scrollTop = output.scrollHeight;
-    if (save===true) messageCache.get(channel).push([uuid, message]);
+    if (save===true) messageCache.get(channel).push([from.uuid, message]);
 }
 
 export async function setActiveChannel(uid) {

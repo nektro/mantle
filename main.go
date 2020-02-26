@@ -98,6 +98,7 @@ func main() {
 
 	r.HandleFunc("/api/channels/@me", handler.ChannelsMe)
 	r.HandleFunc("/api/channels/create", handler.ChannelCreate)
+	r.HandleFunc("/api/channels/{uuid}", handler.ChannelRead)
 
 	r.HandleFunc("/ws", handler.Websocket)
 

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/gorilla/mux"
 	etc "github.com/nektro/go.etc"
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/ws"
@@ -41,4 +42,15 @@ func ChannelCreate(w http.ResponseWriter, r *http.Request) {
 		"uuid": nch.UUID,
 		"name": name,
 	})
+}
+
+// ChannelRead reads info about channel
+func ChannelRead(w http.ResponseWriter, r *http.Request) {
+	_, _, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
+	if err != nil {
+		return
+	}
+	uu := mux.Vars(r)["uuid"]
+	u, ok := db.QueryChannelByUUID(uu)
+	writeAPIResponse(r, w, ok, http.StatusOK, u)
 }

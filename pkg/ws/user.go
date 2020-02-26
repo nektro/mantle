@@ -41,7 +41,7 @@ func (u *User) SendMessage(in *db.Channel, msg string) {
 	t, _ := time.Parse("2006-01-02 15:04:05", m.At)
 	BroadcastMessage(map[string]string{
 		"type":    "message",
-		"in":      m.In,
+		"in":      in.UUID,
 		"from":    m.By,
 		"message": m.Body,
 		"at":      t.Format("2 Jan 2006 15:04:05 MST"),

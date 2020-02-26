@@ -10,7 +10,6 @@ type Message struct {
 	UUID string `json:"uuid" sqlite:"text"`
 	At   string `json:"time" sqlite:"text"`
 	By   string `json:"author" sqlite:"text"`
-	In   string `json:"channel" sqlite:"text"`
 	Body string `json:"body" sqlite:"text"`
 }
 
@@ -25,13 +24,12 @@ func CreateMessage(user *User, channel *Channel, body string) *Message {
 		newUUID(),
 		alias.T(),
 		user.UUID,
-		channel.UUID,
 		body,
 	}
 	if channel.HistoryOff {
 		return m
 	}
-	db.QueryPrepared(true, "insert into "+cTableMessagesPrefix+channel.UUID+" values (?,?,?,?,?,?)", m.ID, m.UUID, m.At, m.By, m.In, m.Body)
+	db.QueryPrepared(true, "insert into "+cTableMessagesPrefix+channel.UUID+" values (?,?,?,?,?)", m.ID, m.UUID, m.At, m.By, m.Body)
 	db.Build().Up(cTableChannels, "latest_message", m.UUID).Wh("uuid", channel.UUID).Exe()
 	return m
 }

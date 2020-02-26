@@ -10,7 +10,7 @@ type Properties struct {
 
 func (p *Properties) SetDefault(key string, value string) {
 	_, ok := QuerySettingByKey(key)
-	if !ok {
+	if ok {
 		return
 	}
 	id := db.QueryNextID(cTableSettings)
@@ -35,10 +35,10 @@ func (p *Properties) GetAll() map[string]string {
 
 func (p *Properties) Get(key string) string {
 	val, ok := p.cache.Load(key)
-	if ok {
-		return val.(string)
+	if !ok {
+		return ""
 	}
-	return ""
+	return val.(string)
 }
 
 func (p *Properties) Set(key string, val string) {

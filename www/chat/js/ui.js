@@ -26,11 +26,7 @@ export async function addMessage(channel=volatile.activeChannel.dataset.uuid, fr
     const name = from.nickname || from.name;
     const time = new Date(at).toLocaleString();
     if (raw_from || output.dataset.active === channel) {
-        output.appendChild(create_element("div", [["class","msg"]], [
-            create_element("div", [["class","ts"],["title",time]], [dcTN(time.substring(time.indexOf(" ")))]),
-            create_element("div", [["class","usr"]], [dcTN(name + ": ")]),
-            create_element("div", [["class","dat"]], [dcTN(message)])
-        ]));
+        output.appendChild(createMessage(from, {body:message,time:time}));
     }
     if (output.dataset.active !== channel) {
         const c = new Channel(channel);
@@ -38,6 +34,14 @@ export async function addMessage(channel=volatile.activeChannel.dataset.uuid, fr
     }
     if (at_bottom) output.scrollTop = output.scrollHeight;
     if (save===true) messageCache.get(channel).push([from.uuid, message]);
+}
+
+function createMessage(user, msg) {
+    return create_element("div", [["class","msg"],["data-msg-uid",msg.uuid],["data-user-uid",user.uuid]], [
+        create_element("div", [["class","ts"],["title",msg.time]], [dcTN(msg.time.substring(msg.time.indexOf(" ")))]),
+        create_element("div", [["class","usr"]], [dcTN(user.name + ": ")]),
+        create_element("div", [["class","dat"]], [dcTN(msg.body)])
+    ])
 }
 
 export async function setActiveChannel(uid) {

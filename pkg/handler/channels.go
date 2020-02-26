@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gorilla/mux"
-	etc "github.com/nektro/go.etc"
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/ws"
+
+	"github.com/gorilla/mux"
+	etc "github.com/nektro/go.etc"
 )
 
 // ChannelsMe is the handler for /api/channels/@me

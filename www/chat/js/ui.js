@@ -12,7 +12,7 @@ export const volatile = {
 
 //
 
-export function addChannel(ch) {
+export async function addChannel(ch) {
     el_1.firstElementChild.appendChild(create_element("li", [["data-uuid",ch.uuid],["data-unread","0"]], [
         create_element("div", [], [dcTN(ch.name)]),
         create_element("div", [["class","unred"]], [dcTN("0")]),

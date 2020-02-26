@@ -41,13 +41,13 @@ let me = null;
     });
 
     //
-    await fetch("./../api/channels/@me").then(x => x.json()).then(x => {
+    await fetch("./../api/channels/@me").then(x => x.json()).then(async function(x) {
         console.info(x);
         for (const item of x.message) {
             console.info(item);
-            ui.addChannel(item);
+            await ui.addChannel(item);
         }
-        ui.setActiveChannel(x.message[0].uuid);
+        await ui.setActiveChannel(x.message[0].uuid);
 
         const el2 = document.getElementById("channel-name");
         el2.children[0].textContent = x.message[0].name;

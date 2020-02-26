@@ -43,7 +43,7 @@ body #channel-list ol li div.unred { padding: 0 .25em; background-color: #586e75
 
 body #channel-list hr { margin: 0 1em; border-color: #073642; }
 
-body #messages { background-color: #002b36; color: #586e75; display: flex; flex-direction: column; padding: 1em 0; padding-right: 0; justify-content: flex-end; overflow-y: hidden; font-family: 'Fantasque Sans Mono', 'Courier New', 'Courier', monospace; font-size: .9em; }
+body #messages { background-color: #002b36; color: #586e75; display: flex; flex-direction: column; padding: 1em 0; padding-right: 0; justify-content: flex-end; overflow-y: hidden; font-family: 'Courier New', 'Courier', monospace; font-size: .9em; }
 
 body #messages > div { overflow-y: scroll; }
 

@@ -26,7 +26,8 @@ export async function addChannel(ch) {
     })
 }
 
-export async function addMessage(channel=volatile.activeChannel.dataset.uuid, from, message, save=true, at=Date.now()) {
+export async function addMessage(channel, from, message, save=true, at=Date.now()) {
+    channel = channel ? channel : volatile.activeChannel.dataset.uuid;
     const at_bottom = output.scrollTop === output.scrollTopMax;
     from.uuid = from.uuid ? from.uuid : "";
     message.time = message.time ? (message.time.replace(" ","T")+"Z") : Date.now()

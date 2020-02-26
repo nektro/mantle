@@ -8,7 +8,7 @@
 [![goreportcard](https://goreportcard.com/badge/github.com/nektro/mantle)](https://goreportcard.com/report/github.com/nektro/mantle)
 [![codefactor](https://www.codefactor.io/repository/github/nektro/mantle/badge)](https://www.codefactor.io/repository/github/nektro/mantle)
 
-Easy and effective communication is the foundation of any successful team or community. That's where Mantle comes in, providing you the messaging and voice platform that puts you in charge of both the conversation and the data.
+Easy and effective communication is the foundation of any successful team or community. That's where Mantle comes in, providing you the messaging platform that puts you in charge of both the conversation and the data.
 
 ## Getting Started
 These instructions will help you get the project up and running and are required before moving on.

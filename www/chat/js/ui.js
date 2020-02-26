@@ -18,6 +18,12 @@ export async function addChannel(ch) {
         create_element("div", [["class","unred"]], [dcTN("0")]),
     ]))
     messageCache.set(ch.uuid, []);
+
+    await fetch(`./../api/channels/${ch.uuid}/messages`).then(x=>x.json()).then(x => {
+        for (const item of x.message) {
+            messageCache.get(ch.uuid).unshift([item.author, item.body]);
+        }
+    })
 }
 
 export async function addMessage(channel=volatile.activeChannel.dataset.uuid, from, message, raw_from=false, save=true, at=Date.now()) {

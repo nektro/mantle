@@ -112,7 +112,7 @@ let me = null;
                 break;
             }
             case "new-channel": {
-                ui.addChannel(d.uuid, d.name);
+                ui.addChannel(d);
                 break;
             }
             case "user-connect": {

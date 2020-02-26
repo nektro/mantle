@@ -3,7 +3,7 @@
  * @author Meghan Denny <https://nektro.net>
  */
 //
-import { el_1, el_2, el_3, getUserFromUUID } from "./util.js";
+import { el_1, el_2, el_3, getUserFromUUID, output, messageCache } from "./util.js";
 import * as ui from "./ui.js";
 
 //
@@ -78,6 +78,31 @@ let me = null;
         el_1.querySelector("ol").addEventListener("click", (ev) => {
             ui.setActiveChannel(ev.target.dataset.uuid);
         });
+        output.addEventListener("scroll", async function(e) {
+            if (output.children.length === 0) {
+                return
+            }
+            if (e.target.scrollTop === 0 && !output.classList.contains("loading")) {
+                output.classList.add("loading");
+                const fc = output.children[0];
+                const lstm = output.children[0].dataset.msgUid;
+                const chuid = ui.volatile.activeChannel.dataset.uuid;
+                await fetch(`./../api/channels/${chuid}/messages?after=${lstm}`).then(x=>x.json()).then(async function(x) {
+                    if (messages.length === 1) {
+                        return
+                    }
+                    for (let i = 1; i < x.message.length; i++) {
+                        const item = x.message[i];
+                        item.time = item.time.replace(" ","T")+"Z";
+                        item.time = new Date(item.time).toLocaleString();
+                        output.prepend(ui.createMessage(await getUserFromUUID(item.author), item))
+                        messageCache.get(chuid).unshift(item);
+                    }
+                    output.scrollTop = fc.offsetTop-60;
+                })
+                output.classList.remove("loading");
+            }
+        })
     });
 
     await fetch("./../api/users/online").then(x => x.json()).then(x => {

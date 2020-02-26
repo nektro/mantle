@@ -45,7 +45,7 @@ let me = null;
         console.info(x);
         for (const item of x.message) {
             console.info(item);
-            ui.addChannel(item.uuid, item.name);
+            ui.addChannel(item);
         }
         ui.setActiveChannel(x.message[0].uuid);
 

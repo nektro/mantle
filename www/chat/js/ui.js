@@ -12,12 +12,12 @@ export const volatile = {
 
 //
 
-export function addChannel(uuid, name) {
-    el_1.firstElementChild.appendChild(create_element("li", [["data-uuid",uuid],["data-unread","0"]], [
-        create_element("div", [], [dcTN(name)]),
+export function addChannel(ch) {
+    el_1.firstElementChild.appendChild(create_element("li", [["data-uuid",ch.uuid],["data-unread","0"]], [
+        create_element("div", [], [dcTN(ch.name)]),
         create_element("div", [["class","unred"]], [dcTN("0")]),
     ]))
-    messageCache.set(uuid, []);
+    messageCache.set(ch.uuid, []);
 }
 
 export async function addMessage(channel=volatile.activeChannel.dataset.uuid, from, message, raw_from=false, save=true, at=Date.now()) {

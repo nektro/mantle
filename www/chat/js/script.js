@@ -93,7 +93,7 @@ let me = null;
 
     socket.addEventListener("open", function() {
         el_2.classList.add("online");
-        ui.addMessage(undefined, {name:"Connection Status"}, "Active", true, false);
+        ui.addMessage(undefined, {name:"Connection Status",uuid:""}, {body:"Active",time:""}, true, false);
     });
     socket.addEventListener("close", function() {
         el_2.classList.remove("online");
@@ -107,8 +107,9 @@ let me = null;
                 break;
             }
             case "message": {
-                const u = await getUserFromUUID(d.from);
-                ui.addMessage(d.in, u, d.message, undefined, undefined, Date.parse(d.at));
+                console.log(d);
+                const u = await getUserFromUUID(d.message.author);
+                ui.addMessage(d.in, u, d.message, undefined, Date.parse(d.at));
                 break;
             }
             case "new-channel": {

@@ -21,25 +21,25 @@ export async function addChannel(ch) {
 
     await fetch(`./../api/channels/${ch.uuid}/messages`).then(x=>x.json()).then(x => {
         for (const item of x.message) {
-            messageCache.get(ch.uuid).unshift([item.author, item.body]);
+            messageCache.get(ch.uuid).unshift(item);
         }
     })
 }
 
-export async function addMessage(channel=volatile.activeChannel.dataset.uuid, from, message, raw_from=false, save=true, at=Date.now()) {
+export async function addMessage(channel=volatile.activeChannel.dataset.uuid, from, message, save=true, at=Date.now()) {
     const at_bottom = output.scrollTop === output.scrollTopMax;
-    from.uuid = raw_from ? "" : from.uuid;
-    const name = from.nickname || from.name;
-    const time = new Date(at).toLocaleString();
-    if (raw_from || output.dataset.active === channel) {
-        output.appendChild(createMessage(from, {body:message,time:time}));
+    from.uuid = from.uuid ? "" : from.uuid;
+    message.time = message.time.replace(" ","T")+"Z";
+    message.time = new Date(message.time).toLocaleString();
+    if (channel===null || output.dataset.active === channel) {
+        output.appendChild(createMessage(from, message));
     }
     if (output.dataset.active !== channel) {
         const c = new Channel(channel);
         c.unread += 1;
     }
     if (at_bottom) output.scrollTop = output.scrollHeight;
-    if (save===true) messageCache.get(channel).push([from.uuid, message]);
+    if (save===true) messageCache.get(channel).push(message);
 }
 
 function createMessage(user, msg) {
@@ -62,7 +62,7 @@ export async function setActiveChannel(uid) {
     output.removeAllChildren();
     const new_message_history = messageCache.get(uid);
     for (const item of new_message_history) {
-        addMessage(uid, await getUserFromUUID(item[0]), item[1], false, false);
+        addMessage(null, await getUserFromUUID(item.author), item, false, false);
     }
     //
     c.unread = 0;

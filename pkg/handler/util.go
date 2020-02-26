@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/itypes"
@@ -51,4 +52,9 @@ func writeAPIResponse(r *http.Request, w http.ResponseWriter, good bool, status 
 		return errors.New("")
 	}
 	return nil
+}
+
+func hGrabInt(s string) (string, int64, error) {
+	n, err := strconv.ParseInt(s, 10, 64)
+	return s, n, err
 }

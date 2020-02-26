@@ -54,13 +54,16 @@ $ ./build_all.sh
 ```
 
 ## Built With
+- http://github.com/gorilla/mux
 - http://github.com/gorilla/sessions
 - http://github.com/gorilla/websocket
 - http://github.com/nektro/go-util
+- http://github.com/nektro/go.dbstorage
 - http://github.com/nektro/go.etc
 - http://github.com/nektro/go.oauth2
-- http://github.com/satori/go.uuid
+- http://github.com/oklog/ulid
 - http://github.com/spf13/pflag
+- http://github.com/valyala/fastjson
 
 ## Contributing
 [![issues](https://img.shields.io/github/issues/nektro/mantle.svg)](https://github.com/nektro/mantle/issues)

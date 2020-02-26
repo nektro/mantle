@@ -55,3 +55,27 @@ func ChannelRead(w http.ResponseWriter, r *http.Request) {
 	u, ok := db.QueryChannelByUUID(uu)
 	writeAPIResponse(r, w, ok, http.StatusOK, u)
 }
+
+// ChannelMessages reads message data from channel
+func ChannelMessages(w http.ResponseWriter, r *http.Request) {
+	_, _, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
+	if err != nil {
+		fmt.Fprintln(w, 1)
+		return
+	}
+	c, ok := db.QueryChannelByUUID(mux.Vars(r)["uuid"])
+	if !ok {
+		fmt.Fprintln(w, 2)
+		return
+	}
+	_, lmn, err := hGrabInt(r.URL.Query().Get("limit"))
+	if err != nil {
+		lmn = 50
+	}
+	if lmn > 50 {
+		fmt.Fprintln(w, 4)
+		return
+	}
+	msgs := c.QueryMsgAfterUID(r.URL.Query().Get("after"), int(lmn))
+	writeAPIResponse(r, w, true, http.StatusOK, msgs)
+}

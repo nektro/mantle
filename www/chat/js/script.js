@@ -107,7 +107,6 @@ let me = null;
                 break;
             }
             case "message": {
-                console.log(d);
                 const u = await getUserFromUUID(d.message.author);
                 ui.addMessage(d.in, u, d.message, undefined, Date.parse(d.at));
                 break;

@@ -55,3 +55,23 @@ func (v Channel) All() []*Channel {
 func (c *Channel) AssertMessageTableExists() {
 	db.CreateTableStruct(cTableMessagesPrefix+c.UUID, Message{})
 }
+
+// QueryMsgAfterUID runs 'select * from messages where uuid < ? order by uuid desc limit 50'
+func (c *Channel) QueryMsgAfterUID(uid string, limit int) []*Message {
+	res := []*Message{}
+	qb := db.Build()
+	qb.Se("*")
+	qb.Fr(cTableMessagesPrefix + c.UUID)
+	if len(uid) > 0 {
+		if dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableMessagesPrefix+c.UUID).Wh("uuid", uid), Message{}) != nil {
+			qb.Wr("uuid", "<=", uid)
+		}
+	}
+	qb.Or("uuid", "desc")
+	qb.Lm(int64(limit))
+	arr := dbstorage.ScanAll(qb, Message{})
+	for _, item := range arr {
+		res = append(res, item.(*Message))
+	}
+	return res
+}

@@ -30,7 +30,7 @@ func Connect(user *db.User, w http.ResponseWriter, r *http.Request) *User {
 
 	if !u.IsConnected() {
 		connected.PushBack(u.User.UUID)
-		BroadcastMessage(map[string]string{
+		BroadcastMessage(map[string]interface{}{
 			"type": "user-connect",
 			"user": u.User.UUID,
 		})
@@ -45,7 +45,7 @@ func Close() {
 	}
 }
 
-func BroadcastMessage(message map[string]string) {
+func BroadcastMessage(message map[string]interface{}) {
 	for _, item := range UserCache {
 		item.SendMessageRaw(message)
 	}

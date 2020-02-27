@@ -1,5 +1,3 @@
-/**
- */
 //
 import { el_1 } from "./util.js"
 

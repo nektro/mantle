@@ -1,7 +1,3 @@
-/**
- * @see https://github.com/nektro/mantle
- * @author Meghan Denny <https://nektro.net>
- */
 //
 import { el_1, el_2, el_3, getUserFromUUID, output, messageCache } from "./util.js";
 import * as ui from "./ui.js";

@@ -4,6 +4,7 @@ set -e
 set -x
 
 ./node_modules/.bin/jshint ./www/chat/js/*.js
+./node_modules/.bin/eslint ./www/chat/js/*.js
 
 go test
 

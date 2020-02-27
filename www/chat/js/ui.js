@@ -1,6 +1,6 @@
 "use strict";
 //
-import { el_1, el_2, el_3, create_element, dcTN, messageCache, output, getUserFromUUID, el_4 } from "./util.js";
+import { el_1, create_element, dcTN, messageCache, output, getUserFromUUID, el_4 } from "./util.js";
 import { Channel } from "./ui.channel.js";
 
 //
@@ -25,7 +25,7 @@ export async function addChannel(ch) {
     });
 }
 
-export async function addMessage(channel, from, message, save=true, at=Date.now()) {
+export async function addMessage(channel, from, message, save=true) {
     channel = channel ? channel : volatile.activeChannel.dataset.uuid;
     const at_bottom = output.scrollTop === output.scrollTopMax;
     from.uuid = from.uuid ? from.uuid : "";

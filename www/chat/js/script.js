@@ -50,7 +50,7 @@ let me = null;
         el2.children[0].textContent = x.message[0].name;
         el2.children[1].textContent = x.message[0].description;
 
-        el_1.querySelector("button").addEventListener("click", async (e) => {
+        el_1.querySelector("button").addEventListener("click", async () => {
             const {value: name} = await Swal({
                 title: "Enter the new channel's name",
                 input: "text",

@@ -25,6 +25,19 @@ export async function addChannel(ch) {
     });
 }
 
+export function createMessage(user, msg) {
+    const attrs = [
+        ["class","msg"],
+        ["data-msg-uid",msg.uuid],
+        ["data-user-uid",user.uuid],
+    ];
+    return create_element("div", attrs, [
+        create_element("div", [["class","ts"],["title",msg.time]], [dcTN(msg.time.substring(msg.time.indexOf(" ")))]),
+        create_element("div", [["class","usr"]], [dcTN(user.name + ": ")]),
+        create_element("div", [["class","dat"]], [dcTN(msg.body)]),
+    ]);
+}
+
 export async function addMessage(channel, from, message, save=true) {
     channel = channel ? channel : volatile.activeChannel.dataset.uuid;
     const at_bottom = output.scrollTop === output.scrollTopMax;
@@ -39,19 +52,6 @@ export async function addMessage(channel, from, message, save=true) {
     }
     if (at_bottom) output.scrollTop = output.scrollHeight;
     if (save===true) messageCache.get(channel).push(message);
-}
-
-export function createMessage(user, msg) {
-    const attrs = [
-        ["class","msg"],
-        ["data-msg-uid",msg.uuid],
-        ["data-user-uid",user.uuid],
-    ];
-    return create_element("div", attrs, [
-        create_element("div", [["class","ts"],["title",msg.time]], [dcTN(msg.time.substring(msg.time.indexOf(" ")))]),
-        create_element("div", [["class","usr"]], [dcTN(user.name + ": ")]),
-        create_element("div", [["class","dat"]], [dcTN(msg.body)]),
-    ]);
 }
 
 export async function setActiveChannel(uid) {

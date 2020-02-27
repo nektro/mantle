@@ -73,6 +73,7 @@ let me = null;
             }
         });
         el_1.querySelector("ol").addEventListener("click", (ev) => {
+            if (ev.target.localName !== "li") return;
             ui.setActiveChannel(ev.target.dataset.uuid);
         });
         output.addEventListener("scroll", async function(e) {

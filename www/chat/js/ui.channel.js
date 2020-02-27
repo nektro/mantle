@@ -16,7 +16,7 @@ export class Channel {
      * @returns {Number}
      */
     get unread() {
-        return parseInt(this.el.dataset.unread);
+        return parseInt(this.el.dataset.unread, 10);
     }
     /**
      * @param {Number} x

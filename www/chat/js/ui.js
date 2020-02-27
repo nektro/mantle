@@ -71,6 +71,7 @@ export async function setActiveChannel(uid) {
     }
     //
     c.unread = 0;
+    output.classList.remove("loading-done");
 }
 
 export async function setMemberOnline(uid) {

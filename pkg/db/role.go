@@ -24,7 +24,7 @@ func CreateRole(name string) string {
 	id := db.QueryNextID(cTableRoles)
 	uid := newUUID()
 	util.Log("[role-create]", uid, name)
-	db.QueryPrepared(true, "insert into "+cTableRoles+" values (?, ?, ?, ?, '', 1, 1)", id, uid, id, name)
+	db.Build().Ins(cTableRoles, id, uid, id, name, "", 1, 1).Exe()
 	return uid
 }
 

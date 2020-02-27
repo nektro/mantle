@@ -45,7 +45,7 @@ func QueryUserBySnowflake(provider string, flake string, name string) *User {
 		roles += "o"
 		Props.Set("owner", uid)
 	}
-	db.QueryPrepared(true, "insert into "+cTableUsers+" values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", id, provider, flake, uid, 0, 0, name, "", now, now, roles)
+	db.Build().Ins(cTableUsers, id, provider, flake, uid, 0, 0, name, "", now, now, roles).Exe()
 	return QueryUserBySnowflake(provider, flake, name)
 }
 

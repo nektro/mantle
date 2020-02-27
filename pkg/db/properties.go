@@ -14,7 +14,7 @@ func (p *Properties) SetDefault(key string, value string) {
 		return
 	}
 	id := db.QueryNextID(cTableSettings)
-	db.QueryPrepared(true, "insert into "+cTableSettings+" values (?,?,?)", id, key, value)
+	db.Build().Ins(cTableSettings, id, key, value).Exe()
 }
 
 func (p *Properties) Init() {

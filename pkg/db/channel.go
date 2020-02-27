@@ -25,7 +25,7 @@ func CreateChannel(name string) *Channel {
 	uid := newUUID()
 	util.Log("[channel-create]", uid, "#"+name)
 	ch := &Channel{id, uid, int(id), name, "", true, ""}
-	db.QueryPrepared(true, "insert into "+cTableChannels+" values (?,?,?,?,?,?,?)", id, uid, id, name, "", false, "")
+	db.Build().Ins(cTableChannels, id, uid, id, name, "", false, "").Exe()
 	ch.AssertMessageTableExists()
 	return ch
 }

@@ -31,7 +31,7 @@ func CreateMessage(user *User, channel *Channel, body string) *Message {
 	if channel.HistoryOff {
 		return m
 	}
-	db.QueryPrepared(true, "insert into "+cTableMessagesPrefix+channel.UUID+" values (?,?,?,?,?)", m.ID, m.UUID, m.At, m.By, m.Body)
+	db.Build().Ins(cTableMessagesPrefix+channel.UUID, m.ID, m.UUID, m.At, m.By, m.Body).Exe()
 	db.Build().Up(cTableChannels, "latest_message", m.UUID).Wh("uuid", channel.UUID).Exe()
 	return m
 }

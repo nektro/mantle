@@ -13,6 +13,7 @@ type ChannelPerms struct {
 	Snowflake string `json:"snowflake" sqlite:"text"`
 }
 
+// Scan implements dbstorage.Scannable
 func (v ChannelPerms) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(&v.ID, &v.Channel, &v.Type, &v.Snowflake)
 	return &v

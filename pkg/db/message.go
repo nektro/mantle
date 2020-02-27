@@ -40,6 +40,7 @@ func CreateMessage(user *User, channel *Channel, body string) *Message {
 //
 //
 
+// Scan implements dbstorage.Scannable
 func (v Message) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(&v.ID, &v.UUID, &v.At, &v.By, &v.Body)
 	v.At = strings.Replace(v.At, " ", "T", 1) + "Z"

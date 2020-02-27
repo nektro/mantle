@@ -38,6 +38,7 @@ func QueryChannelByUUID(uid string) (*Channel, bool) {
 //
 //
 
+// Scan implements dbstorage.Scannable
 func (v Channel) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(&v.ID, &v.UUID, &v.Position, &v.Name, &v.Description, &v.HistoryOff, &v.LatestMsg)
 	return &v

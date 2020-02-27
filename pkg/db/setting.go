@@ -21,6 +21,7 @@ func QuerySettingByKey(key string) (*Setting, bool) {
 
 //
 
+// Scan implements dbstorage.Scannable
 func (v Setting) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(&v.ID, &v.Key, &v.Value)
 	return &v

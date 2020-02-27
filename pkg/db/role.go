@@ -31,6 +31,7 @@ func CreateRole(name string) string {
 //
 //
 
+// Scan implements dbstorage.Scannable
 func (v Role) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(v.ID, v.UUID, v.Position, v.Name, v.Color, v.PermManageChannels, v.PermManageRoles)
 	return &v

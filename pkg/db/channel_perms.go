@@ -6,7 +6,7 @@ import (
 	dbstorage "github.com/nektro/go.dbstorage"
 )
 
-type ChannelPerms struct {
+type ChannelPerm struct {
 	ID        int64  `json:"id"`
 	Channel   string `json:"channel" sqlite:"text"`
 	Type      int    `json:"p_type" sqlite:"int"`
@@ -14,7 +14,7 @@ type ChannelPerms struct {
 }
 
 // Scan implements dbstorage.Scannable
-func (v ChannelPerms) Scan(rows *sql.Rows) dbstorage.Scannable {
+func (v ChannelPerm) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(&v.ID, &v.Channel, &v.Type, &v.Snowflake)
 	return &v
 }

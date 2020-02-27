@@ -11,7 +11,7 @@ export const el_4 = document.getElementById("users-online-list").children[1];
 //
 
 export function create_element(name, attrs, children) {
-    var ele = document.createElement(name);
+    const ele = document.createElement(name);
     (attrs || []).forEach(function(v) { ele.setAttribute(v[0], v[1]); });
     (children || []).forEach(function(v) { ele.appendChild(v); });
     return ele;

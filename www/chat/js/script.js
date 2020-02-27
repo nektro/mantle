@@ -79,18 +79,11 @@ let me = null;
             ui.setActiveChannel(ev.target.dataset.uuid);
         });
         output.addEventListener("scroll", async function(e) {
-            if (output.children.length === 0) {
-                return
-            }
-            if (e.target.scrollTop !== 0) {
-                return
-            }
-            if (output.classList.contains("loading")) {
-                return
-            }
-            if (output.classList.contains("loading-done")) {
-                return
-            }
+            if (output.children.length === 0) { return }
+            if (e.target.scrollTop !== 0) { return }
+            if (output.classList.contains("loading")) { return }
+            if (output.classList.contains("loading-done")) { return }
+            //
             output.classList.add("loading");
             const fc = output.children[0];
             const lstm = output.children[0].dataset.msgUid;

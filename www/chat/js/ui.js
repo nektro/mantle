@@ -79,7 +79,7 @@ export async function setMemberOnline(uid) {
     if (ue === null) {
         const u = await getUserFromUUID(uid);
         el_4.appendChild(create_element("li", [["data-user",uid]], [
-            dcTN(u.name)
+            dcTN(u.name),
         ]));
     }
 }

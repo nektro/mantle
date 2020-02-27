@@ -82,27 +82,34 @@ let me = null;
             if (output.children.length === 0) {
                 return
             }
-            if (e.target.scrollTop === 0 && !output.classList.contains("loading") && !output.classList.contains("loading-done")) {
-                output.classList.add("loading");
-                const fc = output.children[0];
-                const lstm = output.children[0].dataset.msgUid;
-                const chuid = ui.volatile.activeChannel.dataset.uuid;
-                await fetch(`./../api/channels/${chuid}/messages?after=${lstm}`).then(x=>x.json()).then(async function(x) {
-                    if (x.message.length <= 1) {
-                        output.classList.add("loading-done")
-                        return
-                    }
-                    for (let i = 1; i < x.message.length; i++) {
-                        const item = x.message[i];
-                        item.time = item.time.replace(" ","T")+"Z";
-                        item.time = new Date(item.time).toLocaleString();
-                        output.prepend(ui.createMessage(await getUserFromUUID(item.author), item))
-                        messageCache.get(chuid).unshift(item);
-                    }
-                    output.scrollTop = fc.offsetTop-60;
-                })
-                output.classList.remove("loading");
+            if (e.target.scrollTop !== 0) {
+                return
             }
+            if (output.classList.contains("loading")) {
+                return
+            }
+            if (output.classList.contains("loading-done")) {
+                return
+            }
+            output.classList.add("loading");
+            const fc = output.children[0];
+            const lstm = output.children[0].dataset.msgUid;
+            const chuid = ui.volatile.activeChannel.dataset.uuid;
+            await fetch(`./../api/channels/${chuid}/messages?after=${lstm}`).then(x=>x.json()).then(async function(x) {
+                if (x.message.length <= 1) {
+                    output.classList.add("loading-done")
+                    return
+                }
+                for (let i = 1; i < x.message.length; i++) {
+                    const item = x.message[i];
+                    item.time = item.time.replace(" ","T")+"Z";
+                    item.time = new Date(item.time).toLocaleString();
+                    output.prepend(ui.createMessage(await getUserFromUUID(item.author), item))
+                    messageCache.get(chuid).unshift(item);
+                }
+                output.scrollTop = fc.offsetTop-60;
+            })
+            output.classList.remove("loading");
         })
     });
 

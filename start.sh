@@ -3,6 +3,8 @@
 set -e
 set -x
 
+jshint ./www/chat/js/*.js
+
 go test
 
 go build

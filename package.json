@@ -1,0 +1,22 @@
+{
+  "name": "mantle",
+  "version": "1.0.0",
+  "description": "📒 Easy and effective communication for any team or community.",
+  "main": "index.js",
+  "scripts": {
+    "test": "./start.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nektro/mantle.git"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/nektro/mantle/issues"
+  },
+  "homepage": "https://github.com/nektro/mantle#readme",
+  "devDependencies": {
+    "jshint": "^2.11.0"
+  }
+}

@@ -1,0 +1,23 @@
+{
+    "esversion": 9,
+    "strict": "global",
+    "freeze": true,
+    "futurehostile": true,
+    "latedef": true,
+    "undef": true,
+    "unused": "strict",
+    "varstmt": true,
+    "maxerr": 500,
+    "globals": {
+        "document": true,
+        "fetch": true,
+        "location": true,
+        "console": true,
+        "Swal": true,
+        "URLSearchParams": true,
+        "WebSocket": true,
+        "setInterval": true,
+        "Element": true,
+        "$": true
+    }
+}

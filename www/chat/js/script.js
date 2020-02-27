@@ -84,13 +84,13 @@ let me = null;
             const fc = output.children[0];
             const lstm = output.children[0].dataset.msgUid;
             const chuid = ui.volatile.activeChannel.dataset.uuid;
-            await fetch(`./../api/channels/${chuid}/messages?after=${lstm}`).then((x) => x.json()).then(async (x) => {
-                if (x.message.length <= 1) {
+            await fetch(`./../api/channels/${chuid}/messages?after=${lstm}`).then((y) => y.json()).then(async (y) => {
+                if (y.message.length <= 1) {
                     output.classList.add("loading-done");
                     return;
                 }
-                for (let i = 1; i < x.message.length; i++) {
-                    const item = x.message[i];
+                for (let i = 1; i < y.message.length; i++) {
+                    const item = y.message[i];
                     const time = new Date(item.time).toLocaleString();
                     output.prepend(ui.createMessage(await getUserFromUUID(item.author), {...item, time}));
                     messageCache.get(chuid).unshift(item);

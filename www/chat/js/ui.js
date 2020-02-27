@@ -43,7 +43,12 @@ export async function addMessage(channel, from, message, save=true, at=Date.now(
 }
 
 export function createMessage(user, msg) {
-    return create_element("div", [["class","msg"],["data-msg-uid",msg.uuid],["data-user-uid",user.uuid]], [
+    const attrs = [
+        ["class","msg"],
+        ["data-msg-uid",msg.uuid],
+        ["data-user-uid",user.uuid],
+    ];
+    return create_element("div", attrs, [
         create_element("div", [["class","ts"],["title",msg.time]], [dcTN(msg.time.substring(msg.time.indexOf(" ")))]),
         create_element("div", [["class","usr"]], [dcTN(user.name + ": ")]),
         create_element("div", [["class","dat"]], [dcTN(msg.body)])

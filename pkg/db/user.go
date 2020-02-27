@@ -3,6 +3,7 @@ package db
 import (
 	"database/sql"
 	"strconv"
+	"strings"
 
 	"github.com/nektro/go-util/alias"
 	"github.com/nektro/go-util/util"
@@ -54,6 +55,8 @@ func QueryUserBySnowflake(provider string, flake string, name string) *User {
 
 func (v User) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(&v.ID, &v.Provider, &v.Snowflake, &v.UUID, &v.IsMember, &v.IsBanned, &v.Name, &v.Nickname, &v.JoindedOn, &v.LastActive, &v.Roles)
+	v.JoindedOn = strings.Replace(v.JoindedOn, " ", "T", 1) + "Z"
+	v.LastActive = strings.Replace(v.LastActive, " ", "T", 1) + "Z"
 	return &v
 }
 

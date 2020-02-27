@@ -31,7 +31,7 @@ export async function addMessage(channel, from, message, save=true, at=Date.now(
     const at_bottom = output.scrollTop === output.scrollTopMax;
     from.uuid = from.uuid ? from.uuid : "";
     if (channel===null || output.dataset.active === channel) {
-        const time = new Date(message.time ? (message.time.replace(" ","T")+"Z") : Date.now()).toLocaleString();
+        const time = new Date(message.time ? message.time : Date.now()).toLocaleString();
         output.appendChild(createMessage(from, {...message, time}));
     }
     if (output.dataset.active !== channel) {

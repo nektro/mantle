@@ -88,7 +88,7 @@ let me = null;
                 const lstm = output.children[0].dataset.msgUid;
                 const chuid = ui.volatile.activeChannel.dataset.uuid;
                 await fetch(`./../api/channels/${chuid}/messages?after=${lstm}`).then(x=>x.json()).then(async function(x) {
-                    if (messages.length === 1) {
+                    if (x.message.length <= 1) {
                         return
                     }
                     for (let i = 1; i < x.message.length; i++) {

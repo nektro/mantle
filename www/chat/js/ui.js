@@ -59,6 +59,7 @@ export async function setActiveChannel(uid) {
     let ac = el_1.querySelector(".active");
     if (ac !== null) ac.classList.remove("active");
     const c = new Channel(uid);
+    if (c.el === null) return;
     volatile.activeChannel = c.el;
     volatile.activeChannel.classList.add("active");
     //

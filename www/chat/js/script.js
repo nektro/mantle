@@ -74,7 +74,7 @@ let me = null;
             if (ev.target.localName !== "li") return;
             ui.setActiveChannel(ev.target.dataset.uuid);
         });
-        output.addEventListener("scroll", async function(e) {
+        output.addEventListener("scroll", async (e) => {
             if (output.children.length === 0) return;
             if (e.target.scrollTop !== 0) return;
             if (output.classList.contains("loading")) return;
@@ -84,7 +84,7 @@ let me = null;
             const fc = output.children[0];
             const lstm = output.children[0].dataset.msgUid;
             const chuid = ui.volatile.activeChannel.dataset.uuid;
-            await fetch(`./../api/channels/${chuid}/messages?after=${lstm}`).then(x=>x.json()).then(async function(x) {
+            await fetch(`./../api/channels/${chuid}/messages?after=${lstm}`).then((x) => x.json()).then(async (x) => {
                 if (x.message.length <= 1) {
                     output.classList.add("loading-done");
                     return;
@@ -112,14 +112,14 @@ let me = null;
     const input = document.getElementById("input").children[0];
     const socket = new WebSocket(`ws${location.protocol.substring(4)}//${location.host}/ws`);
 
-    socket.addEventListener("open", function() {
+    socket.addEventListener("open", () => {
         el_2.classList.add("online");
         ui.addMessage(null, {name:"Connection Status"}, {body:"Active"}, false);
     });
-    socket.addEventListener("close", function() {
+    socket.addEventListener("close", () => {
         el_2.classList.remove("online");
     });
-    socket.addEventListener("message", async function(e) {
+    socket.addEventListener("message", async (e) => {
         const d = JSON.parse(e.data);
         switch (d.type) {
             case "pong": {
@@ -150,7 +150,7 @@ let me = null;
             }
         }
     });
-    setInterval(function() {
+    setInterval(() => {
         if (el_2.classList.contains("online")) {
             socket.send(JSON.stringify({
                 type: "ping",
@@ -158,7 +158,7 @@ let me = null;
         }
     }, 30*1000);
 
-    input.addEventListener("keydown", function(e) {
+    input.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
             socket.send(JSON.stringify({
                 type: "message",

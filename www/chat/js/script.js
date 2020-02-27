@@ -82,13 +82,14 @@ let me = null;
             if (output.children.length === 0) {
                 return
             }
-            if (e.target.scrollTop === 0 && !output.classList.contains("loading")) {
+            if (e.target.scrollTop === 0 && !output.classList.contains("loading") && !output.classList.contains("loading-done")) {
                 output.classList.add("loading");
                 const fc = output.children[0];
                 const lstm = output.children[0].dataset.msgUid;
                 const chuid = ui.volatile.activeChannel.dataset.uuid;
                 await fetch(`./../api/channels/${chuid}/messages?after=${lstm}`).then(x=>x.json()).then(async function(x) {
                     if (x.message.length <= 1) {
+                        output.classList.add("loading-done")
                         return
                     }
                     for (let i = 1; i < x.message.length; i++) {

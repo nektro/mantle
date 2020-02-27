@@ -14,3 +14,8 @@ func newUUID() string {
 	var entropy = ulid.Monotonic(rand.New(rand.NewSource(t.UnixNano())), 0)
 	return ulid.MustNew(ulid.Timestamp(t), entropy).String()
 }
+
+func isUID(s string) bool {
+	_, err := ulid.Parse(s)
+	return err == nil
+}

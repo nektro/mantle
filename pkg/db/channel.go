@@ -63,7 +63,7 @@ func (c *Channel) QueryMsgAfterUID(uid string, limit int) []*Message {
 	qb.Se("*")
 	qb.Fr(cTableMessagesPrefix + c.UUID)
 	if len(uid) > 0 {
-		if dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableMessagesPrefix+c.UUID).Wh("uuid", uid), Message{}) != nil {
+		if isUID(uid) {
 			qb.Wr("uuid", "<=", uid)
 		}
 	}

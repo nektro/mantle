@@ -3,7 +3,7 @@
 set -e
 set -x
 
-jshint ./www/chat/js/*.js
+./node_modules/.bin/jshint ./www/chat/js/*.js
 
 go test
 

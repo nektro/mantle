@@ -163,9 +163,9 @@ let me = null;
             socket.send(JSON.stringify({
                 type: "message",
                 in: ui.volatile.activeChannel.dataset.uuid,
-                message: this.value,
+                message: e.target.value,
             }));
-            this.value = "";
+            e.target.value = "";
         }
     });
 })();

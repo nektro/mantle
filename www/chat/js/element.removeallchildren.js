@@ -1,7 +1,7 @@
 "use strict";
 //
 if (!("removeAllChildren" in Element.prototype)) {
-    Element.prototype.removeAllChildren = function removeAllChildren() {
+    Element.prototype.removeAllChildren = function() {
         if (this.children.length === 0) {
             return;
         }

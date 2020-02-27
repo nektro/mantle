@@ -55,9 +55,7 @@ let me = null;
                 title: "Enter the new channel's name",
                 input: "text",
                 showCancelButton: true,
-                inputValidator: (value) => {
-                    return !value && "You need to write something!";
-                },
+                inputValidator: (value) => !value && "You need to write something!",
             });
             if (name !== undefined) {
                 const fd = new URLSearchParams();

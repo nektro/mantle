@@ -18,3 +18,12 @@ func (v ChannelPerm) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(&v.ID, &v.Channel, &v.Type, &v.Snowflake)
 	return &v
 }
+
+func (v ChannelPerm) All() []*ChannelPerm {
+	arr := dbstorage.ScanAll(db.Build().Se("*").Fr(cTableChannelPerms), ChannelPerm{})
+	res := []*ChannelPerm{}
+	for _, item := range arr {
+		res = append(res, item.(*ChannelPerm))
+	}
+	return res
+}

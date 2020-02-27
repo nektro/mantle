@@ -38,7 +38,7 @@ export function createMessage(user, msg) {
     ]);
 }
 
-export async function addMessage(channel, from, message, save=true) {
+export function addMessage(channel, from, message, save=true) {
     channel = channel ? channel : volatile.activeChannel.dataset.uuid;
     const at_bottom = output.scrollTop === output.scrollTopMax;
     from.uuid = from.uuid ? from.uuid : "";
@@ -85,7 +85,7 @@ export async function setMemberOnline(uid) {
     }
 }
 
-export async function setMemberOffline(uid) {
+export function setMemberOffline(uid) {
     console.debug("user-ws-disconnect", uid);
     const ue = el_4.querySelector(`[data-user="${uid}"]`);
     if (ue !== null) {

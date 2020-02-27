@@ -95,9 +95,8 @@ let me = null;
                 }
                 for (let i = 1; i < x.message.length; i++) {
                     const item = x.message[i];
-                    item.time = item.time.replace(" ","T")+"Z";
-                    item.time = new Date(item.time).toLocaleString();
-                    output.prepend(ui.createMessage(await getUserFromUUID(item.author), item))
+                    const time = new Date(item.time.replace(" ","T")+"Z").toLocaleString();
+                    output.prepend(ui.createMessage(await getUserFromUUID(item.author), {...item, time:time}))
                     messageCache.get(chuid).unshift(item);
                 }
                 output.scrollTop = fc.offsetTop-60;

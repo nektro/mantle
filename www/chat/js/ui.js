@@ -40,7 +40,6 @@ export function createMessage(user, msg) {
 
 export function addMessage(channel, from, message, save=true) {
     channel = channel ? channel : volatile.activeChannel.dataset.uuid;
-    const at_bottom = output.scrollTop === output.scrollTopMax;
     from.uuid = from.uuid ? from.uuid : "";
     if (channel===null || output.dataset.active === channel) {
         const time = new Date(message.time ? message.time : Date.now()).toLocaleString();
@@ -50,6 +49,7 @@ export function addMessage(channel, from, message, save=true) {
         const c = new Channel(channel);
         c.unread += 1;
     }
+    const at_bottom = output.scrollTop === output.scrollTopMax;
     if (at_bottom) output.scrollTop = output.scrollHeight;
     if (save===true) messageCache.get(channel).push(message);
 }

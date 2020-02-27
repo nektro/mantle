@@ -56,7 +56,7 @@ export function addMessage(channel, from, message, save=true) {
 
 export async function setActiveChannel(uid) {
     console.debug("channel-switch:", uid);
-    let ac = el_1.querySelector(".active");
+    const ac = el_1.querySelector(".active");
     if (ac !== null) ac.classList.remove("active");
     const c = new Channel(uid);
     if (c.el === null) return;

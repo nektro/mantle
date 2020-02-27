@@ -15,14 +15,14 @@ export async function addChannel(ch) {
     el_1.firstElementChild.appendChild(create_element("li", [["data-uuid",ch.uuid],["data-unread","0"]], [
         create_element("div", [], [dcTN(ch.name)]),
         create_element("div", [["class","unred"]], [dcTN("0")]),
-    ]))
+    ]));
     messageCache.set(ch.uuid, []);
 
     await fetch(`./../api/channels/${ch.uuid}/messages`).then(x=>x.json()).then(x => {
         for (const item of x.message) {
             messageCache.get(ch.uuid).unshift(item);
         }
-    })
+    });
 }
 
 export async function addMessage(channel, from, message, save=true, at=Date.now()) {
@@ -50,8 +50,8 @@ export function createMessage(user, msg) {
     return create_element("div", attrs, [
         create_element("div", [["class","ts"],["title",msg.time]], [dcTN(msg.time.substring(msg.time.indexOf(" ")))]),
         create_element("div", [["class","usr"]], [dcTN(user.name + ": ")]),
-        create_element("div", [["class","dat"]], [dcTN(msg.body)])
-    ])
+        create_element("div", [["class","dat"]], [dcTN(msg.body)]),
+    ]);
 }
 
 export async function setActiveChannel(uid) {

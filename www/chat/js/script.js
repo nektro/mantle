@@ -56,7 +56,7 @@ let me = null;
                 input: "text",
                 showCancelButton: true,
                 inputValidator: (value) => {
-                    return !value && "You need to write something!"
+                    return !value && "You need to write something!";
                 },
             });
             if (name !== undefined) {
@@ -76,10 +76,10 @@ let me = null;
             ui.setActiveChannel(ev.target.dataset.uuid);
         });
         output.addEventListener("scroll", async function(e) {
-            if (output.children.length === 0) { return }
-            if (e.target.scrollTop !== 0) { return }
-            if (output.classList.contains("loading")) { return }
-            if (output.classList.contains("loading-done")) { return }
+            if (output.children.length === 0) return;
+            if (e.target.scrollTop !== 0) return;
+            if (output.classList.contains("loading")) return;
+            if (output.classList.contains("loading-done")) return;
             //
             output.classList.add("loading");
             const fc = output.children[0];
@@ -87,19 +87,19 @@ let me = null;
             const chuid = ui.volatile.activeChannel.dataset.uuid;
             await fetch(`./../api/channels/${chuid}/messages?after=${lstm}`).then(x=>x.json()).then(async function(x) {
                 if (x.message.length <= 1) {
-                    output.classList.add("loading-done")
-                    return
+                    output.classList.add("loading-done");
+                    return;
                 }
                 for (let i = 1; i < x.message.length; i++) {
                     const item = x.message[i];
                     const time = new Date(item.time).toLocaleString();
-                    output.prepend(ui.createMessage(await getUserFromUUID(item.author), {...item, time:time}))
+                    output.prepend(ui.createMessage(await getUserFromUUID(item.author), {...item, time:time}));
                     messageCache.get(chuid).unshift(item);
                 }
                 output.scrollTop = fc.offsetTop-60;
-            })
+            });
             output.classList.remove("loading");
-        })
+        });
     });
 
     await fetch("./../api/users/online").then(x => x.json()).then(x => {
@@ -125,7 +125,7 @@ let me = null;
         switch (d.type) {
             case "pong": {
                 // do nothing, keep connection alive
-                console.debug("pong")
+                console.debug("pong");
                 break;
             }
             case "message": {
@@ -155,9 +155,9 @@ let me = null;
         if (el_2.classList.contains("online")) {
             socket.send(JSON.stringify({
                 type: "ping",
-            }))
+            }));
         }
-    }, 30*1000)
+    }, 30*1000);
 
     input.addEventListener("keydown", function(e) {
         if (e.key === "Enter") {

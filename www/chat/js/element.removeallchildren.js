@@ -1,3 +1,4 @@
+"use strict";
 //
 if (!('removeAllChildren' in Element.prototype)) {
     Element.prototype.removeAllChildren = function removeAllChildren() {

@@ -1,3 +1,4 @@
+"use strict";
 //
 import { el_1, el_2, el_3, create_element, dcTN, messageCache, output, getUserFromUUID, el_4 } from "./util.js";
 import { Channel } from "./ui.channel.js";

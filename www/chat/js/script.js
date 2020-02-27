@@ -1,3 +1,4 @@
+"use strict";
 //
 import { el_1, el_2, el_3, getUserFromUUID, output, messageCache } from "./util.js";
 import * as ui from "./ui.js";

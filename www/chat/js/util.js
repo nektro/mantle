@@ -1,3 +1,4 @@
+"use strict";
 //
 export const output = document.getElementById("messages").children[0];
 export const userCache = new Map();

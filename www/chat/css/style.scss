@@ -28,7 +28,7 @@ $comment: $based1;
 * {
     box-sizing: border-box;
 }
-span, img, input {
+input {
     display: block;
 }
 button {
@@ -208,7 +208,6 @@ body {
                         }
                         img {
                             max-height: 1.5em;
-                            display: inline;
                             vertical-align: middle;
                         }
                     }

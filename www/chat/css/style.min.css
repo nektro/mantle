@@ -1,7 +1,7 @@
 @charset "UTF-8";
 * { box-sizing: border-box; }
 
-span, img, input { display: block; }
+input { display: block; }
 
 button { cursor: pointer; }
 
@@ -73,7 +73,7 @@ body #messages > div > div.msg > div.dat a { color: #2aa198; }
 
 body #messages > div > div.msg > div.dat a:hover { color: #268bd2; }
 
-body #messages > div > div.msg > div.dat img { max-height: 1.5em; display: inline; vertical-align: middle; }
+body #messages > div > div.msg > div.dat img { max-height: 1.5em; vertical-align: middle; }
 
 body #me { display: flex; flex-direction: column; justify-content: center; }
 

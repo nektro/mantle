@@ -215,3 +215,8 @@ body {
         }
     }
 }
+
+// sweetalert2 scroll issue fix
+body.swal2-height-auto {
+    height: inherit !important;
+}

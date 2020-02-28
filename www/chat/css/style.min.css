@@ -68,3 +68,5 @@ body #input input[type="text"] { background-color: #073642; color: #839496; marg
 body #users-online-list { background-color: #002b36; grid-row: 1 / 4; grid-column: 3 / 4; border-left: 2px solid #268bd2; }
 
 body #users-online-list > div { padding: .9em; margin: 0; text-align: center; border-bottom: 1px solid #586e75; }
+
+body.swal2-height-auto { height: inherit !important; }

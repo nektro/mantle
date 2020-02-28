@@ -61,6 +61,11 @@ func (v User) Scan(rows *sql.Rows) dbstorage.Scannable {
 	return &v
 }
 
+// Count returns the total number of Users
+func (v User) Count() int64 {
+	return db.QueryRowCount(cTableUsers)
+}
+
 func (u *User) SetAsMember(b bool) {
 	db.Build().Up(cTableUsers, "is_member", strconv.Itoa(util.Btoi(b))).Wh("uuid", u.UUID).Exe()
 	u.IsMember = b

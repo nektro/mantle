@@ -16,3 +16,12 @@ func EtcBadgeMembersOnline(w http.ResponseWriter, r *http.Request) {
 		"brightgreen",
 	)
 }
+
+func EtcBadgeMembersTotal(w http.ResponseWriter, r *http.Request) {
+	hBadge(
+		w, r,
+		r.Host,
+		strconv.FormatInt(db.User{}.Count(), 10)+" members",
+		"brightgreen",
+	)
+}

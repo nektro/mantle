@@ -176,6 +176,14 @@ body {
                         font-weight: 300;
                         word-wrap: anywhere;
                         hyphens: auto;
+
+                        a {
+                            color: $cyan;
+
+                            &:hover {
+                                color: $blue;
+                            }
+                        }
                     }
                 }
             }

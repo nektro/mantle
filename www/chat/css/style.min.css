@@ -59,6 +59,10 @@ body #messages > div > div.msg > div.usr { padding-right: .5em; font-weight: 500
 
 body #messages > div > div.msg > div.dat { font-weight: 300; word-wrap: anywhere; hyphens: auto; }
 
+body #messages > div > div.msg > div.dat a { color: #2aa198; }
+
+body #messages > div > div.msg > div.dat a:hover { color: #268bd2; }
+
 body #me { display: flex; flex-direction: column; justify-content: center; }
 
 body #me div { padding: 0 1em; }

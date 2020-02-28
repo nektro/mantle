@@ -175,6 +175,9 @@ body {
                         border-top-color: #b58900aa;
                     }
                 }
+                &:not([data-user-uid]) > div {
+                    color: $based1;
+                }
                 > div {
                     color: white;
                     vertical-align: middle;

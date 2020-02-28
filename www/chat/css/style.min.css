@@ -59,6 +59,8 @@ body #messages > div > div.msg.selected + .selected { border-top-color: transpar
 
 body #messages > div > div.msg.selected + :not(.selected) { border-top-color: #b58900aa; }
 
+body #messages > div > div.msg:not([data-user-uid]) > div { color: #586e75; }
+
 body #messages > div > div.msg > div { color: white; vertical-align: middle; display: flex; align-items: center; }
 
 body #messages > div > div.msg > div.ts { padding-right: .5em; color: #586e75; white-space: nowrap; }

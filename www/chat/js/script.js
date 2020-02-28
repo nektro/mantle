@@ -19,20 +19,18 @@ let me = null;
         console.info(x);
         if (x.success === false) {
             location.assign("../");
+            return;
         }
-        else {
-            console.info(x.message);
-            me = x.message.me;
-            const n = me.nickname || me.name;
-            el_3.children[0].textContent = `@${n}`;
-
-            const p = x.message.perms;
-            for (const key in p) {
-                if (!p[key]) {
-                    document.querySelectorAll(`[data-requires^="${key}"]`).forEach((el) => {
-                        el.setAttribute("hidden", "");
-                    });
-                }
+        console.info(x.message);
+        me = x.message.me;
+        const n = me.nickname || me.name;
+        el_3.children[0].textContent = `@${n}`;
+        const p = x.message.perms;
+        for (const key in p) {
+            if (!p[key]) {
+                document.querySelectorAll(`[data-requires^="${key}"]`).forEach((el) => {
+                    el.setAttribute("hidden", "");
+                });
             }
         }
     });

@@ -54,3 +54,7 @@ func BroadcastMessage(message map[string]interface{}) {
 func AllOnlineIDs() []string {
 	return listToArray(connected)
 }
+
+func OnlineUserCount() int64 {
+	return int64(len(UserCache))
+}

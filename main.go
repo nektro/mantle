@@ -107,6 +107,9 @@ func main() {
 	r3m.Methods(http.MethodGet).HandlerFunc(handler.ChannelMessagesRead)
 	r3m.Methods(http.MethodDelete).HandlerFunc(handler.ChannelMessagesDelete)
 
+	r4 := r1.PathPrefix("/etc").Subrouter()
+	r4b := r4.PathPrefix("/badges").Subrouter()
+	r4b.Path("/members_online.svg").HandlerFunc(handler.EtcBadgeMembersOnline)
 	r.HandleFunc("/ws", handler.Websocket)
 
 	//

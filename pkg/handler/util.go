@@ -6,11 +6,13 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/itypes"
 
 	"github.com/gorilla/sessions"
+	"github.com/nektro/go-util/alias"
 	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
 )
@@ -62,4 +64,11 @@ func writeAPIResponse(r *http.Request, w http.ResponseWriter, good bool, status 
 func hGrabInt(s string) (string, int64, error) {
 	n, err := strconv.ParseInt(s, 10, 64)
 	return s, n, err
+}
+
+func hBadge(w http.ResponseWriter, r *http.Request, l, m, c string) {
+	l = strings.ReplaceAll(l, " ", "_")
+	m = strings.ReplaceAll(m, " ", "_")
+	w.Header().Add("location", alias.F("https://img.shields.io/badge/%s-%s-%s", l, m, c))
+	w.WriteHeader(http.StatusFound)
 }

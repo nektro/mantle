@@ -1,6 +1,7 @@
 package main
 
 import (
+	"net/http"
 	"os"
 	"runtime"
 	"strings"
@@ -88,18 +89,18 @@ func main() {
 
 	r := etc.Router
 
-	r.HandleFunc("/invite", handler.Invite)
+	r.Path("/invite").Methods(http.MethodGet).HandlerFunc(handler.Invite)
 
-	r.HandleFunc("/api/about", handler.ApiAbout)
+	r.Path("/api/about").Methods(http.MethodGet).HandlerFunc(handler.ApiAbout)
 
-	r.HandleFunc("/api/users/@me", handler.UsersMe)
-	r.HandleFunc("/api/users/online", handler.UsersOnline)
-	r.HandleFunc("/api/users/{uuid}", handler.UsersRead)
+	r.Path("/api/users/@me").Methods(http.MethodGet).HandlerFunc(handler.UsersMe)
+	r.Path("/api/users/online").Methods(http.MethodGet).HandlerFunc(handler.UsersOnline)
+	r.Path("/api/users/{uuid}").Methods(http.MethodGet).HandlerFunc(handler.UsersRead)
 
-	r.HandleFunc("/api/channels/@me", handler.ChannelsMe)
-	r.HandleFunc("/api/channels/create", handler.ChannelCreate)
-	r.HandleFunc("/api/channels/{uuid}", handler.ChannelRead)
-	r.HandleFunc("/api/channels/{uuid}/messages", handler.ChannelMessages)
+	r.Path("/api/channels/@me").Methods(http.MethodGet).HandlerFunc(handler.ChannelsMe)
+	r.Path("/api/channels/create").Methods(http.MethodGet).HandlerFunc(handler.ChannelCreate)
+	r.Path("/api/channels/{uuid}").Methods(http.MethodGet).HandlerFunc(handler.ChannelRead)
+	r.Path("/api/channels/{uuid}/messages").Methods(http.MethodGet).HandlerFunc(handler.ChannelMessages)
 
 	r.HandleFunc("/ws", handler.Websocket)
 

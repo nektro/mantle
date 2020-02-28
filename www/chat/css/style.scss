@@ -175,6 +175,8 @@ body {
                 > div {
                     color: white;
                     vertical-align: middle;
+                    display: flex;
+                    align-items: center;
 
                     &.ts {
                         padding-right: .5em;
@@ -189,6 +191,7 @@ body {
                         font-weight: 300;
                         word-wrap: anywhere;
                         hyphens: auto;
+                        display: block;
 
                         a {
                             color: $cyan;
@@ -196,6 +199,11 @@ body {
                             &:hover {
                                 color: $blue;
                             }
+                        }
+                        img {
+                            max-height: 1.5em;
+                            display: inline;
+                            vertical-align: middle;
                         }
                     }
                 }

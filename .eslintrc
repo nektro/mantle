@@ -15,6 +15,7 @@
         "Element": true,
         "Map": true,
         "FormData": true,
+        "twemoji": true,
         "$": true
     },
     "extends": "eslint:all",

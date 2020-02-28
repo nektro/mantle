@@ -33,8 +33,9 @@ export function createMessage(user, msg) {
         ["data-msg-uid",msg.uuid],
         ["data-user-uid",user.uuid],
     ];
+    const time = new Date(msg.time).toISOString().substring(0,19).replace("T"," ");
     const el = create_element("div", attrs, [
-        create_element("div", [["class","ts"],["title",msg.time]], [dcTN(msg.time.substring(msg.time.indexOf(" ")))]),
+        create_element("div", [["class","ts"],["title",time]], [dcTN(time.substring(time.indexOf(" ")))]),
         create_element("div", [["class","usr"]], [dcTN(user.name + ": ")]),
         create_element("div", [["class","dat"]], [dcTN(msg.body)]),
     ]);

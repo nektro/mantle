@@ -34,6 +34,7 @@ func CreateMessage(user *User, channel *Channel, body string) *Message {
 	}
 	db.Build().Ins(cTableMessagesPrefix+channel.UUID, m.ID, m.UUID, m.At, m.By, m.Body).Exe()
 	db.Build().Up(cTableChannels, "latest_message", m.UUID).Wh("uuid", channel.UUID).Exe()
+	m.At = strings.Replace(m.At, " ", "T", 1) + "Z"
 	return m
 }
 

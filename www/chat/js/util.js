@@ -10,6 +10,12 @@ export const el_4 = document.getElementById("users-online-list").children[1];
 
 //
 
+/**
+ * @param {String} name
+ * @param {String[][]} attrs
+ * @param {Node[]} children
+ * @returns {HTMLElement}
+ */
 export function create_element(name, attrs, children) {
     const ele = document.createElement(name);
     (attrs || []).forEach((v) => { ele.setAttribute(v[0], v[1]); });
@@ -17,6 +23,10 @@ export function create_element(name, attrs, children) {
     return ele;
 }
 
+/**
+ * @param {String} string
+ * @returns {Text}
+ */
 export function dcTN(string) {
     return document.createTextNode(string);
 }

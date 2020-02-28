@@ -113,7 +113,7 @@ export async function setActiveChannel(uid) {
 
 export async function setMemberOnline(uid) {
     console.debug("user-ws-connect", uid);
-    const ue = el_4.querySelector(`[data-user="${uid}"]`);
+    const ue = el_4.querySelector(`li[data-user="${uid}"]`);
     if (ue === null) {
         const u = await getUserFromUUID(uid);
         el_4.appendChild(create_element("li", [["data-user",uid]], [
@@ -125,7 +125,7 @@ export async function setMemberOnline(uid) {
 
 export function setMemberOffline(uid) {
     console.debug("user-ws-disconnect", uid);
-    const ue = el_4.querySelector(`[data-user="${uid}"]`);
+    const ue = el_4.querySelector(`li[data-user="${uid}"]`);
     if (ue !== null) {
         ue.remove();
     }

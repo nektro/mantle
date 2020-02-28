@@ -31,11 +31,12 @@ export function createMessage(user, msg) {
         ["data-msg-uid",msg.uuid],
         ["data-user-uid",user.uuid],
     ];
-    return create_element("div", attrs, [
+    const el = create_element("div", attrs, [
         create_element("div", [["class","ts"],["title",msg.time]], [dcTN(msg.time.substring(msg.time.indexOf(" ")))]),
         create_element("div", [["class","usr"]], [dcTN(user.name + ": ")]),
         create_element("div", [["class","dat"]], [dcTN(msg.body)]),
     ]);
+    return el;
 }
 
 export function addMessage(channel, from, message, save=true) {

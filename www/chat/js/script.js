@@ -140,6 +140,7 @@ let me = null;
     const socket = new WebSocket(`ws${location.protocol.substring(4)}//${location.host}/ws`);
 
     socket.addEventListener("open", () => {
+        el_2.classList.remove("loading");
         el_2.classList.add("online");
         ui.addMessage(null, {name:"Connection Status"}, {body:"Active"}, false);
     });

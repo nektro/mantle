@@ -68,6 +68,9 @@ body {
         &.online::after {
             content: " ✔";
         }
+        &.loading::after {
+            content: " 🕒";
+        }
     }
     #channel-name {
         background-color: $based2;

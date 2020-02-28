@@ -70,3 +70,9 @@ func (u *User) SetName(s string) {
 	db.Build().Up(cTableUsers, "name", s).Wh("uuid", u.UUID).Exe()
 	u.Name = s
 }
+
+// DeleteMessage attempts to delete a UID from this Channel's associated message
+// table. If the UID is not a message in this Channel, nothing happens.
+func (u *User) DeleteMessage(c *Channel, uid string) {
+	db.Build().Del(cTableMessagesPrefix+c.UUID).Wh("uuid", uid).Wh("author", u.UUID).Exe()
+}

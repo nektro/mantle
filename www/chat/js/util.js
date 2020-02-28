@@ -33,3 +33,25 @@ export async function getUserFromUUID(uuid) {
     userCache.set(uuid, res.message);
     return res.message;
 }
+
+/**
+ * @param {Number} x1
+ * @param {Number} x2
+ * @returns {Number[]}
+ */
+export function numsBetween(x1, x2) {
+    if (x1 === x2) return [x1];
+    const res = [];
+    //
+    if (x1 > x2) {
+        for (let i = x2; i <= x1; i++) {
+            res.push(i);
+        }
+    }
+    if (x2 > x1) {
+        for (let i = x1; i <= x2; i++) {
+            res.push(i);
+        }
+    }
+    return res;
+}

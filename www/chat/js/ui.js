@@ -1,12 +1,14 @@
 "use strict";
 //
-import { el_1, create_element, dcTN, messageCache, output, getUserFromUUID, el_4 } from "./util.js";
+import { el_1, create_element, dcTN, messageCache, output, getUserFromUUID, el_4, numsBetween } from "./util.js";
 import { Channel } from "./ui.channel.js";
 
 //
 
 export const volatile = {
     activeChannel: null,
+    /** @type {Element[]} */
+    selectedMsgs: [],
 };
 
 //
@@ -74,6 +76,35 @@ export async function setActiveChannel(uid) {
     //
     c.unread = 0;
     output.classList.remove("loading-done");
+    //
+    volatile.selectedMsgs.splice(0, volatile.selectedMsgs.length);
+    $(".msg[data-msg-uid]").on("click", (e) => {
+        /** @type {Element[]} */
+        const fl = e.originalEvent.composedPath().filter((v) => v instanceof Element && v.matches("[data-msg-uid]"));
+        if (fl.length === 0) return;
+        const et = fl[0];
+        if (e.originalEvent.ctrlKey) {
+            if (et.classList.contains("selected")) {
+                volatile.selectedMsgs.splice(volatile.selectedMsgs.indexOf(et), 1);
+            }
+            else {
+                volatile.selectedMsgs.unshift(et);
+            }
+            et.classList.toggle("selected");
+        }
+        if (e.originalEvent.shiftKey) {
+            if (volatile.selectedMsgs.length === 0) return;
+            const p1 = Array.from(et.parentElement.children).indexOf(et);
+            const p2 = Array.from(et.parentElement.children).indexOf(volatile.selectedMsgs[0]);
+            const nb = numsBetween(p1, p2);
+            for (let i = 0; i < nb.length; i++) {
+                const mc = et.parentElement.children[nb[i]];
+                if (mc === volatile.selectedMsgs[0]) continue;
+                mc.classList.add("selected");
+                volatile.selectedMsgs.unshift(mc);
+            }
+        }
+    });
 }
 
 export async function setMemberOnline(uid) {

@@ -18,6 +18,7 @@
         "WebSocket": true,
         "setInterval": true,
         "Element": true,
+        "FormData": true,
         "$": true
     }
 }

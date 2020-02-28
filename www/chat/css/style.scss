@@ -155,9 +155,22 @@ body {
                 padding: .5em 1em;
                 display: flex;
                 flex-direction: row;
+                border: 2px solid transparent;
+                border-bottom-width: 0;
 
                 &:hover {
                     background-color: darken($based3, 2%);
+                }
+                &.selected {
+                    border-color: #b58900aa;
+                    background-color: transparentize(#004d45, .5);
+
+                    & + .selected {
+                        border-top-color: transparent;
+                    }
+                    & + :not(.selected) {
+                        border-top-color: #b58900aa;
+                    }
                 }
                 > div {
                     color: white;

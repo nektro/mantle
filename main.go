@@ -105,6 +105,7 @@ func main() {
 	r3.Path("/{uuid}").HandlerFunc(handler.ChannelRead)
 	r3m := r3.Path("/{uuid}/messages").Subrouter()
 	r3m.Methods(http.MethodGet).HandlerFunc(handler.ChannelMessagesRead)
+	r3m.Methods(http.MethodDelete).HandlerFunc(handler.ChannelMessagesDelete)
 
 	r.HandleFunc("/ws", handler.Websocket)
 

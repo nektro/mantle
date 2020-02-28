@@ -14,6 +14,7 @@
         "setInterval": true,
         "Element": true,
         "Map": true,
+        "FormData": true,
         "$": true
     },
     "extends": "eslint:all",
@@ -63,6 +64,9 @@
         "no-plusplus":"off",
         "indent":["error", 4, { "SwitchCase": 1 }],
         "key-spacing":"off",
+        "no-continue":"off",
+        "require-atomic-updates":"off",
+        "prefer-named-capture-group":"off",
         "consistent-return":"off"
     }
 }

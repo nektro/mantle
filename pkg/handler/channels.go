@@ -79,3 +79,26 @@ func ChannelMessagesRead(w http.ResponseWriter, r *http.Request) {
 	msgs := c.QueryMsgAfterUID(r.URL.Query().Get("after"), int(lmn))
 	writeAPIResponse(r, w, true, http.StatusOK, msgs)
 }
+
+// ChannelMessagesDelete reads message data from channel
+func ChannelMessagesDelete(w http.ResponseWriter, r *http.Request) {
+	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodDelete, true)
+	if err != nil {
+		fmt.Fprintln(w, 1)
+		return
+	}
+	c, ok := db.QueryChannelByUUID(mux.Vars(r)["uuid"])
+	if !ok {
+		fmt.Fprintln(w, 2)
+		return
+	}
+	actioned := []string{}
+	for _, item := range r.Form["ids"] {
+		if !db.IsUID(item) {
+			continue
+		}
+		user.DeleteMessage(c, item)
+		actioned = append(actioned, item)
+	}
+	writeAPIResponse(r, w, true, http.StatusOK, actioned)
+}

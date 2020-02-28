@@ -98,6 +98,34 @@ let me = null;
             });
             output.classList.remove("loading");
         });
+        document.addEventListener("keydown", async (e) => {
+            if (e.key !== "Delete") return;
+            if (document.activeElement !== document.body) return;
+            if (!output.isInViewport()) return;
+            if (ui.volatile.selectedMsgs.length === 0) return;
+            await Swal.fire({
+                title: "Are you sure you want to delete?",
+                text: "You won't be able to revert this!",
+                type: "warning",
+                showCancelButton: true,
+            }).then(async (r) => {
+                if (!r.value) return;
+                const m2d = ui.volatile.selectedMsgs.filter((v) => v.dataset.userUid === me.uuid).map((v) => v.dataset.msgUid);
+                const fd = new FormData();
+                m2d.forEach((v) => fd.append("ids", v));
+                await fetch(`./../api/channels/${ui.volatile.activeChannel.dataset.uuid}/messages`, {
+                    method: "DELETE",
+                    body: fd,
+                }).then((y) => y.json()).then(() => {
+                    for (const item of ui.volatile.selectedMsgs) {
+                        if (item.dataset.userUid === me.uuid) {
+                            item.remove();
+                        }
+                    }
+                    ui.volatile.selectedMsgs.splice(0, ui.volatile.selectedMsgs.length);
+                });
+            });
+        });
     });
 
     await fetch("./../api/users/online").then((x) => x.json()).then((x) => {

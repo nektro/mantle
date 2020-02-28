@@ -40,6 +40,37 @@ export function createMessage(user, msg) {
     ]);
     el.children[2].innerHTML = el.children[2].textContent.replace(/(https?:\/\/[^\s]+)/gu, (match) => `<a target="_blank" href="${match}">${match}</a>`);
     twemoji.parse(el.children[2]);
+    //
+    if (msg.uuid) {
+        el.addEventListener("click", (e) => {
+            /** @type {Element[]} */
+            const fl = e.composedPath().filter((v) => v instanceof Element && v.matches("[data-msg-uid]"));
+            if (fl.length === 0) return;
+            const et = fl[0];
+            if (e.ctrlKey) {
+                if (et.classList.contains("selected")) {
+                    volatile.selectedMsgs.splice(volatile.selectedMsgs.indexOf(et), 1);
+                }
+                else {
+                    volatile.selectedMsgs.unshift(et);
+                }
+                et.classList.toggle("selected");
+            }
+            if (e.shiftKey) {
+                if (volatile.selectedMsgs.length === 0) return;
+                const p1 = Array.from(et.parentElement.children).indexOf(et);
+                const p2 = Array.from(et.parentElement.children).indexOf(volatile.selectedMsgs[0]);
+                const nb = numsBetween(p1, p2);
+                for (let i = 0; i < nb.length; i++) {
+                    const mc = et.parentElement.children[nb[i]];
+                    if (mc === volatile.selectedMsgs[0]) continue;
+                    mc.classList.add("selected");
+                    volatile.selectedMsgs.unshift(mc);
+                }
+            }
+        });
+    }
+    //
     return el;
 }
 
@@ -77,35 +108,7 @@ export async function setActiveChannel(uid) {
     //
     c.unread = 0;
     output.classList.remove("loading-done");
-    //
     volatile.selectedMsgs.splice(0, volatile.selectedMsgs.length);
-    $(".msg[data-msg-uid]").on("click", (e) => {
-        /** @type {Element[]} */
-        const fl = e.originalEvent.composedPath().filter((v) => v instanceof Element && v.matches("[data-msg-uid]"));
-        if (fl.length === 0) return;
-        const et = fl[0];
-        if (e.originalEvent.ctrlKey) {
-            if (et.classList.contains("selected")) {
-                volatile.selectedMsgs.splice(volatile.selectedMsgs.indexOf(et), 1);
-            }
-            else {
-                volatile.selectedMsgs.unshift(et);
-            }
-            et.classList.toggle("selected");
-        }
-        if (e.originalEvent.shiftKey) {
-            if (volatile.selectedMsgs.length === 0) return;
-            const p1 = Array.from(et.parentElement.children).indexOf(et);
-            const p2 = Array.from(et.parentElement.children).indexOf(volatile.selectedMsgs[0]);
-            const nb = numsBetween(p1, p2);
-            for (let i = 0; i < nb.length; i++) {
-                const mc = et.parentElement.children[nb[i]];
-                if (mc === volatile.selectedMsgs[0]) continue;
-                mc.classList.add("selected");
-                volatile.selectedMsgs.unshift(mc);
-            }
-        }
-    });
 }
 
 export async function setMemberOnline(uid) {

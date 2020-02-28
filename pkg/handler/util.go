@@ -21,7 +21,7 @@ func apiBootstrapRequireLogin(r *http.Request, w http.ResponseWriter, method str
 	if method == http.MethodPost {
 		err := r.ParseForm()
 		if err != nil {
-			return nil, nil, writeAPIResponse(r, w, false, http.StatusBadRequest, "Error parsing form data")
+			return nil, nil, writeAPIResponse(r, w, false, http.StatusBadRequest, "Error parsing form data. "+err.Error())
 		}
 	}
 

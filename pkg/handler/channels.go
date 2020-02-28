@@ -56,8 +56,8 @@ func ChannelRead(w http.ResponseWriter, r *http.Request) {
 	writeAPIResponse(r, w, ok, http.StatusOK, u)
 }
 
-// ChannelMessages reads message data from channel
-func ChannelMessages(w http.ResponseWriter, r *http.Request) {
+// ChannelMessagesRead reads message data from channel
+func ChannelMessagesRead(w http.ResponseWriter, r *http.Request) {
 	_, _, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
 	if err != nil {
 		fmt.Fprintln(w, 1)

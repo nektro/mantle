@@ -247,6 +247,25 @@ body {
             text-align: center;
             border-bottom: 1px solid $based1;
         }
+        ul {
+            padding: 0;
+
+            li {
+                list-style-type: none;
+                padding: .75em 1em;
+                margin: .5em;
+                border-radius: .2em;
+
+                &:hover {
+                    background-color: lighten($based3, 3%);
+                }
+                span {
+                    &:nth-child(2) {
+                        color: darken(#839496, 25%);
+                    }
+                }
+            }
+        }
     }
 }
 

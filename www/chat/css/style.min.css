@@ -85,4 +85,12 @@ body #users-online-list { background-color: #002b36; grid-row: 1 / 4; grid-colum
 
 body #users-online-list > div { padding: .9em; margin: 0; text-align: center; border-bottom: 1px solid #586e75; }
 
+body #users-online-list ul { padding: 0; }
+
+body #users-online-list ul li { list-style-type: none; padding: .75em 1em; margin: .5em; border-radius: .2em; }
+
+body #users-online-list ul li:hover { background-color: #003745; }
+
+body #users-online-list ul li span:nth-child(2) { color: #465253; }
+
 body.swal2-height-auto { height: inherit !important; }

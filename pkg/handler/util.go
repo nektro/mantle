@@ -11,18 +11,23 @@ import (
 	"github.com/nektro/mantle/pkg/itypes"
 
 	"github.com/gorilla/sessions"
+	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
 )
+
+var formMethods = []string{http.MethodPost, http.MethodPut, http.MethodPatch, http.MethodDelete}
 
 func apiBootstrapRequireLogin(r *http.Request, w http.ResponseWriter, method string, assertMembership bool) (*sessions.Session, *db.User, error) {
 	if r.Method != method {
 		return nil, nil, writeAPIResponse(r, w, false, http.StatusMethodNotAllowed, "This action requires using HTTP "+method)
 	}
-	if method == http.MethodPost {
-		err := r.ParseForm()
+	if util.Contains(formMethods, method) {
+		r.Method = http.MethodPost
+		err := r.ParseMultipartForm(1024 * 1024 * 10)
 		if err != nil {
 			return nil, nil, writeAPIResponse(r, w, false, http.StatusBadRequest, "Error parsing form data. "+err.Error())
 		}
+		r.Method = method
 	}
 
 	sess := etc.GetSession(r)

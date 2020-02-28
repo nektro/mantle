@@ -7,3 +7,10 @@ if (!("removeAllChildren" in Element.prototype)) {
         }
     };
 }
+if (!("isInViewport" in Element.prototype)) {
+    Element.prototype.isInViewport = function() {
+        const b = this.getBoundingClientRect();
+        // console.log(b);
+        return b.top > 0 && b.left > 0;
+    };
+}

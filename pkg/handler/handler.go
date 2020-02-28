@@ -20,8 +20,8 @@ func SaveOAuth2InfoCb(w http.ResponseWriter, r *http.Request, provider string, i
 	ru.SetName(name)
 }
 
-// Invite is handler for /invite
-func Invite(w http.ResponseWriter, r *http.Request) {
+// Verify is handler for /verify
+func Verify(w http.ResponseWriter, r *http.Request) {
 	_, user, _ := apiBootstrapRequireLogin(r, w, http.MethodGet, false)
 
 	if o, _ := strconv.ParseBool(db.Props.Get("public")); o {

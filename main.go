@@ -32,7 +32,7 @@ func main() {
 	etc.PreInit()
 
 	//
-	etc.Init("mantle", &idata.Config, "./invite", handler.SaveOAuth2InfoCb)
+	etc.Init("mantle", &idata.Config, "./verify", handler.SaveOAuth2InfoCb)
 
 	//
 	// database initialization
@@ -89,7 +89,7 @@ func main() {
 
 	r := etc.Router
 
-	r.Path("/invite").HandlerFunc(handler.Invite)
+	r.Path("/verify").HandlerFunc(handler.Verify)
 
 	r1 := r.PathPrefix("/api").Subrouter()
 	r1.Path("/about").HandlerFunc(handler.ApiAbout)

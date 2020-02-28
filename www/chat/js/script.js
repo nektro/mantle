@@ -69,8 +69,9 @@ let me = null;
             }
         });
         el_1.querySelector("ol").addEventListener("click", (ev) => {
-            if (ev.target.localName !== "li") return;
-            ui.setActiveChannel(ev.target.dataset.uuid);
+            const fl = ev.composedPath().filter((v) => v instanceof Element && v.matches("[data-uuid]"));
+            if (fl.length === 0) return;
+            ui.setActiveChannel(fl[0].dataset.uuid);
         });
         output.addEventListener("scroll", async (e) => {
             if (output.children.length === 0) return;

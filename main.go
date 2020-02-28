@@ -89,18 +89,22 @@ func main() {
 
 	r := etc.Router
 
-	r.Path("/invite").Methods(http.MethodGet).HandlerFunc(handler.Invite)
+	r.Path("/invite").HandlerFunc(handler.Invite)
 
-	r.Path("/api/about").Methods(http.MethodGet).HandlerFunc(handler.ApiAbout)
+	r1 := r.PathPrefix("/api").Subrouter()
+	r1.Path("/about").HandlerFunc(handler.ApiAbout)
 
-	r.Path("/api/users/@me").Methods(http.MethodGet).HandlerFunc(handler.UsersMe)
-	r.Path("/api/users/online").Methods(http.MethodGet).HandlerFunc(handler.UsersOnline)
-	r.Path("/api/users/{uuid}").Methods(http.MethodGet).HandlerFunc(handler.UsersRead)
+	r2 := r1.PathPrefix("/users").Subrouter()
+	r2.Path("/@me").HandlerFunc(handler.UsersMe)
+	r2.Path("/online").HandlerFunc(handler.UsersOnline)
+	r2.Path("/{uuid}").HandlerFunc(handler.UsersRead)
 
-	r.Path("/api/channels/@me").Methods(http.MethodGet).HandlerFunc(handler.ChannelsMe)
-	r.Path("/api/channels/create").Methods(http.MethodGet).HandlerFunc(handler.ChannelCreate)
-	r.Path("/api/channels/{uuid}").Methods(http.MethodGet).HandlerFunc(handler.ChannelRead)
-	r.Path("/api/channels/{uuid}/messages").Methods(http.MethodGet).HandlerFunc(handler.ChannelMessages)
+	r3 := r1.PathPrefix("/channels").Subrouter()
+	r3.Path("/@me").HandlerFunc(handler.ChannelsMe)
+	r3.Path("/create").HandlerFunc(handler.ChannelCreate)
+	r3.Path("/{uuid}").HandlerFunc(handler.ChannelRead)
+	r3m := r3.Path("/{uuid}/messages").Subrouter()
+	r3m.Methods(http.MethodGet).HandlerFunc(handler.ChannelMessagesRead)
 
 	r.HandleFunc("/ws", handler.Websocket)
 

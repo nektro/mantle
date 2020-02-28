@@ -2,10 +2,8 @@
 //
 if (!("removeAllChildren" in Element.prototype)) {
     Element.prototype.removeAllChildren = function() {
-        if (this.children.length === 0) {
-            return;
+        while (this.children.length > 0) {
+            this.children[0].remove();
         }
-        this.children[0].remove();
-        this.removeAllChildren();
     };
 }

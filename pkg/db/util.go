@@ -15,7 +15,7 @@ func newUUID() string {
 	return ulid.MustNew(ulid.Timestamp(t), entropy).String()
 }
 
-func isUID(s string) bool {
+func IsUID(s string) bool {
 	_, err := ulid.Parse(s)
 	return err == nil
 }

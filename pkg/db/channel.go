@@ -64,7 +64,7 @@ func (c *Channel) QueryMsgAfterUID(uid string, limit int) []*Message {
 	qb.Se("*")
 	qb.Fr(cTableMessagesPrefix + c.UUID)
 	if len(uid) > 0 {
-		if isUID(uid) {
+		if IsUID(uid) {
 			qb.Wr("uuid", "<=", uid)
 		}
 	}

@@ -142,7 +142,6 @@ let me = null;
     socket.addEventListener("open", () => {
         el_2.classList.remove("loading");
         el_2.classList.add("online");
-        ui.addMessage(null, {name:"Connection Status"}, {body:"Active"}, false);
     });
     socket.addEventListener("close", () => {
         el_2.classList.remove("online");

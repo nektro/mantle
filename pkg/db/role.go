@@ -3,6 +3,8 @@ package db
 import (
 	"database/sql"
 
+	"github.com/nektro/mantle/pkg/itypes"
+
 	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
 )
@@ -24,7 +26,8 @@ func CreateRole(name string) string {
 	id := db.QueryNextID(cTableRoles)
 	uid := newUUID()
 	util.Log("[role-create]", uid, name)
-	db.Build().Ins(cTableRoles, id, uid, id, name, "", 1, 1).Exe()
+	p := itypes.PermIgnore
+	db.Build().Ins(cTableRoles, id, uid, id, name, "", p, p).Exe()
 	return uid
 }
 

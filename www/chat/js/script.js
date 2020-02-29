@@ -90,8 +90,7 @@ let me = null;
                 }
                 for (let i = 1; i < y.message.length; i++) {
                     const item = y.message[i];
-                    const time = new Date(item.time).toLocaleString();
-                    output.prepend(ui.createMessage(await getUserFromUUID(item.author), {...item, time}));
+                    output.prepend(ui.createMessage(await getUserFromUUID(item.author), item));
                     messageCache.get(chuid).unshift(item);
                 }
                 output.scrollTop = fc.offsetTop-60;

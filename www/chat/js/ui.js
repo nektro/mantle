@@ -2,6 +2,7 @@
 //
 import { el_1, create_element, dcTN, messageCache, output, getUserFromUUID, el_4, numsBetween } from "./util.js";
 import { Channel } from "./ui.channel.js";
+import { SidebarRole } from "./ui.sidebar_role.js";
 
 //
 
@@ -115,10 +116,14 @@ export async function setMemberOnline(uid) {
     const ue = el_4.querySelector(`li[data-user="${uid}"]`);
     if (ue === null) {
         const u = await getUserFromUUID(uid);
-        el_4.appendChild(create_element("li", [["data-user",uid]], [
-            create_element("span", null, [dcTN(u.name)]),
-            create_element("span", null, [dcTN("#"+u.id)]),
-        ]));
+        for (const item of el_4.querySelectorAll("ul")) {
+            if (!u.roles.startsWith(item.dataset.uid)) continue;
+            item.appendChild(create_element("li", [["data-user",uid]], [
+                create_element("span", null, [dcTN(u.name)]),
+                create_element("span", null, [dcTN("#"+u.id)]),
+            ]));
+            break;
+        }
     }
 }
 

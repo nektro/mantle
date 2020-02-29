@@ -1,6 +1,6 @@
 "use strict";
 //
-import { el_1, el_2, el_3, getUserFromUUID, output, messageCache } from "./util.js";
+import { el_1, el_2, el_3, getUserFromUUID, output, messageCache, el_4, create_element, dcTN } from "./util.js";
 import * as ui from "./ui.js";
 
 //
@@ -120,6 +120,17 @@ let me = null;
                 });
             });
         });
+    });
+
+    await fetch("./../api/roles").then((x) => x.json()).then((x) => {
+        const rls = Object.values(x.message);
+        for (const item of rls) {
+            if (!item.distinguish) continue;
+            el_4.appendChild(create_element("div", [["data-count","0"]], [dcTN(item.name)]));
+            el_4.appendChild(create_element("ul", [["data-uid",item.uuid]], []));
+        }
+        el_4.appendChild(create_element("div", [["data-count","0"]], [dcTN("Online")]));
+        el_4.appendChild(create_element("ul", [["data-uid",""]], []));
     });
 
     await fetch("./../api/users/online").then((x) => x.json()).then((x) => {

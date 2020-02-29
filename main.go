@@ -112,6 +112,9 @@ func main() {
 	r4b.Path("/members_online.svg").HandlerFunc(handler.EtcBadgeMembersOnline)
 	r4b.Path("/members_total.svg").HandlerFunc(handler.EtcBadgeMembersTotal)
 
+	r5 := r1.PathPrefix("/roles").Subrouter()
+	r5.Path("").HandlerFunc(handler.RolesRead)
+
 	r.HandleFunc("/ws", handler.Websocket)
 
 	//

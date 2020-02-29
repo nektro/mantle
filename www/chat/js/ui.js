@@ -33,7 +33,7 @@ export function createMessage(user, msg) {
     if (msg.uuid) attrs.push(["data-msg-uid",msg.uuid]);
     if (user.uuid) attrs.push(["data-user-uid",user.uuid]);
     //
-    const time = new Date(msg.time).toLocaleString();
+    const time = new Date(msg.time).toLocaleString("en-GB");
     const el = create_element("div", attrs, [
         create_element("div", [["class","ts"],["title",time]], [dcTN(time.substring(time.indexOf(" ")))]),
         create_element("div", [["class","usr"]], [dcTN(user.name + ": ")]),

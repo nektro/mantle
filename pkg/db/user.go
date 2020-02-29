@@ -66,6 +66,15 @@ func (v User) Count() int64 {
 	return db.QueryRowCount(cTableUsers)
 }
 
+func (v User) MemberCount() int64 {
+	rows := db.Build().Se("count(*)").Fr(cTableUsers).Wh("is_member", "1").Exe()
+	defer rows.Close()
+	c := int64(0)
+	rows.Next()
+	rows.Scan(&c)
+	return c
+}
+
 func (u *User) SetAsMember(b bool) {
 	db.Build().Up(cTableUsers, "is_member", strconv.Itoa(util.Btoi(b))).Wh("uuid", u.UUID).Exe()
 	u.IsMember = b

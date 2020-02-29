@@ -51,6 +51,8 @@ body #messages > div { overflow-y: scroll; }
 
 body #messages > div > div.msg { padding: .5em 1em; display: flex; flex-direction: row; border: 2px solid transparent; border-bottom-width: 0; }
 
+body #messages > div > div.msg:last-child { border-bottom-width: 2px; }
+
 body #messages > div > div.msg:hover { background-color: #00232c; }
 
 body #messages > div > div.msg.selected { border-color: #b58900aa; background-color: rgba(0, 77, 69, 0.5); }

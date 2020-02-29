@@ -3,6 +3,7 @@ package handler
 import (
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/nektro/mantle/pkg/db"
 
@@ -17,7 +18,7 @@ func SaveOAuth2InfoCb(w http.ResponseWriter, r *http.Request, provider string, i
 	sess := etc.GetSession(r)
 	sess.Values["user"] = ru.UUID
 	sess.Save(r, w)
-	ru.SetName(name)
+	ru.SetName(strings.ReplaceAll(name, " ", ""))
 }
 
 // Verify is handler for /verify

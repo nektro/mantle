@@ -122,6 +122,7 @@ export async function setMemberOnline(uid) {
                 create_element("span", null, [dcTN(u.name)]),
                 create_element("span", null, [dcTN("#"+u.id)]),
             ]));
+            new SidebarRole(item).count += 1;
             break;
         }
     }
@@ -131,6 +132,7 @@ export function setMemberOffline(uid) {
     console.debug("user-ws-disconnect", uid);
     const ue = el_4.querySelector(`li[data-user="${uid}"]`);
     if (ue !== null) {
+        new SidebarRole(ue.parentElement).count -= 1;
         ue.remove();
     }
 }

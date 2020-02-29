@@ -252,6 +252,10 @@ body {
             padding-bottom: .5em;
             margin: 0;
             visibility: hidden;
+
+            &::after {
+                content: "—" attr(data-count);
+            }
         }
         ul {
             padding: 0;

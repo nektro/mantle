@@ -116,12 +116,7 @@ let me = null;
                     method: "DELETE",
                     body: fd,
                 }).then((y) => y.json()).then(() => {
-                    for (const item of ui.volatile.selectedMsgs) {
-                        if (item.dataset.userUid === me.uuid) {
-                            item.remove();
-                        }
-                    }
-                    ui.volatile.selectedMsgs.splice(0, ui.volatile.selectedMsgs.length);
+                    //
                 });
             });
         });
@@ -169,6 +164,17 @@ let me = null;
             case "user-disconnect": {
                 ui.setMemberOffline(d.user);
                 if (d.user === me.uuid) socket.close();
+                break;
+            }
+            case "message-delete": {
+                const a1 = messageCache.get(d.channel);
+                const a2 = a1.filter((v) => d.affected.includes(v.uuid));
+                a2.forEach((v) => a1.splice(a1.indexOf(v), 1));
+                if (output.dataset.active !== d.channel) break;
+                for (const item of d.affected) {
+                    const de = output.querySelector(`.msg[data-msg-uid="${item}"]`);
+                    if (de !== null) de.remove();
+                }
                 break;
             }
             default: {

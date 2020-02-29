@@ -100,5 +100,10 @@ func ChannelMessagesDelete(w http.ResponseWriter, r *http.Request) {
 		user.DeleteMessage(c, item)
 		actioned = append(actioned, item)
 	}
+	ws.BroadcastMessage(map[string]interface{}{
+		"type":     "message-delete",
+		"channel":  c.UUID,
+		"affected": actioned,
+	})
 	writeAPIResponse(r, w, true, http.StatusOK, actioned)
 }

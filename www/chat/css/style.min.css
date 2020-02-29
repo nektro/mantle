@@ -65,7 +65,7 @@ body #messages > div > div.msg:not([data-user-uid]) > div { color: #586e75; }
 
 body #messages > div > div.msg > div { color: white; vertical-align: middle; display: flex; align-items: center; }
 
-body #messages > div > div.msg > div.ts { padding-right: .5em; color: #586e75; white-space: nowrap; }
+body #messages > div > div.msg > div.ts { padding-right: .5em; color: #586e75; white-space: nowrap; font-size: .9em; }
 
 body #messages > div > div.msg > div.usr { padding-right: .5em; font-weight: 500; }
 

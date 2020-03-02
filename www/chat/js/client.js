@@ -11,3 +11,6 @@ commands.set("shrug", (v) => {
 commands.set("tableflip", (v) => {
     return v + " (╯°□°）╯︵ ┻━┻";
 });
+commands.set("unflip", (v) => {
+    return v + " ┬─┬ ノ( ゜-゜ノ)";
+});

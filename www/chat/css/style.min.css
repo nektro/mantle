@@ -75,7 +75,7 @@ body #messages > div > div.msg > div.dat a { color: #2aa198; }
 
 body #messages > div > div.msg > div.dat a:hover { color: #268bd2; }
 
-body #messages > div > div.msg > div.dat img { max-height: 1.5em; vertical-align: middle; }
+body #messages > div > div.msg > div.dat img { max-height: 1.5em; vertical-align: middle; margin-top: -100%; margin-bottom: -100%; }
 
 body #me { display: flex; flex-direction: column; justify-content: center; }
 

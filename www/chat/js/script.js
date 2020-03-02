@@ -2,6 +2,7 @@
 //
 import { el_1, el_2, el_3, getUserFromUUID, output, messageCache, el_4, create_element, dcTN } from "./util.js";
 import * as ui from "./ui.js";
+import * as client from "./client.js";
 
 //
 let me = null;
@@ -201,14 +202,24 @@ let me = null;
         }
     }, 30*1000);
 
+    //
     input.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
+            let msg_con = e.target.value;
+            for (const item of client.commands) {
+                if (msg_con.startsWith("/"+item[0])) {
+                    msg_con = item[1](msg_con.replace("/"+item[0],"")).trim();
+                }
+            }
+            e.target.value = "";
+            if (msg_con===null) return;
+            if (msg_con===undefined) return;
+            if (msg_con.length === 0) return;
             socket.send(JSON.stringify({
                 type: "message",
                 in: ui.volatile.activeChannel.dataset.uuid,
-                message: e.target.value,
+                message: msg_con,
             }));
-            e.target.value = "";
         }
     });
 })();

@@ -101,7 +101,7 @@ let me = null;
         document.addEventListener("keydown", async (e) => {
             if (e.key !== "Delete") return;
             if (document.activeElement !== document.body) return;
-            if (!output.isInViewport()) return;
+            if (document.querySelector("dialog[open]") !== null) return;
             if (ui.volatile.selectedMsgs.length === 0) return;
             await Swal.fire({
                 title: "Are you sure you want to delete?",

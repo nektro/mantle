@@ -34,6 +34,10 @@ input {
 button {
     cursor: pointer;
 }
+// sweetalert2 scroll issue fix
+body.swal2-height-auto {
+    height: inherit !important;
+}
 html, body {
     height: 100vh;
 }
@@ -281,9 +285,4 @@ body {
             }
         }
     }
-}
-
-// sweetalert2 scroll issue fix
-body.swal2-height-auto {
-    height: inherit !important;
 }

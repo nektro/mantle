@@ -208,7 +208,7 @@ let me = null;
             let msg_con = e.target.value;
             for (const item of client.commands) {
                 if (msg_con.startsWith("/"+item[0])) {
-                    msg_con = item[1](msg_con.replace("/"+item[0],"")).trim();
+                    msg_con = item[1](msg_con.replace("/"+item[0],""), me);
                 }
             }
             e.target.value = "";
@@ -218,7 +218,7 @@ let me = null;
             socket.send(JSON.stringify({
                 type: "message",
                 in: ui.volatile.activeChannel.dataset.uuid,
-                message: msg_con,
+                message: msg_con.trim(),
             }));
         }
     });

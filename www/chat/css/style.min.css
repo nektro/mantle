@@ -79,9 +79,9 @@ body #messages > div > div.msg > div.dat a:hover { color: #268bd2; }
 
 body #messages > div > div.msg > div.dat img { max-height: 1.5em; vertical-align: middle; margin-top: -100%; margin-bottom: -100%; }
 
-body #me { display: flex; flex-direction: column; justify-content: center; }
+body #me { display: flex; flex-direction: row; justify-content: center; }
 
-body #me div { padding: 0 1em; }
+body #me div { padding: 0 1em; margin: 1em 0; flex-grow: 1; }
 
 body #input input[type="text"] { background-color: #073642; color: #839496; margin: .25em; width: calc(100% - 1em); border: 0.1em solid #586e75; border-radius: .25em; padding: .5em; }
 

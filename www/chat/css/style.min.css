@@ -3,7 +3,7 @@
 
 input { display: block; }
 
-button { cursor: pointer; }
+button, a:hover { cursor: pointer; }
 
 body.swal2-height-auto { height: inherit !important; }
 

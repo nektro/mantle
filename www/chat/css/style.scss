@@ -31,7 +31,7 @@ $comment: $based1;
 input {
     display: block;
 }
-button {
+button, a:hover {
     cursor: pointer;
 }
 // sweetalert2 scroll issue fix

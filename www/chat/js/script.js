@@ -1,8 +1,9 @@
 "use strict";
 //
-import { el_1, el_2, el_3, getUserFromUUID, output, messageCache, el_4, create_element, dcTN } from "./util.js";
+import { create_element, dcTN } from "./util.js";
 import * as ui from "./ui.js";
 import * as client from "./client.js";
+import { el_2, el_3, el_1, output, messageCache, getUserFromUUID, el_4 } from "./ui.util.js";
 
 //
 let me = null;

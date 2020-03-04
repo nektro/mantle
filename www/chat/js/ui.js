@@ -1,9 +1,9 @@
 "use strict";
 //
-import { el_1, create_element, dcTN, messageCache, output, getUserFromUUID, el_4, numsBetween } from "./util.js";
+import { create_element, dcTN, numsBetween } from "./util.js";
 import { Channel } from "./ui.channel.js";
 import { SidebarRole } from "./ui.sidebar_role.js";
-import * as uiu from "./ui.util.js";
+import { el_1, messageCache, ele_atBottom, output, getUserFromUUID, el_4 } from "./ui.util.js";
 
 //
 
@@ -79,7 +79,7 @@ export function createMessage(user, msg) {
 export function addMessage(channel, from, message, save=true) {
     channel = channel ? channel : volatile.activeChannel.dataset.uuid;
     from.uuid = from.uuid ? from.uuid : "";
-    const at_bottom = uiu.ele_atBottom(output);
+    const at_bottom = ele_atBottom(output);
     if (channel === null || output.dataset.active === channel) {
         output.appendChild(createMessage(from, message));
     }

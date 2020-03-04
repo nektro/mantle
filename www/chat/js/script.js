@@ -12,7 +12,7 @@ let me = null;
     //
     await fetch("./../api/about").then((x) => x.json()).then((x) => {
         console.info(x);
-        el_2.innerText = x.message.name;
+        el_2.children[0].innerText = x.message.name;
     });
 
     //
@@ -146,11 +146,11 @@ let me = null;
     const socket = new WebSocket(`ws${location.protocol.substring(4)}//${location.host}/ws`);
 
     socket.addEventListener("open", () => {
-        el_2.classList.remove("loading");
-        el_2.classList.add("online");
+        el_2.children[0].classList.remove("loading");
+        el_2.children[0].classList.add("online");
     });
     socket.addEventListener("close", () => {
-        el_2.classList.remove("online");
+        el_2.children[0].classList.remove("online");
     });
     socket.addEventListener("message", async (e) => {
         const d = JSON.parse(e.data);
@@ -195,7 +195,7 @@ let me = null;
         }
     });
     setInterval(() => {
-        if (el_2.classList.contains("online")) {
+        if (el_2.children[0].classList.contains("online")) {
             socket.send(JSON.stringify({
                 type: "ping",
             }));

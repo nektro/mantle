@@ -61,19 +61,24 @@ body {
 }
 body {
     #server-name {
-        text-align: center;
-        line-height: 3rem;
         color: $fg;
+        display: flex;
+        flex-direction: row;
 
-        &::after {
-            content: " ❌";
-            font-family: 'apple color emoji', 'segoe ui emoji', 'noto color emoji', 'android emoji', 'emojisymbols', 'emojione mozilla', 'twemoji mozilla', 'segoe ui symbol';
-        }
-        &.online::after {
-            content: " ✔";
-        }
-        &.loading::after {
-            content: " 🕒";
+        span {
+            margin: 1em;
+            flex-grow: 1;
+
+            &::after {
+                content: " ❌";
+                font-family: 'apple color emoji', 'segoe ui emoji', 'noto color emoji', 'android emoji', 'emojisymbols', 'emojione mozilla', 'twemoji mozilla', 'segoe ui symbol';
+            }
+            &.online::after {
+                content: " ✔";
+            }
+            &.loading::after {
+                content: " 🕒";
+            }
         }
     }
     #channel-name {

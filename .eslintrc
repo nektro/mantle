@@ -68,6 +68,7 @@
         "no-continue":"off",
         "require-atomic-updates":"off",
         "prefer-named-capture-group":"off",
+        "arrow-body-style":"off",
         "consistent-return":"off"
     }
 }

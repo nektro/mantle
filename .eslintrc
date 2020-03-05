@@ -9,7 +9,6 @@
         "location": true,
         "console": true,
         "Swal": true,
-        "URLSearchParams": true,
         "WebSocket": true,
         "setInterval": true,
         "Element": true,

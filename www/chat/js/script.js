@@ -72,14 +72,10 @@ $("x-settings").on("click", (e) => {
                 inputValidator: (value) => !value && "You need to write something!",
             });
             if (name !== undefined) {
-                const fd = new URLSearchParams();
+                const fd = new FormData();
                 fd.append("name", name);
                 return fetch("./../api/channels/create", {
                     method: "post",
-                    credentials: "include",
-                    headers: {
-                        "content-type": "application/x-www-form-urlencoded",
-                    },
                     body: fd,
                 });
             }

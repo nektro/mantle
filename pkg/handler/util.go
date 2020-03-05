@@ -9,7 +9,6 @@ import (
 	"strings"
 
 	"github.com/nektro/mantle/pkg/db"
-	"github.com/nektro/mantle/pkg/itypes"
 
 	"github.com/gorilla/sessions"
 	"github.com/nektro/go-util/alias"
@@ -50,7 +49,10 @@ func apiBootstrapRequireLogin(r *http.Request, w http.ResponseWriter, method str
 }
 
 func writeAPIResponse(r *http.Request, w http.ResponseWriter, good bool, status int, message interface{}) error {
-	resp := itypes.APIResponse{good, message}
+	resp := map[string]interface{}{
+		"success": good,
+		"message": message,
+	}
 	dat, _ := json.Marshal(resp)
 	w.Header().Add("content-type", "application/json")
 	w.WriteHeader(status)

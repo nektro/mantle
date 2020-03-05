@@ -27,31 +27,10 @@ Once you have finished the app creation process you should now have a Client ID 
 
 The Identity Provider IDs can be found from the table in the [nektro/go.oauth2](https://github.com/nektro/go.oauth2#readme) documentation.
 
-## Development
 
-### Prerequisites
-- The Go Language 1.12+ (https://golang.org/dl/)
-- GCC on your PATH (for the https://github.com/mattn/go-sqlite3 installation)
-
-### Installing
-Run
-```
-$ go get -u -v github.com/nektro/mantle
-```
-and then make your way to `$GOPATH/src/github.com/nektro/mantle/`.
-
-Once there, run:
-```
-$ ./start.sh
-```
 
 ## Deployment
 Pre-compiled binaries can be obtained from https://github.com/nektro/mantle/releases/latest.
-
-Or you can build from source:
-```
-$ ./build_all.sh
-```
 
 ## Built With
 - https://github.com/gorilla/mux

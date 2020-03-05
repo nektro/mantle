@@ -23,7 +23,10 @@ func SaveOAuth2InfoCb(w http.ResponseWriter, r *http.Request, provider string, i
 
 // Verify is handler for /verify
 func Verify(w http.ResponseWriter, r *http.Request) {
-	_, user, _ := apiBootstrapRequireLogin(r, w, http.MethodGet, false)
+	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodGet, false)
+	if err != nil {
+		return
+	}
 
 	if o, _ := strconv.ParseBool(db.Props.Get("public")); o {
 		if !user.IsMember {

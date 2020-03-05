@@ -42,7 +42,7 @@ func apiBootstrapRequireLogin(r *http.Request, w http.ResponseWriter, method str
 	user, _ := db.QueryUserByUUID(userID)
 
 	if assertMembership && !user.IsMember {
-		return nil, nil, writeAPIResponse(r, w, false, http.StatusForbidden, "This action requires being a member of this server. ("+userID+")")
+		return nil, nil, writeAPIResponse(r, w, false, http.StatusForbidden, "This action requires being a member of this server.")
 	}
 
 	return sess, user, nil

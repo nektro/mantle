@@ -33,6 +33,7 @@ The Identity Provider IDs can be found from the table in the [nektro/go.oauth2](
 |------|------|---------|-------------|
 | `--dbstorage-debug-sql` | `bool` | `false` | Enable this flag to print all executed SQL statements. |
 | `--oauth2-default-auth` | `string` | none. | Use this if you'd like to have a default auth when multiple are enabled. |
+| `--port` | `int` | `8000` | The port to bind the web server to. |
 
 ## Deployment
 Pre-compiled binaries can be obtained from https://github.com/nektro/mantle/releases/latest.

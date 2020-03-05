@@ -21,12 +21,12 @@
     </head>
     <body>
         <div id="server-name">
-            <span class="loading"><!-- server name --></span>
+            <span class="loading" data-bind="server_name"></span>
             <a data-requires="manage_server"><i class="i cog icon"></i></a>
         </div>
         <div id="channel-name">
-            <span><!-- channel name --></span>
-            <span><!-- channel description --></span>
+            <span data-bind="channel_name"></span>
+            <span data-bind="channel_description"></span>
         </div>
         <div id="channel-list">
             <ol></ol>

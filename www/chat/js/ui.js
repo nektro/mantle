@@ -1,9 +1,9 @@
 "use strict";
 //
-import { create_element, dcTN, numsBetween } from "./util.js";
+import { create_element, dcTN, numsBetween, ele_atBottom } from "./util.js";
 import { Channel } from "./ui.channel.js";
 import { SidebarRole } from "./ui.sidebar_role.js";
-import { el_1, messageCache, ele_atBottom, output, getUserFromUUID, el_4 } from "./ui.util.js";
+import { el_1, messageCache, output, getUserFromUUID, el_4 } from "./ui.util.js";
 
 //
 

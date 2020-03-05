@@ -55,3 +55,11 @@ export function numsBetween(x1, x2) {
 export function numsNear(x, y, z) {
     return Math.abs(x - y) < z;
 }
+
+/**
+ * @param {Element} ele an element.
+ * @returns {Boolean} true if 'ele' is scrolled to within 5px of the bottom of its scroll.
+ */
+export function ele_atBottom(ele) {
+    return numsNear(ele.scrollTop, ele.scrollHeight - ele.clientHeight, 5);
+}

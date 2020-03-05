@@ -46,3 +46,8 @@ func (p *Properties) Set(key string, val string) {
 	db.Build().Up(cTableSettings, "value", val).Wh("key", key).Exe()
 	p.cache.Store(key, val)
 }
+
+func (p *Properties) Has(key string) bool {
+	_, ok := p.cache.Load(key)
+	return ok
+}

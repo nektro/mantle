@@ -27,7 +27,12 @@ Once you have finished the app creation process you should now have a Client ID 
 
 The Identity Provider IDs can be found from the table in the [nektro/go.oauth2](https://github.com/nektro/go.oauth2#readme) documentation.
 
+### Other Flags
 
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `--dbstorage-debug-sql` | `bool` | `false` | Enable this flag to print all executed SQL statements. |
+| `--oauth2-default-auth` | `string` | none. | Use this if you'd like to have a default auth when multiple are enabled. |
 
 ## Deployment
 Pre-compiled binaries can be obtained from https://github.com/nektro/mantle/releases/latest.

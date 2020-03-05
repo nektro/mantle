@@ -1,6 +1,6 @@
 "use strict";
 //
-import { create_element, dcTN } from "./util.js";
+import { create_element, dcTN, setDataBinding } from "./util.js";
 import * as ui from "./ui.js";
 import * as client from "./client.js";
 import { el_2, el_3, el_1, output, messageCache, getUserFromUUID, el_4 } from "./ui.util.js";
@@ -20,7 +20,7 @@ $("x-settings").on("click", (e) => {
     //
     await fetch("./../api/about").then((x) => x.json()).then((x) => {
         console.info(x);
-        el_2.children[0].innerText = x.message.name;
+        setDataBinding("server_name", x.message.name);
         //
         const sx = document.querySelectorAll("x-settings.settings.server div div div:nth-child(1) x-text-setting");
         sx[0].setAttribute("value", x.message.name);

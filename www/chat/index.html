@@ -8,16 +8,21 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css" integrity="sha256-/PVkO2+mUlKqE6wgKVXU5Wh4mx3vncHAxLEdpXrziGo=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.4/components/icon.min.css" integrity="sha256-2kYMj3yE80H+IDs+HOVv+yYQN8KTZExe1HXxwlJaBIc=" crossorigin="anonymous" />
         <link rel="stylesheet" href="./css/style.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js" integrity="sha256-rNQvJc3/MuwBWFwVTqr0qJ91nWA1pR7PDLk31hgGqP8=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.0.4/2/twemoji.min.js" integrity="sha256-Pbqu2FUGGcJj9IWMiV6JVz6q2BjlGeVrwFW/aXFE5xk=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements/1.4.0/custom-elements.min.js" integrity="sha256-vv/BrFy1OaYwh6wQq1T9z7QUVv5HLaZ5XS13D96g5nE=" crossorigin="anonymous"></script>
         <script src="./js/polyfills.js"></script>
+        <script type="module" src="./js/x-settings.js"></script>
+        <script type="module" src="./js/x-text-setting.js"></script>
         <script type="module" src="./js/script.js"></script>
     </head>
     <body>
         <div id="server-name">
             <span class="loading"><!-- server name --></span>
+            <a data-requires="manage_server"><i class="i cog icon"></i></a>
         </div>
         <div id="channel-name">
             <span><!-- channel name --></span>
@@ -39,5 +44,20 @@
         <div id="input">
             <input type="text" placeholder="Send a message...">
         </div>
+        <x-settings class="settings server">
+            <div>
+                <nav>
+                    <a>Overview</a>
+                </nav>
+                <div>
+                    <div>
+                        <h2>Overview</h2>
+                        <div>Here you can update some of the global information of your Mantle instance.</div>
+                        <hr>
+                        <x-text-setting endpoint="./../api/update_property" name="name" label="Name" value=""></x-text-setting>
+                    </div>
+                </div>
+            </div>
+        </x-settings>
     </body>
 </html>

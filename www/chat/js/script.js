@@ -9,11 +9,25 @@ import { el_2, el_3, el_1, output, messageCache, getUserFromUUID, el_4 } from ".
 let me = null;
 
 //
+$("x-settings").on("click", (e) => {
+    if (e.target.localName === "x-settings") {
+        e.target.removeAttribute("open");
+    }
+});
+
+//
 (async function() {
     //
     await fetch("./../api/about").then((x) => x.json()).then((x) => {
         console.info(x);
         el_2.children[0].innerText = x.message.name;
+        //
+        const sx = document.querySelectorAll("x-settings.settings.server div div div:nth-child(1) x-text-setting");
+        sx[0].setAttribute("value", x.message.name);
+        //
+        el_2.children[1].addEventListener("click", () => {
+            document.querySelector("x-settings.settings.server").setAttribute("open","");
+        });
     });
 
     //

@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/nektro/mantle/pkg/db"
+	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
@@ -41,4 +42,32 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 // ApiAbout is handler for /api/about
 func ApiAbout(w http.ResponseWriter, r *http.Request) {
 	writeAPIResponse(r, w, true, http.StatusOK, db.Props.GetAll())
+}
+
+func ApiPropertyUpdate(w http.ResponseWriter, r *http.Request) {
+	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPost, true)
+	if err != nil {
+		return
+	}
+	n := r.Form.Get("p_name")
+	if !(len(n) > 0) {
+		writeAPIResponse(r, w, false, http.StatusBadRequest, "missing form value 'p_name'.")
+		return
+	}
+	v := r.Form.Get("p_value")
+	if !(len(v) > 0) {
+		writeAPIResponse(r, w, false, http.StatusBadRequest, "missing form value 'p_value'.")
+		return
+	}
+	usp := ws.UserPerms{}.From(user)
+	if !usp.ManageServer {
+		writeAPIResponse(r, w, false, http.StatusForbidden, "users require the manage_server permission to update properties.")
+		return
+	}
+	if !db.Props.Has(n) {
+		writeAPIResponse(r, w, false, http.StatusBadRequest, "specified property does not exist.")
+		return
+	}
+	db.Props.Set(n, v)
+	writeAPIResponse(r, w, true, http.StatusOK, []string{n, v})
 }

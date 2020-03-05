@@ -16,6 +16,8 @@
         "Map": true,
         "FormData": true,
         "twemoji": true,
+        "HTMLElement": true,
+        "customElements": true,
         "$": true
     },
     "extends": "eslint:all",
@@ -69,6 +71,7 @@
         "require-atomic-updates":"off",
         "prefer-named-capture-group":"off",
         "arrow-body-style":"off",
+        "no-useless-constructor":"off",
         "consistent-return":"off"
     }
 }

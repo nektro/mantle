@@ -93,6 +93,7 @@ func main() {
 
 	r1 := r.PathPrefix("/api").Subrouter()
 	r1.Path("/about").HandlerFunc(handler.ApiAbout)
+	r1.Path("/update_property").HandlerFunc(handler.ApiPropertyUpdate)
 
 	r2 := r1.PathPrefix("/users").Subrouter()
 	r2.Path("/@me").HandlerFunc(handler.UsersMe)

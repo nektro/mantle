@@ -20,6 +20,8 @@
         "Element": true,
         "FormData": true,
         "twemoji": true,
+        "HTMLElement": true,
+        "customElements": true,
         "$": true
     }
 }

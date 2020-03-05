@@ -68,16 +68,19 @@ body {
         span {
             margin: 1em;
             flex-grow: 1;
+            white-space: nowrap;
+            margin-right: 0;
 
             &::after {
-                content: " ❌";
+                content: "❌";
                 font-family: 'apple color emoji', 'segoe ui emoji', 'noto color emoji', 'android emoji', 'emojisymbols', 'emojione mozilla', 'twemoji mozilla', 'segoe ui symbol';
+                padding-left: .5em;
             }
             &.online::after {
-                content: " ✔";
+                content: "✔";
             }
             &.loading::after {
-                content: " 🕒";
+                content: "🕒";
             }
         }
     }

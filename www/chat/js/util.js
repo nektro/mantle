@@ -63,3 +63,13 @@ export function numsNear(x, y, z) {
 export function ele_atBottom(ele) {
     return numsNear(ele.scrollTop, ele.scrollHeight - ele.clientHeight, 5);
 }
+
+/**
+ * @param {String} key
+ * @param {String} value
+ */
+export function setDataBinding(key, value) {
+    const e = document.querySelector(`[data-bind="${key}"]`);
+    if (e === null) return;
+    e.textContent = value;
+}

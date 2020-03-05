@@ -153,6 +153,7 @@ $("x-settings").on("click", (e) => {
     });
 
     //
+    /** @type {HTMLInputElement} */
     const input = document.getElementById("input").children[0];
     const socket = new WebSocket(`ws${location.protocol.substring(4)}//${location.host}/ws`);
 

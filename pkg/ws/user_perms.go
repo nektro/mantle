@@ -10,6 +10,7 @@ import (
 type UserPerms struct {
 	ManageChannels bool `json:"manage_channels"`
 	ManageRoles    bool `json:"manage_roles"`
+	ManageServer   bool `json:"manage_server"`
 }
 
 func (v UserPerms) From(user *db.User) *UserPerms {
@@ -26,6 +27,10 @@ func (v UserPerms) From(user *db.User) *UserPerms {
 		switch itypes.Perm(role.PermManageRoles) {
 		case itypes.PermDeny, itypes.PermAllow:
 			v.ManageRoles = itypes.Perm(role.PermManageRoles).ToBool()
+		}
+		switch itypes.Perm(role.PermManageServer) {
+		case itypes.PermDeny, itypes.PermAllow:
+			v.ManageServer = itypes.Perm(role.PermManageServer).ToBool()
 		}
 	}
 	return &v

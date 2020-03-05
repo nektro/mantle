@@ -18,6 +18,7 @@ type Role struct {
 	PermManageChannels uint8  `json:"perm_manage_channels" sqlite:"tinyint(1)"`
 	PermManageRoles    uint8  `json:"perm_manage_roles" sqlite:"tinyint(1)"`
 	Distinguish        bool   `json:"distinguish" sqlite:"tinyint(1)"`
+	PermManageServer   uint8  `json:"perm_manage_server" sqlite:"tinyint(1)"`
 }
 
 //
@@ -28,7 +29,7 @@ func CreateRole(name string) string {
 	uid := newUUID()
 	util.Log("[role-create]", uid, name)
 	p := itypes.PermIgnore
-	db.Build().Ins(cTableRoles, id, uid, id, name, "", p, p, false).Exe()
+	db.Build().Ins(cTableRoles, id, uid, id, name, "", p, p, false, p).Exe()
 	return uid
 }
 
@@ -37,7 +38,7 @@ func CreateRole(name string) string {
 
 // Scan implements dbstorage.Scannable
 func (v Role) Scan(rows *sql.Rows) dbstorage.Scannable {
-	rows.Scan(&v.ID, &v.UUID, &v.Position, &v.Name, &v.Color, &v.PermManageChannels, &v.PermManageRoles, &v.Distinguish)
+	rows.Scan(&v.ID, &v.UUID, &v.Position, &v.Name, &v.Color, &v.PermManageChannels, &v.PermManageRoles, &v.Distinguish, &v.PermManageServer)
 	return &v
 }
 

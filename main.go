@@ -58,7 +58,7 @@ func main() {
 
 	pa := uint8(itypes.PermAllow)
 	ws.RoleCache["o"] = &db.Role{
-		0, "o", 0, "Owner", "", pa, pa, false,
+		0, "o", 0, "Owner", "", pa, pa, false, pa,
 	}
 
 	//

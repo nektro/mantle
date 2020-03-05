@@ -19,8 +19,11 @@ var (
 	RoleCache = map[string]*db.Role{}
 )
 
-func Connect(user *db.User, w http.ResponseWriter, r *http.Request) *User {
-	conn, _ := reqUpgrader.Upgrade(w, r, nil)
+func Connect(user *db.User, w http.ResponseWriter, r *http.Request) (*User, error) {
+	conn, err := reqUpgrader.Upgrade(w, r, nil)
+	if err != nil {
+		return nil, err
+	}
 	u := &User{
 		conn,
 		user,
@@ -35,7 +38,7 @@ func Connect(user *db.User, w http.ResponseWriter, r *http.Request) *User {
 			"user": u.User.UUID,
 		})
 	}
-	return u
+	return u, nil
 }
 
 func Close() {

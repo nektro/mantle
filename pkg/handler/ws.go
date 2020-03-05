@@ -15,7 +15,11 @@ func Websocket(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
-	wuser := ws.Connect(user, w, r)
+	wuser, err := ws.Connect(user, w, r)
+	if err != nil {
+		writeAPIResponse(r, w, false, http.StatusBadRequest, err.Error())
+		return
+	}
 
 	// message intake loop
 	for {

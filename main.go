@@ -89,6 +89,8 @@ func main() {
 
 	r := etc.Router
 
+	r.Path("/").HandlerFunc(handler.InviteGet)
+	r.Path("/invite").HandlerFunc(handler.InvitePost)
 	r.Path("/verify").HandlerFunc(handler.Verify)
 
 	r1 := r.PathPrefix("/api").Subrouter()

@@ -33,4 +33,46 @@ body {
         padding: 2ch;
         margin: auto;
     }
+    &.p-invite {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: $based3;
+
+        form {
+            max-width: 30em;
+            background-color: $based2;
+            color: $basel1;
+            padding: 1em;
+            border-radius: .25em;
+            box-shadow: 0 0 10px white;
+
+            legend {
+                margin: auto;
+                padding: .5em;
+            }
+            .badges {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                img {
+                    padding: 0 .25em;
+                }
+            }
+            button, a {
+                display: block;
+                width: 100%;
+                margin: 1em 0;
+                background-color: $green;
+                border: 0;
+                padding: .5em 0;
+                text-decoration: none;
+                text-align: center;
+                color: initial;
+                cursor: pointer;
+            }
+        }
+    }
 }

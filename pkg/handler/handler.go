@@ -22,6 +22,22 @@ func SaveOAuth2InfoCb(w http.ResponseWriter, r *http.Request, provider string, i
 	ru.SetName(strings.ReplaceAll(name, " ", ""))
 }
 
+// InviteGet is handler for GET /invite
+func InviteGet(w http.ResponseWriter, r *http.Request) {
+	etc.WriteHandlebarsFile(r, w, "/invite.hbs", map[string]interface{}{
+		"data": db.Props.GetAll(),
+	})
+}
+
+// InvitePost is handler for POST /invite
+func InvitePost(w http.ResponseWriter, r *http.Request) {
+	if ok, _ := strconv.ParseBool(db.Props.Get("public")); ok {
+		w.Header().Add("Location", "./login")
+		w.WriteHeader(http.StatusFound)
+		return
+	}
+}
+
 // Verify is handler for /verify
 func Verify(w http.ResponseWriter, r *http.Request) {
 	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodGet, false)

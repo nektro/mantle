@@ -3,3 +3,15 @@ html, body { width: 100vw; height: 100vh; }
 body { margin: 0; font-family: 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', sans-serif; }
 
 body main { max-width: 70ch; padding: 2ch; margin: auto; }
+
+body.p-invite { display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: #002b36; }
+
+body.p-invite form { max-width: 30em; background-color: #073642; color: #93a1a1; padding: 1em; border-radius: .25em; box-shadow: 0 0 10px white; }
+
+body.p-invite form legend { margin: auto; padding: .5em; }
+
+body.p-invite form .badges { display: flex; flex-direction: row; justify-content: space-between; }
+
+body.p-invite form .badges img { padding: 0 .25em; }
+
+body.p-invite form button, body.p-invite form a { display: block; width: 100%; margin: 1em 0; background-color: #859900; border: 0; padding: .5em 0; text-decoration: none; text-align: center; color: initial; cursor: pointer; }

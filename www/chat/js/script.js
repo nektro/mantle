@@ -22,12 +22,12 @@ $("x-settings").on("click", (e) => {
         console.info(x);
         setDataBinding("server_name", x.message.name);
         //
-        const sx = document.querySelectorAll("x-settings.settings.server div div div:nth-child(1) x-text-setting");
+        const sx = document.querySelectorAll("x-settings[data-s-for=server] [data-s-section=overview] x-text-setting");
         sx[0].setAttribute("value", x.message.name);
         sx[1].setAttribute("value", x.message.description);
         //
         el_2.children[1].addEventListener("click", () => {
-            document.querySelector("x-settings.settings.server").setAttribute("open","");
+            document.querySelector("x-settings[data-s-for=server]").setAttribute("open","");
         });
     });
 

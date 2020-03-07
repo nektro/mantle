@@ -65,16 +65,11 @@ func ApiPropertyUpdate(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
+	if hGrabFormStrings(r, w, "p_name", "p_value") != nil {
+		return
+	}
 	n := r.Form.Get("p_name")
-	if !(len(n) > 0) {
-		writeAPIResponse(r, w, false, http.StatusBadRequest, "missing form value 'p_name'.")
-		return
-	}
 	v := r.Form.Get("p_value")
-	if !(len(v) > 0) {
-		writeAPIResponse(r, w, false, http.StatusBadRequest, "missing form value 'p_value'.")
-		return
-	}
 	usp := ws.UserPerms{}.From(user)
 	if !usp.ManageServer {
 		writeAPIResponse(r, w, false, http.StatusForbidden, "users require the manage_server permission to update properties.")

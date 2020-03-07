@@ -64,3 +64,8 @@ func (v *Role) SetName(s string) {
 	db.Build().Up(cTableRoles, "name", s).Wh("uuid", v.UUID).Exe()
 	v.Name = s
 }
+
+func (v *Role) SetColor(s string) {
+	db.Build().Up(cTableRoles, "color", s).Wh("uuid", v.UUID).Exe()
+	v.Color = s
+}

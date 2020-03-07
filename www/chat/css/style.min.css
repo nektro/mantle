@@ -3,7 +3,7 @@ x-settings { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; d
 
 x-settings:not([open]) { display: none; }
 
-x-settings > div { max-width: 50em; background-color: #073642; color: #eee8d5; max-height: 50em; overflow-y: scroll; width: inherit; height: inherit; display: grid; grid-template-columns: 12em auto; }
+x-settings > div { max-width: 60em; background-color: #073642; color: #eee8d5; max-height: 50em; overflow-y: scroll; width: inherit; height: inherit; display: grid; grid-template-columns: 12em auto; }
 
 x-settings > div > nav { padding: 1em; display: flex; flex-direction: column; background-color: #586e75; }
 

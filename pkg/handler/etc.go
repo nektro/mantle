@@ -8,6 +8,7 @@ import (
 	"github.com/nektro/mantle/pkg/ws"
 )
 
+// EtcBadgeMembersOnline is the handler for /api/etc/badges/members_online.svg
 func EtcBadgeMembersOnline(w http.ResponseWriter, r *http.Request) {
 	hBadge(
 		w, r,
@@ -17,6 +18,7 @@ func EtcBadgeMembersOnline(w http.ResponseWriter, r *http.Request) {
 	)
 }
 
+// EtcBadgeMembersTotal is the handler for /api/etc/badges/members_total.svg
 func EtcBadgeMembersTotal(w http.ResponseWriter, r *http.Request) {
 	hBadge(
 		w, r,

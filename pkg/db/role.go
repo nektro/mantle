@@ -51,6 +51,7 @@ func (v Role) Scan(rows *sql.Rows) dbstorage.Scannable {
 	return &v
 }
 
+// All queries database for all currently existing Roles
 func (v Role) All() []*Role {
 	arr := dbstorage.ScanAll(db.Build().Se("*").Fr(cTableRoles), Role{})
 	res := []*Role{}
@@ -65,11 +66,13 @@ func (v *Role) SetName(s string) {
 	v.Name = s
 }
 
+// SetColor sets color
 func (v *Role) SetColor(s string) {
 	db.Build().Up(cTableRoles, "color", s).Wh("uuid", v.UUID).Exe()
 	v.Color = s
 }
 
+// SetPosition sets position
 func (v *Role) SetPosition(n int) {
 	db.Build().Up(cTableRoles, "position", strconv.Itoa(n)).Wh("uuid", v.UUID).Exe()
 	v.Position = n

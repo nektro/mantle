@@ -38,6 +38,7 @@ $("x-settings[data-s-for=server] [data-s-section=roles] .selection nav a.new").o
         sx[0].setAttribute("value", x.message.name);
         sx[1].setAttribute("value", x.message.description);
         sx[2].setAttribute("value", x.message.cover_photo);
+        sx[3].setAttribute("value", x.message.profile_photo);
         //
         el_2.children[1].addEventListener("click", () => {
             document.querySelector("x-settings[data-s-for=server]").setAttribute("open","");

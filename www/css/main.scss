@@ -36,9 +36,15 @@ body {
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
+                align-items: center;
 
                 img {
                     padding: 0 .25em;
+
+                    &:nth-child(2) {
+                        border-radius: 50%;
+                        max-height: 4em;
+                    }
                 }
             }
             button, a {

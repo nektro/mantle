@@ -39,6 +39,7 @@ func Init() {
 	Props.SetDefault("public", "true")
 	Props.SetDefault("description", "The new easy and effective communication platform for any successful team or community, providing you the messaging platform that puts you in charge of both the conversation and the data.")
 	Props.SetDefault("cover_photo", "https://www.transparenttextures.com/patterns/gplay.png")
+	Props.SetDefault("profile_photo", "https://avatars.discourse.org/v4/letter/m/ec9cab/90.png")
 	Props.Init()
 	Props.Set("version", idata.Version)
 }

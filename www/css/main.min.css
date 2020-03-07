@@ -10,8 +10,9 @@ body.p-invite form { max-width: 30em; background-color: #073642; color: #93a1a1;
 
 body.p-invite form legend { margin: auto; padding: .5em; }
 
-body.p-invite form .badges { display: flex; flex-direction: row; justify-content: space-between; }
+body.p-invite form .badges { display: flex; flex-direction: row; justify-content: space-between; align-items: center; }
 
 body.p-invite form .badges img { padding: 0 .25em; }
 
+body.p-invite form .badges img:nth-child(2) { border-radius: 50%; max-height: 4em; }
 body.p-invite form button, body.p-invite form a { display: block; width: 100%; margin: 1em 0; background-color: #859900; border: 0; padding: .5em 0; text-decoration: none; text-align: center; color: initial; cursor: pointer; }

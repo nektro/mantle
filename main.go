@@ -114,6 +114,7 @@ func main() {
 	r4b := r4.PathPrefix("/badges").Subrouter()
 	r4b.Path("/members_online.svg").HandlerFunc(handler.EtcBadgeMembersOnline)
 	r4b.Path("/members_total.svg").HandlerFunc(handler.EtcBadgeMembersTotal)
+	r4.Path("/role_colors.css").HandlerFunc(handler.EtcRoleColorCSS)
 
 	r5 := r1.PathPrefix("/roles").Subrouter()
 	r5.Path("").HandlerFunc(handler.RolesRead)

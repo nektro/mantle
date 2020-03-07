@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -26,4 +27,16 @@ func EtcBadgeMembersTotal(w http.ResponseWriter, r *http.Request) {
 		strconv.FormatInt(db.User{}.MemberCount(), 10)+" members",
 		"brightgreen",
 	)
+}
+
+// EtcRoleColorCSS is the handler for /api/etc/role_colors.css
+func EtcRoleColorCSS(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("content-type", "text/css")
+	ar := (db.Role{}).AllSorted()
+	for i := len(ar) - 1; i >= 0; i-- {
+		item := ar[i]
+		if len(item.Color) > 0 {
+			fmt.Fprintln(w, `[data-role="`+item.UUID+`"] { color: `+item.Color+`; } /* `+item.Name+` */`)
+		}
+	}
 }

@@ -67,6 +67,35 @@ $("x-settings[data-s-for=server] [data-s-section=roles] .selection nav a.new").o
     });
 
     //
+    await fetch("./../api/roles").then((x) => x.json()).then((x) => {
+        const rls = x.message.sort((a,b) => a.position > b.position);
+        //
+        for (const item of rls) {
+            if (!item.distinguish) continue;
+            el_4.appendChild(create_element("div", [["data-count","0"]], [dcTN(item.name)]));
+            el_4.appendChild(create_element("ul", [["data-uid",item.uuid]], []));
+        }
+        el_4.appendChild(create_element("div", [["data-count","0"]], [dcTN("Online")]));
+        el_4.appendChild(create_element("ul", [["data-uid",""]], []));
+        //
+        for (const item of rls) {
+            ui.addRole(item);
+        }
+        $("x-settings[data-s-for=server] [data-s-section=roles] .selection nav").sortable({
+            // jshint -W098
+            stop: (ev,ue) => {
+                const a = ue.item[0];
+                const uid = a.dataset.uid;
+                const pN = a.indexOfMe()+1;
+                const fd = new FormData();
+                fd.append("p_name","position");
+                fd.append("p_value",pN);
+                fetch(`./../api/roles/${uid}/update`, { method: "post", body: fd, });
+            },
+        });
+    });
+
+    //
     await fetch("./../api/channels/@me").then((x) => x.json()).then(async (x) => {
         console.info(x);
         for (const item of x.message) {
@@ -143,34 +172,6 @@ $("x-settings[data-s-for=server] [data-s-section=roles] .selection nav a.new").o
                     //
                 });
             });
-        });
-    });
-
-    await fetch("./../api/roles").then((x) => x.json()).then((x) => {
-        const rls = x.message.sort((a,b) => a.position > b.position);
-        //
-        for (const item of rls) {
-            if (!item.distinguish) continue;
-            el_4.appendChild(create_element("div", [["data-count","0"]], [dcTN(item.name)]));
-            el_4.appendChild(create_element("ul", [["data-uid",item.uuid]], []));
-        }
-        el_4.appendChild(create_element("div", [["data-count","0"]], [dcTN("Online")]));
-        el_4.appendChild(create_element("ul", [["data-uid",""]], []));
-        //
-        for (const item of rls) {
-            ui.addRole(item);
-        }
-        $("x-settings[data-s-for=server] [data-s-section=roles] .selection nav").sortable({
-            // jshint -W098
-            stop: (ev,ue) => {
-                const a = ue.item[0];
-                const uid = a.dataset.uid;
-                const pN = a.indexOfMe()+1;
-                const fd = new FormData();
-                fd.append("p_name","position");
-                fd.append("p_value",pN);
-                fetch(`./../api/roles/${uid}/update`, { method: "post", body: fd, });
-            },
         });
     });
 

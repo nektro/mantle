@@ -81,7 +81,6 @@ export function deActivateChild(el) {
     for (const item of el.children) {
         if (item.classList.contains("active")) {
             item.classList.remove("active");
-            return;
         }
     }
 }

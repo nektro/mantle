@@ -75,10 +75,7 @@ $("x-settings").on("click", (e) => {
             if (name !== undefined) {
                 const fd = new FormData();
                 fd.append("name", name);
-                return fetch("./../api/channels/create", {
-                    method: "post",
-                    body: fd,
-                });
+                return fetch("./../api/channels/create", { method: "post", body: fd, });
             }
         });
         el_1.querySelector("ol").addEventListener("click", (ev) => {

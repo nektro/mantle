@@ -43,7 +43,7 @@ func (v Role) Scan(rows *sql.Rows) dbstorage.Scannable {
 }
 
 func (v Role) All() []*Role {
-	arr := dbstorage.ScanAll(db.Build().Se("*").Fr(cTableRoles).Or("position", "asc"), Role{})
+	arr := dbstorage.ScanAll(db.Build().Se("*").Fr(cTableRoles), Role{})
 	res := []*Role{}
 	for _, item := range arr {
 		res = append(res, item.(*Role))

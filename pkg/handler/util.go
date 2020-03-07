@@ -74,3 +74,13 @@ func hBadge(w http.ResponseWriter, r *http.Request, l, m, c string) {
 	w.Header().Add("location", alias.F("https://img.shields.io/badge/%s-%s-%s", l, m, c))
 	w.WriteHeader(http.StatusFound)
 }
+
+func hGrabFormStrings(r *http.Request, w http.ResponseWriter, s ...string) error {
+	for _, item := range s {
+		if !(len(r.Form.Get(item)) > 0) {
+			writeAPIResponse(r, w, false, http.StatusBadRequest, "missing form value '"+item+"'.")
+			return alias.E("missing " + item + " in form")
+		}
+	}
+	return nil
+}

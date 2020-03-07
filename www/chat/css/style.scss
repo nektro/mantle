@@ -1,31 +1,4 @@
-//////////////////
-// From: https://ethanschoonover.com/solarized/
-//////////////////
-$based3:  #002b36;
-$based2:  #073642;
-$based1:  #586e75;
-$based0:  #657b83;
-$basel0:  #839496;
-$basel1:  #93a1a1;
-$basel2:  #eee8d5;
-$basel3:  #fdf6e3;
-//////////////////
-$orange:  #cb4b16;
-$yellow:  #b58900;
-$red:     #dc322f;
-$magenta: #d33682;
-$violet:  #6c71c4;
-$blue:    #268bd2;
-$cyan:    #2aa198;
-$green:   #859900;
-//////////////////
-$fg:      $basel0;
-$bg:      $based3;
-$hl:      $based2;
-$emph:    $basel1;
-$comment: $based1;
-//////////////////
-//////////////////
+@import './color.scss';
 * {
     box-sizing: border-box;
 }

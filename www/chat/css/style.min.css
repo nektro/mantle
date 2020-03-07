@@ -83,7 +83,7 @@ body #messages { background-color: #002b36; color: #586e75; display: flex; flex-
 
 body #messages > div { overflow-y: scroll; }
 
-body #messages > div > div.msg { padding: .5em 1em; display: flex; flex-direction: row; border: 2px solid transparent; border-bottom-width: 0; }
+body #messages > div > div.msg { padding: .5em 1em; display: flex; flex-direction: row; border: 2px solid transparent; border-bottom-width: 0; color: white; }
 
 body #messages > div > div.msg:last-child { border-bottom-width: 2px; }
 
@@ -97,11 +97,13 @@ body #messages > div > div.msg.selected + :not(.selected) { border-top-color: #b
 
 body #messages > div > div.msg:not([data-user-uid]) > div { color: #586e75; }
 
-body #messages > div > div.msg > div { color: white; vertical-align: middle; display: flex; align-items: center; }
+body #messages > div > div.msg > div { vertical-align: middle; display: flex; align-items: center; }
 
 body #messages > div > div.msg > div.ts { padding-right: .5em; color: #586e75; white-space: nowrap; font-size: .9em; }
 
 body #messages > div > div.msg > div.usr { padding-right: .5em; font-weight: 500; }
+
+body #messages > div > div.msg > div.usr::after { content: ":"; color: white; }
 
 body #messages > div > div.msg > div.dat { font-weight: 300; word-wrap: anywhere; hyphens: auto; display: block; }
 

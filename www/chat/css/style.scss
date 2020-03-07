@@ -154,6 +154,7 @@ body {
                 flex-direction: row;
                 border: 2px solid transparent;
                 border-bottom-width: 0;
+                color: white;
 
                 &:last-child {
                     border-bottom-width: 2px;
@@ -176,7 +177,6 @@ body {
                     color: $based1;
                 }
                 > div {
-                    color: white;
                     vertical-align: middle;
                     display: flex;
                     align-items: center;
@@ -190,6 +190,11 @@ body {
                     &.usr {
                         padding-right: .5em;
                         font-weight: 500;
+
+                        &::after {
+                            content: ":";
+                            color: white;
+                        }
                     }
                     &.dat {
                         font-weight: 300;

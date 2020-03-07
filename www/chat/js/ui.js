@@ -32,13 +32,14 @@ export async function addChannel(ch) {
 
 export function createMessage(user, msg) {
     const attrs = [["class","msg"]];
+    const attrsU = [["class","usr"]];
     if (msg.uuid) attrs.push(["data-msg-uid",msg.uuid]);
     if (user.uuid) attrs.push(["data-user-uid",user.uuid]);
     //
     const time = new Date(msg.time||Date.now()).toLocaleString("en-GB");
     const el = create_element("div", attrs, [
         create_element("div", [["class","ts"],["title",time]], [dcTN(time.substring(time.indexOf(" ")))]),
-        create_element("div", [["class","usr"]], [dcTN(user.name + ": ")]),
+        create_element("div", attrsU, [dcTN(user.name)]),
         create_element("div", [["class","dat"]], [dcTN(msg.body)]),
     ]);
     el.children[2].innerHTML = el.children[2].textContent.replace(/(https?:\/\/[^\s]+)/gu, (match) => `<a target="_blank" href="${match}">${match}</a>`);

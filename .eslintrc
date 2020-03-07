@@ -71,6 +71,7 @@
         "prefer-named-capture-group":"off",
         "arrow-body-style":"off",
         "no-useless-constructor":"off",
+        "no-use-before-define":"off",
         "consistent-return":"off"
     }
 }

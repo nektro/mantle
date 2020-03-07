@@ -22,6 +22,7 @@ type User struct {
 	JoindedOn  string `json:"joined_on" sqlite:"text"`
 	LastActive string `json:"last_active" sqlite:"text"`
 	Roles      string `json:"roles" sqlite:"text"`
+	RolesA     []string
 }
 
 //
@@ -58,6 +59,7 @@ func (v User) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(&v.ID, &v.Provider, &v.Snowflake, &v.UUID, &v.IsMember, &v.IsBanned, &v.Name, &v.Nickname, &v.JoindedOn, &v.LastActive, &v.Roles)
 	v.JoindedOn = strings.Replace(v.JoindedOn, " ", "T", 1) + "Z"
 	v.LastActive = strings.Replace(v.LastActive, " ", "T", 1) + "Z"
+	v.RolesA = strings.Split(v.Roles, ",")
 	return &v
 }
 

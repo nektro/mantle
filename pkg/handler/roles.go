@@ -91,6 +91,14 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 		}
 		rl.SetColor(v)
 		successCb(rl, n, v)
+	case "position":
+		i, err := strconv.Atoi(v)
+		if err != nil {
+			writeAPIResponse(r, w, false, http.StatusBadRequest, "error parsing position: "+err.Error())
+			return
+		}
+		rl.SetPosition(i)
+		successCb(rl, n, v)
 	default:
 		writeAPIResponse(r, w, false, http.StatusBadRequest, "invalid p_name parameter")
 	}

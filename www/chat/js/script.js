@@ -158,6 +158,18 @@ $("x-settings[data-s-for=server] [data-s-section=roles] .selection nav a.new").o
         for (const item of rls) {
             ui.addRole(item);
         }
+        $("x-settings[data-s-for=server] [data-s-section=roles] .selection nav").sortable({
+            // jshint -W098
+            stop: (ev,ue) => {
+                const a = ue.item[0];
+                const uid = a.dataset.uid;
+                const pN = a.indexOfMe()+1;
+                const fd = new FormData();
+                fd.append("p_name","position");
+                fd.append("p_value",pN);
+                fetch(`./../api/roles/${uid}/update`, { method: "post", body: fd, });
+            },
+        });
     });
 
     await fetch("./../api/users/online").then((x) => x.json()).then((x) => {

@@ -101,6 +101,7 @@ func main() {
 	r2.Path("/@me").HandlerFunc(handler.UsersMe)
 	r2.Path("/online").HandlerFunc(handler.UsersOnline)
 	r2.Path("/{uuid}").HandlerFunc(handler.UsersRead)
+	r2.Path("/{uuid}/update").HandlerFunc(handler.UserUpdate)
 
 	r3 := r1.PathPrefix("/channels").Subrouter()
 	r3.Path("/@me").HandlerFunc(handler.ChannelsMe)

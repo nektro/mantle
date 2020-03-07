@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/nektro/go-util/alias"
+	"github.com/nektro/go-util/arrays/stringsu"
 	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
 )
@@ -102,6 +103,15 @@ func (u *User) AddRole(role string) {
 		return
 	}
 	u.RolesA = append(u.RolesA, role)
+	u.Roles = strings.Join(u.RolesA, ",")
+	db.Build().Up(cTableUsers, "roles", u.Roles).Wh("uuid", u.UUID).Exe()
+}
+
+func (u *User) RemoveRole(role string) {
+	if !u.HasRole(role) {
+		return
+	}
+	u.RolesA = stringsu.Remove(u.RolesA, role)
 	u.Roles = strings.Join(u.RolesA, ",")
 	db.Build().Up(cTableUsers, "roles", u.Roles).Wh("uuid", u.UUID).Exe()
 }

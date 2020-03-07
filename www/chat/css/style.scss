@@ -363,6 +363,48 @@ body {
                     padding: .2em;
                     margin-right: .25em;
                     margin-top: .25em;
+
+                    &:not(.active) {
+                        display: none;
+                    }
+                }
+            }
+            div {
+                i {
+                    cursor: pointer;
+                    display: block;
+                    width: 100%;
+                    text-align: left;
+
+                    &:hover + ol {
+                        display: block;
+                    }
+                }
+                ol {
+                    display: none;
+                    box-shadow: 0 0 5px black;
+                    list-style-type: none;
+                    padding: 0;
+                    margin: 0;
+
+                    &:hover {
+                        display: block;
+                    }
+                    li {
+                        padding: .25em .5em;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: #ddd;
+                        }
+                        &.active {
+                            background-color: #ccc;
+
+                            &:hover {
+                                background-color: #bbb;
+                            }
+                        }
+                    }
                 }
             }
         }

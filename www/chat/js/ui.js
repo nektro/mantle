@@ -4,7 +4,7 @@
 import { create_element, dcTN, numsBetween, ele_atBottom, deActivateChild, setDataBinding } from "./util.js";
 import { Channel } from "./ui.channel.js";
 import { SidebarRole } from "./ui.sidebar_role.js";
-import { el_1, messageCache, output, getUserFromUUID, el_4, roleCache } from "./ui.util.js";
+import { el_1, messageCache, output, getUserFromUUID, el_4, roleCache, userCache } from "./ui.util.js";
 
 //
 
@@ -85,20 +85,28 @@ export function createMessage(user, msg) {
     }
     if (user.uuid) {
         el.querySelector(".usr").addEventListener("click", (e) => {
-            setDataBinding("pp_user_name", user.name);
-            setDataBinding("pp_user_id", user.id);
-            setDataBinding("pp_user_uuid", user.uuid);
-            setDataBinding("pp_user_provider", user.provider);
-            setDataBinding("pp_user_snowflake", user.snowflake);
+            const userN = userCache.get(user.uuid);
+            setDataBinding("pp_user_name", userN.name);
+            setDataBinding("pp_user_id", userN.id);
+            setDataBinding("pp_user_uuid", userN.uuid);
+            setDataBinding("pp_user_provider", userN.provider);
+            setDataBinding("pp_user_snowflake", userN.snowflake);
             const pp = document.querySelector("dialog.popup.user");
             const ppr = pp.querySelector("ol");
-            const rls = user.roles.split(",").
+            const rls = userN.roles.split(",").
                 filter((v) => v.length > 0).
                 map((v) => roleCache.get(v)).
                 sort((a,b) => a.position > b.position);
-            ppr.removeAllChildren();
+            deActivateChild(ppr);
+            const pps = pp.querySelector("div ol");
+            deActivateChild(pps);
             for (const item of rls) {
-                ppr.appendChild(create_element("li", [["data-role",item.uuid]], [dcTN(item.name)]));
+                const ppra = ppr.querySelector(`[data-uid="${item.uuid}"]`);
+                if (ppra === null) continue;
+                ppra.classList.add("active");
+                const ppsa = pps.querySelector(`[data-uid="${item.uuid}"]`);
+                if (ppsa === null) continue;
+                ppsa.classList.add("active");
             }
             pp.setAttribute("open","");
             pp.style.top = e.y+"px";
@@ -188,6 +196,23 @@ export function addRole(role) {
         rlist.parentElement.classList.add("active");
         settingsRolesSetActive(0);
     }
+    //
+    //
+    const nEl2 = create_element("li", [["data-uid",role.uuid]], [dcTN(role.name)]);
+    document.querySelector("dialog.popup.user ol").appendChild(nEl2.cloneNode(true));
+    nEl2.addEventListener("click", (e) => {
+        const et = e.target;
+        const rid = et.dataset.uid;
+        const uid = document.querySelector("[data-bind=pp_user_uuid]").textContent;
+        const fd = new FormData();
+        fd.append("p_name", et.classList.contains("active") ? "remove_role" : "add_role");
+        fd.append("p_value", rid);
+        fetch(`./../api/users/${uid}/update`, { method: "put", body: fd, });
+        const ett = et.parentElement.parentElement.previousElementSibling.querySelector(`[data-uid="${rid}"]`);
+        if (et.classList.contains("active")) ett.classList.remove("active"); else ett.classList.add("active");
+        if (et.classList.contains("active")) et.classList.remove("active"); else et.classList.add("active");
+    });
+    document.querySelector("dialog.popup.user div ol").appendChild(nEl2);
 }
 
 export function settingsRolesSetActive(i) {

@@ -162,3 +162,21 @@ body dialog.popup.user h2 { margin: 0 0 .5em 0; }
 body dialog.popup.user > ol { margin: .5em 0; padding: 0; list-style-type: none; }
 
 body dialog.popup.user > ol li { display: inline-block; background-color: #ccc; border-radius: .25em; padding: .2em; margin-right: .25em; margin-top: .25em; }
+
+body dialog.popup.user > ol li:not(.active) { display: none; }
+
+body dialog.popup.user div i { cursor: pointer; display: block; width: 100%; text-align: left; }
+
+body dialog.popup.user div i:hover + ol { display: block; }
+
+body dialog.popup.user div ol { display: none; box-shadow: 0 0 5px black; list-style-type: none; padding: 0; margin: 0; }
+
+body dialog.popup.user div ol:hover { display: block; }
+
+body dialog.popup.user div ol li { padding: .25em .5em; cursor: pointer; }
+
+body dialog.popup.user div ol li:hover { background-color: #ddd; }
+
+body dialog.popup.user div ol li.active { background-color: #ccc; }
+
+body dialog.popup.user div ol li.active:hover { background-color: #bbb; }

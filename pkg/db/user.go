@@ -96,3 +96,12 @@ func (u *User) DeleteMessage(c *Channel, uid string) {
 func (u *User) HasRole(role string) bool {
 	return util.Contains(u.RolesA, role)
 }
+
+func (u *User) AddRole(role string) {
+	if u.HasRole(role) {
+		return
+	}
+	u.RolesA = append(u.RolesA, role)
+	u.Roles = strings.Join(u.RolesA, ",")
+	db.Build().Up(cTableUsers, "roles", u.Roles).Wh("uuid", u.UUID).Exe()
+}

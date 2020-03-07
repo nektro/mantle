@@ -24,13 +24,15 @@ type Role struct {
 //
 //
 
-func CreateRole(name string) string {
+func CreateRole(name string) *Role {
 	id := db.QueryNextID(cTableRoles)
 	uid := newUUID()
 	util.Log("[role-create]", uid, name)
 	p := itypes.PermIgnore
 	db.Build().Ins(cTableRoles, id, uid, id, name, "", p, p, false, p).Exe()
-	return uid
+	p8 := uint8(p)
+	r := &Role{id, uid, int(id), name, "", p8, p8, false, p8}
+	return r
 }
 
 //

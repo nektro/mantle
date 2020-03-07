@@ -61,6 +61,17 @@ func (v Role) All() []*Role {
 	return res
 }
 
+// AllSorted is the same as All but ordered by position
+func (v Role) AllSorted() []*Role {
+	arr := dbstorage.ScanAll(db.Build().Se("*").Fr(cTableRoles).Or("position", "asc"), Role{})
+	res := []*Role{}
+	for _, item := range arr {
+		res = append(res, item.(*Role))
+	}
+	return res
+}
+
+// SetName sets name
 func (v *Role) SetName(s string) {
 	db.Build().Up(cTableRoles, "name", s).Wh("uuid", v.UUID).Exe()
 	v.Name = s

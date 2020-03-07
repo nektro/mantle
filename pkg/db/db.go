@@ -37,6 +37,7 @@ func Init() {
 	Props.SetDefault("name", idata.Name)
 	Props.SetDefault("owner", "")
 	Props.SetDefault("public", "true")
+	Props.SetDefault("description", "The new easy and effective communication platform for any successful team or community, providing you the messaging platform that puts you in charge of both the conversation and the data.")
 	Props.Init()
 	Props.Set("version", idata.Version)
 }

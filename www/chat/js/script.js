@@ -24,6 +24,7 @@ $("x-settings").on("click", (e) => {
         //
         const sx = document.querySelectorAll("x-settings.settings.server div div div:nth-child(1) x-text-setting");
         sx[0].setAttribute("value", x.message.name);
+        sx[1].setAttribute("value", x.message.description);
         //
         el_2.children[1].addEventListener("click", () => {
             document.querySelector("x-settings.settings.server").setAttribute("open","");

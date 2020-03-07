@@ -80,5 +80,13 @@
                 </div>
             </div>
         </x-settings>
+        <dialog class="popup user">
+            <h2><span data-bind="pp_user_name"></span><span>#<span data-bind="pp_user_id"></span></span></h2>
+            <div data-bind="pp_user_uuid"></div>
+            <div>Provider: <span data-bind="pp_user_provider"></span></div>
+            <hr>
+            <div>Roles</div>
+            <ol></ol>
+        </dialog>
     </body>
 </html>

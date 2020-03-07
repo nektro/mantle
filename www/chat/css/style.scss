@@ -190,6 +190,7 @@ body {
                     &.usr {
                         padding-right: .5em;
                         font-weight: 500;
+                        cursor: pointer;
 
                         &::after {
                             content: ":";
@@ -336,6 +337,32 @@ body {
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+    dialog.popup {
+        position: absolute;
+        margin: 0;
+
+        &.user {
+            max-width: 20em;
+
+            h2 {
+                margin: 0 0 .5em 0;
+            }
+            >ol {
+                margin: .5em 0;
+                padding: 0;
+                list-style-type: none;
+
+                li {
+                    display: inline-block;
+                    background-color: #ccc;
+                    border-radius: .25em;
+                    padding: .2em;
+                    margin-right: .25em;
+                    margin-top: .25em;
                 }
             }
         }

@@ -26,6 +26,13 @@ $("x-settings[data-s-for=server] [data-s-section=roles] .selection nav a.new").o
     fd.append("name", name);
     return fetch("./../api/roles/create", { method: "post", body: fd, });
 });
+$(document).on("click", (e) => {
+    const p = e.target.path();
+    if (p.filter((v) => v.matches("dialog[open]")).length > 0) return;
+    if (p.filter((v) => v.matches(".msg .usr")).length > 0) return;
+    const s = document.querySelectorAll("dialog[open]");
+    s.forEach((v) => v.removeAttribute("open"));
+});
 
 //
 (async function() {

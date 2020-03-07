@@ -73,3 +73,15 @@ export function setDataBinding(key, value) {
     if (e === null) return;
     e.textContent = value;
 }
+
+/**
+ * @param {HTMLElement} el
+ */
+export function deActivateChild(el) {
+    for (const item of el.children) {
+        if (item.classList.contains("active")) {
+            item.classList.remove("active");
+            return;
+        }
+    }
+}

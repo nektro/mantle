@@ -132,8 +132,7 @@ export async function setMemberOnline(uid) {
 export function setMemberOffline(uid) {
     console.debug("user-ws-disconnect", uid);
     const ue = el_4.querySelector(`li[data-user="${uid}"]`);
-    if (ue !== null) {
-        new SidebarRole(ue.parentElement).count -= 1;
-        ue.remove();
-    }
+    if (ue === null) return;
+    new SidebarRole(ue.parentElement).count -= 1;
+    ue.remove();
 }

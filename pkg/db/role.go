@@ -35,6 +35,12 @@ func CreateRole(name string) *Role {
 	return r
 }
 
+// QueryRoleByUID finds a Role with the specified uid
+func QueryRoleByUID(uid string) (*Role, bool) {
+	ch, ok := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableRoles).Wh("uuid", uid), Role{}).(*Role)
+	return ch, ok
+}
+
 //
 //
 

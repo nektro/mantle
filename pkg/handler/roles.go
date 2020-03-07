@@ -97,7 +97,36 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 			writeAPIResponse(r, w, false, http.StatusBadRequest, "error parsing position: "+err.Error())
 			return
 		}
-		rl.SetPosition(i)
+		pH, pL := uHighLow(rl.Position, i)
+		allR := db.Role{}.AllSorted()
+		for d, item := range allR {
+			o := d + 1
+			if o < pL {
+				continue
+			}
+			if o > pH {
+				continue
+			}
+			// role moving down
+			if pL == rl.Position {
+				if o == pL {
+					continue
+				}
+				if o == pH {
+					rl.SetPosition(i)
+					continue
+				}
+				item.SetPosition(o - 1)
+			}
+			// role moving up
+			if pL == i {
+				if o == pH {
+					rl.SetPosition(i)
+					continue
+				}
+				item.SetPosition(o + 1)
+			}
+		}
 		successCb(rl, n, v)
 	default:
 		writeAPIResponse(r, w, false, http.StatusBadRequest, "invalid p_name parameter")

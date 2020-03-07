@@ -133,6 +133,13 @@ $("x-settings").on("click", (e) => {
     });
 
     await fetch("./../api/roles").then((x) => x.json()).then((x) => {
+        const rls = x.message.sort((a,b) => a.position > b.position);
+        //
+        for (const item of rls) {
+            if (!item.distinguish) continue;
+            el_4.appendChild(create_element("div", [["data-count","0"]], [dcTN(item.name)]));
+            el_4.appendChild(create_element("ul", [["data-uid",item.uuid]], []));
+        }
         el_4.appendChild(create_element("div", [["data-count","0"]], [dcTN("Online")]));
         el_4.appendChild(create_element("ul", [["data-uid",""]], []));
     });

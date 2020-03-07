@@ -1,0 +1,55 @@
+@import './../color.scss';
+
+x-settings {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.8);
+
+    &:not([open]) {
+        display: none;
+    }
+    >div {
+        max-width: 50em;
+        background-color: $based2;
+        color: $basel2;
+        max-height: 50em;
+        overflow-y: scroll;
+        width: inherit;
+        height: inherit;
+        display: grid;
+        grid-template-columns: 12em auto;
+
+        >nav {
+            padding: 1em;
+            display: flex;
+            flex-direction: column;
+            background-color: $based1;
+
+            a {
+                padding: .5em;
+
+                &.active {
+                    background-color: darken($based1, 15%);
+                }
+            }
+        }
+        >div {
+            margin: 1em;
+
+            >div {
+                &:not(.active) {
+                    display: none;
+                }
+                h2 {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+}

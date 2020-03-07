@@ -1,4 +1,22 @@
 @charset "UTF-8";
+x-settings { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.8); }
+
+x-settings:not([open]) { display: none; }
+
+x-settings > div { max-width: 50em; background-color: #073642; color: #eee8d5; max-height: 50em; overflow-y: scroll; width: inherit; height: inherit; display: grid; grid-template-columns: 12em auto; }
+
+x-settings > div > nav { padding: 1em; display: flex; flex-direction: column; background-color: #586e75; }
+
+x-settings > div > nav a { padding: .5em; }
+
+x-settings > div > nav a.active { background-color: #374549; }
+
+x-settings > div > div { margin: 1em; }
+
+x-settings > div > div > div:not(.active) { display: none; }
+
+x-settings > div > div > div h2 { margin-top: 0; }
+
 * { box-sizing: border-box; }
 
 input { display: block; }
@@ -102,26 +120,6 @@ body #users-online-list ul li { list-style-type: none; padding: .5em 1em; margin
 body #users-online-list ul li:hover { background-color: #003745; }
 
 body #users-online-list ul li span:nth-child(2) { color: #465253; }
-
-body > x-settings { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.8); }
-
-body > x-settings:not([open]) { display: none; }
-
-body > x-settings > div { max-width: 50em; background-color: #073642; color: #eee8d5; max-height: 50em; overflow-y: scroll; width: inherit; height: inherit; }
-
-body > x-settings.settings > div { display: grid; grid-template-columns: 12em auto; }
-
-body > x-settings.settings > div > nav { padding: 1em; display: flex; flex-direction: column; background-color: #586e75; }
-
-body > x-settings.settings > div > nav a { padding: .5em; }
-
-body > x-settings.settings > div > nav a.active { background-color: #374549; }
-
-body > x-settings.settings > div > div { margin: 1em; }
-
-body > x-settings.settings > div > div > div:not(.active) { display: none; }
-
-body > x-settings.settings > div > div > div h2 { margin-top: 0; }
 
 body x-text-setting { display: block; margin: 1em 0; }
 

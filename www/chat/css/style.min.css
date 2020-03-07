@@ -130,3 +130,23 @@ body #users-online-list ul li { list-style-type: none; padding: .5em 1em; margin
 body #users-online-list ul li:hover { background-color: #003745; }
 
 body #users-online-list ul li span:nth-child(2) { color: #465253; }
+
+body x-settings[data-s-for="server"] [data-s-section="roles"] .selection { display: grid; grid-template-columns: 10em auto; margin: 1em 0; }
+
+body x-settings[data-s-for="server"] [data-s-section="roles"] .selection:not(.active) > div { display: none; }
+
+body x-settings[data-s-for="server"] [data-s-section="roles"] .selection > nav { margin: 0; margin-right: 1em; display: flex; flex-direction: column; }
+
+body x-settings[data-s-for="server"] [data-s-section="roles"] .selection > nav a { display: block; width: 100%; text-align: center; padding: .5em 0; background-color: #859900; border-radius: .25em; margin: .25em 0; user-select: none; }
+
+body x-settings[data-s-for="server"] [data-s-section="roles"] .selection > nav a.div { background-color: #839496; padding: 0; padding-bottom: .1em; }
+
+body x-settings[data-s-for="server"] [data-s-section="roles"] .selection > nav a[data-uid] { background-color: #062e39; }
+
+body x-settings[data-s-for="server"] [data-s-section="roles"] .selection > nav a[data-uid]:hover { background-color: #05232b; }
+
+body x-settings[data-s-for="server"] [data-s-section="roles"] .selection > nav a[data-uid].active { background-color: #094959; }
+
+body x-settings[data-s-for="server"] [data-s-section="roles"] .selection > nav a[data-uid].active:hover { background-color: #083e4b; }
+
+body x-settings[data-s-for="server"] [data-s-section="roles"] .selection > div x-text-setting:first-child { margin-top: 0; }

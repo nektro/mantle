@@ -1,9 +1,10 @@
 "use strict";
 //
-import { create_element, dcTN, numsBetween, ele_atBottom } from "./util.js";
+// jshint -W003
+import { create_element, dcTN, numsBetween, ele_atBottom, deActivateChild } from "./util.js";
 import { Channel } from "./ui.channel.js";
 import { SidebarRole } from "./ui.sidebar_role.js";
-import { el_1, messageCache, output, getUserFromUUID, el_4 } from "./ui.util.js";
+import { el_1, messageCache, output, getUserFromUUID, el_4, roleCache } from "./ui.util.js";
 
 //
 
@@ -135,4 +136,38 @@ export function setMemberOffline(uid) {
     if (ue === null) return;
     new SidebarRole(ue.parentElement).count -= 1;
     ue.remove();
+}
+
+export function addRole(role) {
+    roleCache.set(role.uuid, role);
+    //
+    const rlist = document.querySelector("x-settings[data-s-for=server] [data-s-section=roles] .selection nav");
+    const oLen = rlist.children.length;
+    const nEl = create_element("a", [["data-uid",role.uuid]], [dcTN(role.name)]);
+    nEl.addEventListener("click", (e) => {
+        const et = e.target;
+        settingsRolesSetActive(Array.from(et.parentElement.children).indexOf(et));
+    });
+    rlist.insertBefore(
+        nEl,
+        rlist.querySelector(".div"),
+    );
+    if (oLen === 2) {
+        rlist.parentElement.classList.add("active");
+        settingsRolesSetActive(0);
+    }
+}
+
+export function settingsRolesSetActive(i) {
+    const rlist = document.querySelector("x-settings[data-s-for=server] [data-s-section=roles] .selection nav");
+    deActivateChild(rlist);
+    rlist.children[i].classList.add("active");
+    const r = roleCache.get(rlist.children[i].dataset.uid);
+    const tin = rlist.parentElement.querySelectorAll("x-text-setting[fill]");
+    for (const item of tin) {
+        item.setAttribute("fill", r.uuid);
+    }
+    for (const item of ["name","color"]) {
+        rlist.parentElement.querySelector(`x-text-setting[name="${item}"]`).setAttribute("value", r[item]);
+    }
 }

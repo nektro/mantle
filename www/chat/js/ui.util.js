@@ -11,6 +11,7 @@ export const el_1 = document.getElementById("channel-list");
 export const el_2 = document.getElementById("server-name");
 export const el_3 = document.getElementById("me");
 export const el_4 = document.getElementById("users-online-list");
+export const roleCache = new Map();
 
 export async function getUserFromUUID(uuid) {
     if (userCache.has(uuid)) {

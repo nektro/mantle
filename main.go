@@ -118,6 +118,7 @@ func main() {
 	r5 := r1.PathPrefix("/roles").Subrouter()
 	r5.Path("").HandlerFunc(handler.RolesRead)
 	r5.Path("/create").HandlerFunc(handler.RolesCreate)
+	r5.Path("/{uuid}/update").HandlerFunc(handler.RoleUpdate)
 
 	r.HandleFunc("/ws", handler.Websocket)
 

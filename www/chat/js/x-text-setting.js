@@ -25,12 +25,13 @@ customElements.define("x-text-setting", class TextSetting extends HTMLElement {
         ]));
         this.children[0].addEventListener("submit", (ev) => {
             ev.preventDefault();
+            const f = this.getAttribute("fill")||"";
+            const e2 = e.replace("%s", f);
             const fd = new FormData();
             const iv = this.querySelector("input").value;
             fd.append("p_name", n);
             fd.append("p_value", iv);
-            return fetch(e, { method: "post", body: fd, }).then((x) => x.json()).then((x) => {
-                console.info(x);
+            return fetch(e2, { method: "post", body: fd, }).then((x) => x.json()).then(() => {
                 if (b === null) return;
                 setDataBinding(b, iv);
             });

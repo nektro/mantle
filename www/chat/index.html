@@ -57,6 +57,20 @@
                         <x-text-setting endpoint="./../api/update_property" name="name" label="Name" value="" binding="server_name"></x-text-setting>
                         <x-text-setting endpoint="./../api/update_property" name="description" label="Description" value=""></x-text-setting>
                     </div>
+                    <div data-s-section="roles">
+                        <h2>Roles</h2>
+                        <div>Configure, create, or delete your roles here.</div>
+                        <hr>
+                        <div class="selection">
+                            <nav>
+                                <a class="div"></a>
+                                <a class="new">Create New</a>
+                            </nav>
+                            <div>
+                                <x-text-setting endpoint="./../api/roles/%s/update" name="name" label="Name" value="" fill=""></x-text-setting>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </x-settings>

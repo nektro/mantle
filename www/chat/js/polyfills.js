@@ -7,3 +7,8 @@ if (!("removeAllChildren" in Element.prototype)) {
         }
     };
 }
+if (!("indexOfMe" in Element.prototype)) {
+    Element.prototype.indexOfMe = function() {
+        return Array.from(this.parentElement.children).indexOf(this);
+    };
+}

@@ -14,6 +14,18 @@ $("x-settings").on("click", (e) => {
         e.target.removeAttribute("open");
     }
 });
+$("x-settings[data-s-for=server] [data-s-section=roles] .selection nav a.new").on("click", async () => {
+    const {value: name} = await Swal({
+        title: "Enter the new role's name",
+        input: "text",
+        showCancelButton: true,
+        inputValidator: (value) => !value && "You need to write something!",
+    });
+    if (name === undefined) return;
+    const fd = new FormData();
+    fd.append("name", name);
+    return fetch("./../api/roles/create", { method: "post", body: fd, });
+});
 
 //
 (async function() {
@@ -142,6 +154,10 @@ $("x-settings").on("click", (e) => {
         }
         el_4.appendChild(create_element("div", [["data-count","0"]], [dcTN("Online")]));
         el_4.appendChild(create_element("ul", [["data-uid",""]], []));
+        //
+        for (const item of rls) {
+            ui.addRole(item);
+        }
     });
 
     await fetch("./../api/users/online").then((x) => x.json()).then((x) => {
@@ -198,6 +214,10 @@ $("x-settings").on("click", (e) => {
                     const de = output.querySelector(`.msg[data-msg-uid="${item}"]`);
                     if (de !== null) de.remove();
                 }
+                break;
+            }
+            case "new-role": {
+                ui.addRole(d.role);
                 break;
             }
             default: {

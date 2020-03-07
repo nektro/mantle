@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"strconv"
 
 	"github.com/nektro/mantle/pkg/itypes"
 
@@ -57,4 +58,9 @@ func (v Role) All() []*Role {
 		res = append(res, item.(*Role))
 	}
 	return res
+}
+
+func (v *Role) SetName(s string) {
+	db.Build().Up(cTableRoles, "name", s).Wh("uuid", v.UUID).Exe()
+	v.Name = s
 }

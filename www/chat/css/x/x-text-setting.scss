@@ -1,0 +1,36 @@
+@import './../color.scss';
+
+x-text-setting {
+    display: block;
+    margin: 1em 0   ;
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        div {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            input[type=text] {
+                flex-grow: 1;
+                display: block;
+                width: 100%;
+                padding: .5em .25em;
+                margin: .5em 0;
+                border: 0;
+            }
+            button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: $green;
+                padding: 0 .5em;
+                margin: .5em 0;
+                height: calc(100% - 1em);
+                border-radius: 0;
+            }
+        }
+    }
+}

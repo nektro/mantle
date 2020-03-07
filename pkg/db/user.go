@@ -92,3 +92,7 @@ func (u *User) SetName(s string) {
 func (u *User) DeleteMessage(c *Channel, uid string) {
 	db.Build().Del(cTableMessagesPrefix+c.UUID).Wh("uuid", uid).Wh("author", u.UUID).Exe()
 }
+
+func (u *User) HasRole(role string) bool {
+	return util.Contains(u.RolesA, role)
+}

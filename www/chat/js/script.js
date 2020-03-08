@@ -41,7 +41,7 @@ $(document).on("click", (e) => {
         setDataBinding("server_name", x.message.name);
         //
         const sx = document.querySelector("x-settings[data-s-for=server] [data-s-section=overview]");
-        for (const item of ["name","description","cover_photo","profile_photo"]) {
+        for (const item of ["name","description","cover_photo","profile_photo","public"]) {
             sx.querySelector(`[name="${item}"]`).setAttribute("value", x.message[item]);
         }
         //

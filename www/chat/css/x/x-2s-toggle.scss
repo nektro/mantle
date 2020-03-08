@@ -1,0 +1,56 @@
+@import './../color.scss';
+//
+// Inspired by https://www.w3schools.com/howto/howto_css_switch.asp
+
+x-2s-toggle {
+    display: block;
+    margin: 1em 0;
+
+    div {
+        margin: .5em 0;
+    }
+    label {
+        position: relative;
+        display: inline-block;
+        width: 4em;
+        height: 2em;
+
+        input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+
+            &:checked + span {
+                background-color: $green;
+
+                &:before {
+                    transform: translateX(1.5em);
+                }
+            }
+            &:focus + span {
+                box-shadow: 0 0 1px $green;
+            }
+        }
+        span {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: $basel1;
+            transition: .2s;
+
+            &:before {
+                position: absolute;
+                content: "";
+                height: 1.5em;
+                width: 1.5em;
+                left: .3em;
+                bottom: .3em;
+                background-color: white;
+                transition: .2s;
+            }
+        }
+    }
+}

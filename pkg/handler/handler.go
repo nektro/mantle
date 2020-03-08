@@ -61,7 +61,7 @@ func ApiAbout(w http.ResponseWriter, r *http.Request) {
 }
 
 func ApiPropertyUpdate(w http.ResponseWriter, r *http.Request) {
-	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPost, true)
+	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPut, true)
 	if err != nil {
 		return
 	}

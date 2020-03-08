@@ -45,6 +45,11 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if user.IsMember {
+		w.Header().Add("Location", "./chat/")
+		w.WriteHeader(http.StatusFound)
+		return
+	}
 	if o, _ := strconv.ParseBool(db.Props.Get("public")); o {
 		if !user.IsMember {
 			user.SetAsMember(true)
@@ -52,6 +57,7 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 		}
 		w.Header().Add("Location", "./chat/")
 		w.WriteHeader(http.StatusFound)
+		return
 	}
 }
 

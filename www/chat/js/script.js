@@ -38,7 +38,6 @@ $(document).on("click", (e) => {
 (async function() {
     //
     await fetch("./../api/about").then((x) => x.json()).then((x) => {
-        console.info(x);
         setDataBinding("server_name", x.message.name);
         //
         const sx = document.querySelectorAll("x-settings[data-s-for=server] [data-s-section=overview] x-text-setting");
@@ -54,12 +53,10 @@ $(document).on("click", (e) => {
 
     //
     await fetch("./../api/users/@me").then((x) => x.json()).then((x) => {
-        console.info(x);
         if (x.success === false) {
             location.assign("../");
             return;
         }
-        console.info(x.message);
         me = x.message.me;
         const n = me.nickname || me.name;
         el_3.children[0].textContent = `@${n}`;
@@ -104,9 +101,7 @@ $(document).on("click", (e) => {
 
     //
     await fetch("./../api/channels/@me").then((x) => x.json()).then(async (x) => {
-        console.info(x);
         for (const item of x.message) {
-            console.info(item);
             await ui.addChannel(item);
         }
         await ui.setActiveChannel(x.message[0].uuid);
@@ -183,7 +178,6 @@ $(document).on("click", (e) => {
     });
 
     await fetch("./../api/users/online").then((x) => x.json()).then((x) => {
-        console.info(x);
         for (const item of x.message) {
             ui.setMemberOnline(item);
         }

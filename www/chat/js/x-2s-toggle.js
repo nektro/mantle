@@ -9,7 +9,6 @@ customElements.define("x-2s-toggle", class Toggle2State extends HTMLElement {
         super();
     }
     connectedCallback() {
-        console.log(this);
         const e = this.getAttribute("endpoint");
         const n = this.getAttribute("name");
         const d = this.getAttribute("label")||"";

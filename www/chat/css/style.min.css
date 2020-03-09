@@ -139,9 +139,11 @@ body #input input[type="text"] { background-color: #073642; color: #839496; marg
 
 body #users-online-list { background-color: #002b36; grid-row: 2 / 4; grid-column: 3 / 4; border-left: 2px solid #268bd2; }
 
-body #users-online-list > div { padding: 1em; padding-bottom: .5em; margin: 0; visibility: hidden; }
+body #users-online-list > div { padding: 1em; padding-bottom: .5em; margin: 0; }
 
 body #users-online-list > div::after { content: "—" attr(data-count); }
+
+body #users-online-list > div[data-count="0"] { display: none; }
 
 body #users-online-list ul { padding: 0; margin: 0; }
 

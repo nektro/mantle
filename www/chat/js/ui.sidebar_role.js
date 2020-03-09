@@ -19,8 +19,6 @@ export class SidebarRole {
      * @param {Number} x
      */
     set count(x) {
-        if (this.count === 0 && x > 0) this.el.previousElementSibling.style.visibility = "visible";
-        if (this.count > 0 && x === 0) this.el.previousElementSibling.style.visibility = "hidden";
         this.el.previousElementSibling.dataset.count = x.toString();
     }
 }

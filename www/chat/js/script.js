@@ -6,9 +6,6 @@ import * as client from "./client.js";
 import { el_2, el_3, el_1, output, messageCache, getUserFromUUID, el_4, userCache, roleCache } from "./ui.util.js";
 
 //
-let me = null;
-
-//
 $("x-settings").on("click", (e) => {
     if (e.target.localName === "x-settings") {
         e.target.removeAttribute("open");
@@ -56,8 +53,8 @@ $(document).on("click", (e) => {
             location.assign("../");
             return;
         }
-        me = x.message.me;
-        const n = me.nickname || me.name;
+        ui.volatile.me = x.message.me;
+        const n = ui.volatile.me.nickname || ui.volatile.me.name;
         el_3.children[0].textContent = `@${n}`;
         const p = x.message.perms;
         for (const key in p) {
@@ -163,7 +160,7 @@ $(document).on("click", (e) => {
                 showCancelButton: true,
             }).then(async (r) => {
                 if (!r.value) return;
-                const m2d = ui.volatile.selectedMsgs.filter((v) => v.dataset.userUid === me.uuid).map((v) => v.dataset.msgUid);
+                const m2d = ui.volatile.selectedMsgs.filter((v) => v.dataset.userUid === ui.volatile.me.uuid).map((v) => v.dataset.msgUid);
                 const fd = new FormData();
                 m2d.forEach((v) => fd.append("ids", v));
                 await fetch(`./../api/channels/${ui.volatile.activeChannel.dataset.uuid}/messages`, {
@@ -216,7 +213,7 @@ $(document).on("click", (e) => {
             }
             case "user-disconnect": {
                 ui.setMemberOffline(d.user);
-                if (d.user === me.uuid) socket.close();
+                if (d.user === ui.volatile.me.uuid) socket.close();
                 break;
             }
             case "message-delete": {
@@ -261,7 +258,7 @@ $(document).on("click", (e) => {
             let msg_con = e.target.value;
             for (const item of client.commands) {
                 if (msg_con.startsWith("/"+item[0])) {
-                    msg_con = item[1](msg_con.replace("/"+item[0],""), me);
+                    msg_con = item[1](msg_con.replace("/"+item[0],""), ui.volatile.me);
                 }
             }
             e.target.value = "";

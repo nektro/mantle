@@ -12,6 +12,7 @@ export const volatile = {
     activeChannel: null,
     /** @type {Element[]} */
     selectedMsgs: [],
+    me: null,
 };
 
 //

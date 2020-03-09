@@ -74,9 +74,6 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 	v := r.Form.Get("p_value")
 	switch n {
 	case "add_role":
-		if v == "o" {
-			return
-		}
 		if _, ok := db.QueryRoleByUID(v); !ok {
 			return
 		}
@@ -86,9 +83,6 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 		u.AddRole(v)
 		successCb(u, n, v)
 	case "remove_role":
-		if v == "o" {
-			return
-		}
 		if _, ok := db.QueryRoleByUID(v); !ok {
 			return
 		}

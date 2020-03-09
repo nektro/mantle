@@ -3,7 +3,7 @@
 import { create_element, dcTN, setDataBinding } from "./util.js";
 import * as ui from "./ui.js";
 import * as client from "./client.js";
-import { el_2, el_3, el_1, output, messageCache, getUserFromUUID, el_4, userCache } from "./ui.util.js";
+import { el_2, el_3, el_1, output, messageCache, getUserFromUUID, el_4, userCache, roleCache } from "./ui.util.js";
 
 //
 let me = null;
@@ -237,6 +237,10 @@ $(document).on("click", (e) => {
             }
             case "user-update": {
                 userCache.set(d.user.uuid, d.user);
+                break;
+            }
+            case "role-update": {
+                roleCache.set(d.role.uuid, d.role);
                 break;
             }
             default: {

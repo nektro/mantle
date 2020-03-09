@@ -364,9 +364,31 @@ body {
                     padding: .2em;
                     margin-right: .25em;
                     margin-top: .25em;
+                    font-size: .9em;
 
                     &:not(.active) {
                         display: none;
+                    }
+                    &::before {
+                        content: "";
+                        background-color: #ddd;
+                        display: inline-block;
+                        border-radius: 50%;
+                        vertical-align: center;
+                        text-align: center;
+                        width: 1.1em;
+                        height: 1.1em;
+                        margin-right: .25em;
+                        color: inherit;
+                        line-height: 1.45em;
+                    }
+                    &:hover {
+                        cursor: pointer;
+                        
+                        &::before {
+                            content: "✘";
+                            color: black;
+                        }
                     }
                 }
             }
@@ -399,11 +421,7 @@ body {
                             background-color: #ddd;
                         }
                         &.active {
-                            background-color: #ccc;
-
-                            &:hover {
-                                background-color: #bbb;
-                            }
+                            display: none;
                         }
                     }
                 }

@@ -101,10 +101,10 @@ export function createMessage(user, msg) {
             const pps = pp.querySelector("div ol");
             deActivateChild(pps);
             for (const item of rls) {
-                const ppra = ppr.querySelector(`[data-uid="${item.uuid}"]`);
+                const ppra = ppr.querySelector(`[data-role="${item.uuid}"]`);
                 if (ppra === null) continue;
                 ppra.classList.add("active");
-                const ppsa = pps.querySelector(`[data-uid="${item.uuid}"]`);
+                const ppsa = pps.querySelector(`[data-role="${item.uuid}"]`);
                 if (ppsa === null) continue;
                 ppsa.classList.add("active");
             }
@@ -197,22 +197,34 @@ export function addRole(role) {
         settingsRolesSetActive(0);
     }
     //
-    //
-    const nEl2 = create_element("li", [["data-uid",role.uuid]], [dcTN(role.name)]);
-    document.querySelector("dialog.popup.user ol").appendChild(nEl2.cloneNode(true));
+    const nEl2 = create_element("li", [["data-role",role.uuid],["class","bg-bf"]], [dcTN(role.name)]);
     nEl2.addEventListener("click", (e) => {
         const et = e.target;
-        const rid = et.dataset.uid;
+        const rid = et.dataset.role;
         const uid = document.querySelector("[data-bind=pp_user_uuid]").textContent;
         const fd = new FormData();
-        fd.append("p_name", et.classList.contains("active") ? "remove_role" : "add_role");
+        fd.append("p_name", "remove_role");
         fd.append("p_value", rid);
         fetch(`./../api/users/${uid}/update`, { method: "put", body: fd, });
-        const ett = et.parentElement.parentElement.previousElementSibling.querySelector(`[data-uid="${rid}"]`);
-        if (et.classList.contains("active")) ett.classList.remove("active"); else ett.classList.add("active");
-        if (et.classList.contains("active")) et.classList.remove("active"); else et.classList.add("active");
+        et.classList.remove("active");
+        et.parentElement.parentElement.querySelector(`div ol [data-role="${rid}"]`).classList.remove("active");
     });
-    document.querySelector("dialog.popup.user div ol").appendChild(nEl2);
+    document.querySelector("dialog.popup.user ol").appendChild(nEl2);
+    //
+    const nEl3 = create_element("li", [["data-role",role.uuid]], [dcTN(role.name)]);
+    nEl3.addEventListener("click", (e) => {
+        const et = e.target;
+        const rid = et.dataset.role;
+        const uid = document.querySelector("[data-bind=pp_user_uuid]").textContent;
+        const fd = new FormData();
+        fd.append("p_name", "add_role");
+        fd.append("p_value", rid);
+        fetch(`./../api/users/${uid}/update`, { method: "put", body: fd, });
+        const ett = et.parentElement.parentElement.previousElementSibling.querySelector(`[data-role="${rid}"]`);
+        ett.classList.add("active");
+        et.classList.add("active");
+    });
+    document.querySelector("dialog.popup.user div ol").appendChild(nEl3);
 }
 
 export function settingsRolesSetActive(i) {

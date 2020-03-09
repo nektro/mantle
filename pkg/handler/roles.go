@@ -128,6 +128,13 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		successCb(rl, n, v)
+	case "distinguish":
+		b, err := strconv.ParseBool(v)
+		if err != nil {
+			return
+		}
+		rl.SetDistinguish(b)
+		successCb(rl, n, v)
 	default:
 		writeAPIResponse(r, w, false, http.StatusBadRequest, "invalid p_name parameter")
 	}

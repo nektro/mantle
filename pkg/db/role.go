@@ -88,3 +88,9 @@ func (v *Role) SetPosition(n int) {
 	db.Build().Up(cTableRoles, "position", strconv.Itoa(n)).Wh("uuid", v.UUID).Exe()
 	v.Position = n
 }
+
+// SetDistinguish sets position
+func (v *Role) SetDistinguish(b bool) {
+	db.Build().Up(cTableRoles, "distinguish", strconv.FormatBool(b)).Wh("uuid", v.UUID).Exe()
+	v.Distinguish = b
+}

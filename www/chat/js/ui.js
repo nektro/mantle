@@ -236,7 +236,7 @@ export function settingsRolesSetActive(i) {
     for (const item of tin) {
         item.setAttribute("fill", r.uuid);
     }
-    for (const item of ["name","color"]) {
+    for (const item of ["name","color","distinguish"]) {
         rlist.parentElement.querySelector(`[name="${item}"]`).setAttribute("value", r[item]);
     }
 }

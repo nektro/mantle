@@ -200,6 +200,7 @@ export function addRole(role) {
     //
     const nEl2 = create_element("li", [["data-role",role.uuid],["class","bg-bf"]], [dcTN(role.name)]);
     nEl2.addEventListener("click", (e) => {
+        if (!volatile.me.RolesA.includes("o")) return;
         const et = e.target;
         const rid = et.dataset.role;
         const uid = document.querySelector("[data-bind=pp_user_uuid]").textContent;

@@ -9,6 +9,7 @@ import { el_1, messageCache, output, getUserFromUUID, el_4, roleCache, userCache
 //
 
 export const volatile = {
+    /** @type {HTMLElement} */
     activeChannel: null,
     /** @type {Element[]} */
     selectedMsgs: [],

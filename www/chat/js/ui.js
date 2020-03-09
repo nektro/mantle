@@ -220,11 +220,11 @@ export function settingsRolesSetActive(i) {
     deActivateChild(rlist);
     rlist.children[i].classList.add("active");
     const r = roleCache.get(rlist.children[i].dataset.uid);
-    const tin = rlist.parentElement.querySelectorAll("x-text-setting[fill]");
+    const tin = rlist.parentElement.querySelectorAll("[fill]");
     for (const item of tin) {
         item.setAttribute("fill", r.uuid);
     }
     for (const item of ["name","color"]) {
-        rlist.parentElement.querySelector(`x-text-setting[name="${item}"]`).setAttribute("value", r[item]);
+        rlist.parentElement.querySelector(`[name="${item}"]`).setAttribute("value", r[item]);
     }
 }

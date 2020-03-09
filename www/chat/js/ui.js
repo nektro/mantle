@@ -160,9 +160,15 @@ export async function setMemberOnline(uid) {
     const ue = el_4.querySelector(`li[data-user="${uid}"]`);
     if (ue === null) {
         const u = await getUserFromUUID(uid);
+        const cr = u.roles.split(",").
+            filter((v) => v.length > 0).
+            map((v) => roleCache.get(v)).
+            filter((v) => v.color.length > 0).
+            sort((a,b) => a.position > b.position);
+        const tr = cr.length > 0 ? cr[0].uuid : "";
         for (const item of el_4.querySelectorAll("ul")) {
             if (!u.roles.includes(item.dataset.uid)) continue;
-            item.appendChild(create_element("li", [["data-user",uid]], [
+            item.appendChild(create_element("li", [["data-user",uid],["data-role",tr]], [
                 create_element("span", null, [dcTN(u.name)]),
                 create_element("span", null, [dcTN("#"+u.id)]),
             ]));

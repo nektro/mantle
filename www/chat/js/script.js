@@ -199,7 +199,6 @@ $(document).on("click", (e) => {
         switch (d.type) {
             case "pong": {
                 // do nothing, keep connection alive
-                console.debug("pong");
                 break;
             }
             case "message": {

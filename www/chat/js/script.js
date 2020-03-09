@@ -233,6 +233,11 @@ $(document).on("click", (e) => {
             }
             case "user-update": {
                 userCache.set(d.user.uuid, d.user);
+                if (["add_role","remove_role"].includes(d.key)) {
+                    document.querySelectorAll(`dialog.popup.user ol [data-role="${d.value}"]`).forEach((v) => {
+                        v.classList.toggle("active");
+                    });
+                }
                 break;
             }
             case "role-update": {

@@ -207,8 +207,6 @@ export function addRole(role) {
         fd.append("p_name", "remove_role");
         fd.append("p_value", rid);
         fetch(`./../api/users/${uid}/update`, { method: "put", body: fd, });
-        et.classList.remove("active");
-        et.parentElement.parentElement.querySelector(`div ol [data-role="${rid}"]`).classList.remove("active");
     });
     document.querySelector("dialog.popup.user ol").appendChild(nEl2);
     //
@@ -221,9 +219,6 @@ export function addRole(role) {
         fd.append("p_name", "add_role");
         fd.append("p_value", rid);
         fetch(`./../api/users/${uid}/update`, { method: "put", body: fd, });
-        const ett = et.parentElement.parentElement.previousElementSibling.querySelector(`[data-role="${rid}"]`);
-        ett.classList.add("active");
-        et.classList.add("active");
     });
     document.querySelector("dialog.popup.user div ol").appendChild(nEl3);
 }

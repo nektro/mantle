@@ -159,7 +159,7 @@ export async function setMemberOnline(uid) {
     if (ue === null) {
         const u = await getUserFromUUID(uid);
         for (const item of el_4.querySelectorAll("ul")) {
-            if (!u.roles.startsWith(item.dataset.uid)) continue;
+            if (!u.roles.includes(item.dataset.uid)) continue;
             item.appendChild(create_element("li", [["data-user",uid]], [
                 create_element("span", null, [dcTN(u.name)]),
                 create_element("span", null, [dcTN("#"+u.id)]),

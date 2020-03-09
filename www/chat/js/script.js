@@ -242,6 +242,11 @@ $(document).on("click", (e) => {
             }
             case "role-update": {
                 roleCache.set(d.role.uuid, d.role);
+                if (["color"].includes(d.key)) {
+                    const x = document.getElementById("link-role-color");
+                    const y = x.href.split("=");
+                    x.href = y[0]+"="+(parseInt(y[1],10)+1).toString();
+                }
                 break;
             }
             default: {

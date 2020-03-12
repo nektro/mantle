@@ -42,6 +42,17 @@ func Init() {
 	Props.SetDefault("profile_photo", "https://avatars.discourse.org/v4/letter/m/ec9cab/90.png")
 	Props.Init()
 	Props.Set("version", idata.Version)
+
+	// for loop create channel message tables
+	_chans := (Channel{}.All())
+	for _, item := range _chans {
+		item.AssertMessageTableExists()
+	}
+
+	// add default channel, if none exist
+	if len(_chans) == 0 {
+		CreateChannel("general")
+	}
 }
 
 func Close() {

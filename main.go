@@ -39,19 +39,6 @@ func main() {
 
 	db.Init()
 
-	// for loop create channel message tables
-	_chans := (db.Channel{}.All())
-	for _, item := range _chans {
-		item.AssertMessageTableExists()
-	}
-
-	//
-	// add default channel, if none exist
-
-	if len(_chans) == 0 {
-		db.CreateChannel("general")
-	}
-
 	//
 	// create server 'Owner' Role: uneditable, and has all perms always
 

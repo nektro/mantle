@@ -62,13 +62,6 @@ func main() {
 	}
 
 	//
-	// load roles into local cache
-
-	for _, item := range (db.Role{}.All()) {
-		ws.RoleCache[item.UUID] = item
-	}
-
-	//
 	// setup graceful stop
 
 	util.RunOnClose(func() {

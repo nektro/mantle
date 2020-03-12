@@ -53,8 +53,7 @@ func main() {
 	}
 
 	//
-	// create server 'Owner' Role
-	//		uneditable, and has all perms always
+	// create server 'Owner' Role: uneditable, and has all perms always
 
 	pa := uint8(itypes.PermAllow)
 	ws.RoleCache["o"] = &db.Role{

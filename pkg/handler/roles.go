@@ -84,7 +84,7 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 		rl.SetName(v)
 		successCb(rl, n, v)
 	case "color":
-		_, err := colors.ParseHEX(v)
+		_, err := colors.Parse(v)
 		if err != nil {
 			writeAPIResponse(r, w, false, http.StatusBadRequest, "error parsing color: "+err.Error())
 			return

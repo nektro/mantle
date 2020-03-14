@@ -9,7 +9,6 @@ import (
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/handler"
 	"github.com/nektro/mantle/pkg/idata"
-	"github.com/nektro/mantle/pkg/itypes"
 	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/nektro/go-util/util"
@@ -42,7 +41,7 @@ func main() {
 	//
 	// create server 'Owner' Role: uneditable, and has all perms always
 
-	pa := uint8(itypes.PermAllow)
+	pa := uint8(db.PermAllow)
 	db.BuiltInRoles["o"] = &db.Role{
 		0, "o", 0, "Owner", "", pa, pa, false, pa,
 	}

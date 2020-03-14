@@ -2,7 +2,6 @@ package ws
 
 import (
 	"github.com/nektro/mantle/pkg/db"
-	"github.com/nektro/mantle/pkg/itypes"
 )
 
 type UserPerms struct {
@@ -17,17 +16,17 @@ func (v UserPerms) From(user *db.User) *UserPerms {
 	for i := len(rls) - 1; i >= 0; i-- {
 		role := rls[i]
 
-		switch itypes.Perm(role.PermManageChannels) {
-		case itypes.PermDeny, itypes.PermAllow:
-			v.ManageChannels = itypes.Perm(role.PermManageChannels).ToBool()
+		switch db.Perm(role.PermManageChannels) {
+		case db.PermDeny, db.PermAllow:
+			v.ManageChannels = db.Perm(role.PermManageChannels).ToBool()
 		}
-		switch itypes.Perm(role.PermManageRoles) {
-		case itypes.PermDeny, itypes.PermAllow:
-			v.ManageRoles = itypes.Perm(role.PermManageRoles).ToBool()
+		switch db.Perm(role.PermManageRoles) {
+		case db.PermDeny, db.PermAllow:
+			v.ManageRoles = db.Perm(role.PermManageRoles).ToBool()
 		}
-		switch itypes.Perm(role.PermManageServer) {
-		case itypes.PermDeny, itypes.PermAllow:
-			v.ManageServer = itypes.Perm(role.PermManageServer).ToBool()
+		switch db.Perm(role.PermManageServer) {
+		case db.PermDeny, db.PermAllow:
+			v.ManageServer = db.Perm(role.PermManageServer).ToBool()
 		}
 	}
 	return &v

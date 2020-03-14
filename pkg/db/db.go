@@ -20,7 +20,8 @@ var (
 	db dbstorage.Database
 )
 var (
-	Props = Properties{}
+	Props        = Properties{}
+	BuiltInRoles = map[string]*Role{}
 )
 
 func Init() {

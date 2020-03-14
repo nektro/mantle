@@ -117,3 +117,15 @@ func (u *User) RemoveRole(role string) {
 	u.Roles = strings.Join(u.RolesA, ",")
 	db.Build().Up(cTableUsers, "roles", u.Roles).Wh("uuid", u.UUID).Exe()
 }
+
+func (u *User) GetRoles() []*Role {
+	res := []*Role{}
+	for _, item := range u.RolesA {
+		r, ok := QueryRoleByUID(item)
+		if !ok {
+			continue
+		}
+		res = append(res, r)
+	}
+	return res
+}

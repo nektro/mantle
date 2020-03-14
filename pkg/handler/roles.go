@@ -47,7 +47,6 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 	usp := ws.UserPerms{}.From(user)
 	if !usp.ManageRoles {
-		writeAPIResponse(r, w, false, http.StatusForbidden, "users require the manage_server permission to update properties.")
 		return
 	}
 	if hGrabFormStrings(r, w, "p_name") != nil {
@@ -56,7 +55,6 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 	uu := mux.Vars(r)["uuid"]
 	rl, ok := db.QueryRoleByUID(uu)
 	if !ok {
-		writeAPIResponse(r, w, false, http.StatusBadRequest, "missing uuid url parameter")
 		return
 	}
 
@@ -86,7 +84,6 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 	case "color":
 		_, err := colors.Parse(v)
 		if err != nil {
-			writeAPIResponse(r, w, false, http.StatusBadRequest, "error parsing color: "+err.Error())
 			return
 		}
 		rl.SetColor(v)
@@ -94,7 +91,6 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 	case "position":
 		i, err := strconv.Atoi(v)
 		if err != nil {
-			writeAPIResponse(r, w, false, http.StatusBadRequest, "error parsing position: "+err.Error())
 			return
 		}
 		pH, pL := uHighLow(rl.Position, i)
@@ -135,7 +131,5 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 		}
 		rl.SetDistinguish(b)
 		successCb(rl, n, v)
-	default:
-		writeAPIResponse(r, w, false, http.StatusBadRequest, "invalid p_name parameter")
 	}
 }

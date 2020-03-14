@@ -91,7 +91,5 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 		}
 		u.RemoveRole(v)
 		successCb(u, n, v)
-	default:
-		writeAPIResponse(r, w, false, http.StatusBadRequest, "invalid p_name parameter")
 	}
 }

@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -127,5 +128,13 @@ func (u *User) GetRoles() []*Role {
 		}
 		res = append(res, r)
 	}
+	return res
+}
+
+func (u *User) GetRolesSorted() []*Role {
+	res := u.GetRoles()
+	sort.Slice(res, func(i, j int) bool {
+		return res[i].Position < res[j].Position
+	})
 	return res
 }

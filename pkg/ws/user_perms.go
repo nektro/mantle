@@ -1,8 +1,6 @@
 package ws
 
 import (
-	"strings"
-
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/itypes"
 )
@@ -13,15 +11,11 @@ type UserPerms struct {
 	ManageServer   bool `json:"manage_server"`
 }
 
+// From calculates a user's permissions based on the roles they have
 func (v UserPerms) From(user *db.User) *UserPerms {
-	for _, item := range strings.Split(user.Roles, ",") {
-		if item == "" {
-			continue
-		}
-		role, ok := db.QueryRoleByUID(item)
-		if !ok {
-			continue
-		}
+	rls := user.GetRolesSorted()
+	for i := len(rls) - 1; i >= 0; i-- {
+		role := rls[i]
 
 		switch itypes.Perm(role.PermManageChannels) {
 		case itypes.PermDeny, itypes.PermAllow:

@@ -151,3 +151,10 @@ func (u *User) SetUID(uid string) {
 	u.UUID = uid
 	util.Log("user-update:", "updated", u.Name+"#"+strconv.FormatInt(u.ID, 10), "from", oid, "to", u.UUID)
 }
+
+func (u *User) ResetUID() {
+	u.SetUID(newUUID())
+	if u.HasRole("o") {
+		Props.Set("owner", u.UUID)
+	}
+}

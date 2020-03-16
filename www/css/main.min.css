@@ -1,6 +1,6 @@
 html, body { width: 100vw; height: 100vh; }
 
-body { margin: 0; font-family: 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', sans-serif; }
+body { margin: 0; font-family: 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', sans-serif; background-position: center; background-size: cover; }
 
 body main { max-width: 70ch; padding: 2ch; margin: auto; }
 

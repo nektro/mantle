@@ -1,5 +1,10 @@
 package db
 
+import (
+	"database/sql/driver"
+	"errors"
+)
+
 type Perm uint8
 
 const (
@@ -14,4 +19,24 @@ func (p Perm) ToBool() bool {
 		return true
 	}
 	return false
+}
+
+// Value - Implement the database/sql Valuer interface
+func (p Perm) Value() (driver.Value, error) {
+	return int64(p), nil
+}
+
+// Scan - Implement the database/sql Scanner interface
+func (p *Perm) Scan(value interface{}) error {
+	if value == nil {
+		*p = PermIgnore
+		return nil
+	}
+	if bv, err := driver.Int32.ConvertValue(value); err == nil {
+		if v, ok := bv.(int64); ok {
+			*p = Perm(v)
+			return nil
+		}
+	}
+	return errors.New("failed to scan Perm")
 }

@@ -231,6 +231,9 @@ body {
             margin: 1em;
             flex-grow: 1;
         }
+        a {
+            margin: 1em;
+        }
     }
     #input {
         input[type="text"] {
@@ -287,6 +290,24 @@ body {
         }
     }
     x-settings {
+        >div {
+            >div {
+                >div {
+                    a {
+                        color: $cyan;
+
+                        &:hover {
+                            color: $blue;
+                        }
+                    }
+                    code {
+                        background-color: $based3;
+                        padding: .5em;
+                        border-radius: .25em;
+                    }
+                }
+            }
+        }
         &[data-s-for="server"] {
             [data-s-section="roles"] {
                 .selection {

@@ -11,6 +11,8 @@ x-settings > div > nav a { padding: .5em; }
 
 x-settings > div > nav a.active { background-color: #374549; }
 
+x-settings > div > nav a.div { border: 2px solid #374549; margin: .25em 0; padding: 0; }
+
 x-settings > div > div { margin: 1em; }
 
 x-settings > div > div > div:not(.active) { display: none; }
@@ -135,6 +137,8 @@ body #me { display: flex; flex-direction: row; justify-content: center; }
 
 body #me div { margin: 1em; flex-grow: 1; }
 
+body #me a { margin: 1em; }
+
 body #input input[type="text"] { background-color: #073642; color: #839496; margin: .25em; width: calc(100% - 1em); border: 0.1em solid #586e75; border-radius: .25em; padding: .5em; }
 
 body #users-online-list { background-color: #002b36; grid-row: 2 / 4; grid-column: 3 / 4; border-left: 2px solid #268bd2; }
@@ -154,6 +158,12 @@ body #users-online-list ul li { list-style-type: none; padding: .5em 1em; margin
 body #users-online-list ul li:hover { background-color: #003745; }
 
 body #users-online-list ul li span:nth-child(2) { color: #465253; }
+
+body x-settings > div > div > div a { color: #2aa198; }
+
+body x-settings > div > div > div a:hover { color: #268bd2; }
+
+body x-settings > div > div > div code { background-color: #002b36; padding: .5em; border-radius: .25em; }
 
 body x-settings[data-s-for="server"] [data-s-section="roles"] .selection { display: grid; grid-template-columns: 10em auto; margin: 1em 0; }
 

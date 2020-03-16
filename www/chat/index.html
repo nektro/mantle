@@ -43,10 +43,33 @@
         </div>
         <div id="me">
             <div></div>
+            <a><i class="i cog icon"></i></a>
         </div>
         <div id="input">
             <input type="text" placeholder="Send a message...">
         </div>
+        <x-settings data-s-for="user">
+            <div>
+                <nav>
+                    <a>About Mantle</a>
+                </nav>
+                <div>
+                    <div>
+                        <h2>About Mantle</h2>
+                        <div></div>
+                        <hr>
+                        <h3>GitHub Repository</h3>
+                        <div><a href="https://github.com/nektro/mantle" target="_blank">https://github.com/nektro/mantle</a></div>
+                        <h3>Version</h3>
+                        <div><code data-bind="server_version"></code></div>
+                        <h3>Donate</h3>
+                        <div><a href="https://paypal.me/nektro">https://paypal.me/nektro</a></div>
+                        <h3>License</h3>
+                        <div><a href="https://github.com/nektro/mantle/blob/master/LICENSE">Apache 2.0</a></div>
+                    </div>
+                </div>
+            </div>
+        </x-settings>
         <x-settings data-s-for="server">
             <div>
                 <nav>

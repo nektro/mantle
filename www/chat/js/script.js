@@ -36,6 +36,7 @@ $(document).on("click", (e) => {
     //
     await fetch("./../api/about").then((x) => x.json()).then((x) => {
         setDataBinding("server_name", x.message.name);
+        setDataBinding("server_version", x.message.version);
         //
         const sx = document.querySelector("x-settings[data-s-for=server] [data-s-section=overview]");
         for (const item of ["name","description","cover_photo","profile_photo","public"]) {
@@ -64,6 +65,10 @@ $(document).on("click", (e) => {
                 });
             }
         }
+        //
+        el_3.children[1].addEventListener("click", () => {
+            document.querySelector("x-settings[data-s-for=user]").setAttribute("open","");
+        });
     });
 
     //

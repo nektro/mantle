@@ -37,6 +37,11 @@ x-settings {
                 &.active {
                     background-color: darken($based1, 15%);
                 }
+                &.div {
+                    border: 2px solid darken($based1, 15%);
+                    margin: .25em 0;
+                    padding: 0;
+                }
             }
         }
         >div {

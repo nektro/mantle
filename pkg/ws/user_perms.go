@@ -16,17 +16,17 @@ func (v UserPerms) From(user *db.User) *UserPerms {
 	for i := len(rls) - 1; i >= 0; i-- {
 		role := rls[i]
 
-		switch db.Perm(role.PermManageChannels) {
+		switch role.PermManageChannels {
 		case db.PermDeny, db.PermAllow:
-			v.ManageChannels = db.Perm(role.PermManageChannels).ToBool()
+			v.ManageChannels = role.PermManageChannels.ToBool()
 		}
-		switch db.Perm(role.PermManageRoles) {
+		switch role.PermManageRoles {
 		case db.PermDeny, db.PermAllow:
-			v.ManageRoles = db.Perm(role.PermManageRoles).ToBool()
+			v.ManageRoles = role.PermManageRoles.ToBool()
 		}
-		switch db.Perm(role.PermManageServer) {
+		switch role.PermManageServer {
 		case db.PermDeny, db.PermAllow:
-			v.ManageServer = db.Perm(role.PermManageServer).ToBool()
+			v.ManageServer = role.PermManageServer.ToBool()
 		}
 	}
 	return &v

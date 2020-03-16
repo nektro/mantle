@@ -41,7 +41,7 @@ func main() {
 	//
 	// create server 'Owner' Role: uneditable, and has all perms always
 
-	pa := uint8(db.PermAllow)
+	pa := db.PermAllow
 	db.BuiltInRoles["o"] = &db.Role{
 		0, "o", 0, "Owner", "", pa, pa, false, pa,
 	}

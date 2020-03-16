@@ -14,10 +14,10 @@ type Role struct {
 	Position           int    `json:"position" sqlite:"int"`
 	Name               string `json:"name" sqlite:"text"`
 	Color              string `json:"color" sqlite:"text"`
-	PermManageChannels uint8  `json:"perm_manage_channels" sqlite:"tinyint(1)"`
-	PermManageRoles    uint8  `json:"perm_manage_roles" sqlite:"tinyint(1)"`
+	PermManageChannels Perm   `json:"perm_manage_channels" sqlite:"tinyint(1)"`
+	PermManageRoles    Perm   `json:"perm_manage_roles" sqlite:"tinyint(1)"`
 	Distinguish        bool   `json:"distinguish" sqlite:"tinyint(1)"`
-	PermManageServer   uint8  `json:"perm_manage_server" sqlite:"tinyint(1)"`
+	PermManageServer   Perm   `json:"perm_manage_server" sqlite:"tinyint(1)"`
 }
 
 //
@@ -29,8 +29,7 @@ func CreateRole(name string) *Role {
 	util.Log("[role-create]", uid, name)
 	p := PermIgnore
 	db.Build().Ins(cTableRoles, id, uid, id, name, "", p, p, false, p).Exe()
-	p8 := uint8(p)
-	r := &Role{id, uid, int(id), name, "", p8, p8, false, p8}
+	r := &Role{id, uid, int(id), name, "", p, p, false, p}
 	return r
 }
 

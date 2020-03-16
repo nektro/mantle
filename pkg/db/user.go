@@ -63,6 +63,8 @@ func (v User) Scan(rows *sql.Rows) dbstorage.Scannable {
 	v.LastActive = strings.Replace(v.LastActive, " ", "T", 1) + "Z"
 	if len(v.Roles) > 0 {
 		v.RolesA = strings.Split(v.Roles, ",")
+	} else {
+		v.RolesA = []string{}
 	}
 	return &v
 }

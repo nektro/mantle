@@ -8,6 +8,7 @@
 [![goreportcard](https://goreportcard.com/badge/github.com/nektro/mantle)](https://goreportcard.com/report/github.com/nektro/mantle)
 [![codefactor](https://www.codefactor.io/repository/github/nektro/mantle/badge)](https://www.codefactor.io/repository/github/nektro/mantle)
 [![downloads](https://img.shields.io/github/downloads/nektro/mantle/total.svg)](https://github.com/nektro/mantle/releases)
+[![crowdin](https://badges.crowdin.net/mantle/localized.svg)](https://crowdin.com/project/mantle)
 
 Easy and effective communication is the foundation of any successful team or community. That's where Mantle comes in, providing you the messaging platform that puts you in charge of both the conversation and the data.
 

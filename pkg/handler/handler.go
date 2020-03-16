@@ -44,6 +44,12 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
+	if !db.IsUID(user.UUID) {
+		user.ResetUID()
+		sess := etc.GetSession(r)
+		sess.Values["user"] = user.UUID
+		sess.Save(r, w)
+	}
 
 	if user.IsMember {
 		w.Header().Add("Location", "./chat/")

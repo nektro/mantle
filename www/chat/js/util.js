@@ -69,9 +69,9 @@ export function ele_atBottom(ele) {
  * @param {String} value
  */
 export function setDataBinding(key, value) {
-    const e = document.querySelector(`[data-bind="${key}"]`);
-    if (e === null) return;
-    e.textContent = value;
+    const e = document.querySelectorAll(`[data-bind="${key}"]`);
+    if (e.length === 0) return;
+    e.forEach((v) => { v.textContent = value; });
 }
 
 /**

@@ -24,7 +24,7 @@ body {
 
         form {
             max-width: 30em;
-            background-color: $based2;
+            background-color: transparentize($based2, .1);
             color: $basel1;
             padding: 1em;
             border-radius: .25em;

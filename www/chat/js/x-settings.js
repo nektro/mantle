@@ -12,10 +12,10 @@ class SettingsDialog extends HTMLElement {
         if (this.dataset.active === undefined) {
             this.setActivePane(0);
         }
-        for (const item of this.children[0].children[0].children) {
+        for (const item of this.children[0].children[0].querySelectorAll("a:not(.div)")) {
             item.addEventListener("click", (ev) => {
                 const t = ev.target;
-                const i = Array.from(t.parentElement.children).indexOf(t);
+                const i = Array.from(t.parentElement.querySelectorAll("a:not(.div)")).indexOf(t);
                 this.setActivePane(i);
             });
         }
@@ -27,7 +27,7 @@ class SettingsDialog extends HTMLElement {
         deActivateChild(this.children[0].children[0]);
         deActivateChild(this.children[0].children[1]);
         this.dataset.active = n.toString();
-        this.children[0].children[0].children[n].classList.add("active");
+        this.children[0].children[0].querySelectorAll("a:not(.div)")[n].classList.add("active");
         this.children[0].children[1].children[n].classList.add("active");
     }
 }

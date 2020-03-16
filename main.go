@@ -39,14 +39,6 @@ func main() {
 	db.Init()
 
 	//
-	// create server 'Owner' Role: uneditable, and has all perms always
-
-	pa := db.PermAllow
-	db.BuiltInRoles["o"] = &db.Role{
-		0, "o", 0, "Owner", "", pa, pa, false, pa,
-	}
-
-	//
 	// setup graceful stop
 
 	util.RunOnClose(func() {

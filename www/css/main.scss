@@ -32,21 +32,25 @@ body {
 
             legend {
                 margin: auto;
-                padding: .5em;
+                padding: 0 .5em;
             }
             .badges {
                 display: flex;
                 flex-direction: row;
-                justify-content: space-between;
+                justify-content: space-around;
                 align-items: center;
 
                 img {
-                    padding: 0 .25em;
+                    padding: .25em;
+                }
+                >div {
+                    display: flex;
+                    flex-direction: column;
 
-                    &:nth-child(2) {
-                        border-radius: 50%;
-                        max-height: 4em;
-                    }
+                }
+                >img {
+                    border-radius: 50%;
+                    max-height: 4em;
                 }
             }
             button, a {

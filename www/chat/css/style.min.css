@@ -159,11 +159,11 @@ body #users-online-list ul li:hover { background-color: #003745; }
 
 body #users-online-list ul li span:nth-child(2) { color: #465253; }
 
-body x-settings > div > div > div a { color: #2aa198; }
+body x-settings [data-s-section] a[href] { color: #2aa198; }
 
-body x-settings > div > div > div a:hover { color: #268bd2; }
+body x-settings [data-s-section] a[href]:hover { color: #268bd2; }
 
-body x-settings > div > div > div code { background-color: #002b36; padding: .5em; border-radius: .25em; }
+body x-settings [data-s-section] code { background-color: #002b36; padding: .5em; border-radius: .25em; }
 
 body x-settings[data-s-for="server"] [data-s-section] .selection { display: grid; grid-template-columns: 10em auto; margin: 1em 0; }
 

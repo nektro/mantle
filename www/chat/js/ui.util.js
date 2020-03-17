@@ -13,7 +13,7 @@ export const el_3 = document.getElementById("me");
 export const el_4 = document.getElementById("users-online-list");
 export const roleCache = new Map();
 
-roleCache.set("~", {name:"Owner",color:""});
+roleCache.set("o", {name:"Owner",color:""});
 
 export async function getUserFromUUID(uuid) {
     if (userCache.has(uuid)) {

@@ -25,8 +25,8 @@ var (
 var (
 	Props        = Properties{}
 	BuiltInRoles = map[string]*Role{
-		"~": &Role{
-			0, "~", 0, "Owner", "", pa, pa, false, pa,
+		"o": &Role{
+			0, "o", 0, "Owner", "", pa, pa, false, pa,
 		},
 	}
 )

@@ -77,7 +77,7 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 		if _, ok := db.QueryRoleByUID(v); !ok {
 			return
 		}
-		if !user.HasRole("~") {
+		if !user.HasRole("o") {
 			return
 		}
 		u.AddRole(v)
@@ -86,7 +86,7 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 		if _, ok := db.QueryRoleByUID(v); !ok {
 			return
 		}
-		if !user.HasRole("~") {
+		if !user.HasRole("o") {
 			return
 		}
 		u.RemoveRole(v)

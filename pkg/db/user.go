@@ -46,7 +46,7 @@ func QueryUserBySnowflake(provider string, flake string, name string) *User {
 	now := alias.T()
 	roles := ""
 	if id == 1 {
-		roles += "~"
+		roles += "o"
 		Props.Set("owner", uid)
 	}
 	db.Build().Ins(cTableUsers, id, provider, flake, uid, 0, 0, name, "", now, now, roles).Exe()
@@ -154,7 +154,7 @@ func (u *User) SetUID(uid string) {
 
 func (u *User) ResetUID() {
 	u.SetUID(newUUID())
-	if u.HasRole("~") {
+	if u.HasRole("o") {
 		Props.Set("owner", u.UUID)
 	}
 }

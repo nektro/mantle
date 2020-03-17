@@ -12,7 +12,7 @@ import (
 
 	"github.com/gorilla/sessions"
 	"github.com/nektro/go-util/alias"
-	"github.com/nektro/go-util/util"
+	"github.com/nektro/go-util/arrays/stringsu"
 	etc "github.com/nektro/go.etc"
 )
 
@@ -22,7 +22,7 @@ func apiBootstrapRequireLogin(r *http.Request, w http.ResponseWriter, method str
 	if r.Method != method {
 		return nil, nil, writeAPIResponse(r, w, false, http.StatusMethodNotAllowed, "This action requires using HTTP "+method)
 	}
-	if util.Contains(formMethods, method) {
+	if stringsu.Contains(formMethods, method) {
 		r.Method = http.MethodPost
 		err := r.ParseMultipartForm(1024 * 1024 * 10)
 		if err != nil {

@@ -100,7 +100,7 @@ func (u *User) DeleteMessage(c *Channel, uid string) {
 }
 
 func (u *User) HasRole(role string) bool {
-	return util.Contains(u.RolesA, role)
+	return stringsu.Contains(u.RolesA, role)
 }
 
 func (u *User) AddRole(role string) {

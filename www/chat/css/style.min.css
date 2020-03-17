@@ -39,7 +39,7 @@ x-2s-toggle label input { opacity: 0; width: 0; height: 0; }
 
 x-2s-toggle label input:checked + span { background-color: #859900; }
 
-x-2s-toggle label input:checked + span:before { transform: translateX(1.5em); }
+x-2s-toggle label input:checked + span:before { transform: translateX(1.75em); }
 
 x-2s-toggle label input:focus + span { box-shadow: 0 0 1px #859900; }
 

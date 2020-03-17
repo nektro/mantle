@@ -309,7 +309,7 @@ body {
             }
         }
         &[data-s-for="server"] {
-            [data-s-section="roles"] {
+            [data-s-section] {
                 .selection {
                     display: grid;
                     grid-template-columns: 10em auto;

@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"strconv"
 
 	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
@@ -85,4 +86,28 @@ func (c *Channel) QueryMsgAfterUID(uid string, limit int) []*Message {
 		res = append(res, item.(*Message))
 	}
 	return res
+}
+
+// SetName sets name
+func (v *Channel) SetName(s string) {
+	db.Build().Up(cTableChannels, "name", s).Wh("uuid", v.UUID).Exe()
+	v.Name = s
+}
+
+// SetPosition sets position
+func (v *Channel) SetPosition(n int) {
+	db.Build().Up(cTableChannels, "position", strconv.Itoa(n)).Wh("uuid", v.UUID).Exe()
+	v.Position = n
+}
+
+// SetDescription sets description
+func (v *Channel) SetDescription(s string) {
+	db.Build().Up(cTableChannels, "description", s).Wh("uuid", v.UUID).Exe()
+	v.Description = s
+}
+
+// EnableHistory sets position
+func (v *Channel) EnableHistory(b bool) {
+	db.Build().Up(cTableChannels, "history_off", strconv.FormatBool(!b)).Wh("uuid", v.UUID).Exe()
+	v.HistoryOff = !b
 }

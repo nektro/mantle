@@ -21,9 +21,7 @@ $("x-settings[data-s-for=server] [data-s-section=roles] .selection nav a.new").o
         inputValidator: (value) => !value && "You need to write something!",
     });
     if (name === undefined) return;
-    const fd = new FormData();
-    fd.append("name", name);
-    return fetch("./../api/roles/create", { method: "post", body: fd, });
+    return api.M.roles.create(name);
 });
 $(document).on("click", (e) => {
     const p = e.target.path();
@@ -92,10 +90,7 @@ $(document).on("click", (e) => {
                 const a = ue.item[0];
                 const uid = a.dataset.uid;
                 const pN = a.indexOfMe()+1;
-                const fd = new FormData();
-                fd.append("p_name","position");
-                fd.append("p_value",pN);
-                fetch(`./../api/roles/${uid}/update`, { method: "post", body: fd, });
+                api.M.roles.update(uid, "position", pN);
             },
         });
     });
@@ -119,9 +114,7 @@ $(document).on("click", (e) => {
                 inputValidator: (value) => !value && "You need to write something!",
             });
             if (name !== undefined) {
-                const fd = new FormData();
-                fd.append("name", name);
-                return fetch("./../api/channels/create", { method: "post", body: fd, });
+                return api.M.channels.create(name);
             }
         });
         el_1.querySelector("ol").addEventListener("click", (ev) => {

@@ -239,10 +239,7 @@ export function addRole(role) {
         const et = e.target;
         const rid = et.dataset.role;
         const uid = document.querySelector("[data-bind=pp_user_uuid]").textContent;
-        const fd = new FormData();
-        fd.append("p_name", "remove_role");
-        fd.append("p_value", rid);
-        fetch(`./../api/users/${uid}/update`, { method: "put", body: fd, });
+        return api.M.users.update(uid,"remove_role",rid);
     });
     document.querySelector("dialog.popup.user ol").appendChild(nEl2);
     //
@@ -251,10 +248,7 @@ export function addRole(role) {
         const et = e.target;
         const rid = et.dataset.role;
         const uid = document.querySelector("[data-bind=pp_user_uuid]").textContent;
-        const fd = new FormData();
-        fd.append("p_name", "add_role");
-        fd.append("p_value", rid);
-        fetch(`./../api/users/${uid}/update`, { method: "put", body: fd, });
+        return api.M.users.update(uid,"add_role",rid);
     });
     document.querySelector("dialog.popup.user div ol").appendChild(nEl3);
 }

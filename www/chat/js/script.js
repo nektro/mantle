@@ -72,7 +72,7 @@ $(document).on("click", (e) => {
     });
 
     //
-    await api.M.roles.get().then((x) => {
+    await api.M.roles.getAll().then((x) => {
         const rls = x.sort((a,b) => a.position > b.position);
         //
         for (const item of rls) {

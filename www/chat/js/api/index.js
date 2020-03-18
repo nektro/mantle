@@ -66,7 +66,7 @@ export const M = {
         }
     },
     roles: {
-        get: () => {
+        getAll: () => {
             return fetchL("/roles", Role);
         },
     },

@@ -69,10 +69,16 @@ export const M = {
         getAll: () => {
             return fetchL("/roles", Role);
         },
+        get: (uid) => {
+            return fetchIC(`/roles/${uid}`, Role, 2, uid);
+        },
     },
     channels: {
         me: () => {
             return fetchL("/channels/@me", Channel);
+        },
+        get: (uid) => {
+            return fetchIC(`/channels/${uid}`, Channel, 1, uid);
         },
     },
 };

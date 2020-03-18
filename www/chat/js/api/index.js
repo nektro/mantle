@@ -42,12 +42,16 @@ function fetchL(endpoint, cl) {
         });
     });
 }
+function fetchIC(endpoint, cl, cch, key) {
+    if (caches[cch].has(key)) return caches[cch].get(key);
+    return fetchI(endpoint, cl);
+}
 
 //
 export const M = {
     users: {
         get: (uid) => {
-            return fetchI(`/users/${uid}`, User);
+            return fetchIC(`/users/${uid}`, User, 0, uid);
         },
         me: () => {
             return fetchE("/users/@me").then((x) => {

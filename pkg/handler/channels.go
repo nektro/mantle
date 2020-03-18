@@ -145,5 +145,11 @@ func ChannelUpdate(w http.ResponseWriter, r *http.Request) {
 	n := r.Form.Get("p_name")
 	v := r.Form.Get("p_value")
 	switch n {
+	case "name":
+		if len(v) == 0 {
+			return
+		}
+		ch.SetName(v)
+		successCb(ch, n, v)
 	}
 }

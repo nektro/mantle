@@ -226,6 +226,10 @@ $(document).on("click", (e) => {
                 }
                 break;
             }
+            case "channel-update": {
+                new api.Channel(d.role);
+                break;
+            }
             default: {
                 console.log(d);
             }

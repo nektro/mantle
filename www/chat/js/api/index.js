@@ -18,7 +18,7 @@ function fetchE(endpoint) {
         if (!x.success) {
             return Promise.reject(new Error(x.message));
         }
-        return x;
+        return x.message;
     });
 }
 
@@ -27,14 +27,14 @@ export const M = {
     users: {
         get: (uid) => {
             return fetchE(`/users/${uid}`).then((x) => {
-                return new User(x.message);
+                return new User(x);
             });
         },
         me: () => {
             return fetchE("/users/@me").then((x) => {
                 return {
-                    user: new User(x.message.me),
-                    perms: x.message.me,
+                    user: new User(x.me),
+                    perms: x.me,
                 };
             });
         },

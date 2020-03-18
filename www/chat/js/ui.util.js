@@ -20,11 +20,10 @@ export async function getUserFromUUID(uuid) {
     if (userCache.has(uuid)) {
         return userCache.get(uuid);
     }
-    const req = await fetch(`./../api/users/${uuid}`);
-    const res = await req.json();
-    if (!res.success) {
+    const u = await api.M.users.get(uuid);
+    if (u.is_null) {
         return null;
     }
-    userCache.set(uuid, res.message);
-    return res.message;
+    userCache.set(uuid, u);
+    return u;
 }

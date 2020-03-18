@@ -12,3 +12,23 @@ export {
     Role,
     Message,
 };
+
+function fetchE(endpoint) {
+    return fetch(`./../api${endpoint}`).then((x) => x.json()).then((x) => {
+        if (!x.success) {
+            return Promise.reject(new Error(x.message));
+        }
+        return x;
+    });
+}
+
+//
+export const M = {
+    users: {
+        get: (uid) => {
+            return fetchE(`/users/${uid}`).then((x) => {
+                return new User(x.message);
+            });
+        },
+    },
+};

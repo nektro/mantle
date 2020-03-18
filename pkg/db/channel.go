@@ -53,6 +53,16 @@ func (v Channel) All() []*Channel {
 	return res
 }
 
+// AllSorted is the same as All but ordered by position
+func (v Channel) AllSorted() []*Channel {
+	arr := dbstorage.ScanAll(db.Build().Se("*").Fr(cTableChannels).Or("position", "asc"), Channel{})
+	res := []*Channel{}
+	for _, item := range arr {
+		res = append(res, item.(*Channel))
+	}
+	return res
+}
+
 func (c *Channel) AssertMessageTableExists() {
 	db.CreateTableStruct(cTableMessagesPrefix+c.UUID, Message{})
 }

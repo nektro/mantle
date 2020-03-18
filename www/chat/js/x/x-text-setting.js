@@ -1,6 +1,6 @@
 "use strict";
 //
-import { create_element, dcTN, setDataBinding } from "./util.js";
+import { create_element, dcTN, setDataBinding } from "./../util.js";
 
 //
 customElements.define("x-text-setting", class TextSetting extends HTMLElement {

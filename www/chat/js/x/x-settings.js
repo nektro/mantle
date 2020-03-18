@@ -1,6 +1,6 @@
 "use strict";
 //
-import { deActivateChild } from "./util.js";
+import { deActivateChild } from "./../util.js";
 
 //
 

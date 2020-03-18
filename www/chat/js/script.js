@@ -1,5 +1,7 @@
 "use strict";
 //
+import "./x/index.js";
+//
 import { create_element, dcTN, setDataBinding } from "./util.js";
 import * as ui from "./ui.js";
 import * as client from "./client.js";

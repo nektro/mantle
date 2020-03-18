@@ -31,6 +31,10 @@ func EtcBadgeMembersTotal(w http.ResponseWriter, r *http.Request) {
 
 // EtcRoleColorCSS is the handler for /api/etc/role_colors.css
 func EtcRoleColorCSS(w http.ResponseWriter, r *http.Request) {
+	_, _, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
+	if err != nil {
+		return
+	}
 	w.Header().Add("content-type", "text/css")
 	ar := db.Role{}.AllSorted()
 	for i := len(ar) - 1; i >= 0; i-- {

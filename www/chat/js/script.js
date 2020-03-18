@@ -209,10 +209,12 @@ $(document).on("click", (e) => {
                 break;
             }
             case "new-channel": {
+                new api.Channel(d.channel);
                 ui.addChannel(d.channel);
                 break;
             }
             case "user-connect": {
+                new api.User(d.user);
                 ui.setMemberOnline(d.user);
                 break;
             }
@@ -233,7 +235,7 @@ $(document).on("click", (e) => {
                 break;
             }
             case "new-role": {
-                new api.User(d.user);
+                new api.Role(d.role);
                 ui.addRole(d.role);
                 break;
             }

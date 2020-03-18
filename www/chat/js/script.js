@@ -13,16 +13,6 @@ $("x-settings").on("click", (e) => {
         e.target.removeAttribute("open");
     }
 });
-$("x-settings[data-s-for=server] [data-s-section=roles] .selection nav a.new").on("click", async () => {
-    const {value: name} = await Swal({
-        title: "Enter the new role's name",
-        input: "text",
-        showCancelButton: true,
-        inputValidator: (value) => !value && "You need to write something!",
-    });
-    if (name === undefined) return;
-    return api.M.roles.create(name);
-});
 $(document).on("click", (e) => {
     const p = e.target.path();
     if (p.filter((v) => v.matches("dialog[open]")).length > 0) return;
@@ -84,15 +74,6 @@ $(document).on("click", (e) => {
         for (const item of rls) {
             ui.addRole(item);
         }
-        $("x-settings[data-s-for=server] [data-s-section=roles] .selection nav").sortable({
-            // jshint -W098
-            stop: (ev,ue) => {
-                const a = ue.item[0];
-                const uid = a.dataset.uid;
-                const pN = a.indexOfMe()+1;
-                api.M.roles.update(uid, "position", pN);
-            },
-        });
     });
 
     //

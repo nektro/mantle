@@ -1,0 +1,57 @@
+@import './../color.scss';
+
+x-selection {
+    display: grid;
+    grid-template-columns: 10em auto;
+    margin: 1em 0;
+
+    &:not(.active) {
+        >div {
+            display: none;
+        }
+    }
+    >nav {
+        margin: 0;
+        margin-right: 1em;
+        display: flex;
+        flex-direction: column;
+
+        a {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: .5em 0;
+            background-color: $green;
+            border-radius: .25em;
+            margin: .25em 0;
+            user-select: none;
+
+            &.div {
+                background-color: $basel0;
+                padding: 0;
+                padding-bottom: .1em;
+            }
+            &[data-uid] {
+                background-color: darken($based2, 2%);
+
+                &:hover {
+                    background-color: darken($based2, 5%);
+                }
+                &.active {
+                    background-color: lighten($based2, 5%);
+
+                    &:hover {
+                        background-color: lighten($based2, 2%);
+                    }
+                }
+            }
+        }
+    }
+    >div {
+        x-text-setting {
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+    }
+}

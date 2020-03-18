@@ -27,8 +27,9 @@ export async function addChannel(ch) {
         create_element("div", [], [dcTN(ch.name)]),
         create_element("div", [["class","unred"]], [dcTN("0")]),
     ]));
+    //
     messageCache.set(ch.uuid, []);
-
+    //
     await fetch(`./../api/channels/${ch.uuid}/messages`).then((x) => x.json()).then((x) => {
         for (const item of x.message) {
             messageCache.get(ch.uuid).unshift(item);
@@ -217,21 +218,7 @@ export function setMemberOffline(uid) {
  * @param {api.Role} role
  */
 export function addRole(role) {
-    const rlist = document.querySelector("x-settings[data-s-for=server] [data-s-section=roles] .selection nav");
-    const oLen = rlist.children.length;
-    const nEl = create_element("a", [["data-uid",role.uuid]], [dcTN(role.name)]);
-    nEl.addEventListener("click", (e) => {
-        const et = e.target;
-        settingsRolesSetActive(Array.from(et.parentElement.children).indexOf(et));
-    });
-    rlist.insertBefore(
-        nEl,
-        rlist.querySelector(".div"),
-    );
-    if (oLen === 2) {
-        rlist.parentElement.classList.add("active");
-        settingsRolesSetActive(0);
-    }
+    document.querySelector("x-settings[data-s-for=server] [data-s-section=roles] x-selection").addItem(role);
     //
     const nEl2 = create_element("li", [["data-role",role.uuid],["class","bg-bf"]], [dcTN(role.name)]);
     nEl2.addEventListener("click", (e) => {
@@ -251,21 +238,4 @@ export function addRole(role) {
         return api.M.users.update(uid,"add_role",rid);
     });
     document.querySelector("dialog.popup.user div ol").appendChild(nEl3);
-}
-
-/**
- * @param {Number} i
- */
-export function settingsRolesSetActive(i) {
-    const rlist = document.querySelector("x-settings[data-s-for=server] [data-s-section=roles] .selection nav");
-    deActivateChild(rlist);
-    rlist.children[i].classList.add("active");
-    const r = api.M.roles.get(rlist.children[i].dataset.uid);
-    const tin = rlist.parentElement.querySelectorAll("[fill]");
-    for (const item of tin) {
-        item.setAttribute("fill", r.uuid);
-    }
-    for (const item of ["name","color","distinguish"]) {
-        rlist.parentElement.querySelector(`[name="${item}"]`).setAttribute("value", r[item]);
-    }
 }

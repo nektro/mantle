@@ -151,5 +151,11 @@ func ChannelUpdate(w http.ResponseWriter, r *http.Request) {
 		}
 		ch.SetName(v)
 		successCb(ch, n, v)
+	case "description":
+		if len(v) == 0 {
+			return
+		}
+		ch.SetDescription(v)
+		successCb(ch, n, v)
 	}
 }

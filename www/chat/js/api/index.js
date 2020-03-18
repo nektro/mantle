@@ -30,5 +30,13 @@ export const M = {
                 return new User(x.message);
             });
         },
+        me: () => {
+            return fetchE("/users/@me").then((x) => {
+                return {
+                    user: new User(x.message.me),
+                    perms: x.message.me,
+                };
+            });
+        },
     },
 };

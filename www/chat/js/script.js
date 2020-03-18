@@ -51,15 +51,11 @@ $(document).on("click", (e) => {
     });
 
     //
-    await fetch("./../api/users/@me").then((x) => x.json()).then((x) => {
-        if (x.success === false) {
-            location.assign("../");
-            return;
-        }
-        ui.volatile.me = x.message.me;
+    await api.M.users.me().then((x) => {
+        ui.volatile.me = x.user;
         const n = ui.volatile.me.nickname || ui.volatile.me.name;
         el_3.children[0].textContent = `@${n}`;
-        const p = x.message.perms;
+        const p = x.perms;
         for (const key in p) {
             if (!p[key]) {
                 document.querySelectorAll(`[data-requires^="${key}"]`).forEach((el) => {
@@ -71,6 +67,8 @@ $(document).on("click", (e) => {
         el_3.children[1].addEventListener("click", () => {
             document.querySelector("x-settings[data-s-for=user]").setAttribute("open","");
         });
+    }).catch(() => {
+        location.assign("../");
     });
 
     //

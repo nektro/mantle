@@ -32,6 +32,9 @@ customElements.define("x-text-setting", class TextSetting extends HTMLElement {
             fd.append("p_name", n);
             fd.append("p_value", iv);
             return fetch(e2, { method: "put", body: fd, }).then((x) => x.json()).then(() => {
+                if (n === "name") {
+                    this.parentElement.parentElement.children[0].querySelector(`[data-uid="${f}"]`).textContent = iv;
+                }
                 if (b === null) return;
                 setDataBinding(b, iv);
             });

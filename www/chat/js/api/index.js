@@ -32,6 +32,7 @@ function fetchE(endpoint) {
 }
 function fetchI(endpoint, cl) {
     return fetchE(endpoint).then((x) => {
+        if (cl === undefined) return x;
         return new cl(x);
     });
 }
@@ -49,6 +50,11 @@ function fetchIC(endpoint, cl, cch, key) {
 
 //
 export const M = {
+    meta: {
+        about: () => {
+            return fetchI("/about");
+        }
+    },
     users: {
         /** @returns {Promise<User>} */
         get: (uid) => {

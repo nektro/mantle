@@ -36,13 +36,13 @@ $(document).on("click", (e) => {
 //
 (async function() {
     //
-    await fetch("./../api/about").then((x) => x.json()).then((x) => {
-        setDataBinding("server_name", x.message.name);
-        setDataBinding("server_version", x.message.version);
+    await api.M.meta.about().then((x) => {
+        setDataBinding("server_name", x.name);
+        setDataBinding("server_version", x.version);
         //
         const sx = document.querySelector("x-settings[data-s-for=server] [data-s-section=overview]");
         for (const item of ["name","description","cover_photo","profile_photo","public"]) {
-            sx.querySelector(`[name="${item}"]`).setAttribute("value", x.message[item]);
+            sx.querySelector(`[name="${item}"]`).setAttribute("value", x[item]);
         }
         //
         el_2.children[1].addEventListener("click", () => {

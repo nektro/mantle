@@ -22,8 +22,14 @@ const caches = [
 ];
 
 //
-function fetchE(endpoint) {
-    return fetch(`./../api${endpoint}`).then((x) => x.json()).then((x) => {
+function fetchE(endpoint, method="get", data={}) {
+    const body = new FormData();
+    for (const k in data) {
+        if (!Object.prototype.hasOwnProperty.call(data, k)) continue;
+        body.set(k, data[k]);
+    }
+    const opts = method === "get" ? {} : {method, body};
+    return fetch(`./../api${endpoint}`, opts).then((x) => x.json()).then((x) => {
         if (!x.success) {
             return Promise.reject(new Error(x.message));
         }

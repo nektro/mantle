@@ -6,6 +6,7 @@ import { create_element, dcTN, setDataBinding } from "./util.js";
 import * as ui from "./ui.js";
 import * as client from "./client.js";
 import { el_2, el_3, el_1, output, messageCache, getUserFromUUID, el_4, userCache, roleCache } from "./ui.util.js";
+import * as api from "./api/index.js";
 
 //
 $("x-settings").on("click", (e) => {

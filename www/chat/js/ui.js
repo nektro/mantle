@@ -38,10 +38,10 @@ export function createMessage(user, msg) {
     if (msg.uuid) attrs.push(["data-msg-uid",msg.uuid]);
     if (user.uuid) attrs.push(["data-user-uid",user.uuid]);
     if (user.roles) {
-        const a = user.roles.split(",").
-            map((v) => roleCache.get(v)).
-            sort((b,c) => b.position > c.position).
-            filter((v) => v.color.length > 0);
+        const a = user.roles.split(",")
+            .map((v) => roleCache.get(v))
+            .sort((b,c) => b.position > c.position)
+            .filter((v) => v.color.length > 0);
         if (a.length > 0) {
             attrsU.push(["data-role",a[0].uuid]);
         }
@@ -99,10 +99,10 @@ export function createMessage(user, msg) {
             setDataBinding("pp_user_snowflake", userN.snowflake);
             const pp = document.querySelector("dialog.popup.user");
             const ppr = pp.querySelector("ol");
-            const rls = userN.roles.split(",").
-                filter((v) => v.length > 0).
-                map((v) => roleCache.get(v)).
-                sort((a,b) => a.position > b.position);
+            const rls = userN.roles.split(",")
+                .filter((v) => v.length > 0)
+                .map((v) => roleCache.get(v))
+                .sort((a,b) => a.position > b.position);
             deActivateChild(ppr);
             const pps = pp.querySelector("div ol");
             deActivateChild(pps);
@@ -164,11 +164,11 @@ export async function setMemberOnline(uid) {
     const ue = el_4.querySelector(`li[data-user="${uid}"]`);
     if (ue === null) {
         const u = await api.M.users.get(uid);
-        const cr = u.roles.split(",").
-            filter((v) => v.length > 0).
-            map((v) => roleCache.get(v)).
-            filter((v) => v.color.length > 0).
-            sort((a,b) => a.position > b.position);
+        const cr = u.roles.split(",")
+            .filter((v) => v.length > 0)
+            .map((v) => roleCache.get(v))
+            .filter((v) => v.color.length > 0)
+            .sort((a,b) => a.position > b.position);
         const tr = cr.length > 0 ? cr[0].uuid : "";
         for (const item of el_4.querySelectorAll("ul")) {
             if (!u.roles.includes(item.dataset.uid)) continue;

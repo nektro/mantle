@@ -74,6 +74,7 @@
         "no-useless-constructor":"off",
         "no-use-before-define":"off",
         "consistent-this":"off",
+        "dot-location":["error", "property"],
         "consistent-return":"off"
     }
 }

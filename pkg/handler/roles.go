@@ -40,7 +40,7 @@ func RolesCreate(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// RoleUpdate reads info about channel
+// RoleUpdate updates info about this role
 func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPut, true)
 	if err != nil {

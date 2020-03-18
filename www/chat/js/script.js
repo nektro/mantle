@@ -4,7 +4,7 @@ import "./x/index.js";
 //
 import { create_element, dcTN, setDataBinding } from "./util.js";
 import * as ui from "./ui.js";
-import { el_2, el_3, el_1, output, messageCache, el_4, roleCache } from "./ui.util.js";
+import { el_2, el_3, el_1, output, messageCache, el_4 } from "./ui.util.js";
 import * as api from "./api/index.js";
 
 //
@@ -233,6 +233,7 @@ $(document).on("click", (e) => {
                 break;
             }
             case "new-role": {
+                new api.User(d.user);
                 ui.addRole(d.role);
                 break;
             }
@@ -246,7 +247,7 @@ $(document).on("click", (e) => {
                 break;
             }
             case "role-update": {
-                roleCache.set(d.role.uuid, d.role);
+                new api.Role(d.role);
                 if (["color"].includes(d.key)) {
                     const x = document.getElementById("link-role-color");
                     const y = x.href.split("=");

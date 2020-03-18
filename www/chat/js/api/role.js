@@ -16,3 +16,10 @@ export class Role {
         cache.set(this.uuid, this);
     }
 }
+
+//
+new Role({
+    uuid:"o",
+    name:"Owner",
+    color:"",
+});

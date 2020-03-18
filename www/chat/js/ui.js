@@ -4,7 +4,7 @@
 import { create_element, dcTN, numsBetween, ele_atBottom, deActivateChild, setDataBinding } from "./util.js";
 import { Channel } from "./ui.channel.js";
 import { SidebarRole } from "./ui.sidebar_role.js";
-import { el_1, messageCache, output, el_4, roleCache, msg_processors } from "./ui.util.js";
+import { el_1, messageCache, output, el_4, msg_processors } from "./ui.util.js";
 import * as api from "./api/index.js";
 
 //
@@ -47,7 +47,7 @@ export function createMessage(user, msg) {
     if (user.uuid) attrs.push(["data-user-uid",user.uuid]);
     if (user.roles) {
         const a = user.roles.split(",")
-            .map((v) => roleCache.get(v))
+            .map((v) => api.M.roles.get(v))
             .sort((b,c) => b.position > c.position)
             .filter((v) => v.color.length > 0);
         if (a.length > 0) {
@@ -109,7 +109,7 @@ export function createMessage(user, msg) {
             const ppr = pp.querySelector("ol");
             const rls = userN.roles.split(",")
                 .filter((v) => v.length > 0)
-                .map((v) => roleCache.get(v))
+                .map((v) => api.M.roles.get(v))
                 .sort((a,b) => a.position > b.position);
             deActivateChild(ppr);
             const pps = pp.querySelector("div ol");
@@ -186,7 +186,7 @@ export async function setMemberOnline(uid) {
         const u = await api.M.users.get(uid);
         const cr = u.roles.split(",")
             .filter((v) => v.length > 0)
-            .map((v) => roleCache.get(v))
+            .map((v) => api.M.roles.get(v))
             .filter((v) => v.color.length > 0)
             .sort((a,b) => a.position > b.position);
         const tr = cr.length > 0 ? cr[0].uuid : "";
@@ -217,8 +217,6 @@ export function setMemberOffline(uid) {
  * @param {api.Role} role
  */
 export function addRole(role) {
-    roleCache.set(role.uuid, role);
-    //
     const rlist = document.querySelector("x-settings[data-s-for=server] [data-s-section=roles] .selection nav");
     const oLen = rlist.children.length;
     const nEl = create_element("a", [["data-uid",role.uuid]], [dcTN(role.name)]);
@@ -268,7 +266,7 @@ export function settingsRolesSetActive(i) {
     const rlist = document.querySelector("x-settings[data-s-for=server] [data-s-section=roles] .selection nav");
     deActivateChild(rlist);
     rlist.children[i].classList.add("active");
-    const r = roleCache.get(rlist.children[i].dataset.uid);
+    const r = api.M.roles.get(rlist.children[i].dataset.uid);
     const tin = rlist.parentElement.querySelectorAll("[fill]");
     for (const item of tin) {
         item.setAttribute("fill", r.uuid);

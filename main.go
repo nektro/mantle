@@ -80,6 +80,7 @@ func main() {
 	r3m := r3.Path("/{uuid}/messages").Subrouter()
 	r3m.Methods(http.MethodGet).HandlerFunc(handler.ChannelMessagesRead)
 	r3m.Methods(http.MethodDelete).HandlerFunc(handler.ChannelMessagesDelete)
+	r3.Path("/{uuid}/update").HandlerFunc(handler.ChannelUpdate)
 
 	r4 := r1.PathPrefix("/etc").Subrouter()
 	r4b := r4.PathPrefix("/badges").Subrouter()

@@ -3,6 +3,7 @@ package handler
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/ws"
@@ -106,4 +107,43 @@ func ChannelMessagesDelete(w http.ResponseWriter, r *http.Request) {
 		"affected": actioned,
 	})
 	writeAPIResponse(r, w, true, http.StatusOK, actioned)
+}
+
+// ChannelUpdate updates info about this channel
+func ChannelUpdate(w http.ResponseWriter, r *http.Request) {
+	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPut, true)
+	if err != nil {
+		return
+	}
+	usp := ws.UserPerms{}.From(user)
+	if !usp.ManageChannels {
+		return
+	}
+	if hGrabFormStrings(r, w, "p_name") != nil {
+		return
+	}
+	uu := mux.Vars(r)["uuid"]
+	ch, ok := db.QueryChannelByUUID(uu)
+	if !ok {
+		return
+	}
+
+	successCb := func(rs *db.Channel, pk, pv string) {
+		writeAPIResponse(r, w, true, http.StatusOK, map[string]interface{}{
+			"channel": rs,
+			"key":     pk,
+			"value":   pv,
+		})
+		ws.BroadcastMessage(map[string]interface{}{
+			"type":    "channel-update",
+			"channel": rs,
+			"key":     pk,
+			"value":   pv,
+		})
+	}
+
+	n := r.Form.Get("p_name")
+	v := r.Form.Get("p_value")
+	switch n {
+	}
 }

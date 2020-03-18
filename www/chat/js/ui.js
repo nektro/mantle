@@ -28,6 +28,8 @@ export async function addChannel(ch) {
         create_element("div", [["class","unred"]], [dcTN("0")]),
     ]));
     //
+    document.querySelector("x-settings[data-s-for=server] [data-s-section=channels] x-selection").addItem(ch);
+    //
     messageCache.set(ch.uuid, []);
     //
     await fetch(`./../api/channels/${ch.uuid}/messages`).then((x) => x.json()).then((x) => {

@@ -25,3 +25,9 @@ if (!("path" in Element.prototype)) {
         return p;
     };
 }
+if (!("getSafe" in Headers.prototype)) {
+    Headers.prototype.getSafe = function(name) {
+        if (!this.has(name)) return "";
+        return this.get(name);
+    };
+}

@@ -22,6 +22,7 @@
         "HTMLElement": true,
         "customElements": true,
         "Promise": true,
+        "Headers": true,
         "$": true
     }
 }

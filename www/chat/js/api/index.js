@@ -22,6 +22,11 @@ function fetchE(endpoint) {
         return x.message;
     });
 }
+function fetchI(endpoint, cl) {
+    return fetchE(endpoint).then((x) => {
+        return new cl(x);
+    });
+}
 function fetchL(endpoint, cl) {
     return fetchE(endpoint).then((x) => {
         return x.map((y) => {
@@ -34,9 +39,7 @@ function fetchL(endpoint, cl) {
 export const M = {
     users: {
         get: (uid) => {
-            return fetchE(`/users/${uid}`).then((x) => {
-                return new User(x);
-            });
+            return fetchI(`/users/${uid}`, User);
         },
         me: () => {
             return fetchE("/users/@me").then((x) => {

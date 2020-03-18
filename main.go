@@ -3,7 +3,6 @@ package main
 import (
 	"net/http"
 	"os"
-	"runtime"
 	"strings"
 
 	"github.com/nektro/mantle/pkg/db"
@@ -22,7 +21,7 @@ import (
 var Version = "vMASTER"
 
 func main() {
-	idata.Version = etc.FixBareVersion(Version) + "-" + runtime.Version()
+	idata.Version = etc.FixBareVersion(Version)
 	util.Log("Welcome to " + idata.Name + " " + idata.Version + ".")
 
 	//

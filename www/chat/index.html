@@ -92,6 +92,7 @@
                             <div>
                                 <x-text-setting endpoint="./../api/channels/%s/update" name="name" label="Name" value="" fill=""></x-text-setting>
                                 <x-text-setting endpoint="./../api/channels/%s/update" name="description" label="Description" value="" fill=""></x-text-setting>
+                                <x-2s-toggle endpoint="./../api/channels/%s/update" name="history_off" label="Save Channel History?" fill="" inverted></x-2s-toggle>
                             </div>
                         </x-selection>
                     </div>

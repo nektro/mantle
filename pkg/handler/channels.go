@@ -193,5 +193,12 @@ func ChannelUpdate(w http.ResponseWriter, r *http.Request) {
 		}
 		ch.SetDescription(v)
 		successCb(ch, n, v)
+	case "history_off":
+		b, err := strconv.ParseBool(v)
+		if err != nil {
+			return
+		}
+		ch.EnableHistory(b)
+		successCb(ch, n, v)
 	}
 }

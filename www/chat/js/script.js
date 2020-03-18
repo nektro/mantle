@@ -73,8 +73,8 @@ $(document).on("click", (e) => {
     });
 
     //
-    await fetch("./../api/roles").then((x) => x.json()).then((x) => {
-        const rls = x.message.sort((a,b) => a.position > b.position);
+    await api.M.roles.get().then((x) => {
+        const rls = x.sort((a,b) => a.position > b.position);
         //
         for (const item of rls) {
             if (!item.distinguish) continue;

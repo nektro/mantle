@@ -39,4 +39,13 @@ export const M = {
             });
         },
     },
+    roles: {
+        get: () => {
+            return fetchE("/roles").then((x) => {
+                return x.map((y) => {
+                    return new Role(y);
+                });
+            });
+        },
+    },
 };

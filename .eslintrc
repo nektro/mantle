@@ -17,6 +17,7 @@
         "twemoji": true,
         "HTMLElement": true,
         "customElements": true,
+        "Promise": true,
         "$": true
     },
     "extends": "eslint:all",

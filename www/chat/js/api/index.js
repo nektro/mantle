@@ -13,12 +13,20 @@ export {
     Message,
 };
 
+//
 function fetchE(endpoint) {
     return fetch(`./../api${endpoint}`).then((x) => x.json()).then((x) => {
         if (!x.success) {
             return Promise.reject(new Error(x.message));
         }
         return x.message;
+    });
+}
+function fetchL(endpoint, cl) {
+    return fetchE(endpoint).then((x) => {
+        return x.map((y) => {
+            return new cl(y);
+        });
     });
 }
 
@@ -41,20 +49,12 @@ export const M = {
     },
     roles: {
         get: () => {
-            return fetchE("/roles").then((x) => {
-                return x.map((y) => {
-                    return new Role(y);
-                });
-            });
+            return fetchL("/roles", Role);
         },
     },
     channels: {
         me: () => {
-            return fetchE("/channels/@me").then((x) => {
-                return x.map((y) => {
-                    return new Channel(y);
-                });
-            });
+            return fetchL("/channels/@me", Channel);
         },
     },
 };

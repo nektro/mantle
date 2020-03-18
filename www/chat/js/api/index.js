@@ -1,9 +1,9 @@
 "use strict";
 //
-import { User } from "./user.js";
-import { Channel } from "./channel.js";
-import { Role } from "./role.js";
-import { Message } from "./message.js";
+import { cache as cacheU, User } from "./user.js";
+import { cache as cacheC, Channel } from "./channel.js";
+import { cache as cacheR, Role } from "./role.js";
+import { cache as cacheG, Message } from "./message.js";
 
 //
 export {
@@ -12,6 +12,14 @@ export {
     Role,
     Message,
 };
+
+//
+const caches = [
+    cacheU,
+    cacheC,
+    cacheR,
+    cacheG,
+];
 
 //
 function fetchE(endpoint) {

@@ -2,6 +2,9 @@
 //
 
 //
+export const cache = new Map();
+
+//
 export class Role {
     constructor(o) {
         if (o === null) {
@@ -10,5 +13,6 @@ export class Role {
         }
         Object.assign(this, o);
         this.is_null = false;
+        cache.set(this.uuid, this);
     }
 }

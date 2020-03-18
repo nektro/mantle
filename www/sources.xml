@@ -36,4 +36,6 @@
     <string name="s031">Provider</string>
     <string name="s032">Cover Picture</string>
     <string name="s033">Profile Picture</string>
+    <string name="s034">Nickname</string>
+    <string name="s035">Save Channel History?</string>
 </resources>

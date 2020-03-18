@@ -54,8 +54,8 @@ func writeAPIResponse(r *http.Request, w http.ResponseWriter, good bool, status 
 		"message": message,
 	}
 	dat, _ := json.Marshal(resp)
-	w.WriteHeader(status)
 	w.Header().Add("content-type", "application/json")
+	w.WriteHeader(status)
 	fmt.Fprintln(w, string(dat))
 	if !good {
 		return errors.New("")

@@ -13,11 +13,15 @@ export const volatile = {
     activeChannel: null,
     /** @type {Element[]} */
     selectedMsgs: [],
+    /** @type {api.User} */
     me: null,
 };
 
 //
 
+/**
+ * @param {api.Channel} ch
+ */
 export async function addChannel(ch) {
     el_1.firstElementChild.appendChild(create_element("li", [["data-uuid",ch.uuid],["data-unread","0"]], [
         create_element("div", [], [dcTN(ch.name)]),
@@ -32,6 +36,10 @@ export async function addChannel(ch) {
     });
 }
 
+/**
+ * @param {api.User} user
+ * @param {api.Message} msg
+ */
 export function createMessage(user, msg) {
     const attrs = [["class","msg"]];
     const attrsU = [["class","usr"]];
@@ -123,6 +131,12 @@ export function createMessage(user, msg) {
     return el;
 }
 
+/**
+ * @param {api.Channel} channel
+ * @param {api.User} from
+ * @param {api.Message} message
+ * @param {Boolean} save
+ */
 export function addMessage(channel, from, message, save=true) {
     channel = channel ? channel : volatile.activeChannel.dataset.uuid;
     from.uuid = from.uuid ? from.uuid : "";
@@ -138,6 +152,9 @@ export function addMessage(channel, from, message, save=true) {
     if (save === true) messageCache.get(channel).push(message);
 }
 
+/**
+ * @param {String} uid
+ */
 export async function setActiveChannel(uid) {
     console.debug("channel-switch:", uid);
     const ac = el_1.querySelector(".active");
@@ -159,6 +176,9 @@ export async function setActiveChannel(uid) {
     volatile.selectedMsgs.splice(0, volatile.selectedMsgs.length);
 }
 
+/**
+ * @param {String} uid
+ */
 export async function setMemberOnline(uid) {
     console.debug("user-ws-connect", uid);
     const ue = el_4.querySelector(`li[data-user="${uid}"]`);
@@ -182,6 +202,9 @@ export async function setMemberOnline(uid) {
     }
 }
 
+/**
+ * @param {String} uid
+ */
 export function setMemberOffline(uid) {
     console.debug("user-ws-disconnect", uid);
     const ue = el_4.querySelector(`li[data-user="${uid}"]`);
@@ -190,6 +213,9 @@ export function setMemberOffline(uid) {
     ue.remove();
 }
 
+/**
+ * @param {api.Role} role
+ */
 export function addRole(role) {
     roleCache.set(role.uuid, role);
     //
@@ -235,6 +261,9 @@ export function addRole(role) {
     document.querySelector("dialog.popup.user div ol").appendChild(nEl3);
 }
 
+/**
+ * @param {Number} i
+ */
 export function settingsRolesSetActive(i) {
     const rlist = document.querySelector("x-settings[data-s-for=server] [data-s-section=roles] .selection nav");
     deActivateChild(rlist);

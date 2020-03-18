@@ -48,4 +48,13 @@ export const M = {
             });
         },
     },
+    channels: {
+        me: () => {
+            return fetchE("/channels/@me").then((x) => {
+                return x.map((y) => {
+                    return new Channel(y);
+                });
+            });
+        },
+    },
 };

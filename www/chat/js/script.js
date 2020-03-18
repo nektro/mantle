@@ -102,15 +102,15 @@ $(document).on("click", (e) => {
     });
 
     //
-    await fetch("./../api/channels/@me").then((x) => x.json()).then(async (x) => {
-        for (const item of x.message) {
+    await api.M.channels.me().then(async (x) => {
+        for (const item of x) {
             await ui.addChannel(item);
         }
-        await ui.setActiveChannel(x.message[0].uuid);
+        await ui.setActiveChannel(x[0].uuid);
 
         const el2 = document.getElementById("channel-name");
-        el2.children[0].textContent = x.message[0].name;
-        el2.children[1].textContent = x.message[0].description;
+        el2.children[0].textContent = x[0].name;
+        el2.children[1].textContent = x[0].description;
 
         el_1.querySelector("button").addEventListener("click", async () => {
             const {value: name} = await Swal({

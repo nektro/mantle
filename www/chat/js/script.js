@@ -5,6 +5,7 @@ import "./x/index.js";
 import { create_element, dcTN, setDataBinding } from "./util.js";
 import * as ui from "./ui.js";
 import { el_2, el_3, el_1, output, messageCache, el_4 } from "./ui.util.js";
+import { Channel } from "./ui.channel.js";
 import * as api from "./api/index.js";
 
 //
@@ -227,7 +228,14 @@ $(document).on("click", (e) => {
                 break;
             }
             case "channel-update": {
-                new api.Channel(d.role);
+                const c = new api.Channel(d.channel);
+                if (["name"].includes(d.key)) {
+                    new Channel(c.uuid).p_name = d.value;
+                }
+                if (output.dataset.active === c.uuid) {
+                    setDataBinding("channel_name", c.name);
+                    setDataBinding("channel_description", c.description);
+                }
                 break;
             }
             default: {

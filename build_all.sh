@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
 init() {
+    mkdir -p 'bin_www'
+    cp -a ./www/. ./bin_www/
     go get -v -u github.com/rakyll/statik
-    $GOPATH/bin/statik -src="./www/"
+    $GOPATH/bin/statik -src="./bin_www/"
 }
 build_template() {
     export CGO_ENABLED=1

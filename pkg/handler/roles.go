@@ -33,6 +33,7 @@ func RolesCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	nr := db.CreateRole(n)
+	w.WriteHeader(http.StatusCreated)
 	ws.BroadcastMessage(map[string]interface{}{
 		"type": "new-role",
 		"role": nr,

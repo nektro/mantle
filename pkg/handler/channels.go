@@ -38,6 +38,7 @@ func ChannelCreate(w http.ResponseWriter, r *http.Request) {
 	}
 	name := r.Form.Get("name")
 	nch := db.CreateChannel(name)
+	w.WriteHeader(http.StatusCreated)
 	ws.BroadcastMessage(map[string]interface{}{
 		"type": "new-channel",
 		"uuid": nch.UUID,

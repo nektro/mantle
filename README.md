@@ -57,6 +57,14 @@ Pre-compiled binaries can be obtained from https://github.com/nektro/mantle/rele
 
 We listen to issues all the time right here on GitHub. Labels are extensively to show the progress through the fixing process. Question issues are okay but make sure to close the issue when it has been answered! Off-topic and '+1' comments will be deleted. Please use post/comment reactions for this purpose.
 
+## Public Instances
+Want to try out a live server before installing your own, or get involved in an already existing community? Try these servers below:
+
+- [![](https://mantle.trademark.cat/api/etc/badges/members_total.svg)](https://mantle.trademark.cat/)
+- [![](https://mantle.varelus.com/api/etc/badges/members_total.svg)](https://mantle.varelus.com/)
+
+Run an instance and want your site here? Contact me below!
+
 ## Contact
 - hello@nektro.net
 - Meghan#2032 on discordapp.com

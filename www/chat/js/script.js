@@ -179,8 +179,8 @@ $(document).on("click", (e) => {
         });
     });
 
-    await fetch("./../api/users/online").then((x) => x.json()).then((x) => {
-        for (const item of x.message) {
+    await api.M.users.online().then((x) => {
+        for (const item of x) {
             ui.setMemberOnline(item);
         }
     });

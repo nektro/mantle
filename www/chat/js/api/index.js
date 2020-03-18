@@ -46,6 +46,9 @@ export const M = {
                 };
             });
         },
+        online: () => {
+            return fetchL("/users/online", User);
+        }
     },
     roles: {
         get: () => {

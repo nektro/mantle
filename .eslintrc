@@ -75,6 +75,7 @@
         "no-use-before-define":"off",
         "consistent-this":"off",
         "dot-location":["error", "property"],
+        "no-new":"off",
         "consistent-return":"off"
     }
 }

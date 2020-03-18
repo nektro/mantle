@@ -32,7 +32,8 @@ customElements.define("x-2s-toggle", class Toggle2State extends HTMLElement {
     attributeChangedCallback(name, oV, nV) {
         if (name === "value") {
             const b = nV === "true" || nV === "1";
-            this.children[1].children[0].checked = b;
+            const v = this.hasAttribute("inverted");
+            this.children[1].children[0].checked = v ? !b : b;
         }
     }
 });

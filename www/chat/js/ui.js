@@ -4,7 +4,8 @@
 import { create_element, dcTN, numsBetween, ele_atBottom, deActivateChild, setDataBinding } from "./util.js";
 import { Channel } from "./ui.channel.js";
 import { SidebarRole } from "./ui.sidebar_role.js";
-import { el_1, messageCache, output, getUserFromUUID, el_4, roleCache, userCache } from "./ui.util.js";
+import { el_1, messageCache, output, el_4, roleCache } from "./ui.util.js";
+import * as api from "./api/index.js";
 
 //
 export const volatile = {
@@ -86,7 +87,7 @@ export function createMessage(user, msg) {
     }
     if (user.uuid) {
         el.querySelector(".usr").addEventListener("click", (e) => {
-            const userN = userCache.get(user.uuid);
+            const userN = api.M.users.get(user.uuid);
             setDataBinding("pp_user_name", userN.name);
             setDataBinding("pp_user_id", userN.id);
             setDataBinding("pp_user_uuid", userN.uuid);
@@ -146,7 +147,7 @@ export async function setActiveChannel(uid) {
     output.removeAllChildren();
     const new_message_history = messageCache.get(uid);
     for (const item of new_message_history) {
-        addMessage(null, await getUserFromUUID(item.author), item, false, false);
+        addMessage(null, await api.M.users.get(item.author), item, false, false);
     }
     //
     c.unread = 0;
@@ -158,7 +159,7 @@ export async function setMemberOnline(uid) {
     console.debug("user-ws-connect", uid);
     const ue = el_4.querySelector(`li[data-user="${uid}"]`);
     if (ue === null) {
-        const u = await getUserFromUUID(uid);
+        const u = await api.M.users.get(uid);
         const cr = u.roles.split(",").
             filter((v) => v.length > 0).
             map((v) => roleCache.get(v)).

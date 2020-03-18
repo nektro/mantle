@@ -5,7 +5,7 @@ import "./x/index.js";
 import { create_element, dcTN, setDataBinding } from "./util.js";
 import * as ui from "./ui.js";
 import * as client from "./client.js";
-import { el_2, el_3, el_1, output, messageCache, getUserFromUUID, el_4, userCache, roleCache } from "./ui.util.js";
+import { el_2, el_3, el_1, output, messageCache, el_4, roleCache } from "./ui.util.js";
 import * as api from "./api/index.js";
 
 //
@@ -147,7 +147,7 @@ $(document).on("click", (e) => {
                 }
                 for (let i = 1; i < y.message.length; i++) {
                     const item = y.message[i];
-                    output.prepend(ui.createMessage(await getUserFromUUID(item.author), item));
+                    output.prepend(ui.createMessage(await api.M.users.get(item.author), item));
                     messageCache.get(chuid).unshift(item);
                 }
                 output.scrollTop = fc.offsetTop-60;
@@ -205,7 +205,7 @@ $(document).on("click", (e) => {
                 break;
             }
             case "message": {
-                const u = await getUserFromUUID(d.message.author);
+                const u = await api.M.users.get(d.message.author);
                 ui.addMessage(d.in, u, d.message, true);
                 break;
             }
@@ -238,7 +238,7 @@ $(document).on("click", (e) => {
                 break;
             }
             case "user-update": {
-                userCache.set(d.user.uuid, d.user);
+                new api.User(d.user);
                 if (["add_role","remove_role"].includes(d.key)) {
                     document.querySelectorAll(`dialog.popup.user ol [data-role="${d.value}"]`).forEach((v) => {
                         v.classList.toggle("active");

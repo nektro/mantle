@@ -7,7 +7,6 @@ import { SidebarRole } from "./ui.sidebar_role.js";
 import { el_1, messageCache, output, getUserFromUUID, el_4, roleCache, userCache } from "./ui.util.js";
 
 //
-
 export const volatile = {
     /** @type {HTMLElement} */
     activeChannel: null,

@@ -3,7 +3,6 @@
 import { deActivateChild } from "./../util.js";
 
 //
-
 class SettingsDialog extends HTMLElement {
     constructor() {
         super();

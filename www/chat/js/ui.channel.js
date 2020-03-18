@@ -3,7 +3,6 @@
 import { el_1 } from "./ui.util.js";
 
 //
-
 export class Channel {
     /**
      * @param {string} uid UUID

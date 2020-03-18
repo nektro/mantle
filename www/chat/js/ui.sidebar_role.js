@@ -1,6 +1,7 @@
 "use strict";
 //
 
+//
 export class SidebarRole {
     /**
      * @param {HTMLElement} el

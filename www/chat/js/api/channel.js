@@ -1,5 +1,6 @@
 "use strict";
 //
+
 //
 export class Channel {
     constructor(o) {

@@ -1,5 +1,6 @@
 "use strict";
 //
+
 //
 export class Message {
     constructor(o) {

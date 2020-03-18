@@ -53,7 +53,7 @@ export function createMessage(user, msg) {
         create_element("div", attrsU, [dcTN(user.name)]),
         create_element("div", [["class","dat"]], [dcTN(msg.body)]),
     ]);
-    el.children[2].innerHTML = el.children[2].textContent.replace(/(https?:\/\/[^\s]+)/gu, (match) => `<a target="_blank" href="${match}">${match}</a>`);
+    el.children[2].innerHTML = el.children[2].textContent.replace(/(https?:\/\/[^\s]+)/gu, (match) => `<a target="_blank" href="${match}">${decodeURIComponent(match)}</a>`);
     twemoji.parse(el.children[2]);
     //
     if (msg.uuid) {

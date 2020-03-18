@@ -23,7 +23,9 @@
     <string name="s020">Bans</string>
     <string name="s021">Name</string>
     <string name="s022">Description</string>
+    <!-- {@deprecated} -->
     <string name="s023">Cover Photo</string>
+    <!-- {@deprecated} -->
     <string name="s024">Profile Photo</string>
     <string name="s025">Public?</string>
     <string name="s026">Color</string>
@@ -32,4 +34,6 @@
     <string name="s029">Manage Channels</string>
     <string name="s030">Manage Roles</string>
     <string name="s031">Provider</string>
+    <string name="s032">Cover Picture</string>
+    <string name="s033">Profile Picture</string>
 </resources>

@@ -53,7 +53,7 @@ export const M = {
     meta: {
         about: () => {
             return fetchI("/about");
-        }
+        },
     },
     users: {
         /** @returns {Promise<User>} */
@@ -71,7 +71,7 @@ export const M = {
         /** @returns {Promise<User[]>} */
         online: () => {
             return fetchL("/users/online", User);
-        }
+        },
     },
     channels: {
         /** @returns {Promise<Channel[]>} */

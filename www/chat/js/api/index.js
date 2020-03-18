@@ -50,6 +50,7 @@ function fetchIC(endpoint, cl, cch, key) {
 //
 export const M = {
     users: {
+        /** @returns {Promise<User>} */
         get: (uid) => {
             return fetchIC(`/users/${uid}`, User, 0, uid);
         },
@@ -61,22 +62,27 @@ export const M = {
                 };
             });
         },
+        /** @returns {Promise<User[]>} */
         online: () => {
             return fetchL("/users/online", User);
         }
     },
     channels: {
+        /** @returns {Promise<Channel[]>} */
         me: () => {
             return fetchL("/channels/@me", Channel);
         },
+        /** @returns {Promise<Channel>} */
         get: (uid) => {
             return fetchIC(`/channels/${uid}`, Channel, 1, uid);
         },
     },
     roles: {
+        /** @returns {Promise<Role[]>} */
         me: () => {
             return fetchL("/roles", Role);
         },
+        /** @returns {Promise<Role>} */
         get: (uid) => {
             return fetchIC(`/roles/${uid}`, Role, 2, uid);
         },

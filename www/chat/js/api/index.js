@@ -88,6 +88,9 @@ export const M = {
         get: (uid) => {
             return fetchIC(`/channels/${uid}`, Channel, 1, uid);
         },
+        create: (n) => {
+            return fetchE("/channels/create", "post", { name: n });
+        },
     },
     roles: {
         /** @returns {Promise<Role[]>} */
@@ -97,6 +100,9 @@ export const M = {
         /** @returns {Promise<Role>} */
         get: (uid) => {
             return fetchIC(`/roles/${uid}`, Role, 2, uid);
+        },
+        create: (n) => {
+            return fetchE("/roles/create", "post", { name: n });
         },
     },
 };

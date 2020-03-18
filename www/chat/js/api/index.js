@@ -29,7 +29,11 @@ function fetchE(endpoint, method="get", data={}) {
         body.set(k, data[k]);
     }
     const opts = method === "get" ? {} : {method, body};
-    return fetch(`./../api${endpoint}`, opts).then((x) => x.json()).then((x) => {
+    return fetch(`./../api${endpoint}`, opts).then((x) => {
+        if (x.headers.getSafe("content-type").includes("application/json")) return x.json();
+        return x.text();
+    }).then((x) => {
+        if (typeof x === "string") return;
         if (!x.success) {
             return Promise.reject(new Error(x.message));
         }

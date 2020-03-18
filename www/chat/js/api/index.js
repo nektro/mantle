@@ -74,7 +74,7 @@ export const M = {
         },
     },
     roles: {
-        getAll: () => {
+        me: () => {
             return fetchL("/roles", Role);
         },
         get: (uid) => {

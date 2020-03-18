@@ -1,4 +1,4 @@
-/bin/
+/bin*
 /mantle*
 /node_modules/
 /www/chat/css/color.min.css

@@ -4,7 +4,7 @@
 import { create_element, dcTN, numsBetween, ele_atBottom, deActivateChild, setDataBinding } from "./util.js";
 import { Channel } from "./ui.channel.js";
 import { SidebarRole } from "./ui.sidebar_role.js";
-import { el_1, messageCache, output, el_4, roleCache } from "./ui.util.js";
+import { el_1, messageCache, output, el_4, roleCache, msg_processors } from "./ui.util.js";
 import * as api from "./api/index.js";
 
 //
@@ -54,6 +54,9 @@ export function createMessage(user, msg) {
         create_element("div", [["class","dat"]], [dcTN(msg.body)]),
     ]);
     const mtx = el.children[2];
+    for (const item of msg_processors) {
+        mtx.textContent = mtx.textContent.replace(item[0], () => item[1]);
+    }
     mtx.innerHTML = mtx.textContent.replace(/(https?:\/\/[^\s]+)/gu, (match) => `<a target="_blank" href="${match}">${decodeURIComponent(match)}</a>`);
     twemoji.parse(mtx);
     //

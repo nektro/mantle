@@ -4,7 +4,6 @@ import "./x/index.js";
 //
 import { create_element, dcTN, setDataBinding } from "./util.js";
 import * as ui from "./ui.js";
-import * as client from "./client.js";
 import { el_2, el_3, el_1, output, messageCache, el_4, roleCache } from "./ui.util.js";
 import * as api from "./api/index.js";
 
@@ -271,21 +270,14 @@ $(document).on("click", (e) => {
     //
     input.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
-            let msg_con = e.target.value;
-            for (const item of client.commands) {
-                if (msg_con.startsWith("/"+item[0])) {
-                    msg_con = item[1](msg_con.replace("/"+item[0],""), ui.volatile.me);
-                }
-            }
-            e.target.value = "";
-            if (msg_con===null) return;
-            if (msg_con===undefined) return;
+            const msg_con = e.target.value;
             if (msg_con.length === 0) return;
             socket.send(JSON.stringify({
                 type: "message",
                 in: ui.volatile.activeChannel.dataset.uuid,
                 message: msg_con.trim(),
             }));
+            e.target.value = "";
         }
     });
 })();

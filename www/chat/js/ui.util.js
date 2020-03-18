@@ -12,5 +12,10 @@ export const el_2 = document.getElementById("server-name");
 export const el_3 = document.getElementById("me");
 export const el_4 = document.getElementById("users-online-list");
 export const roleCache = new Map();
-
 roleCache.set("o", new api.Role({name:"Owner",color:""}));
+
+export const msg_processors = [
+    ["/shrug", "¯\\_(ツ)_/¯"],
+    ["/tableflip", "(╯°□°）╯︵ ┻━┻"],
+    ["/unflip", "┬─┬ ノ( ゜-゜ノ)"],
+];

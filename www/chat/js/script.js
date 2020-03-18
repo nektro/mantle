@@ -8,11 +8,6 @@ import { el_2, el_3, el_1, output, messageCache, el_4 } from "./ui.util.js";
 import * as api from "./api/index.js";
 
 //
-$("x-settings").on("click", (e) => {
-    if (e.target.localName === "x-settings") {
-        e.target.removeAttribute("open");
-    }
-});
 $(document).on("click", (e) => {
     const p = e.target.path();
     if (p.filter((v) => v.matches("dialog[open]")).length > 0) return;

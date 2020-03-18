@@ -18,6 +18,11 @@ class SettingsDialog extends HTMLElement {
                 this.setActivePane(i);
             });
         }
+        this.addEventListener("click", (e) => {
+            if (e.target.localName === "x-settings") {
+                e.target.removeAttribute("open");
+            }
+        });
     }
     /**
      * @param {Number} n

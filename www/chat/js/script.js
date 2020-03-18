@@ -209,7 +209,7 @@ $(document).on("click", (e) => {
                 break;
             }
             case "new-channel": {
-                ui.addChannel(d);
+                ui.addChannel(d.channel);
                 break;
             }
             case "user-connect": {

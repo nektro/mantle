@@ -23,8 +23,7 @@ type User struct {
 	Nickname   string `json:"nickname" sqlite:"text"`
 	JoindedOn  string `json:"joined_on" sqlite:"text"`
 	LastActive string `json:"last_active" sqlite:"text"`
-	Roles      string `json:"roles" sqlite:"text"`
-	RolesA     []string
+	Roles      Array  `json:"roles" sqlite:"text"`
 }
 
 //
@@ -61,11 +60,6 @@ func (v User) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(&v.ID, &v.Provider, &v.Snowflake, &v.UUID, &v.IsMember, &v.IsBanned, &v.Name, &v.Nickname, &v.JoindedOn, &v.LastActive, &v.Roles)
 	v.JoindedOn = strings.Replace(v.JoindedOn, " ", "T", 1) + "Z"
 	v.LastActive = strings.Replace(v.LastActive, " ", "T", 1) + "Z"
-	if len(v.Roles) > 0 {
-		v.RolesA = strings.Split(v.Roles, ",")
-	} else {
-		v.RolesA = []string{}
-	}
 	return &v
 }
 
@@ -103,30 +97,28 @@ func (u *User) DeleteMessage(c *Channel, uid string) {
 }
 
 func (u *User) HasRole(role string) bool {
-	return stringsu.Contains(u.RolesA, role)
+	return stringsu.Contains(u.Roles, role)
 }
 
 func (u *User) AddRole(role string) {
 	if u.HasRole(role) {
 		return
 	}
-	u.RolesA = append(u.RolesA, role)
-	u.Roles = strings.Join(u.RolesA, ",")
-	db.Build().Up(cTableUsers, "roles", u.Roles).Wh("uuid", u.UUID).Exe()
+	u.Roles = append(u.Roles, role)
+	db.Build().Up(cTableUsers, "roles", u.Roles.String()).Wh("uuid", u.UUID).Exe()
 }
 
 func (u *User) RemoveRole(role string) {
 	if !u.HasRole(role) {
 		return
 	}
-	u.RolesA = stringsu.Remove(u.RolesA, role)
-	u.Roles = strings.Join(u.RolesA, ",")
-	db.Build().Up(cTableUsers, "roles", u.Roles).Wh("uuid", u.UUID).Exe()
+	u.Roles = stringsu.Remove(u.Roles, role)
+	db.Build().Up(cTableUsers, "roles", u.Roles.String()).Wh("uuid", u.UUID).Exe()
 }
 
 func (u *User) GetRoles() []*Role {
 	res := []*Role{}
-	for _, item := range u.RolesA {
+	for _, item := range u.Roles {
 		r, ok := QueryRoleByUID(item)
 		if !ok {
 			continue

@@ -9,16 +9,18 @@ customElements.define("x-selection", class SSelection extends HTMLElement {
         super();
     }
     connectedCallback() {
-        $(this.children[0]).sortable({
-            // jshint -W098
-            stop: (ev,ue) => {
-                const c = this.parentElement.getAttribute("data-s-section");
-                const a = ue.item[0];
-                const uid = a.dataset.uid;
-                const pN = a.indexOfMe()+1;
-                api.M[c].update(uid, "position", pN);
-            },
-        });
+        if (!this.children[0].classList.contains("static")) {
+            $(this.children[0]).sortable({
+                // jshint -W098
+                stop: (ev,ue) => {
+                    const c = this.parentElement.getAttribute("data-s-section");
+                    const a = ue.item[0];
+                    const uid = a.dataset.uid;
+                    const pN = a.indexOfMe()+1;
+                    api.M[c].update(uid, "position", pN);
+                },
+            });
+        }
         const w = this.children[0].querySelector("a.new");
         if (w !== null) {
             w.addEventListener("click", async () => {

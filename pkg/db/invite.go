@@ -70,7 +70,7 @@ func (v Invite) All() []*Invite {
 //
 
 // Use increments Uses by 1
-func (i *Invite) Use() {
-	i.Uses++
-	db.Build().Up(cTableInvites, "uses", strconv.FormatInt(i.Uses, 10)).Wh("uuid", i.UUID).Exe()
+func (v *Invite) Use() {
+	v.Uses++
+	db.Build().Up(cTableInvites, "uses", strconv.FormatInt(v.Uses, 10)).Wh("uuid", v.UUID).Exe()
 }

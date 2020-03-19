@@ -60,6 +60,10 @@ function fetchIC(endpoint, cl, cch, key) {
     if (caches[cch].has(key)) return caches[cch].get(key);
     return fetchI(endpoint, cl);
 }
+function resource_factory(name, cl, cch) {
+    return {
+    };
+}
 
 //
 export const M = {
@@ -104,6 +108,7 @@ export const M = {
         update: (uid,k,v) => {
             return fetchE(`/channels/${uid}/update`, "put", { p_name: k, p_value: v, });
         },
+        ...resource_factory("channels", Channel, 1),
     },
     roles: {
         /** @returns {Promise<Role[]>} */
@@ -120,10 +125,12 @@ export const M = {
         update: (uid,k,v) => {
             return fetchE(`/roles/${uid}/update`, "put", { p_name: k, p_value: v, });
         },
+        ...resource_factory("roles", Role, 2),
     },
     invites: {
         me: () => {
             return fetchL("/invites/@me", Invite);
         },
+        ...resource_factory("invites", Invite, 4),
     },
 };

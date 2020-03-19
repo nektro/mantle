@@ -116,7 +116,7 @@ $(document).on("click", (e) => {
                 }
                 for (let i = 1; i < y.message.length; i++) {
                     const item = y.message[i];
-                    output.prepend(ui.createMessage(await api.M.users.get(item.author), item));
+                    output.prepend(await ui.createMessage(await api.M.users.get(item.author), item));
                     messageCache.get(chuid).unshift(item);
                 }
                 output.scrollTop = fc.offsetTop-60;

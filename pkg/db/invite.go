@@ -3,7 +3,6 @@ package db
 import (
 	"database/sql"
 	"strconv"
-	"strings"
 
 	"github.com/nektro/go-util/util"
 
@@ -37,6 +36,8 @@ func CreateInvite() *Invite {
 	util.Log("[invite-create]", uid, code)
 	n := &Invite{id, uid, co, code, 0, 0, 0, "", "", false, Array{}}
 	db.Build().Ins(cTableInvites, id, uid, co, code, 0, 0, 0, "", "", false, Array{}).Exe()
+	n.CreatedOn = sUTCto3339(n.CreatedOn)
+	n.ExpiresOn = sUTCto3339(n.ExpiresOn)
 	return n
 }
 
@@ -52,7 +53,8 @@ func QueryInviteByCode(c string) (*Invite, bool) {
 // Scan implements dbstorage.Scannable
 func (v Invite) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(&v.ID, &v.UUID, &v.CreatedOn, &v.Code, &v.Uses, &v.MaxUses, &v.Mode, &v.ExpiresIn, &v.ExpiresOn, &v.IsFrozen, &v.GivenRoles)
-	v.CreatedOn = strings.Replace(v.CreatedOn, " ", "T", 1) + "Z"
+	v.CreatedOn = sUTCto3339(v.CreatedOn)
+	v.ExpiresOn = sUTCto3339(v.ExpiresOn)
 	return &v
 }
 

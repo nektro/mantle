@@ -13,7 +13,6 @@ export const M = {
     },
     user: {
         connect: (d) => {
-            new api.User(d.user);
             ui.setMemberOnline(d.user);
         },
         disconnect: (d) => {

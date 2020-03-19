@@ -185,6 +185,10 @@ body x-settings [data-s-section] a[href]:hover { color: #268bd2; }
 
 body x-settings [data-s-section] code { background-color: #002b36; padding: .5em; border-radius: .25em; }
 
+body x-settings [data-s-section] > div { display: flex; flex-direction: row; align-items: center; }
+
+body x-settings [data-s-section] > div img { margin-right: .5em; margin-bottom: .5em; }
+
 body dialog.popup { position: absolute; margin: 0; }
 
 body dialog.popup.user { max-width: 20em; }

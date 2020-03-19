@@ -304,6 +304,16 @@ body {
                 padding: .5em;
                 border-radius: .25em;
             }
+            >div {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                img {
+                    margin-right: .5em;
+                    margin-bottom: .5em;
+                }
+            }
         }
     }
     dialog.popup {

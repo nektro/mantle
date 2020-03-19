@@ -31,6 +31,7 @@ var (
 	}
 )
 
+// Init sets up db tables and properties
 func Init() {
 	db = etc.Database
 

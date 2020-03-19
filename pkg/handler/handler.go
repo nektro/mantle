@@ -86,6 +86,13 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 	switch inv.Mode {
 	case 0:
 		// permanent
+	case 2:
+		t, _ := time.Parse("2006-01-02T15:04:05Z", inv.ExpiresOn)
+		s := time.Since(t)
+		if s > 0 {
+			writeAPIResponse(r, w, false, http.StatusBadRequest, "invite is expired")
+			return
+		}
 	}
 	//
 	inv.Use()

@@ -168,11 +168,19 @@ $(document).on("click", (e) => {
     });
     socket.addEventListener("message", async (e) => {
         const d = JSON.parse(e.data);
-        if (!ws.handlers.has(d.type)) {
-            console.log(d);
+        let o = ws.M;
+        for (const item of d.type.split("-")) {
+            if (!(item in o)) {
+                console.error("event not found:", d);
+                return;
+            }
+            o = o[item];
+        }
+        if (typeof o !== "function") {
+            console.error("handler is not a function:", `"${d.type}"`, `"${typeof o}"`);
             return;
         }
-        await ws.handlers.get(d.type)(d);
+        await o(d);
     });
     setInterval(() => {
         if (el_2.children[0].classList.contains("online")) {

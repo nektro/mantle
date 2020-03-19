@@ -2,7 +2,6 @@ package db
 
 import (
 	"database/sql"
-	"strings"
 
 	"github.com/nektro/go-util/alias"
 	dbstorage "github.com/nektro/go.dbstorage"
@@ -22,13 +21,7 @@ type Message struct {
 func CreateMessage(user *User, channel *Channel, body string) *Message {
 	dbstorage.InsertsLock.Lock()
 	defer dbstorage.InsertsLock.Unlock()
-	m := &Message{
-		db.QueryNextID(cTableMessagesPrefix + channel.UUID),
-		newUUID(),
-		alias.T(),
-		user.UUID,
-		body,
-	}
+	m := &Message{db.QueryNextID(cTableMessagesPrefix + channel.UUID), newUUID(), alias.T(), user.UUID, body}
 	if channel.HistoryOff {
 		m.At = sUTCto3339(m.At)
 		return m

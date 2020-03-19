@@ -16,13 +16,12 @@ _jq_r() {
 }
 
 #
-mkdir -p 'bin_www'
-mkdir -p 'bin_www/translations'
+mkdir -p 'www/translations'
 #
 _crowdin_jq_r '' '.data.targetLanguageIds[]' |
 while IFS= read -r langID; do
     echo "$langID:"
-    fileL="bin_www/translations/$langID.csv"
+    fileL="www/translations/$langID.csv"
     printf "" > "$fileL"
     #
     _crowdin_jq_c '/strings?limit=500' '.data[] | .data | {id,context,text}' |

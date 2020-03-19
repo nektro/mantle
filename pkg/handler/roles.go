@@ -29,7 +29,7 @@ func RolesCreate(w http.ResponseWriter, r *http.Request) {
 	}
 	usp := ws.UserPerms{}.From(user)
 	if !usp.ManageRoles {
-		writeAPIResponse(r, w, false, http.StatusForbidden, "users require the manage_server permission to update properties.")
+		writeAPIResponse(r, w, false, http.StatusForbidden, "users require the manage_roles permission to update roles.")
 		return
 	}
 	nr := db.CreateRole(n)

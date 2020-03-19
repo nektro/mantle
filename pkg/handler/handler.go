@@ -90,6 +90,9 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 	//
 	inv.Use()
 	user.SetAsMember(true)
+	for _, item := range inv.GivenRoles {
+		user.AddRole(item)
+	}
 	util.Log("[user-join]", "User", user.UUID, "just became a member and joined the server")
 }
 

@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"strings"
 
 	"github.com/nektro/go-util/util"
 
@@ -44,6 +45,7 @@ func CreateInvite() *Invite {
 // Scan implements dbstorage.Scannable
 func (v Invite) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(&v.ID, &v.UUID, &v.CreatedOn, &v.Code, &v.Uses, &v.MaxUses, &v.Mode, &v.ExpiresIn, &v.ExpiresOn, &v.IsFrozen, &v.GivenRoles)
+	v.CreatedOn = strings.Replace(v.CreatedOn, " ", "T", 1) + "Z"
 	return &v
 }
 

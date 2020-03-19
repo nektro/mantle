@@ -175,7 +175,7 @@ $(document).on("click", (e) => {
             }
             case "message": {
                 const u = await api.M.users.get(d.message.author);
-                ui.addMessage(d.in, u, d.message, true);
+                await ui.addMessage(d.in, u, d.message, true);
                 break;
             }
             case "new-channel": {

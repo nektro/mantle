@@ -21,8 +21,8 @@ mkdir -p 'www/translations'
 _crowdin_jq_r '' '.data.targetLanguageIds[]' |
 while IFS= read -r langID; do
     echo "$langID:"
-    fileL="www/translations/$langID.csv"
-    printf "" > "$fileL"
+    fileL="www/translations/$langID.json"
+    echo "{" > "$fileL"
     #
     _crowdin_jq_c '/strings?limit=500' '.data[] | .data | {id,context,text}' |
     while IFS= read -r strJSN; do
@@ -32,8 +32,10 @@ while IFS= read -r langID; do
         #
         translation=$(_crowdin_jq_r "/translations?limit=500&languageId=$langID&stringId=$strID" '.data | sort_by(.data.rating)[-1].data.text | select (.!=null)')
         result=${translation:-$strTX}
-        line2="$strCN,$result"
-        echo "$langID: $line2"
+        line2="\"$strCN\":\"$result\","
+        echo "$langID: $strCN: $result"
         echo "$line2" >> "$fileL"
     done
+    echo '"____":""' >> "$fileL"
+    echo "}" >> "$fileL"
 done

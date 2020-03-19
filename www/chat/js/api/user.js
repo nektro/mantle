@@ -16,7 +16,7 @@ export class User {
         this.is_null = false;
         cache.set(this.uuid, this);
     }
-    /** @returns {Promise<Role[]>} */
+    /** @returns {Promise<api.Role[]>} */
     getRoles() {
         return this.roles.map((v) => api.M.roles.get(v));
     }

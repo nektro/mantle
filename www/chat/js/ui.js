@@ -235,3 +235,10 @@ export function addRole(role) {
     });
     document.querySelector("dialog.popup.user div ol").appendChild(nEl3);
 }
+
+/**
+ * @param {api.Invite} invite
+ */
+export function addInvite(invite) {
+    document.querySelector("x-settings[data-s-for=server] [data-s-section=invites] x-selection").addItem(invite);
+}

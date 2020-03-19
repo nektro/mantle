@@ -74,6 +74,7 @@
             <div>
                 <nav>
                     <a>Overview</a>
+                    <a>Invites</a>
                     <a>Channels</a>
                     <a>Roles</a>
                 </nav>
@@ -86,6 +87,18 @@
                         <x-text-setting endpoint="./../api/update_property" name="cover_photo" label="Cover Picture" value=""></x-text-setting>
                         <x-text-setting endpoint="./../api/update_property" name="profile_photo" label="Profile Picture" value=""></x-text-setting>
                         <x-2s-toggle endpoint="./../api/update_property" name="public" label="Public?"></x-2s-toggle>
+                    </div>
+                    <div data-s-section="invites">
+                        <h2>Invites</h2>
+                        <hr>
+                        <x-selection>
+                            <nav>
+                                <a class="div"></a>
+                                <a class="new">Create New</a>
+                            </nav>
+                            <div>
+                            </div>
+                        </x-selection>
                     </div>
                     <div data-s-section="channels">
                         <h2>Channels</h2>

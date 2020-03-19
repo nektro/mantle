@@ -148,6 +148,12 @@ $(document).on("click", (e) => {
         });
     });
 
+    await api.M.invites.me().then((x) => {
+        for (const item of x) {
+            ui.addInvite(item);
+        }
+    });
+
     await api.M.users.online().then((x) => {
         for (const item of x) {
             ui.setMemberOnline(item);

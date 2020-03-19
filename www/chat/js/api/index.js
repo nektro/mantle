@@ -122,5 +122,8 @@ export const M = {
         },
     },
     invites: {
+        me: () => {
+            return fetchL("/invites/@me", Invite);
+        },
     },
 };

@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"strconv"
 	"strings"
 
 	"github.com/nektro/go-util/util"
@@ -67,3 +68,9 @@ func (v Invite) All() []*Invite {
 
 //
 //
+
+// Use increments Uses by 1
+func (i *Invite) Use() {
+	i.Uses++
+	db.Build().Up(cTableInvites, "uses", strconv.FormatInt(i.Uses, 10)).Wh("uuid", i.UUID).Exe()
+}

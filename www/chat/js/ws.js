@@ -72,4 +72,6 @@ export const M = {
             }
         },
     },
+    invite: {
+    },
 };

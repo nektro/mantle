@@ -4,6 +4,7 @@ import { cache as cacheU, User } from "./user.js";
 import { cache as cacheC, Channel } from "./channel.js";
 import { cache as cacheR, Role } from "./role.js";
 import { cache as cacheG, Message } from "./message.js";
+import { cache as cacheI, Invite } from "./invite.js";
 
 //
 export {
@@ -11,6 +12,7 @@ export {
     Channel,
     Role,
     Message,
+    Invite,
 };
 
 //
@@ -19,6 +21,7 @@ const caches = [
     cacheC,
     cacheR,
     cacheG,
+    cacheI,
 ];
 
 //
@@ -117,5 +120,7 @@ export const M = {
         update: (uid,k,v) => {
             return fetchE(`/roles/${uid}/update`, "put", { p_name: k, p_value: v, });
         },
+    },
+    invites: {
     },
 };

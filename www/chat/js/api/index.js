@@ -62,6 +62,9 @@ function fetchIC(endpoint, cl, cch, key) {
 }
 function resource_factory(name, cl, cch) {
     return {
+        me: () => {
+            return fetchL(`/${name}/@me`, cl);
+        },
     };
 }
 
@@ -94,10 +97,6 @@ export const M = {
         },
     },
     channels: {
-        /** @returns {Promise<Channel[]>} */
-        me: () => {
-            return fetchL("/channels/@me", Channel);
-        },
         /** @returns {Promise<Channel>} */
         get: (uid) => {
             return fetchIC(`/channels/${uid}`, Channel, 1, uid);
@@ -111,10 +110,6 @@ export const M = {
         ...resource_factory("channels", Channel, 1),
     },
     roles: {
-        /** @returns {Promise<Role[]>} */
-        me: () => {
-            return fetchL("/roles/@me", Role);
-        },
         /** @returns {Promise<Role>} */
         get: (uid) => {
             return fetchIC(`/roles/${uid}`, Role, 2, uid);
@@ -128,9 +123,6 @@ export const M = {
         ...resource_factory("roles", Role, 2),
     },
     invites: {
-        me: () => {
-            return fetchL("/invites/@me", Invite);
-        },
         ...resource_factory("invites", Invite, 4),
     },
 };

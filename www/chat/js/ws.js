@@ -29,8 +29,7 @@ export const M = {
     },
     channel: {
         new: (d) => {
-            const h = new api.Channel(d.channel);
-            ui.addChannel(h);
+            ui.addChannel(new api.Channel(d.channel));
         },
         update: (d) => {
             const c = new api.Channel(d.channel);
@@ -45,8 +44,7 @@ export const M = {
     },
     role: {
         new: (d) => {
-            const r = new api.Role(d.role);
-            ui.addRole(r);
+            ui.addRole(new api.Role(d.role));
         },
         update: (d) => {
             new api.Role(d.role);

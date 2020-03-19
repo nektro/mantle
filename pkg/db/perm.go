@@ -5,6 +5,7 @@ import (
 	"errors"
 )
 
+// Perm is a custom sql/driver type to handle 3-state permissions
 type Perm uint8
 
 const (

@@ -39,6 +39,12 @@ func CreateInvite() *Invite {
 	return n
 }
 
+// QueryInviteByCode does exactly that
+func QueryInviteByCode(c string) (*Invite, bool) {
+	ch, ok := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableInvites).Wh("name", c), Invite{}).(*Invite)
+	return ch, ok
+}
+
 //
 //
 

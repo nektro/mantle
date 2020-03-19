@@ -65,6 +65,9 @@ function resource_factory(name, cl, cch) {
         me: () => {
             return fetchL(`/${name}/@me`, cl);
         },
+        create: (n) => {
+            return fetchE(`/${name}/create`, "post", { name: n });
+        },
     };
 }
 
@@ -101,9 +104,6 @@ export const M = {
         get: (uid) => {
             return fetchIC(`/channels/${uid}`, Channel, 1, uid);
         },
-        create: (n) => {
-            return fetchE("/channels/create", "post", { name: n });
-        },
         update: (uid,k,v) => {
             return fetchE(`/channels/${uid}/update`, "put", { p_name: k, p_value: v, });
         },
@@ -113,9 +113,6 @@ export const M = {
         /** @returns {Promise<Role>} */
         get: (uid) => {
             return fetchIC(`/roles/${uid}`, Role, 2, uid);
-        },
-        create: (n) => {
-            return fetchE("/roles/create", "post", { name: n });
         },
         update: (uid,k,v) => {
             return fetchE(`/roles/${uid}/update`, "put", { p_name: k, p_value: v, });

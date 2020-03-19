@@ -2,6 +2,7 @@ package db
 
 import (
 	"math/rand"
+	"strings"
 	"time"
 
 	"github.com/oklog/ulid"
@@ -18,4 +19,11 @@ func newUUID() string {
 func IsUID(s string) bool {
 	_, err := ulid.Parse(s)
 	return err == nil
+}
+
+func sUTCto3339(s string) string {
+	if len(s) == 0 {
+		return ""
+	}
+	return strings.Replace(s, " ", "T", 1) + "Z"
 }

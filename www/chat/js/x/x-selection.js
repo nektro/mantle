@@ -23,6 +23,9 @@ customElements.define("x-selection", class SSelection extends HTMLElement {
         if (w !== null) {
             w.addEventListener("click", async () => {
                 const c = this.parentElement.getAttribute("data-s-section");
+                if (w.classList.contains("skip")) {
+                    return api.M[c].create();
+                }
                 const {value: name} = await Swal({
                     title: "Enter the new role's name",
                     input: "text",

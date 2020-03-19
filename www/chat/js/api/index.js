@@ -105,7 +105,7 @@ export const M = {
     roles: {
         /** @returns {Promise<Role[]>} */
         me: () => {
-            return fetchL("/roles", Role);
+            return fetchL("/roles/@me", Role);
         },
         /** @returns {Promise<Role>} */
         get: (uid) => {

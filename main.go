@@ -88,7 +88,7 @@ func main() {
 	r4.Path("/role_colors.css").HandlerFunc(handler.EtcRoleColorCSS)
 
 	r5 := r1.PathPrefix("/roles").Subrouter()
-	r5.Path("").HandlerFunc(handler.RolesRead)
+	r5.Path("/@me").HandlerFunc(handler.RolesMe)
 	r5.Path("/create").HandlerFunc(handler.RolesCreate)
 	r5.Path("/{uuid}/update").HandlerFunc(handler.RoleUpdate)
 

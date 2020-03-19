@@ -11,8 +11,8 @@ import (
 	"gopkg.in/go-playground/colors.v1"
 )
 
-// RolesRead reads info about channel
-func RolesRead(w http.ResponseWriter, r *http.Request) {
+// RolesMe reads info about channel
+func RolesMe(w http.ResponseWriter, r *http.Request) {
 	writeAPIResponse(r, w, true, http.StatusOK, db.Role{}.All())
 }
 

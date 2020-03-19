@@ -41,7 +41,7 @@ func ChannelCreate(w http.ResponseWriter, r *http.Request) {
 	nch := db.CreateChannel(name)
 	w.WriteHeader(http.StatusCreated)
 	ws.BroadcastMessage(map[string]interface{}{
-		"type":    "new-channel",
+		"type":    "channel-new",
 		"channel": nch,
 	})
 }

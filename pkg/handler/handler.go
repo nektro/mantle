@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/ws"
@@ -26,6 +27,7 @@ func SaveOAuth2InfoCb(w http.ResponseWriter, r *http.Request, provider string, i
 func InviteGet(w http.ResponseWriter, r *http.Request) {
 	etc.WriteHandlebarsFile(r, w, "/invite.hbs", map[string]interface{}{
 		"data": db.Props.GetAll(),
+		"code": r.URL.Query().Get("code"),
 	})
 }
 
@@ -50,7 +52,6 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 		sess.Values["user"] = user.UUID
 		sess.Save(r, w)
 	}
-
 	if user.IsMember {
 		w.Header().Add("Location", "./chat/")
 		w.WriteHeader(http.StatusFound)
@@ -65,6 +66,31 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusFound)
 		return
 	}
+	if hGrabFormStrings(r, w, "code") != nil {
+		return
+	}
+	code := r.Form.Get("code")
+	inv, ok := db.QueryInviteByCode(code)
+	if !ok {
+		writeAPIResponse(r, w, false, http.StatusBadRequest, "invalid invite code")
+		return
+	}
+	if inv.IsFrozen {
+		writeAPIResponse(r, w, false, http.StatusBadRequest, "invite is frozen")
+		return
+	}
+	if inv.Uses >= inv.MaxUses {
+		writeAPIResponse(r, w, false, http.StatusBadRequest, "invite use count has been exceeded")
+		return
+	}
+	switch inv.Mode {
+	case 0:
+		// permanent
+	}
+	//
+	inv.Use()
+	user.SetAsMember(true)
+	util.Log("[user-join]", "User", user.UUID, "just became a member and joined the server")
 }
 
 // ApiAbout is handler for /api/about

@@ -18,4 +18,8 @@ body.p-invite form .badges > div { display: flex; flex-direction: column; }
 
 body.p-invite form .badges > img { border-radius: 50%; max-height: 4em; }
 
+body.p-invite form .frm-txt { display: block; margin: 1em 0; }
+
+body.p-invite form .frm-txt input { display: block; width: calc(100% - 12px); padding: .5em .25em; margin: .5em 0; border: 0; }
+
 body.p-invite form button, body.p-invite form a { display: block; width: 100%; margin: 1em 0; background-color: #859900; border: 0; padding: .5em 0; text-decoration: none; text-align: center; color: initial; cursor: pointer; }

@@ -53,6 +53,18 @@ body {
                     max-height: 4em;
                 }
             }
+            .frm-txt {
+                display: block;
+                margin: 1em 0;
+
+                input {
+                    display: block;
+                    width: calc(100% - 12px);
+                    padding: .5em .25em;
+                    margin: .5em 0;
+                    border: 0;
+                }
+            }
             button, a {
                 display: block;
                 width: 100%;

@@ -18,6 +18,6 @@ export class User {
     }
     /** @returns {Promise<api.Role[]>} */
     getRoles() {
-        return this.roles.map((v) => api.M.roles.get(v));
+        return Promise.all(this.roles.map((v) => api.M.roles.get(v)));
     }
 }

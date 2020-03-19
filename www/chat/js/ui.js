@@ -43,15 +43,15 @@ export async function addChannel(ch) {
  * @param {api.User} user
  * @param {api.Message} msg
  */
-export function createMessage(user, msg) {
+export async function createMessage(user, msg) {
     const attrs = [["class","msg"]];
     const attrsU = [["class","usr"]];
     if (msg.uuid) attrs.push(["data-msg-uid",msg.uuid]);
     if (user.uuid) attrs.push(["data-user-uid",user.uuid]);
+    let rls = null;
     if (user.roles) {
-        const a = user.getRoles()
-            .filter((v) => v.color.length > 0)
-            .sort((b,c) => b.position > c.position);
+        rls = await user.getRoles();
+        const a = rls.filter((v) => v.color.length > 0).sort((b,c) => b.position > c.position);
         if (a.length > 0) {
             attrsU.push(["data-role",a[0].uuid]);
         }
@@ -100,8 +100,8 @@ export function createMessage(user, msg) {
         });
     }
     if (user.uuid) {
-        el.querySelector(".usr").addEventListener("click", (e) => {
-            const userN = api.M.users.get(user.uuid);
+        el.querySelector(".usr").addEventListener("click", async (e) => {
+            const userN = await api.M.users.get(user.uuid);
             setDataBinding("pp_user_name", userN.name);
             setDataBinding("pp_user_id", userN.id);
             setDataBinding("pp_user_uuid", userN.uuid);
@@ -109,12 +109,10 @@ export function createMessage(user, msg) {
             setDataBinding("pp_user_snowflake", userN.snowflake);
             const pp = document.querySelector("dialog.popup.user");
             const ppr = pp.querySelector("ol");
-            const rls = userN.getRoles()
-                .sort((a,b) => a.position > b.position);
             deActivateChild(ppr);
             const pps = pp.querySelector("div ol");
             deActivateChild(pps);
-            for (const item of rls) {
+            for (const item of rls.sort((a,b) => a.position > b.position)) {
                 const ppra = ppr.querySelector(`[data-role="${item.uuid}"]`);
                 if (ppra === null) continue;
                 ppra.classList.add("active");
@@ -137,12 +135,12 @@ export function createMessage(user, msg) {
  * @param {api.Message} message
  * @param {Boolean} save
  */
-export function addMessage(channel, from, message, save=true) {
+export async function addMessage(channel, from, message, save=true) {
     channel = channel ? channel : volatile.activeChannel.dataset.uuid;
     from.uuid = from.uuid ? from.uuid : "";
     const at_bottom = ele_atBottom(output);
     if (channel === null || output.dataset.active === channel) {
-        output.appendChild(createMessage(from, message));
+        output.appendChild(await createMessage(from, message));
     }
     if (output.dataset.active !== channel) {
         const c = new Channel(channel);
@@ -168,7 +166,7 @@ export async function setActiveChannel(uid) {
     output.removeAllChildren();
     const new_message_history = messageCache.get(uid);
     for (const item of new_message_history) {
-        addMessage(null, await api.M.users.get(item.author), item, false, false);
+        await addMessage(null, await api.M.users.get(item.author), item, false, false);
     }
     //
     c.unread = 0;
@@ -184,7 +182,8 @@ export async function setMemberOnline(uid) {
     const ue = el_4.querySelector(`li[data-user="${uid}"]`);
     if (ue === null) {
         const u = await api.M.users.get(uid);
-        const cr = u.getRoles()
+        const rls = await u.getRoles();
+        const cr = rls
             .filter((v) => v.color.length > 0)
             .sort((a,b) => a.position > b.position);
         const tr = cr.length > 0 ? cr[0].uuid : "";

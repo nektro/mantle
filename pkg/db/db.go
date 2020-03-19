@@ -63,7 +63,7 @@ func Init() {
 	}
 }
 
+// Close db
 func Close() {
-	// close db
 	db.Close()
 }

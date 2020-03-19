@@ -45,7 +45,7 @@ x-text-setting form { display: flex; flex-direction: column; }
 
 x-text-setting form div { display: flex; flex-direction: row; align-items: center; }
 
-x-text-setting form div input[type=text] { flex-grow: 1; display: block; width: 100%; padding: .5em .25em; margin: .5em 0; border: 0; }
+x-text-setting form div input { flex-grow: 1; display: block; width: 100%; padding: .5em .25em; margin: .5em 0; border: 0; }
 
 x-text-setting form div button { display: flex; justify-content: center; align-items: center; background-color: #859900; padding: 0 .5em; margin: .5em 0; height: calc(100% - 1em); border-radius: 0; }
 

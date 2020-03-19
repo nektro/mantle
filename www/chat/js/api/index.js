@@ -71,6 +71,9 @@ function resource_factory(name, cl, cch) {
         get: (uid) => {
             return fetchIC(`/${name}/${uid}`, cl, cch, uid);
         },
+        update: (uid,k,v) => {
+            return fetchE(`/${name}/${uid}/update`, "put", { p_name: k, p_value: v, });
+        },
     };
 }
 
@@ -103,15 +106,9 @@ export const M = {
         },
     },
     channels: {
-        update: (uid,k,v) => {
-            return fetchE(`/channels/${uid}/update`, "put", { p_name: k, p_value: v, });
-        },
         ...resource_factory("channels", Channel, 1),
     },
     roles: {
-        update: (uid,k,v) => {
-            return fetchE(`/roles/${uid}/update`, "put", { p_name: k, p_value: v, });
-        },
         ...resource_factory("roles", Role, 2),
     },
     invites: {

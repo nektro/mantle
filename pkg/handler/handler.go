@@ -79,7 +79,7 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 		writeAPIResponse(r, w, false, http.StatusBadRequest, "invite is frozen")
 		return
 	}
-	if inv.Uses >= inv.MaxUses {
+	if inv.MaxUses > 0 && inv.Uses >= inv.MaxUses {
 		writeAPIResponse(r, w, false, http.StatusBadRequest, "invite use count has been exceeded")
 		return
 	}

@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"strconv"
 
+	"github.com/nektro/go-util/alias"
 	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
 )
@@ -16,6 +17,7 @@ type Channel struct {
 	Description string `json:"description" sqlite:"text"`
 	HistoryOff  bool   `json:"history_off" sqlite:"tinyint(1)"`
 	LatestMsg   string `json:"latest_message" sqlite:"text"`
+	CreatedOn   string `json:"created_on" sqlite:"text"`
 }
 
 //
@@ -25,9 +27,11 @@ func CreateChannel(name string) *Channel {
 	id := db.QueryNextID(cTableChannels)
 	uid := newUUID()
 	util.Log("[channel-create]", uid, "#"+name)
-	ch := &Channel{id, uid, int(id), name, "", false, ""}
-	db.Build().Ins(cTableChannels, id, uid, id, name, "", false, "").Exe()
+	co := alias.T()
+	ch := &Channel{id, uid, int(id), name, "", false, "", co}
+	db.Build().Ins(cTableChannels, id, uid, id, name, "", false, "", co).Exe()
 	ch.AssertMessageTableExists()
+	ch.CreatedOn = sUTCto3339(ch.CreatedOn)
 	return ch
 }
 
@@ -41,7 +45,8 @@ func QueryChannelByUUID(uid string) (*Channel, bool) {
 
 // Scan implements dbstorage.Scannable
 func (v Channel) Scan(rows *sql.Rows) dbstorage.Scannable {
-	rows.Scan(&v.ID, &v.UUID, &v.Position, &v.Name, &v.Description, &v.HistoryOff, &v.LatestMsg)
+	rows.Scan(&v.ID, &v.UUID, &v.Position, &v.Name, &v.Description, &v.HistoryOff, &v.LatestMsg, &v.CreatedOn)
+	v.CreatedOn = sUTCto3339(v.CreatedOn)
 	return &v
 }
 

@@ -73,5 +73,8 @@ export const M = {
         },
     },
     invite: {
+        new: (d) => {
+            ui.addInvite(new api.Invite(d.invite));
+        },
     },
 };

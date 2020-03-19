@@ -51,8 +51,8 @@ export function createMessage(user, msg) {
     if (user.roles) {
         const a = user.roles
             .map((v) => api.M.roles.get(v))
-            .sort((b,c) => b.position > c.position)
-            .filter((v) => v.color.length > 0);
+            .filter((v) => v.color.length > 0)
+            .sort((b,c) => b.position > c.position);
         if (a.length > 0) {
             attrsU.push(["data-role",a[0].uuid]);
         }

@@ -49,8 +49,7 @@ export function createMessage(user, msg) {
     if (msg.uuid) attrs.push(["data-msg-uid",msg.uuid]);
     if (user.uuid) attrs.push(["data-user-uid",user.uuid]);
     if (user.roles) {
-        const a = user.roles
-            .map((v) => api.M.roles.get(v))
+        const a = user.getRoles()
             .filter((v) => v.color.length > 0)
             .sort((b,c) => b.position > c.position);
         if (a.length > 0) {
@@ -110,8 +109,7 @@ export function createMessage(user, msg) {
             setDataBinding("pp_user_snowflake", userN.snowflake);
             const pp = document.querySelector("dialog.popup.user");
             const ppr = pp.querySelector("ol");
-            const rls = userN.roles
-                .map((v) => api.M.roles.get(v))
+            const rls = userN.getRoles()
                 .sort((a,b) => a.position > b.position);
             deActivateChild(ppr);
             const pps = pp.querySelector("div ol");
@@ -186,8 +184,7 @@ export async function setMemberOnline(uid) {
     const ue = el_4.querySelector(`li[data-user="${uid}"]`);
     if (ue === null) {
         const u = await api.M.users.get(uid);
-        const cr = u.roles
-            .map((v) => api.M.roles.get(v))
+        const cr = u.getRoles()
             .filter((v) => v.color.length > 0)
             .sort((a,b) => a.position > b.position);
         const tr = cr.length > 0 ? cr[0].uuid : "";

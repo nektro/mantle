@@ -2,7 +2,6 @@ package db
 
 import (
 	"math/rand"
-	"strings"
 	"time"
 
 	"github.com/oklog/ulid"
@@ -21,9 +20,8 @@ func IsUID(s string) bool {
 	return err == nil
 }
 
-func sUTCto3339(s string) string {
-	if len(s) == 0 {
-		return ""
-	}
-	return strings.Replace(s, " ", "T", 1) + "Z"
+func now() Time {
+	s := time.Now().UTC().String()[0:19]
+	t, _ := time.Parse(timeFormat, s)
+	return Time(t)
 }

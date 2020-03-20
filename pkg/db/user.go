@@ -5,7 +5,6 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/nektro/go-util/alias"
 	"github.com/nektro/go-util/arrays/stringsu"
 	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
@@ -20,8 +19,8 @@ type User struct {
 	IsBanned   bool   `json:"is_banned" sqlite:"tinyint(1)"`
 	Name       string `json:"name" sqlite:"text"`
 	Nickname   string `json:"nickname" sqlite:"text"`
-	JoindedOn  string `json:"joined_on" sqlite:"text"`
-	LastActive string `json:"last_active" sqlite:"text"`
+	JoindedOn  Time   `json:"joined_on" sqlite:"text"`
+	LastActive Time   `json:"last_active" sqlite:"text"`
 	Roles      Array  `json:"roles" sqlite:"text"`
 }
 
@@ -41,7 +40,7 @@ func QueryUserBySnowflake(provider string, flake string, name string) *User {
 	// else
 	id := db.QueryNextID(cTableUsers)
 	uid := newUUID()
-	co := alias.T()
+	co := now()
 	roles := ""
 	if id == 1 {
 		roles += "o"
@@ -57,8 +56,6 @@ func QueryUserBySnowflake(provider string, flake string, name string) *User {
 // Scan implements dbstorage.Scannable
 func (v User) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(&v.ID, &v.Provider, &v.Snowflake, &v.UUID, &v.IsMember, &v.IsBanned, &v.Name, &v.Nickname, &v.JoindedOn, &v.LastActive, &v.Roles)
-	v.JoindedOn = sUTCto3339(v.JoindedOn)
-	v.LastActive = sUTCto3339(v.LastActive)
 	return &v
 }
 

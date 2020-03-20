@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"strconv"
 
-	"github.com/nektro/go-util/alias"
 	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
 )
@@ -20,7 +19,7 @@ type Role struct {
 	Distinguish        bool   `json:"distinguish" sqlite:"tinyint(1)"`
 	PermManageServer   Perm   `json:"perm_manage_server" sqlite:"tinyint(1)"`
 	PermManageInvites  Perm   `json:"perm_manage_invites" sqlite:"tinyint(1)"`
-	CreatedOn          string `json:"created_on" sqlite:"text"`
+	CreatedOn          Time   `json:"created_on" sqlite:"text"`
 }
 
 //
@@ -31,10 +30,9 @@ func CreateRole(name string) *Role {
 	uid := newUUID()
 	util.Log("[role-create]", uid, name)
 	p := PermIgnore
-	co := alias.T()
+	co := now()
 	r := &Role{id, uid, int(id), name, "", p, p, false, p, p, co}
 	db.Build().Ins(cTableRoles, id, uid, id, name, "", p, p, false, p, p, co).Exe()
-	r.CreatedOn = sUTCto3339(r.CreatedOn)
 	return r
 }
 
@@ -54,7 +52,6 @@ func QueryRoleByUID(uid string) (*Role, bool) {
 // Scan implements dbstorage.Scannable
 func (v Role) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(&v.ID, &v.UUID, &v.Position, &v.Name, &v.Color, &v.PermManageChannels, &v.PermManageRoles, &v.Distinguish, &v.PermManageServer, &v.PermManageInvites, &v.CreatedOn)
-	v.CreatedOn = sUTCto3339(v.CreatedOn)
 	return &v
 }
 

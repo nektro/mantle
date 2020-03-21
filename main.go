@@ -95,6 +95,7 @@ func main() {
 	r6 := r1.PathPrefix("/invites").Subrouter()
 	r6.Path("/@me").HandlerFunc(handler.InvitesMe)
 	r6.Path("/create").HandlerFunc(handler.InvitesCreate)
+
 	r.HandleFunc("/ws", handler.Websocket)
 
 	//

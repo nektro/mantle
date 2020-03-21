@@ -17,10 +17,11 @@ func (a *Array) Scan(value interface{}) error {
 	}
 	if bv, err := driver.String.ConvertValue(value); err == nil {
 		if v, ok := bv.(string); ok {
+			if len(v) == 0 {
+				*a = Array([]string{})
+			}
 			if len(v) > 0 {
 				*a = Array(strings.Split(v, ","))
-			} else {
-				*a = Array([]string{})
 			}
 			return nil
 		}

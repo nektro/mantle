@@ -51,20 +51,17 @@ func (t *Time) Scan(value interface{}) error {
 
 // Value - Implement the database/sql/driver Valuer interface
 func (t Time) Value() (driver.Value, error) {
-	s := t.T().String()
-	if len(s) == 0 {
-		return NewTime(timeZero), nil
+	s := t.T().String()[:19]
+	if s == timeZero {
+		return "", nil
 	}
-	return s[:19], nil
+	return s, nil
 }
 
 // String - Implement the fmt Stringer interface
 func (t Time) String() string {
 	v, _ := t.Value()
 	s := v.(string)
-	if s == timeZero {
-		return ""
-	}
 	return strings.Replace(s, " ", "T", 1) + "Z"
 }
 

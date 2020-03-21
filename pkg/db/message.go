@@ -24,7 +24,7 @@ func CreateMessage(user *User, channel *Channel, body string) *Message {
 	if channel.HistoryOff {
 		return m
 	}
-	db.Build().Ins(cTableMessagesPrefix+channel.UUID, m.ID, m.UUID, m.At, m.By, m.Body).Exe()
+	db.Build().InsI(cTableMessagesPrefix+channel.UUID, m).Exe()
 	db.Build().Up(cTableChannels, "latest_message", m.UUID).Wh("uuid", channel.UUID).Exe()
 	return m
 }

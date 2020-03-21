@@ -41,13 +41,14 @@ func QueryUserBySnowflake(provider string, flake string, name string) *User {
 	id := db.QueryNextID(cTableUsers)
 	uid := newUUID()
 	co := now()
-	roles := ""
+	roles := Array{}
 	if id == 1 {
-		roles += "o"
+		roles = append(roles, "o")
 		Props.Set("owner", uid)
 	}
-	db.Build().Ins(cTableUsers, id, provider, flake, uid, 0, 0, name, "", co, co, roles).Exe()
-	return QueryUserBySnowflake(provider, flake, name)
+	u := &User{id, provider, flake, uid, false, false, name, "", co, co, roles}
+	db.Build().InsI(cTableUsers, u).Exe()
+	return u
 }
 
 //

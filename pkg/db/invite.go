@@ -35,7 +35,7 @@ func CreateInvite() *Invite {
 	code := util.Hash("MD5", []byte(alias.F("astheno.mantle.invite.%s", co)))[:12]
 	util.Log("[invite-create]", uid, code)
 	n := &Invite{id, uid, co, code, 0, 0, 0, "", NewTime(timeZero), false, Array{}}
-	db.Build().Ins(cTableInvites, id, uid, co, code, 0, 0, 0, "", "", false, Array{}).Exe()
+	db.Build().InsI(cTableInvites, n).Exe()
 	return n
 }
 

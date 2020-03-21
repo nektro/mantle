@@ -32,7 +32,7 @@ func CreateRole(name string) *Role {
 	p := PermIgnore
 	co := now()
 	r := &Role{id, uid, int(id), name, "", p, p, false, p, p, co}
-	db.Build().Ins(cTableRoles, id, uid, id, name, "", p, p, false, p, p, co).Exe()
+	db.Build().InsI(cTableRoles, r).Exe()
 	return r
 }
 

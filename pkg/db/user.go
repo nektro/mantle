@@ -38,6 +38,7 @@ func QueryUserBySnowflake(provider string, flake string, name string) *User {
 		return us.(*User)
 	}
 	// else
+	dbstorage.InsertsLock.Lock()
 	id := db.QueryNextID(cTableUsers)
 	uid := newUUID()
 	co := now()
@@ -48,6 +49,7 @@ func QueryUserBySnowflake(provider string, flake string, name string) *User {
 	}
 	u := &User{id, provider, flake, uid, false, false, name, "", co, co, roles}
 	db.Build().InsI(cTableUsers, u).Exe()
+	dbstorage.InsertsLock.Unlock()
 	return u
 }
 

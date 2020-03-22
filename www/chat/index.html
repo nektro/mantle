@@ -82,10 +82,10 @@
                     <div data-s-section="overview">
                         <h2>Overview</h2>
                         <hr>
-                        <x-text-setting endpoint="./../api/update_property" name="name" label="Name" value="" binding="server_name"></x-text-setting>
-                        <x-text-setting endpoint="./../api/update_property" name="description" label="Description" value=""></x-text-setting>
-                        <x-text-setting endpoint="./../api/update_property" name="cover_photo" label="Cover Picture" value=""></x-text-setting>
-                        <x-text-setting endpoint="./../api/update_property" name="profile_photo" label="Profile Picture" value=""></x-text-setting>
+                        <x-text-setting endpoint="./../api/update_property" name="name" label="Name" binding="server_name"></x-text-setting>
+                        <x-text-setting endpoint="./../api/update_property" name="description" label="Description"></x-text-setting>
+                        <x-text-setting endpoint="./../api/update_property" name="cover_photo" label="Cover Picture"></x-text-setting>
+                        <x-text-setting endpoint="./../api/update_property" name="profile_photo" label="Profile Picture"></x-text-setting>
                         <x-2s-toggle endpoint="./../api/update_property" name="public" label="Public?"></x-2s-toggle>
                     </div>
                     <div data-s-section="invites">
@@ -107,8 +107,8 @@
                             <nav>
                             </nav>
                             <div>
-                                <x-text-setting endpoint="./../api/channels/%s/update" name="name" label="Name" value="" fill=""></x-text-setting>
-                                <x-text-setting endpoint="./../api/channels/%s/update" name="description" label="Description" value="" fill=""></x-text-setting>
+                                <x-text-setting endpoint="./../api/channels/%s/update" name="name" label="Name" fill=""></x-text-setting>
+                                <x-text-setting endpoint="./../api/channels/%s/update" name="description" label="Description" fill=""></x-text-setting>
                                 <x-2s-toggle endpoint="./../api/channels/%s/update" name="history_off" label="Save Channel History?" fill="" inverted></x-2s-toggle>
                             </div>
                         </x-selection>
@@ -122,8 +122,8 @@
                                 <a class="new">Create New</a>
                             </nav>
                             <div>
-                                <x-text-setting endpoint="./../api/roles/%s/update" name="name" label="Name" value="" fill=""></x-text-setting>
-                                <x-text-setting endpoint="./../api/roles/%s/update" name="color" label="Color" value="" fill=""></x-text-setting>
+                                <x-text-setting endpoint="./../api/roles/%s/update" name="name" label="Name" fill=""></x-text-setting>
+                                <x-text-setting endpoint="./../api/roles/%s/update" name="color" label="Color" fill=""></x-text-setting>
                                 <x-2s-toggle endpoint="./../api/roles/%s/update" name="distinguish" label="Distinguish?" fill=""></x-2s-toggle>
                             </div>
                         </x-selection>

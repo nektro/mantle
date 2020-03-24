@@ -150,7 +150,7 @@ $(document).on("click", (e) => {
 
     await api.M.invites.me().then((x) => {
         for (const item of x) {
-            ui.addInvite(item);
+            ui.M.invite.add(item);
         }
     });
 

@@ -29,6 +29,9 @@ export const M = {
     message: {
     },
     invite: {
+        add: (o) => {
+            document.querySelector("x-settings[data-s-for=server] [data-s-section=invites] x-selection").addItem(o);
+        },
     },
 };
 
@@ -249,11 +252,4 @@ export function addRole(role) {
         return api.M.users.update(uid,"add_role",rid);
     });
     document.querySelector("dialog.popup.user div ol").appendChild(nEl3);
-}
-
-/**
- * @param {api.Invite} invite
- */
-export function addInvite(invite) {
-    document.querySelector("x-settings[data-s-for=server] [data-s-section=invites] x-selection").addItem(invite);
 }

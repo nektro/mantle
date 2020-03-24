@@ -4,7 +4,6 @@ import (
 	"math/rand"
 	"time"
 
-	dbstorage "github.com/nektro/go.dbstorage"
 	"github.com/oklog/ulid"
 )
 

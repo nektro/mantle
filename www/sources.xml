@@ -38,4 +38,10 @@
     <string name="s033">Profile Picture</string>
     <string name="s034">Nickname</string>
     <string name="s035">Save Channel History?</string>
+    <string name="s036">Manage Invites</string>
+    <string name="s037">Code</string>
+    <string name="s038">Uses</string>
+    <string name="s039">Max Uses</string>
+    <string name="s040">Frozen?</string>
+    <string name="s041">Delete</string>
 </resources>

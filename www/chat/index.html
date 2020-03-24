@@ -22,7 +22,7 @@
     <body>
         <div id="server-name">
             <span class="loading" data-bind="server_name"></span>
-            <a data-requires="manage_server"><i class="i cog icon"></i></a>
+            <a><i class="i cog icon"></i></a>
         </div>
         <div id="channel-name">
             <span data-bind="channel_name"></span>
@@ -73,10 +73,10 @@
         <x-settings data-s-for="server">
             <div>
                 <nav>
-                    <a>Overview</a>
-                    <a>Invites</a>
-                    <a>Channels</a>
-                    <a>Roles</a>
+                    <a data-requires="manage_server">Overview</a>
+                    <a data-requires="manage_invites">Invites</a>
+                    <a data-requires="manage_channels">Channels</a>
+                    <a data-requires="manage_roles">Roles</a>
                 </nav>
                 <div>
                     <div data-s-section="overview">

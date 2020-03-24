@@ -24,6 +24,11 @@ customElements.define("x-text-setting", class TextSetting extends WSetting {
                 ]),
             ]),
         ]));
+        if (this.hasAttribute("readonly")) {
+            this.querySelector("input").setAttribute("readonly","");
+            this.children[0].children[1].children[1].remove();
+            return;
+        }
         this.children[0].addEventListener("submit", (ev) => {
             ev.preventDefault();
             const de = this.defaultEndpoint();

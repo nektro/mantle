@@ -125,3 +125,8 @@ func (v *Role) SetPermMngInvites(p int) {
 	db.Build().Up(cTableRoles, "perm_manage_invites", strconv.Itoa(p)).Wh("uuid", v.UUID).Exe()
 	v.PermManageInvites = Perm(p)
 }
+
+// Delete removes this item from the database
+func (v *Role) Delete() {
+	db.Build().Del(cTableRoles).Wh("uuid", v.UUID).Exe()
+}

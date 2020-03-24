@@ -116,3 +116,9 @@ func (v *Channel) EnableHistory(b bool) {
 	db.Build().Up(cTableChannels, "history_off", strconv.FormatBool(!b)).Wh("uuid", v.UUID).Exe()
 	v.HistoryOff = !b
 }
+
+// Delete removes this item from the database
+func (v *Channel) Delete() {
+	db.Build().Del(cTableChannels).Wh("uuid", v.UUID).Exe()
+	db.DropTable(cTableMessagesPrefix + v.UUID)
+}

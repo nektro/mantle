@@ -55,6 +55,8 @@ customElements.define("x-selection", class SSelection extends HTMLElement {
             rlist.parentElement.classList.add("active");
             this.setActive(0);
         }
+        const iLen = this.children[0].querySelectorAll("a[data-uid]").length;
+        this.setActive(iLen-1);
     }
     setActive(i) {
         const rlist = this.children[0];

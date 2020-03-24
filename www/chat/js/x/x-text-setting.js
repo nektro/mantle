@@ -14,7 +14,7 @@ customElements.define("x-text-setting", class TextSetting extends WSetting {
         const v = this.getAttribute("value")||"";
         const d = this.getAttribute("label")||"";
         const b = this.getAttribute("binding");
-        this.appendChild(create_element("form", [["method","post"],["action",e]], [
+        this.appendChild(create_element("form", null, [
             create_element("label", [["for","input_"+t]], [dcTN(d)]),
             create_element("div", null, [
                 create_element("input", [["type","text"],["name",n],["id","input_"+t],["value",v]]),

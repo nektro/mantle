@@ -162,3 +162,25 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 }
+
+// RoleDelete updates info about this role
+func RoleDelete(w http.ResponseWriter, r *http.Request) {
+	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodDelete, true)
+	if err != nil {
+		return
+	}
+	usp := ws.UserPerms{}.From(user)
+	if !usp.ManageRoles {
+		return
+	}
+	uu := mux.Vars(r)["uuid"]
+	v, ok := db.QueryRoleByUID(uu)
+	if !ok {
+		return
+	}
+	v.Delete()
+	ws.BroadcastMessage(map[string]interface{}{
+		"type": "role-delete",
+		"role": uu,
+	})
+}

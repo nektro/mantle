@@ -202,3 +202,25 @@ func ChannelUpdate(w http.ResponseWriter, r *http.Request) {
 		successCb(ch, n, v)
 	}
 }
+
+// ChannelDelete updates info about this channel
+func ChannelDelete(w http.ResponseWriter, r *http.Request) {
+	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodDelete, true)
+	if err != nil {
+		return
+	}
+	usp := ws.UserPerms{}.From(user)
+	if !usp.ManageChannels {
+		return
+	}
+	uu := mux.Vars(r)["uuid"]
+	v, ok := db.QueryChannelByUUID(uu)
+	if !ok {
+		return
+	}
+	v.Delete()
+	ws.BroadcastMessage(map[string]interface{}{
+		"type":    "channel-delete",
+		"channel": uu,
+	})
+}

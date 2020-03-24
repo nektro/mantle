@@ -86,6 +86,7 @@ func main() {
 	r3m.Methods(http.MethodDelete).HandlerFunc(handler.ChannelMessagesDelete)
 	r3u := r3.PathPrefix("/{uuid}").Subrouter()
 	r3u.Methods(http.MethodPut).HandlerFunc(handler.ChannelUpdate)
+	r3u.Methods(http.MethodDelete).HandlerFunc(handler.ChannelDelete)
 
 	r4 := r1.PathPrefix("/etc").Subrouter()
 	r4b := r4.PathPrefix("/badges").Subrouter()
@@ -98,12 +99,14 @@ func main() {
 	r5.Path("/create").HandlerFunc(handler.RolesCreate)
 	r5u := r5.PathPrefix("/{uuid}").Subrouter()
 	r5u.Methods(http.MethodPut).HandlerFunc(handler.RoleUpdate)
+	r5u.Methods(http.MethodDelete).HandlerFunc(handler.RoleDelete)
 
 	r6 := r1.PathPrefix("/invites").Subrouter()
 	r6.Path("/@me").HandlerFunc(handler.InvitesMe)
 	r6.Path("/create").HandlerFunc(handler.InvitesCreate)
 	r6u := r6.PathPrefix("/{uuid}").Subrouter()
 	r6u.Methods(http.MethodPut).HandlerFunc(handler.InviteUpdate)
+	r6u.Methods(http.MethodDelete).HandlerFunc(handler.InviteDelete)
 
 	r.HandleFunc("/ws", handler.Websocket)
 

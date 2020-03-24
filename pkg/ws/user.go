@@ -37,7 +37,7 @@ func (u *User) SendMessage(in *db.Channel, msg string) {
 	}
 	m := db.CreateMessage(u.User, in, msg)
 	BroadcastMessage(map[string]interface{}{
-		"type":    "message",
+		"type":    "message-new",
 		"in":      in.UUID,
 		"from":    u,
 		"message": m,

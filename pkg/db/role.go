@@ -101,3 +101,9 @@ func (v *Role) SetDistinguish(b bool) {
 	db.Build().Up(cTableRoles, "distinguish", strconv.FormatBool(b)).Wh("uuid", v.UUID).Exe()
 	v.Distinguish = b
 }
+
+// SetPermMngServer sets
+func (v *Role) SetPermMngServer(p int) {
+	db.Build().Up(cTableRoles, "perm_manage_server", strconv.Itoa(p)).Wh("uuid", v.UUID).Exe()
+	v.PermManageServer = Perm(p)
+}

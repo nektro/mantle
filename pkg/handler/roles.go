@@ -72,6 +72,18 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 			"value": pv,
 		})
 	}
+	processPerm := func(n, v string, rs *db.Role, f func(int)) {
+		_, a, err := hGrabInt(v)
+		if err != nil {
+			return
+		}
+		b := int(a)
+		if !hBetween(b, 0, 2) {
+			return
+		}
+		f(b)
+		successCb(rs, n, v)
+	}
 
 	n := r.Form.Get("p_name")
 	v := r.Form.Get("p_value")
@@ -132,5 +144,9 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 		}
 		rl.SetDistinguish(b)
 		successCb(rl, n, v)
+	case "perm_manage_server":
+		processPerm(n, v, rl, func(x int) {
+			rl.SetPermMngServer(x)
+		})
 	}
 }

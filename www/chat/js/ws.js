@@ -74,5 +74,8 @@ export const M = {
         new: (d) => {
             ui.M.invite.add(new api.Invite(d.invite));
         },
+        update: (d) => {
+            new api.Invite(d.invite);
+        },
     },
 };

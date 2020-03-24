@@ -77,3 +77,9 @@ func (v *Invite) Use() {
 	v.Uses++
 	db.Build().Up(cTableInvites, "uses", strconv.FormatInt(v.Uses, 10)).Wh("uuid", v.UUID).Exe()
 }
+
+// SetMaxUses sets
+func (v *Invite) SetMaxUses(p int64) {
+	db.Build().Up(cTableInvites, "max_uses", strconv.FormatInt(p, 10)).Wh("uuid", v.UUID).Exe()
+	v.MaxUses = p
+}

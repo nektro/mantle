@@ -177,7 +177,6 @@ $(document).on("click", (e) => {
         let o = ws.M;
         for (const item of d.type.split("-")) {
             if (!(item in o)) {
-                console.error("event not found:", d);
                 return;
             }
             o = o[item];

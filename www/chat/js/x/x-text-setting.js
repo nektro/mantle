@@ -29,6 +29,12 @@ customElements.define("x-text-setting", class TextSetting extends WSetting {
             this.children[0].children[1].children[1].remove();
             return;
         }
+        if (this.hasAttribute("type")) {
+            const rv = this.getAttribute("type");
+            if (["number"].includes(rv)) {
+                this.querySelector("input").setAttribute("type",rv);
+            }
+        }
         this.children[0].addEventListener("submit", (ev) => {
             ev.preventDefault();
             const de = this.defaultEndpoint();

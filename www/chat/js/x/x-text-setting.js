@@ -35,6 +35,11 @@ customElements.define("x-text-setting", class TextSetting extends WSetting {
                 this.querySelector("input").setAttribute("type",rv);
             }
         }
+        for (const item of ["min","max"]) {
+            if (this.hasAttribute(item)) {
+                this.querySelector("input").setAttribute(item, this.getAttribute(item));
+            }
+        }
         this.children[0].addEventListener("submit", (ev) => {
             ev.preventDefault();
             const de = this.defaultEndpoint();

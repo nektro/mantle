@@ -4,6 +4,7 @@ import { WSetting } from "./w-setting.js";
 import { create_element, dcTN, setDataBinding } from "./../util.js";
 
 //
+// jshint -W098
 customElements.define("x-text-setting", class TextSetting extends WSetting {
     constructor() {
         super();
@@ -46,9 +47,6 @@ customElements.define("x-text-setting", class TextSetting extends WSetting {
         return ["value"];
     }
     attributeChangedCallback(name, oV, nV) {
-        if (oV === null) {
-            return;
-        }
         if (name === "value") {
             this.querySelector("input").value = nV;
         }

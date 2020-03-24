@@ -6,7 +6,6 @@ import (
 
 	"github.com/nektro/go-util/util"
 
-	"github.com/nektro/go-util/alias"
 	dbstorage "github.com/nektro/go.dbstorage"
 )
 
@@ -32,7 +31,7 @@ func CreateInvite() *Invite {
 	id := db.QueryNextID(cTableInvites)
 	uid := newUUID()
 	co := now()
-	code := util.Hash("MD5", []byte(alias.F("astheno.mantle.invite.%s", co)))[:12]
+	code := randomString(8)
 	util.Log("[invite-create]", uid, code)
 	n := &Invite{id, uid, co, code, 0, 0, 0, "", NewTime(timeZero), false, Array{}}
 	db.Build().InsI(cTableInvites, n).Exe()

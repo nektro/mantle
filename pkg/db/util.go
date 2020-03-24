@@ -4,6 +4,7 @@ import (
 	"math/rand"
 	"time"
 
+	dbstorage "github.com/nektro/go.dbstorage"
 	"github.com/oklog/ulid"
 )
 
@@ -24,4 +25,14 @@ func now() Time {
 	s := time.Now().UTC().String()[0:19]
 	t, _ := time.Parse(timeFormat, s)
 	return Time(t)
+}
+
+const letterBytes = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+func randomString(n int) string {
+	b := make([]byte, n)
+	for i := range b {
+		b[i] = letterBytes[rand.Intn(len(letterBytes))]
+	}
+	return string(b)
 }

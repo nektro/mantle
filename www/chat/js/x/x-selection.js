@@ -73,4 +73,19 @@ customElements.define("x-selection", class SSelection extends HTMLElement {
             m.setAttribute("value", r[n]);
         }
     }
+    removeItem(uid) {
+        let r = false;
+        for (let i = 0; i < this.children[0].children.length; i++) {
+            const element = this.children[0].children[i];
+            if (element.dataset.uid === uid) {
+                if (element.classList.contains("active")) {
+                    r = true;
+                }
+                element.remove();
+            }
+        }
+        if (r) {
+            this.setActive(0);
+        }
+    }
 });

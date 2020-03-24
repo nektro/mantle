@@ -44,6 +44,12 @@ func QueryInviteByCode(c string) (*Invite, bool) {
 	return ch, ok
 }
 
+// QueryInviteByUID does exactly that
+func QueryInviteByUID(uid string) (*Invite, bool) {
+	ch, ok := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableInvites).Wh("uuid", uid), Invite{}).(*Invite)
+	return ch, ok
+}
+
 //
 //
 

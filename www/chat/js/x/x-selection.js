@@ -66,7 +66,9 @@ customElements.define("x-selection", class SSelection extends HTMLElement {
         for (const item of tin) {
             item.setAttribute("fill", r.uuid);
             const n = item.getAttribute("name");
-            rlist.parentElement.querySelector(`[name="${n}"]`).setAttribute("value", r[n]);
+            const m = rlist.parentElement.querySelector(`[name="${n}"]`);
+            if (m === null) continue;
+            m.setAttribute("value", r[n]);
         }
     }
 });

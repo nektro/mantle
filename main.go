@@ -1,9 +1,11 @@
 package main
 
 import (
+	"math/rand"
 	"net/http"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/handler"
@@ -21,6 +23,8 @@ import (
 var Version = "vMASTER"
 
 func main() {
+	rand.Seed(time.Now().UnixNano())
+
 	idata.Version = etc.FixBareVersion(Version)
 	util.Log("Welcome to " + idata.Name + " " + idata.Version + ".")
 

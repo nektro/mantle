@@ -148,5 +148,9 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 		processPerm(n, v, rl, func(x int) {
 			rl.SetPermMngServer(x)
 		})
+	case "perm_manage_channels":
+		processPerm(n, v, rl, func(x int) {
+			rl.SetPermMngChannels(x)
+		})
 	}
 }

@@ -32,6 +32,9 @@ export const M = {
         add: (o) => {
             document.querySelector("x-settings[data-s-for=server] [data-s-section=invites] x-selection").addItem(o);
         },
+        remove: (uid) => {
+            document.querySelector("x-settings[data-s-for=server] [data-s-section=invites] x-selection").removeItem(uid);
+        },
     },
 };
 

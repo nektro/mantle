@@ -83,3 +83,8 @@ func (v *Invite) SetMaxUses(p int64) {
 	db.Build().Up(cTableInvites, "max_uses", strconv.FormatInt(p, 10)).Wh("uuid", v.UUID).Exe()
 	v.MaxUses = p
 }
+
+// Delete removes this item from the database
+func (v *Invite) Delete() {
+	db.Build().Del(cTableInvites).Wh("uuid", v.UUID).Exe()
+}

@@ -86,3 +86,25 @@ func InviteUpdate(w http.ResponseWriter, r *http.Request) {
 		successCb(rl, n, v)
 	}
 }
+
+// InviteDelete updates info about this invite
+func InviteDelete(w http.ResponseWriter, r *http.Request) {
+	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodDelete, true)
+	if err != nil {
+		return
+	}
+	usp := ws.UserPerms{}.From(user)
+	if !usp.ManageInvites {
+		return
+	}
+	uu := mux.Vars(r)["uuid"]
+	v, ok := db.QueryInviteByUID(uu)
+	if !ok {
+		return
+	}
+	v.Delete()
+	ws.BroadcastMessage(map[string]interface{}{
+		"type":   "invite-delete",
+		"invite": uu,
+	})
+}

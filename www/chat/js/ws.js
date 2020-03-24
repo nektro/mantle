@@ -77,5 +77,9 @@ export const M = {
         update: (d) => {
             new api.Invite(d.invite);
         },
+        delete: (d) => {
+            api.M.invites.remove(d.invite);
+            ui.M.invite.remove(d.invite);
+        },
     },
 };

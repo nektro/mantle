@@ -74,6 +74,12 @@ function resource_factory(name, cl, cch) {
         update: (uid,k,v) => {
             return fetchE(`/${name}/${uid}/update`, "put", { p_name: k, p_value: v, });
         },
+        delete: (uid) => {
+            return fetchE(`/${name}/${uid}/delete`, "delete");
+        },
+        remove: (uid) => {
+            return caches[cch].delete(uid);
+        },
     };
 }
 

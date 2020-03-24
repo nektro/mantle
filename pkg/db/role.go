@@ -75,6 +75,9 @@ func (v Role) AllSorted() []*Role {
 	return res
 }
 
+//
+//
+
 // SetName sets name
 func (v *Role) SetName(s string) {
 	db.Build().Up(cTableRoles, "name", s).Wh("uuid", v.UUID).Exe()

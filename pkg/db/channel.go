@@ -66,6 +66,9 @@ func (v Channel) AllSorted() []*Channel {
 	return res
 }
 
+//
+//
+
 func (c *Channel) AssertMessageTableExists() {
 	db.CreateTableStruct(cTableMessagesPrefix+c.UUID, Message{})
 }

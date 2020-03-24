@@ -93,3 +93,13 @@ func uHighLow(a, b int) (int, int) {
 	}
 	return b, a
 }
+
+func hBetween(x, l, h int) bool {
+	if x < l {
+		return false
+	}
+	if x > h {
+		return false
+	}
+	return true
+}

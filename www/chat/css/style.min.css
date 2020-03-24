@@ -67,6 +67,24 @@ x-2s-toggle label span { position: absolute; cursor: pointer; top: 0; left: 0; r
 
 x-2s-toggle label span:before { position: absolute; content: ""; height: 1.5em; width: 1.5em; left: .3em; bottom: .3em; background-color: white; transition: .2s; }
 
+x-3s-toggle { display: block; margin: 1em 0; }
+
+x-3s-toggle > form > label { display: block; margin: .5em 0; }
+
+x-3s-toggle > form > div { display: inline-flex; flex-direction: row; background-color: #93a1a1; }
+
+x-3s-toggle > form > div > input { display: none; }
+
+x-3s-toggle > form > div > input:checked + label:nth-child(2) { background-color: #dc322f; }
+
+x-3s-toggle > form > div > input:checked + label:nth-child(4) { background-color: #586e75; }
+
+x-3s-toggle > form > div > input:checked + label:nth-child(6) { background-color: #859900; }
+
+x-3s-toggle > form > div > label { display: flex; justify-content: center; align-items: center; padding: .25em; }
+
+x-3s-toggle > form > div > label i.icon { display: block; margin: 0; font-size: 1.5em; }
+
 * { box-sizing: border-box; }
 
 input { display: block; }

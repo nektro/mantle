@@ -1,0 +1,47 @@
+@import './../color.scss';
+//
+
+x-3s-toggle {
+    display: block;
+    margin: 1em 0;
+
+    >form {
+        >label {
+            display: block;
+            margin: .5em 0;
+        }
+        >div {
+            display: inline-flex;
+            flex-direction: row;
+            background-color: $basel1;
+    
+            >input {
+                display: none;
+
+                &:checked + label {
+                    &:nth-child(2) {
+                        background-color: $red;
+                    }
+                    &:nth-child(4) {
+                        background-color: $based1;
+                    }
+                    &:nth-child(6) {
+                        background-color: $green;
+                    }
+                }
+            }
+            >label {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: .25em;
+
+                i.icon {
+                    display: block;
+                    margin: 0;
+                    font-size: 1.5em;
+                }
+            }
+        }
+    }
+}

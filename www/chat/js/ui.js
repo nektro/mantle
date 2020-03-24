@@ -25,6 +25,28 @@ export const M = {
     channel: {
     },
     role: {
+        add: (o) => {
+            document.querySelector("x-settings[data-s-for=server] [data-s-section=roles] x-selection").addItem(o);
+            //
+            const nEl2 = create_element("li", [["data-role",o.uuid],["class","bg-bf"]], [dcTN(o.name)]);
+            nEl2.addEventListener("click", (e) => {
+                if (!volatile.me.RolesA.includes("o")) return;
+                const et = e.target;
+                const rid = et.dataset.role;
+                const uid = document.querySelector("[data-bind=pp_user_uuid]").textContent;
+                return api.M.users.update(uid,"remove_role",rid);
+            });
+            document.querySelector("dialog.popup.user ol").appendChild(nEl2);
+            //
+            const nEl3 = create_element("li", [["data-role",o.uuid]], [dcTN(o.name)]);
+            nEl3.addEventListener("click", (e) => {
+                const et = e.target;
+                const rid = et.dataset.role;
+                const uid = document.querySelector("[data-bind=pp_user_uuid]").textContent;
+                return api.M.users.update(uid,"add_role",rid);
+            });
+            document.querySelector("dialog.popup.user div ol").appendChild(nEl3);
+        },
     },
     message: {
     },
@@ -229,30 +251,4 @@ export function setMemberOffline(uid) {
     if (ue === null) return;
     new SidebarRole(ue.parentElement).count -= 1;
     ue.remove();
-}
-
-/**
- * @param {api.Role} role
- */
-export function addRole(role) {
-    document.querySelector("x-settings[data-s-for=server] [data-s-section=roles] x-selection").addItem(role);
-    //
-    const nEl2 = create_element("li", [["data-role",role.uuid],["class","bg-bf"]], [dcTN(role.name)]);
-    nEl2.addEventListener("click", (e) => {
-        if (!volatile.me.RolesA.includes("o")) return;
-        const et = e.target;
-        const rid = et.dataset.role;
-        const uid = document.querySelector("[data-bind=pp_user_uuid]").textContent;
-        return api.M.users.update(uid,"remove_role",rid);
-    });
-    document.querySelector("dialog.popup.user ol").appendChild(nEl2);
-    //
-    const nEl3 = create_element("li", [["data-role",role.uuid]], [dcTN(role.name)]);
-    nEl3.addEventListener("click", (e) => {
-        const et = e.target;
-        const rid = et.dataset.role;
-        const uid = document.querySelector("[data-bind=pp_user_uuid]").textContent;
-        return api.M.users.update(uid,"add_role",rid);
-    });
-    document.querySelector("dialog.popup.user div ol").appendChild(nEl3);
 }

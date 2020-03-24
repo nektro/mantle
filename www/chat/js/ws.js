@@ -44,7 +44,7 @@ export const M = {
     },
     role: {
         new: (d) => {
-            ui.addRole(new api.Role(d.role));
+            ui.M.role.add(new api.Role(d.role));
         },
         update: (d) => {
             new api.Role(d.role);

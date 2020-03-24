@@ -68,7 +68,7 @@ $(document).on("click", (e) => {
         el_4.appendChild(create_element("ul", [["data-uid",""]], []));
         //
         for (const item of rls) {
-            ui.addRole(item);
+            ui.M.role.add(item);
         }
     });
 

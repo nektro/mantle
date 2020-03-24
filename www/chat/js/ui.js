@@ -19,6 +19,21 @@ export const volatile = {
 
 //
 
+export const M = {
+    user: {
+    },
+    channel: {
+    },
+    role: {
+    },
+    message: {
+    },
+    invite: {
+    },
+};
+
+//
+
 /**
  * @param {api.Channel} ch
  */

@@ -1,8 +1,6 @@
 package ws
 
 import (
-	"time"
-
 	"github.com/nektro/mantle/pkg/db"
 
 	"github.com/gorilla/websocket"
@@ -38,12 +36,11 @@ func (u *User) SendMessage(in *db.Channel, msg string) {
 		return
 	}
 	m := db.CreateMessage(u.User, in, msg)
-	t, _ := time.Parse("2006-01-02 15:04:05", m.At)
 	BroadcastMessage(map[string]interface{}{
 		"type":    "message",
 		"in":      in.UUID,
 		"from":    u,
 		"message": m,
-		"at":      t.Format("2 Jan 2006 15:04:05 MST"),
+		"at":      m.At.T().Format("2 Jan 2006 15:04:05 MST"),
 	})
 }

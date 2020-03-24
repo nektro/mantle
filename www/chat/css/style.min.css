@@ -85,6 +85,16 @@ x-3s-toggle > form > div > label { display: flex; justify-content: center; align
 
 x-3s-toggle > form > div > label i.icon { display: block; margin: 0; font-size: 1.5em; }
 
+x-button { display: block; margin: 1em 0; }
+
+x-button form button { padding: .5em 1em; border: .1em solid transparent; border-radius: .25em; margin: 0; }
+
+x-button.danger button { color: #dc322f; background-color: inherit; border-color: rgba(220, 50, 47, 0.5); transition: border-color .2s; }
+
+x-button.danger button:hover { border-color: #dc322f; }
+
+x-button.danger button:active { background-color: rgba(220, 50, 47, 0.25); }
+
 * { box-sizing: border-box; }
 
 input { display: block; }

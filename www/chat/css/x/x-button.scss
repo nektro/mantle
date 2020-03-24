@@ -1,0 +1,29 @@
+@import './../color.scss';
+//
+
+x-button {
+    display: block;
+    margin: 1em 0;
+
+    form {
+        button {
+            padding: .5em 1em;
+            border: .1em solid transparent;
+            border-radius: .25em;
+            margin: 0;
+        }
+    }
+    &.danger button {
+        color: $red;
+        background-color: inherit;
+        border-color: transparentize($red, .5);
+        transition: border-color .2s;
+
+        &:hover {
+            border-color: $red;
+        }
+        &:active {
+            background-color: transparentize($red, .75);
+        }
+    }
+}

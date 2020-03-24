@@ -1,9 +1,10 @@
 "use strict";
 //
+import { WSetting } from "./w-setting.js";
 import { create_element, dcTN } from "./../util.js";
 
 //
-customElements.define("x-button", class XButton extends HTMLElement {
+customElements.define("x-button", class XButton extends WSetting {
     constructor() {
         super();
     }
@@ -13,7 +14,8 @@ customElements.define("x-button", class XButton extends HTMLElement {
         ]));
         this.querySelector("form").addEventListener("submit", (ev) => {
             ev.preventDefault();
-            const e = this.getAttribute("endpoint");
+            const de = this.defaultEndpoint();
+            const e = this.getAttribute("endpoint")||de;
             const m = this.getAttribute("method")||"post";
             const f = this.getAttribute("fill")||"";
             const e2 = e.replace("%s", f);

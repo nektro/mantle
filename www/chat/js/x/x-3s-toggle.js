@@ -1,10 +1,11 @@
 "use strict";
 //
+import { WSetting } from "./w-setting.js";
 import { create_element, dcTN } from "./../util.js";
 
 //
 // jshint -W098
-customElements.define("x-3s-toggle", class Toggle3State extends HTMLElement {
+customElements.define("x-3s-toggle", class Toggle3State extends WSetting {
     constructor() {
         super();
     }
@@ -35,7 +36,8 @@ customElements.define("x-3s-toggle", class Toggle3State extends HTMLElement {
         ]));
         this.children[0][n].forEach((v) => {
             v.addEventListener("change", () => {
-                const e = this.getAttribute("endpoint");
+                const de = this.defaultEndpoint();
+                const e = this.getAttribute("endpoint")||de;
                 const f = this.getAttribute("fill")||"";
                 const e2 = e.replace("%s", f);
                 const fd = new FormData();

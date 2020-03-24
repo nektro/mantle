@@ -1,14 +1,14 @@
 "use strict";
 //
+import { WSetting } from "./w-setting.js";
 import { create_element, dcTN, setDataBinding } from "./../util.js";
 
 //
-customElements.define("x-text-setting", class TextSetting extends HTMLElement {
+customElements.define("x-text-setting", class TextSetting extends WSetting {
     constructor() {
         super();
     }
     connectedCallback() {
-        const e = this.getAttribute("endpoint");
         const n = this.getAttribute("name");
         const t = Math.random().toString().replace(".","");
         const v = this.getAttribute("value")||"";
@@ -25,6 +25,8 @@ customElements.define("x-text-setting", class TextSetting extends HTMLElement {
         ]));
         this.children[0].addEventListener("submit", (ev) => {
             ev.preventDefault();
+            const de = this.defaultEndpoint();
+            const e = this.getAttribute("endpoint")||de;
             const f = this.getAttribute("fill")||"";
             const e2 = e.replace("%s", f);
             const fd = new FormData();

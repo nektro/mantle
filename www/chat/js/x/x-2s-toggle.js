@@ -1,15 +1,15 @@
 "use strict";
 //
+import { WSetting } from "./w-setting.js";
 import { create_element, dcTN } from "./../util.js";
 
 //
 // jshint -W098
-customElements.define("x-2s-toggle", class Toggle2State extends HTMLElement {
+customElements.define("x-2s-toggle", class Toggle2State extends WSetting {
     constructor() {
         super();
     }
     connectedCallback() {
-        const e = this.getAttribute("endpoint");
         const n = this.getAttribute("name");
         const d = this.getAttribute("label")||"";
         this.appendChild(create_element("div", null, [dcTN(d)]));
@@ -18,6 +18,8 @@ customElements.define("x-2s-toggle", class Toggle2State extends HTMLElement {
             create_element("span")
         ]));
         this.children[1].children[0].addEventListener("change", (ev) => {
+            const de = this.defaultEndpoint();
+            const e = this.getAttribute("endpoint")||de;
             const f = this.getAttribute("fill")||"";
             const e2 = e.replace("%s", f);
             const fd = new FormData();

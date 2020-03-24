@@ -119,3 +119,9 @@ func (v *Role) SetPermMngRoles(p int) {
 	db.Build().Up(cTableRoles, "perm_manage_roles", strconv.Itoa(p)).Wh("uuid", v.UUID).Exe()
 	v.PermManageRoles = Perm(p)
 }
+
+// SetPermMngInvites sets
+func (v *Role) SetPermMngInvites(p int) {
+	db.Build().Up(cTableRoles, "perm_manage_invites", strconv.Itoa(p)).Wh("uuid", v.UUID).Exe()
+	v.PermManageInvites = Perm(p)
+}

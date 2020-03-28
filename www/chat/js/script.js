@@ -39,11 +39,14 @@ $(document).on("click", (e) => {
         ui.volatile.me = x.user;
         const n = ui.volatile.me.nickname || ui.volatile.me.name;
         el_3.children[0].textContent = `@${n}`;
+        document.querySelectorAll("[data-requires]").forEach((el) => {
+            el.setAttribute("hidden", "");
+        });
         const p = x.perms;
         for (const key in p) {
-            if (!p[key]) {
+            if (p[key]) {
                 document.querySelectorAll(`[data-requires^="${key}"]`).forEach((el) => {
-                    el.setAttribute("hidden", "");
+                    el.removeAttribute("hidden");
                 });
             }
         }

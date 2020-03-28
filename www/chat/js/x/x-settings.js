@@ -11,7 +11,7 @@ class SettingsDialog extends HTMLElement {
         if (this.dataset.active === undefined) {
             this.setActivePane(0);
         }
-        for (const item of this.children[0].children[0].querySelectorAll("a:not(.div)")) {
+        for (const item of this.kids()) {
             item.addEventListener("click", (ev) => {
                 const t = ev.target;
                 const i = Array.from(t.parentElement.querySelectorAll("a:not(.div)")).indexOf(t);
@@ -29,6 +29,8 @@ class SettingsDialog extends HTMLElement {
     pane() {
         return this.children[0].children[1];
     }
+    kids() {
+        return this.nav().querySelectorAll("a:not(.div)");
     }
     /**
      * @param {Number} n
@@ -37,7 +39,7 @@ class SettingsDialog extends HTMLElement {
         deActivateChild(this.nav());
         deActivateChild(this.pane());
         this.dataset.active = n.toString();
-        this.children[0].children[0].querySelectorAll("a:not(.div)")[n].classList.add("active");
+        this.kids()[n].classList.add("active");
         this.pane().children[n].classList.add("active");
     }
 }

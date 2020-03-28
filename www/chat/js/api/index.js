@@ -99,7 +99,7 @@ export const M = {
             return fetchE("/users/@me").then((x) => {
                 return {
                     user: new User(x.me),
-                    perms: x.me,
+                    perms: x.perms,
                 };
             });
         },

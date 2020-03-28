@@ -23,6 +23,24 @@ class SettingsDialog extends HTMLElement {
                 e.target.removeAttribute("open");
             }
         });
+        const mo = new MutationObserver((muts) => {
+            for (const item of muts) {
+                if (item.type === "attributes") {
+                    if (item.attributeName === "hidden") {
+                        if (item.target.classList.contains("active")) {
+                            deActivateChild(this.nav());
+                            deActivateChild(this.pane());
+                        }
+                    }
+                }
+            }
+        });
+        for (const item of this.kids()) {
+            mo.observe(item, {
+                attributes: true,
+            });
+        }
+    }
     nav() {
         return this.children[0].children[0];
     }

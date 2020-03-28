@@ -26,16 +26,19 @@ class SettingsDialog extends HTMLElement {
     nav() {
         return this.children[0].children[0];
     }
+    pane() {
+        return this.children[0].children[1];
+    }
     }
     /**
      * @param {Number} n
      */
     setActivePane(n) {
-        deActivateChild(this.children[0].children[1]);
         deActivateChild(this.nav());
+        deActivateChild(this.pane());
         this.dataset.active = n.toString();
         this.children[0].children[0].querySelectorAll("a:not(.div)")[n].classList.add("active");
-        this.children[0].children[1].children[n].classList.add("active");
+        this.pane().children[n].classList.add("active");
     }
 }
 

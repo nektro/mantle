@@ -17,6 +17,7 @@ func InvitesMe(w http.ResponseWriter, r *http.Request) {
 	}
 	usp := ws.UserPerms{}.From(user)
 	if !usp.ManageInvites {
+		writeAPIResponse(r, w, true, http.StatusOK, []db.Invite{})
 		return
 	}
 	writeAPIResponse(r, w, true, http.StatusOK, db.Invite{}.All())

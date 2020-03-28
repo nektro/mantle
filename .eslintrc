@@ -19,6 +19,7 @@
         "customElements": true,
         "Promise": true,
         "Headers": true,
+        "MutationObserver": true,
         "$": true
     },
     "extends": "eslint:all",

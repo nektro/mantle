@@ -23,9 +23,9 @@
     <string name="s020">Bans</string>
     <string name="s021">Name</string>
     <string name="s022">Description</string>
-    <!-- {@deprecated} -->
+    <!-- {@deprecated use s032 instead} -->
     <string name="s023">Cover Photo</string>
-    <!-- {@deprecated} -->
+    <!-- {@deprecated use s033 instead} -->
     <string name="s024">Profile Photo</string>
     <string name="s025">Public?</string>
     <string name="s026">Color</string>

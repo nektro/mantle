@@ -33,16 +33,18 @@ func InviteGet(w http.ResponseWriter, r *http.Request) {
 
 // InvitePost is handler for POST /invite
 func InvitePost(w http.ResponseWriter, r *http.Request) {
-	if ok, _ := strconv.ParseBool(db.Props.Get("public")); ok {
-		w.Header().Add("Location", "./login")
-		w.WriteHeader(http.StatusFound)
-		return
+	if ok, _ := strconv.ParseBool(db.Props.Get("public")); !ok {
+		s := etc.GetSession(r)
+		s.Values["code"] = r.URL.Query().Get("code")
+		s.Save(r, w)
 	}
+	w.Header().Add("Location", "./login")
+	w.WriteHeader(http.StatusFound)
 }
 
 // Verify is handler for /verify
 func Verify(w http.ResponseWriter, r *http.Request) {
-	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodGet, false)
+	sess, user, err := apiBootstrapRequireLogin(r, w, http.MethodGet, false)
 	if err != nil {
 		return
 	}
@@ -65,10 +67,11 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusFound)
 		return
 	}
-	if hGrabFormStrings(r, w, "code") != nil {
+	code, ok := sess.Values["code"].(string)
+	if !ok {
+		writeAPIResponse(r, w, false, http.StatusBadRequest, "invite code required to enter")
 		return
 	}
-	code := r.Form.Get("code")
 	inv, ok := db.QueryInviteByCode(code)
 	if !ok {
 		writeAPIResponse(r, w, false, http.StatusBadRequest, "invalid invite code")
@@ -85,6 +88,8 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 	switch inv.Mode {
 	case 0:
 		// permanent
+	case 1:
+		//
 	case 2:
 		s := time.Since(inv.ExpiresOn.T())
 		if s > 0 {
@@ -98,6 +103,8 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 	for _, item := range inv.GivenRoles {
 		user.AddRole(item)
 	}
+	w.Header().Add("Location", "./chat/")
+	w.WriteHeader(http.StatusFound)
 }
 
 // ApiAbout is handler for /api/about

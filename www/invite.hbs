@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="./css/main.min.css">
     </head>
     <body class="p-invite" style="background-image: url('{{data.cover_photo}}');">
-        <form method="POST" action="">
+        <form method="GET" action="./invite">
             <fieldset>
                 <legend>{{data.name}}</legend>
                 <div class="badges">
@@ -28,7 +28,7 @@
                     <input type="text" name="code" id="invc" required="" value="{{code}}">
                 </div>
                 {{/unless}}
-                <button>Enter</button>
+                <button type="submit">Enter</button>
                 <hr><hr>
                 <p>Already a member?</p>
                 <a href="./login">Log In</a>

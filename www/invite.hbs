@@ -22,12 +22,12 @@
                 <p>{{data.description}}</p>
                 <hr><hr>
                 <p>New? Join here!</p>
-                {{#unless data.public}}
+                {{#equal data.public "0"}}
                 <div class="frm-txt">
                     <label for="invc">Invite Code</label>
                     <input type="text" name="code" id="invc" required="" value="{{code}}">
                 </div>
-                {{/unless}}
+                {{/equal}}
                 <button type="submit">Enter</button>
                 <hr><hr>
                 <p>Already a member?</p>

@@ -14,6 +14,7 @@ customElements.define("x-uonline-role", class UOnlineRole extends HTMLElement {
         const o = await api.M.roles.get(this._uid);
         const n = o.name === undefined ? this.getAttribute("name") : o.name;
         this.appendChild(create_element("div", [["data-count","0"]], [dcTN(n)]));
+        this._name = this.getAttribute("name");
         this.appendChild(create_element("ul"));
     }
     get count() {

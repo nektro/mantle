@@ -103,9 +103,9 @@ export const M = {
                 };
             });
         },
-        /** @returns {Promise<User[]>} */
+        /** @returns {Promise<string[]>} */
         online: () => {
-            return fetchL("/users/online", User);
+            return fetchE("/users/online");
         },
         update: (uid,k,v) => {
             return fetchE(`/users/${uid}/update`, "put", { p_name: k, p_value: v, });

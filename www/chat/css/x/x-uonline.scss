@@ -1,0 +1,52 @@
+@import './../color.scss';
+
+x-uonline {
+    display: block;
+    background-color: $based2;
+    grid-row: 2 / 4;
+    grid-column: 3 / 4;
+    border-left: 2px solid #268bd2;
+    border-top: 2px solid #268bd2;
+}
+
+x-uonline-role {
+    display: block;
+
+    >div {
+        padding: 1em;
+        padding-bottom: .5em;
+        margin: 0;
+
+        &::after {
+            content: "—" attr(data-count);
+        }
+        &[data-count="0"] {
+            display: none;
+        }
+    }
+    >ul {
+        padding: 0;
+        margin: 0;
+
+        &:empty {
+            display: none;
+        }
+    }
+}
+
+x-uonline-user {
+    display: block;
+    padding: .5em 1em;
+    margin: 0 1em;
+    border-radius: .2em;
+    padding-right: 0;
+
+    &:hover {
+        background-color: lighten($based3, 3%);
+    }
+    span {
+        &:nth-child(2) {
+            color: darken(#839496, 25%);
+        }
+    }
+}

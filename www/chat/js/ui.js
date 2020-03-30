@@ -3,8 +3,8 @@
 // jshint -W003
 import { create_element, dcTN, numsBetween, ele_atBottom, deActivateChild, setDataBinding } from "./util.js";
 import { Channel } from "./ui.channel.js";
-import { SidebarRole } from "./ui.sidebar_role.js";
-import { el_1, messageCache, output, el_4, msg_processors } from "./ui.util.js";
+// import { SidebarRole } from "./ui.sidebar_role.js";
+import { el_1, messageCache, output, msg_processors, el_uonline } from "./ui.util.js";
 import * as api from "./api/index.js";
 
 //
@@ -21,12 +21,22 @@ export const volatile = {
 
 export const M = {
     user: {
+        connect: (uid) => {
+            el_uonline.addUser(uid);
+        },
+        disconnect: (uid) => {
+            el_uonline.removeUser(uid);
+        },
     },
     channel: {
     },
     role: {
         add: (o) => {
             document.querySelector("x-settings[data-s-for=server] [data-s-section=roles] x-selection").addItem(o);
+            //
+            if (o.distinguish) {
+                document.querySelector("x-uonline").addRole(o);
+            }
             //
             const nEl2 = create_element("li", [["data-role",o.uuid],["class","bg-bf"]], [dcTN(o.name)]);
             nEl2.addEventListener("click", (e) => {
@@ -215,40 +225,4 @@ export async function setActiveChannel(uid) {
     c.unread = 0;
     output.classList.remove("loading-done");
     volatile.selectedMsgs.splice(0, volatile.selectedMsgs.length);
-}
-
-/**
- * @param {String} uid
- */
-export async function setMemberOnline(uid) {
-    console.debug("user-ws-connect", uid);
-    const ue = el_4.querySelector(`li[data-user="${uid}"]`);
-    if (ue === null) {
-        const u = await api.M.users.get(uid);
-        const rls = await u.getRoles();
-        const cr = rls
-            .filter((v) => v.color.length > 0)
-            .sort((a,b) => a.position > b.position);
-        const tr = cr.length > 0 ? cr[0].uuid : "";
-        for (const item of el_4.querySelectorAll("ul")) {
-            if (!u.roles.includes(item.dataset.uid)) continue;
-            item.appendChild(create_element("li", [["data-user",uid],["data-role",tr]], [
-                create_element("span", null, [dcTN(u.name)]),
-                create_element("span", null, [dcTN("#"+u.id)]),
-            ]));
-            new SidebarRole(item).count += 1;
-            break;
-        }
-    }
-}
-
-/**
- * @param {String} uid
- */
-export function setMemberOffline(uid) {
-    console.debug("user-ws-disconnect", uid);
-    const ue = el_4.querySelector(`li[data-user="${uid}"]`);
-    if (ue === null) return;
-    new SidebarRole(ue.parentElement).count -= 1;
-    ue.remove();
 }

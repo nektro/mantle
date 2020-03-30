@@ -13,10 +13,10 @@ export const M = {
     },
     user: {
         connect: (d) => {
-            ui.setMemberOnline(d.user);
+            ui.M.user.connect(d.user);
         },
         disconnect: (d) => {
-            ui.setMemberOffline(d.user);
+            ui.M.user.disconnect(d.user);
         },
         update: (d) => {
             new api.User(d.user);

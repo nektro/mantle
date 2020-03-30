@@ -2,9 +2,9 @@
 //
 import "./x/index.js";
 //
-import { create_element, dcTN, setDataBinding } from "./util.js";
+import { setDataBinding } from "./util.js";
 import * as ui from "./ui.js";
-import { el_2, el_3, el_1, output, messageCache, el_4 } from "./ui.util.js";
+import { el_2, el_3, el_1, output, messageCache } from "./ui.util.js";
 import * as api from "./api/index.js";
 import * as ws from "./ws.js";
 
@@ -61,14 +61,6 @@ $(document).on("click", (e) => {
     //
     await api.M.roles.me().then((x) => {
         const rls = x.sort((a,b) => a.position > b.position);
-        //
-        for (const item of rls) {
-            if (!item.distinguish) continue;
-            el_4.appendChild(create_element("div", [["data-count","0"]], [dcTN(item.name)]));
-            el_4.appendChild(create_element("ul", [["data-uid",item.uuid]], []));
-        }
-        el_4.appendChild(create_element("div", [["data-count","0"]], [dcTN("Online")]));
-        el_4.appendChild(create_element("ul", [["data-uid",""]], []));
         //
         for (const item of rls) {
             ui.M.role.add(item);
@@ -159,7 +151,7 @@ $(document).on("click", (e) => {
 
     await api.M.users.online().then((x) => {
         for (const item of x) {
-            ui.setMemberOnline(item);
+            ui.M.user.connect(item);
         }
     });
 

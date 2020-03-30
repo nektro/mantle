@@ -10,3 +10,8 @@ import "./x-text-setting.js";
 import "./x-2s-toggle.js";
 import "./x-3s-toggle.js";
 import "./x-button.js";
+
+// online users pane elements
+import "./x-uonline.js";
+import "./x-uonline-role.js";
+import "./x-uonline-user.js";

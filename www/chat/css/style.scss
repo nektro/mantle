@@ -1,10 +1,13 @@
 @import './color.scss';
+
 @import './x/x-settings.scss';
 @import './x/x-selection.scss';
 @import './x/x-text-setting.scss';
 @import './x/x-2s-toggle.scss';
 @import './x/x-3s-toggle.scss';
 @import './x/x-button.scss';
+
+@import './x/x-uonline.scss';
 
 * {
     box-sizing: border-box;
@@ -247,49 +250,6 @@ body {
             border: .1em solid $based1;
             border-radius: .25em;
             padding: .5em;
-        }
-    }
-    #users-online-list {
-        background-color: $based3;
-        grid-row: 2 / 4;
-        grid-column: 3 / 4;
-        border-left: 2px solid #268bd2;
-
-        & > div {
-            padding: 1em;
-            padding-bottom: .5em;
-            margin: 0;
-
-            &::after {
-                content: "—" attr(data-count);
-            }
-            &[data-count="0"] {
-                display: none;
-            }
-        }
-        ul {
-            padding: 0;
-            margin: 0;
-
-            &:empty {
-                display: none;
-            }
-            li {
-                list-style-type: none;
-                padding: .5em 1em;
-                margin: 0 1em;
-                border-radius: .2em;
-                padding-right: 0;
-
-                &:hover {
-                    background-color: lighten($based3, 3%);
-                }
-                span {
-                    &:nth-child(2) {
-                        color: darken(#839496, 25%);
-                    }
-                }
-            }
         }
     }
     x-settings {

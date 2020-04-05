@@ -43,16 +43,16 @@ function fetchE(endpoint, method="get", data={}) {
         return x.message;
     });
 }
-function fetchI(endpoint, cl) {
+function fetchI(endpoint, cl, ...a) {
     return fetchE(endpoint).then((x) => {
         if (cl === undefined) return x;
-        return new cl(x);
+        return new cl(x, ...a);
     });
 }
-function fetchL(endpoint, cl) {
+function fetchL(endpoint, cl, ...a) {
     return fetchE(endpoint).then((x) => {
         return x.map((y) => {
-            return new cl(y);
+            return new cl(y, ...a);
         });
     });
 }

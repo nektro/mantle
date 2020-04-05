@@ -24,6 +24,7 @@
         "Promise": true,
         "Headers": true,
         "MutationObserver": true,
+        "moment": true,
         "$": true
     }
 }

@@ -20,6 +20,7 @@
         "Promise": true,
         "Headers": true,
         "MutationObserver": true,
+        "moment": true,
         "$": true
     },
     "extends": "eslint:all",
@@ -78,6 +79,7 @@
         "consistent-this":"off",
         "dot-location":["error", "property"],
         "no-new":"off",
+        "no-underscore-dangle":"off",
         "consistent-return":"off"
     }
 }

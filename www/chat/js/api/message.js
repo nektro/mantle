@@ -14,6 +14,7 @@ export class Message {
         }
         Object.assign(this, o);
         this.is_null = false;
+        this.time = new moment.utc(this.time);
         cache.get(ch_uid).set(this.uuid, this);
     }
 }

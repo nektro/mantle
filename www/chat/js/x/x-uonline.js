@@ -4,12 +4,11 @@ import { create_element } from "./../util.js";
 import * as api from "./../api/index.js";
 
 //
-customElements.define("x-uonline", class UOnline extends HTMLElement {
+customElements.define("x-uonline", class extends HTMLElement {
     constructor() {
         super();
     }
     connectedCallback() {
-        console.log(this);
         this.addRole({ uuid:"", name:"Online", position:9999 });
     }
     addRole(o) {

@@ -4,7 +4,7 @@ import { WSetting } from "./w-setting.js";
 import { create_element, dcTN } from "./../util.js";
 
 //
-customElements.define("x-button", class XButton extends WSetting {
+customElements.define("x-button", class extends WSetting {
     constructor() {
         super();
     }

@@ -3,7 +3,7 @@
 import { create_element, dcTN } from "./../util.js";
 
 //
-customElements.define("x-uonline-role", class UOnlineRole extends HTMLElement {
+customElements.define("x-uonline-role", class extends HTMLElement {
     constructor() {
         super();
     }

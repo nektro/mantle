@@ -5,7 +5,7 @@ import { create_element, dcTN } from "./../util.js";
 
 //
 // jshint -W098
-customElements.define("x-2s-toggle", class Toggle2State extends WSetting {
+customElements.define("x-2s-toggle", class extends WSetting {
     constructor() {
         super();
     }

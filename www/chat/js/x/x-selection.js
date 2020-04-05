@@ -4,7 +4,7 @@ import { create_element, dcTN, deActivateChild } from "./../util.js";
 import * as api from "./../api/index.js";
 
 //
-customElements.define("x-selection", class SSelection extends HTMLElement {
+customElements.define("x-selection", class extends HTMLElement {
     constructor() {
         super();
     }

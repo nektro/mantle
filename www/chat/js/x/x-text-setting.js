@@ -5,7 +5,7 @@ import { create_element, dcTN, setDataBinding } from "./../util.js";
 
 //
 // jshint -W098
-customElements.define("x-text-setting", class TextSetting extends WSetting {
+customElements.define("x-text-setting", class extends WSetting {
     constructor() {
         super();
     }

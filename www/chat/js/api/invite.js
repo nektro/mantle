@@ -2,6 +2,7 @@
 //
 
 //
+/** @type {Map<string,Invite} */
 export const cache = new Map();
 
 //

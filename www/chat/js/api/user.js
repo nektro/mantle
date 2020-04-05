@@ -3,6 +3,7 @@
 import * as api from "./index.js";
 
 //
+/** @type {Map<string,User} */
 export const cache = new Map();
 
 //

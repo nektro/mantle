@@ -3,6 +3,7 @@
 import { cache as cacheG } from "./message.js";
 
 //
+/** @type {Map<string,Channel} */
 export const cache = new Map();
 
 //

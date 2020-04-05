@@ -2,6 +2,7 @@
 //
 
 //
+/** @type {Map<string,Map<string,Message} */
 export const cache = new Map();
 
 //

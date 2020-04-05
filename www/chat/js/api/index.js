@@ -84,6 +84,15 @@ function resource_factory(name, cl, cch) {
 }
 
 //
+export const C = {
+    users:    cacheU,
+    channels: cacheC,
+    roles:    cacheR,
+    messages: cacheG,
+    invites:  cacheI,
+};
+
+//
 export const M = {
     meta: {
         about: () => {

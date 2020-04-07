@@ -60,14 +60,6 @@ func main() {
 	//
 	// create http service
 
-
-	r2 := r1.PathPrefix("/users").Subrouter()
-	r2.Path("/@me").HandlerFunc(handler.UsersMe)
-	r2.Path("/online").HandlerFunc(handler.UsersOnline)
-	r2u := r2.PathPrefix("/{uuid}").Subrouter()
-	r2u.Path("").HandlerFunc(handler.UsersRead)
-	r2u.Methods(http.MethodPut).HandlerFunc(handler.UserUpdate)
-
 	r3 := r1.PathPrefix("/channels").Subrouter()
 	r3.Path("/@me").HandlerFunc(handler.ChannelsMe)
 	r3.Path("/create").HandlerFunc(handler.ChannelCreate)
@@ -109,6 +101,15 @@ func main() {
 				Sub: map[string]sPaths{
 					"about":           sPaths{GET: handler.ApiAbout},
 					"update_property": sPaths{PUT: handler.ApiPropertyUpdate},
+					"users": sPaths{
+						Sub: map[string]sPaths{
+							"@me":    sPaths{GET: handler.UsersMe},
+							"online": sPaths{GET: handler.UsersOnline},
+							"{uuid}": sPaths{
+								GET: handler.UsersRead,
+							},
+						},
+					},
 			},
 		},
 	})

@@ -60,11 +60,6 @@ func main() {
 	//
 	// create http service
 
-	r := etc.Router
-
-	r1 := r.PathPrefix("/api").Subrouter()
-	r1.Path("/about").HandlerFunc(handler.ApiAbout)
-	r1.Path("/update_property").HandlerFunc(handler.ApiPropertyUpdate)
 
 	r2 := r1.PathPrefix("/users").Subrouter()
 	r2.Path("/@me").HandlerFunc(handler.UsersMe)
@@ -110,6 +105,11 @@ func main() {
 			"invite":  sPaths{POS: handler.InvitePost},
 			"verify":  sPaths{GET: handler.Verify},
 			"ws":      sPaths{GET: handler.Websocket},
+			"api": sPaths{
+				Sub: map[string]sPaths{
+					"about":           sPaths{GET: handler.ApiAbout},
+					"update_property": sPaths{PUT: handler.ApiPropertyUpdate},
+			},
 		},
 	})
 

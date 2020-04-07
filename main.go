@@ -60,12 +60,6 @@ func main() {
 	//
 	// create http service
 
-	r4 := r1.PathPrefix("/etc").Subrouter()
-	r4b := r4.PathPrefix("/badges").Subrouter()
-	r4b.Path("/members_online.svg").HandlerFunc(handler.EtcBadgeMembersOnline)
-	r4b.Path("/members_total.svg").HandlerFunc(handler.EtcBadgeMembersTotal)
-	r4.Path("/role_colors.css").HandlerFunc(handler.EtcRoleColorCSS)
-
 	r5 := r1.PathPrefix("/roles").Subrouter()
 	r5.Path("/@me").HandlerFunc(handler.RolesMe)
 	r5.Path("/create").HandlerFunc(handler.RolesCreate)
@@ -111,6 +105,17 @@ func main() {
 										GET: handler.ChannelMessagesRead,
 										DEL: handler.ChannelMessagesDelete,
 									},
+								},
+							},
+						},
+					},
+					"etc": sPaths{
+						Sub: map[string]sPaths{
+							"role_colors.css": sPaths{GET: handler.EtcRoleColorCSS},
+							"badges": sPaths{
+								Sub: map[string]sPaths{
+									"members_online.svg": sPaths{GET: handler.EtcBadgeMembersOnline},
+									"members_total.svg":  sPaths{GET: handler.EtcBadgeMembersTotal},
 								},
 							},
 						},

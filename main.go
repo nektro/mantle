@@ -60,18 +60,6 @@ func main() {
 	//
 	// create http service
 
-	r3 := r1.PathPrefix("/channels").Subrouter()
-	r3.Path("/@me").HandlerFunc(handler.ChannelsMe)
-	r3.Path("/create").HandlerFunc(handler.ChannelCreate)
-	r3u := r3.PathPrefix("/{uuid}").Subrouter()
-	r3v := r3u.Path("")
-	r3v.Methods(http.MethodGet).HandlerFunc(handler.ChannelRead)
-	r3v.Methods(http.MethodPut).HandlerFunc(handler.ChannelUpdate)
-	r3v.Methods(http.MethodDelete).HandlerFunc(handler.ChannelDelete)
-	r3m := r3u.PathPrefix("/messages").Subrouter()
-	r3m.Methods(http.MethodGet).HandlerFunc(handler.ChannelMessagesRead)
-	r3m.Methods(http.MethodDelete).HandlerFunc(handler.ChannelMessagesDelete)
-
 	r4 := r1.PathPrefix("/etc").Subrouter()
 	r4b := r4.PathPrefix("/badges").Subrouter()
 	r4b.Path("/members_online.svg").HandlerFunc(handler.EtcBadgeMembersOnline)
@@ -107,6 +95,23 @@ func main() {
 							"online": sPaths{GET: handler.UsersOnline},
 							"{uuid}": sPaths{
 								GET: handler.UsersRead,
+							},
+						},
+					},
+					"channels": sPaths{
+						Sub: map[string]sPaths{
+							"@me":    sPaths{GET: handler.ChannelsMe},
+							"create": sPaths{POS: handler.ChannelCreate},
+							"{uuid}": sPaths{
+								GET: handler.ChannelRead,
+								PUT: handler.ChannelUpdate,
+								DEL: handler.ChannelDelete,
+								Sub: map[string]sPaths{
+									"messages": sPaths{
+										GET: handler.ChannelMessagesRead,
+										DEL: handler.ChannelMessagesDelete,
+									},
+								},
 							},
 						},
 					},

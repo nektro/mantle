@@ -33,9 +33,9 @@ func QueryUserByUUID(uid string) (*User, bool) {
 }
 
 func QueryUserBySnowflake(provider string, flake string, name string) *User {
-	us := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableUsers).Wh("provider", provider).Wh("snowflake", flake), User{})
-	if us != nil {
-		return us.(*User)
+	us, ok := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableUsers).Wh("provider", provider).Wh("snowflake", flake), User{}).(*User)
+	if ok {
+		return us
 	}
 	// else
 	dbstorage.InsertsLock.Lock()

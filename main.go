@@ -110,9 +110,42 @@ func main() {
 	r6u.Methods(http.MethodDelete).HandlerFunc(handler.InviteDelete)
 
 	r.HandleFunc("/ws", handler.Websocket)
+	fRegister("/", sPaths{
+	})
 
 	//
 	// start server
 
 	etc.StartServer(idata.Config.Port)
+}
+
+type sPaths struct {
+	GET http.HandlerFunc
+	POS http.HandlerFunc
+	PUT http.HandlerFunc
+	DEL http.HandlerFunc
+	Sub map[string]sPaths
+}
+
+func fRegister(s string, p sPaths) {
+	if strings.HasPrefix(s, "//") {
+		s = s[1:]
+	}
+	if p.GET != nil {
+		etc.Router.HandleFunc(s, p.GET)
+	}
+	if p.POS != nil {
+		etc.Router.HandleFunc(s, p.POS)
+	}
+	if p.PUT != nil {
+		etc.Router.HandleFunc(s, p.PUT)
+	}
+	if p.DEL != nil {
+		etc.Router.HandleFunc(s, p.DEL)
+	}
+	if p.Sub != nil {
+		for k, v := range p.Sub {
+			fRegister(s+"/"+k, v)
+		}
+	}
 }

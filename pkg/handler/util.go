@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -11,9 +10,10 @@ import (
 	"github.com/nektro/mantle/pkg/db"
 
 	"github.com/gorilla/sessions"
-	"github.com/nektro/go-util/alias"
 	"github.com/nektro/go-util/arrays/stringsu"
 	etc "github.com/nektro/go.etc"
+
+	. "github.com/nektro/go-util/alias"
 )
 
 var formMethods = []string{http.MethodPost, http.MethodPut, http.MethodPatch, http.MethodDelete}
@@ -60,7 +60,7 @@ func writeAPIResponse(r *http.Request, w http.ResponseWriter, good bool, status 
 		fmt.Fprintln(w, string(dat))
 	}
 	if !good {
-		return errors.New("")
+		return E(F("%v", message))
 	}
 	return nil
 }
@@ -81,7 +81,7 @@ func hGrabFormStrings(r *http.Request, w http.ResponseWriter, s ...string) error
 	for _, item := range s {
 		if !(len(r.Form.Get(item)) > 0) {
 			writeAPIResponse(r, w, false, http.StatusBadRequest, "missing form value '"+item+"'.")
-			return alias.E("missing " + item + " in form")
+			return E("missing " + item + " in form")
 		}
 	}
 	return nil

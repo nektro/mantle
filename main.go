@@ -60,12 +60,6 @@ func main() {
 	//
 	// create http service
 
-	r5 := r1.PathPrefix("/roles").Subrouter()
-	r5.Path("/@me").HandlerFunc(handler.RolesMe)
-	r5.Path("/create").HandlerFunc(handler.RolesCreate)
-	r5u := r5.PathPrefix("/{uuid}").Subrouter()
-	r5u.Methods(http.MethodPut).HandlerFunc(handler.RoleUpdate)
-	r5u.Methods(http.MethodDelete).HandlerFunc(handler.RoleDelete)
 
 	r6 := r1.PathPrefix("/invites").Subrouter()
 	r6.Path("/@me").HandlerFunc(handler.InvitesMe)
@@ -117,6 +111,16 @@ func main() {
 									"members_online.svg": sPaths{GET: handler.EtcBadgeMembersOnline},
 									"members_total.svg":  sPaths{GET: handler.EtcBadgeMembersTotal},
 								},
+							},
+						},
+					},
+					"roles": sPaths{
+						Sub: map[string]sPaths{
+							"@me":    sPaths{GET: handler.RolesMe},
+							"create": sPaths{POS: handler.RolesCreate},
+							"{uuid}": sPaths{
+								PUT: handler.RoleUpdate,
+								DEL: handler.RoleDelete,
 							},
 						},
 					},

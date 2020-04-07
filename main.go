@@ -70,6 +70,17 @@ func main() {
 				Sub: map[string]sPaths{
 					"about":           sPaths{GET: handler.ApiAbout},
 					"update_property": sPaths{PUT: handler.ApiPropertyUpdate},
+					"etc": sPaths{
+						Sub: map[string]sPaths{
+							"role_colors.css": sPaths{GET: handler.EtcRoleColorCSS},
+							"badges": sPaths{
+								Sub: map[string]sPaths{
+									"members_online.svg": sPaths{GET: handler.EtcBadgeMembersOnline},
+									"members_total.svg":  sPaths{GET: handler.EtcBadgeMembersTotal},
+								},
+							},
+						},
+					},
 					"users": sPaths{
 						Sub: map[string]sPaths{
 							"@me":    sPaths{GET: handler.UsersMe},
@@ -92,17 +103,6 @@ func main() {
 										GET: handler.ChannelMessagesRead,
 										DEL: handler.ChannelMessagesDelete,
 									},
-								},
-							},
-						},
-					},
-					"etc": sPaths{
-						Sub: map[string]sPaths{
-							"role_colors.css": sPaths{GET: handler.EtcRoleColorCSS},
-							"badges": sPaths{
-								Sub: map[string]sPaths{
-									"members_online.svg": sPaths{GET: handler.EtcBadgeMembersOnline},
-									"members_total.svg":  sPaths{GET: handler.EtcBadgeMembersTotal},
 								},
 							},
 						},

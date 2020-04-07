@@ -60,13 +60,6 @@ func main() {
 	//
 	// create http service
 
-
-	r6 := r1.PathPrefix("/invites").Subrouter()
-	r6.Path("/@me").HandlerFunc(handler.InvitesMe)
-	r6.Path("/create").HandlerFunc(handler.InvitesCreate)
-	r6u := r6.PathPrefix("/{uuid}").Subrouter()
-	r6u.Methods(http.MethodPut).HandlerFunc(handler.InviteUpdate)
-	r6u.Methods(http.MethodDelete).HandlerFunc(handler.InviteDelete)
 	fRegister("/", sPaths{
 		GET: handler.InviteGet,
 		Sub: map[string]sPaths{
@@ -124,6 +117,17 @@ func main() {
 							},
 						},
 					},
+					"invites": sPaths{
+						Sub: map[string]sPaths{
+							"@me":    sPaths{GET: handler.InvitesMe},
+							"create": sPaths{POS: handler.InvitesCreate},
+							"{uuid}": sPaths{
+								PUT: handler.InviteUpdate,
+								DEL: handler.InviteDelete,
+							},
+						},
+					},
+				},
 			},
 		},
 	})

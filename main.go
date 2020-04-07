@@ -104,13 +104,12 @@ func main() {
 	r6u := r6.PathPrefix("/{uuid}").Subrouter()
 	r6u.Methods(http.MethodPut).HandlerFunc(handler.InviteUpdate)
 	r6u.Methods(http.MethodDelete).HandlerFunc(handler.InviteDelete)
-
-	r.HandleFunc("/ws", handler.Websocket)
 	fRegister("/", sPaths{
 		GET: handler.InviteGet,
 		Sub: map[string]sPaths{
 			"invite":  sPaths{POS: handler.InvitePost},
 			"verify":  sPaths{GET: handler.Verify},
+			"ws":      sPaths{GET: handler.Websocket},
 		},
 	})
 

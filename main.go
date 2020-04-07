@@ -62,10 +62,6 @@ func main() {
 
 	r := etc.Router
 
-	r.Path("/").HandlerFunc(handler.InviteGet)
-	r.Path("/invite").HandlerFunc(handler.InvitePost)
-	r.Path("/verify").HandlerFunc(handler.Verify)
-
 	r1 := r.PathPrefix("/api").Subrouter()
 	r1.Path("/about").HandlerFunc(handler.ApiAbout)
 	r1.Path("/update_property").HandlerFunc(handler.ApiPropertyUpdate)
@@ -111,6 +107,11 @@ func main() {
 
 	r.HandleFunc("/ws", handler.Websocket)
 	fRegister("/", sPaths{
+		GET: handler.InviteGet,
+		Sub: map[string]sPaths{
+			"invite":  sPaths{POS: handler.InvitePost},
+			"verify":  sPaths{GET: handler.Verify},
+		},
 	})
 
 	//

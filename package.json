@@ -4,7 +4,7 @@
   "description": "📒 Easy and effective communication for any team or community.",
   "main": "index.js",
   "scripts": {
-    "test": "./start.sh"
+    "test": "./test.sh"
   },
   "repository": {
     "type": "git",

@@ -64,6 +64,10 @@ customElements.define("x-msg-pane", class extends HTMLElement {
             await this.prependMessage(u, item[1]);
         }
     }
+    /**
+     * @param {api.User} user
+     * @param {api.Message} msg
+     */
     async appendMessage(user, msg) {
         const at_bottom = ele_atBottom(this);
         //
@@ -74,6 +78,10 @@ customElements.define("x-msg-pane", class extends HTMLElement {
         //
         if (at_bottom) this.scrollTop = this.scrollHeight;
     }
+    /**
+     * @param {api.User} user
+     * @param {api.Message} msg
+     */
     async prependMessage(user, msg) {
         const at_bottom = ele_atBottom(this);
         //

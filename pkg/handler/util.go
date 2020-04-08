@@ -16,7 +16,9 @@ import (
 	. "github.com/nektro/go-util/alias"
 )
 
-var formMethods = []string{http.MethodPost, http.MethodPut, http.MethodPatch, http.MethodDelete}
+var (
+	formMethods = []string{http.MethodPost, http.MethodPut, http.MethodPatch, http.MethodDelete}
+)
 
 func apiBootstrapRequireLogin(r *http.Request, w http.ResponseWriter, method string, assertMembership bool) (*sessions.Session, *db.User, error) {
 	if r.Method != method {

@@ -17,7 +17,6 @@ func Websocket(w http.ResponseWriter, r *http.Request) {
 	}
 	wuser, err := ws.Connect(user, w, r)
 	if err != nil {
-		writeAPIResponse(r, w, false, http.StatusBadRequest, err.Error())
 		return
 	}
 

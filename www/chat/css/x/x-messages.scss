@@ -50,7 +50,7 @@ x-message {
         + .selected {
             border-top-color: transparent;
         }
-        + :not(.selected) {
+        + x-message:not(.selected) {
             border-top-color: #b58900aa;
         }
     }

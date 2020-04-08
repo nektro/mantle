@@ -63,6 +63,30 @@ customElements.define("x-msg-pane", class extends HTMLElement {
             const u = await api.M.users.get(item[1].author);
             await this.prependMessage(u, item[1]);
         }
+        //
+        this.addEventListener("scroll", async (e) => {
+            if (this.children.length === 0) return;
+            if (e.target.scrollTop !== 0) return;
+            if (this.classList.contains("loading")) return;
+            if (this.classList.contains("loading-done")) return;
+            //
+            this.classList.add("loading");
+            const fc = this.children[0];
+            const lstm = this.children[0]._uid;
+            await api.M.channels.with(this._uid).messages.after(lstm).then(async (y) => {
+                if (y.length <= 1) {
+                    this.classList.add("loading-done");
+                    this.insertBefore(_make_m_divider(fc), fc);
+                    return;
+                }
+                for (const item of y) {
+                    const u = await api.M.users.get(item.author);
+                    await this.prependMessage(u, item);
+                }
+                this.scrollTop = fc.offsetTop-60;
+            });
+            this.classList.remove("loading");
+        });
     }
     /**
      * @param {api.User} user

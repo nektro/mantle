@@ -62,8 +62,10 @@ export const M = {
             await output.addMessage(d.in, u, m);
         },
         delete: (d) => {
+            const ch = output.getChannel(d.channel);
             for (const item of d.affected) {
                 api.M.channels.with(d.channel).messages.remove(item);
+                ch.removeMessage(item);
             }
         },
     },

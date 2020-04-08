@@ -125,4 +125,8 @@ customElements.define("x-msg-pane", class extends HTMLElement {
     selected() {
         return Array.from(this.querySelectorAll("x-message.selected"));
     }
+    removeMessage(uid) {
+        const el = this.querySelector(`x-message[uuid="${uid}"]`);
+        el.remove();
+    }
 });

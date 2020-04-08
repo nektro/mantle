@@ -29,6 +29,12 @@ function fetchE(endpoint, method="get", data={}) {
     const body = new FormData();
     for (const k in data) {
         if (!Object.prototype.hasOwnProperty.call(data, k)) continue;
+        if (data[k] instanceof Array) {
+            for (const item of data[k]) {
+                body.append(k, item);
+            }
+            continue;
+        }
         body.set(k, data[k]);
     }
     const opts = method === "get" ? {} : {method, body};
@@ -130,6 +136,9 @@ export const M = {
                     },
                     after: (uid) => {
                         return fetchL(`/channels/${ch_uid}/messages?after=${uid}`, Message, ch_uid);
+                    },
+                    delete: (uids) => {
+                        return fetchE(`/channels/${ch_uid}/messages`, "delete", { "ids":uids });
                     },
                     remove: (uid) => {
                         return C.messages.get(ch_uid).delete(uid);

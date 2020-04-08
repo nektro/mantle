@@ -6,18 +6,22 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/nektro/mantle/pkg/db"
 
 	"github.com/gorilla/sessions"
 	"github.com/nektro/go-util/arrays/stringsu"
+	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
+	sdrie "github.com/nektro/go.sdrie"
 
 	. "github.com/nektro/go-util/alias"
 )
 
 var (
 	formMethods = []string{http.MethodPost, http.MethodPut, http.MethodPatch, http.MethodDelete}
+	badgeCache  = sdrie.New()
 )
 
 func apiBootstrapRequireLogin(r *http.Request, w http.ResponseWriter, method string, assertMembership bool) (*sessions.Session, *db.User, error) {
@@ -75,8 +79,19 @@ func hGrabInt(s string) (string, int64, error) {
 func hBadge(w http.ResponseWriter, r *http.Request, l, m, c string) {
 	l = strings.ReplaceAll(l, " ", "_")
 	m = strings.ReplaceAll(m, " ", "_")
-	w.Header().Add("location", alias.F("https://img.shields.io/badge/%s-%s-%s", l, m, c))
-	w.WriteHeader(http.StatusFound)
+	k := l + "-" + m + "-" + c
+	w.Header().Add("content-type", "image/svg+xml")
+	if badgeCache.Has(k) {
+		fmt.Fprintln(w, string(badgeCache.Get(k).([]byte)))
+		return
+	}
+	req, _ := http.NewRequest(http.MethodGet, "https://img.shields.io/badge/"+k, nil)
+	bys, err := util.DoHttpFetch(req)
+	if err != nil {
+		return
+	}
+	badgeCache.Set(k, bys, time.Minute*10)
+	fmt.Fprintln(w, string(bys))
 }
 
 func hGrabFormStrings(r *http.Request, w http.ResponseWriter, s ...string) error {

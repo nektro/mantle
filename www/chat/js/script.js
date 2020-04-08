@@ -20,6 +20,9 @@ $(document).on("click", (e) => {
 //
 (async function() {
     //
+    moment.defaultFormat = "ddd MMM DD Y HH:mm:ss zZZ";
+
+    //
     await api.M.meta.about().then((x) => {
         setDataBinding("server_name", x.name);
         setDataBinding("server_version", x.version);

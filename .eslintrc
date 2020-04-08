@@ -68,7 +68,7 @@
         "sort-keys":"off",
         "new-cap":"off",
         "no-plusplus":"off",
-        "indent":["error", 4, { "SwitchCase": 1 }],
+        "indent":["error", 4, { "SwitchCase": 1, "MemberExpression": 0 }],
         "key-spacing":"off",
         "no-continue":"off",
         "require-atomic-updates":"off",

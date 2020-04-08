@@ -8,6 +8,7 @@
 @import './x/x-button.scss';
 
 @import './x/x-uonline.scss';
+@import './x/x-messages.scss';
 
 * {
     box-sizing: border-box;
@@ -138,94 +139,6 @@ body {
         hr {
             margin: 0 1em;
             border-color: $based2;
-        }
-    }
-    #messages {
-        background-color: $based3;
-        color: $comment;
-        display: flex;
-        flex-direction: column;
-        padding: 1em 0;
-        padding-right: 0;
-        justify-content: flex-end;
-        overflow-y: hidden;
-        font-family: 'Courier New', 'Courier', monospace;
-        font-size: .9em;
-
-        > div {
-            overflow-y: scroll;
-
-            > div.msg {
-                padding: .5em 1em;
-                display: flex;
-                flex-direction: row;
-                border: 2px solid transparent;
-                border-bottom-width: 0;
-                color: white;
-
-                &:last-child {
-                    border-bottom-width: 2px;
-                }
-                &:hover {
-                    background-color: darken($based3, 2%);
-                }
-                &.selected {
-                    border-color: #b58900aa;
-                    background-color: transparentize(#004d45, .5);
-
-                    & + .selected {
-                        border-top-color: transparent;
-                    }
-                    & + :not(.selected) {
-                        border-top-color: #b58900aa;
-                    }
-                }
-                &:not([data-user-uid]) > div {
-                    color: $based1;
-                }
-                > div {
-                    vertical-align: middle;
-                    display: flex;
-                    align-items: center;
-
-                    &.ts {
-                        padding-right: .5em;
-                        color: $based1;
-                        white-space: nowrap;
-                        font-size: .9em;
-                    }
-                    &.usr {
-                        padding-right: .5em;
-                        font-weight: 500;
-                        cursor: pointer;
-
-                        &::after {
-                            content: ":";
-                            color: white;
-                        }
-                    }
-                    &.dat {
-                        font-weight: 300;
-                        word-wrap: anywhere;
-                        hyphens: auto;
-                        display: block;
-
-                        a {
-                            color: $cyan;
-
-                            &:hover {
-                                color: $blue;
-                            }
-                        }
-                        img {
-                            max-height: 1.5em;
-                            vertical-align: middle;
-                            margin-top: -100%;
-                            margin-bottom: -100%;
-                        }
-                    }
-                }
-            }
         }
     }
     #me {

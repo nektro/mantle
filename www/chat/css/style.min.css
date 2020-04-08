@@ -115,6 +115,42 @@ x-uonline-user:hover { background-color: #003745; }
 
 x-uonline-user span:nth-child(2) { color: #465253; }
 
+x-messages { background-color: #002b36; color: #586e75; display: flex; flex-direction: column; padding: 1em 0; padding-right: 0; justify-content: flex-end; overflow-y: hidden; font-family: 'Courier New', 'Courier', monospace; }
+
+x-msg-pane { display: block; overflow-y: scroll; }
+
+x-msg-pane > fieldset { border-width: 0; border-top-width: inherit; border-color: #586e75; padding: 0; }
+
+x-msg-pane > fieldset > legend { padding: 0 1em; margin: auto; }
+
+x-message { padding: .25em 1em; display: flex; flex-direction: row; border: 2px solid transparent; border-bottom-width: 0; color: white; }
+
+x-message:last-child { border-bottom-width: 2px; }
+
+x-message:hover { background-color: #00232c; }
+
+x-message.selected { border-color: #b58900aa; background-color: rgba(0, 77, 69, 0.5); }
+
+x-message.selected + .selected { border-top-color: transparent; }
+
+x-message.selected + :not(.selected) { border-top-color: #b58900aa; }
+
+x-message > div { vertical-align: middle; display: flex; align-items: center; font-family: 'Ubuntu', sans-serif; }
+
+x-message > div.ts { padding-right: .5em; color: #586e75; white-space: nowrap; font-size: .9em; font-family: inherit; }
+
+x-message > div.usr { padding-right: .5em; font-weight: 500; cursor: pointer; }
+
+x-message > div.usr::after { content: ":"; color: white; }
+
+x-message > div.dat { font-weight: 300; word-wrap: anywhere; hyphens: auto; display: block; }
+
+x-message > div.dat a { color: #2aa198; }
+
+x-message > div.dat a:hover { color: #268bd2; }
+
+x-message > div.dat img { max-height: 1.5em; vertical-align: middle; margin-top: -100%; margin-bottom: -100%; }
+
 * { box-sizing: border-box; }
 
 input { display: block; }
@@ -166,40 +202,6 @@ body #channel-list ol li div:nth-child(1)::before { content: "# "; }
 body #channel-list ol li div.unred { padding: 0 .25em; background-color: #586e75; border-radius: 50%; justify-self: right; }
 
 body #channel-list hr { margin: 0 1em; border-color: #073642; }
-
-body #messages { background-color: #002b36; color: #586e75; display: flex; flex-direction: column; padding: 1em 0; padding-right: 0; justify-content: flex-end; overflow-y: hidden; font-family: 'Courier New', 'Courier', monospace; font-size: .9em; }
-
-body #messages > div { overflow-y: scroll; }
-
-body #messages > div > div.msg { padding: .5em 1em; display: flex; flex-direction: row; border: 2px solid transparent; border-bottom-width: 0; color: white; }
-
-body #messages > div > div.msg:last-child { border-bottom-width: 2px; }
-
-body #messages > div > div.msg:hover { background-color: #00232c; }
-
-body #messages > div > div.msg.selected { border-color: #b58900aa; background-color: rgba(0, 77, 69, 0.5); }
-
-body #messages > div > div.msg.selected + .selected { border-top-color: transparent; }
-
-body #messages > div > div.msg.selected + :not(.selected) { border-top-color: #b58900aa; }
-
-body #messages > div > div.msg:not([data-user-uid]) > div { color: #586e75; }
-
-body #messages > div > div.msg > div { vertical-align: middle; display: flex; align-items: center; }
-
-body #messages > div > div.msg > div.ts { padding-right: .5em; color: #586e75; white-space: nowrap; font-size: .9em; }
-
-body #messages > div > div.msg > div.usr { padding-right: .5em; font-weight: 500; cursor: pointer; }
-
-body #messages > div > div.msg > div.usr::after { content: ":"; color: white; }
-
-body #messages > div > div.msg > div.dat { font-weight: 300; word-wrap: anywhere; hyphens: auto; display: block; }
-
-body #messages > div > div.msg > div.dat a { color: #2aa198; }
-
-body #messages > div > div.msg > div.dat a:hover { color: #268bd2; }
-
-body #messages > div > div.msg > div.dat img { max-height: 1.5em; vertical-align: middle; margin-top: -100%; margin-bottom: -100%; }
 
 body #me { display: flex; flex-direction: row; justify-content: center; }
 

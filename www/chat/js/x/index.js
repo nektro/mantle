@@ -15,3 +15,8 @@ import "./x-button.js";
 import "./x-uonline.js";
 import "./x-uonline-role.js";
 import "./x-uonline-user.js";
+
+// messages
+import "./x-messages.js";
+import "./x-msg-pane.js";
+import "./x-message.js";

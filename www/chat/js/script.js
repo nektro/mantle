@@ -4,7 +4,7 @@ import "./x/index.js";
 //
 import { setDataBinding } from "./util.js";
 import * as ui from "./ui.js";
-import { el_2, el_3, el_1, output, messageCache } from "./ui.util.js";
+import { el_2, el_3, el_1, output } from "./ui.util.js";
 import * as api from "./api/index.js";
 import * as ws from "./ws.js";
 
@@ -75,7 +75,7 @@ $(document).on("click", (e) => {
         for (const item of x) {
             await ui.addChannel(item);
         }
-        await ui.setActiveChannel(x[0].uuid);
+        await output.setActiveChannel(x[0].uuid);
 
         const el2 = document.getElementById("channel-name");
         el2.children[0].textContent = x[0].name;
@@ -95,54 +95,7 @@ $(document).on("click", (e) => {
         el_1.querySelector("ol").addEventListener("click", (ev) => {
             const fl = ev.composedPath().filter((v) => v instanceof Element && v.matches("[data-uuid]"));
             if (fl.length === 0) return;
-            ui.setActiveChannel(fl[0].dataset.uuid);
-        });
-        output.addEventListener("scroll", async (e) => {
-            if (output.children.length === 0) return;
-            if (e.target.scrollTop !== 0) return;
-            if (output.classList.contains("loading")) return;
-            if (output.classList.contains("loading-done")) return;
-            //
-            output.classList.add("loading");
-            const fc = output.children[0];
-            const lstm = output.children[0].dataset.msgUid;
-            const chuid = ui.volatile.activeChannel.dataset.uuid;
-            await fetch(`./../api/channels/${chuid}/messages?after=${lstm}`).then((y) => y.json()).then(async (y) => {
-                if (y.message.length <= 1) {
-                    output.classList.add("loading-done");
-                    return;
-                }
-                for (let i = 1; i < y.message.length; i++) {
-                    const item = y.message[i];
-                    output.prepend(await ui.createMessage(await api.M.users.get(item.author), item));
-                    messageCache.get(chuid).unshift(item);
-                }
-                output.scrollTop = fc.offsetTop-60;
-            });
-            output.classList.remove("loading");
-        });
-        document.addEventListener("keydown", async (e) => {
-            if (e.key !== "Delete") return;
-            if (document.activeElement !== document.body) return;
-            if (document.querySelector("dialog[open]") !== null) return;
-            if (ui.volatile.selectedMsgs.length === 0) return;
-            await Swal.fire({
-                title: "Are you sure you want to delete?",
-                text: "You won't be able to revert this!",
-                type: "warning",
-                showCancelButton: true,
-            }).then(async (r) => {
-                if (!r.value) return;
-                const m2d = ui.volatile.selectedMsgs.filter((v) => v.dataset.userUid === ui.volatile.me.uuid).map((v) => v.dataset.msgUid);
-                const fd = new FormData();
-                m2d.forEach((v) => fd.append("ids", v));
-                await fetch(`./../api/channels/${ui.volatile.activeChannel.dataset.uuid}/messages`, {
-                    method: "DELETE",
-                    body: fd,
-                }).then((y) => y.json()).then(() => {
-                    //
-                });
-            });
+            output.setActiveChannel(fl[0].dataset.uuid);
         });
     });
 
@@ -201,7 +154,7 @@ $(document).on("click", (e) => {
             if (msg_con.length === 0) return;
             socket.send(JSON.stringify({
                 type: "message",
-                in: ui.volatile.activeChannel.dataset.uuid,
+                in: output.active_channel_uid,
                 message: msg_con.trim(),
             }));
             e.target.value = "";

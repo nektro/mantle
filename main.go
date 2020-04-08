@@ -146,22 +146,22 @@ type sPaths struct {
 	Sub map[string]sPaths
 }
 
+func iregister(m, p string, h http.HandlerFunc) {
+	if h == nil {
+		return
+	}
+	etc.Router.Methods(m).Path(p).HandlerFunc(h)
+}
+
 func fRegister(s string, p sPaths) {
 	if strings.HasPrefix(s, "//") {
 		s = s[1:]
 	}
-	if p.GET != nil {
-		etc.Router.HandleFunc(s, p.GET)
-	}
-	if p.POS != nil {
-		etc.Router.HandleFunc(s, p.POS)
-	}
-	if p.PUT != nil {
-		etc.Router.HandleFunc(s, p.PUT)
-	}
-	if p.DEL != nil {
-		etc.Router.HandleFunc(s, p.DEL)
-	}
+	iregister(http.MethodGet, s, p.GET)
+	iregister(http.MethodPost, s, p.POS)
+	iregister(http.MethodPut, s, p.PUT)
+	iregister(http.MethodDelete, s, p.DEL)
+	//
 	if p.Sub != nil {
 		for k, v := range p.Sub {
 			fRegister(s+"/"+k, v)

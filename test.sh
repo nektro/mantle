@@ -2,7 +2,6 @@
 
 set -e
 set -x
-shopt -s globstar
 
 
 ########################
@@ -21,7 +20,7 @@ go vet -composites=false
 ########################
 
 # https://jshint.com/
-./node_modules/.bin/jshint ./www/chat/js/**/*.js ./tests/**/*.js
+./node_modules/.bin/jshint ./www/chat/js/
 
 # https://eslint.org/
-./node_modules/.bin/eslint ./www/chat/js/**/*.js ./tests/**/*.js
+./node_modules/.bin/eslint ./www/chat/js/

@@ -122,6 +122,21 @@ export const M = {
     },
     channels: {
         ...resource_factory("channels", Channel, 1),
+        with: (ch_uid) => {
+            return {
+                messages: {
+                    latest: () => {
+                        return fetchL(`/channels/${ch_uid}/messages`, Message, ch_uid);
+                    },
+                    after: (uid) => {
+                        return fetchL(`/channels/${ch_uid}/messages?after=${uid}`, Message, ch_uid);
+                    },
+                    remove: (uid) => {
+                        return C.messages.get(ch_uid).delete(uid);
+                    },
+                }
+            };
+        },
     },
     roles: {
         ...resource_factory("roles", Role, 2),

@@ -123,6 +123,6 @@ customElements.define("x-msg-pane", class extends HTMLElement {
         if (at_bottom) this.scrollTop = this.scrollHeight;
     }
     selected() {
-        return this.querySelectorAll("x-message.selected");
+        return Array.from(this.querySelectorAll("x-message.selected"));
     }
 });

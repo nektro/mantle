@@ -21,7 +21,7 @@ customElements.define("x-uonline-role", class extends HTMLElement {
         this.children[0].dataset.count = x.toString();
     }
     addUser(uid) {
-        this.children[1].appendChild(create_element("x-uonline-user", [["uuid",uid],["data-role",this._uid]]));
+        this.children[1].appendChild(create_element("x-uonline-user", [["uuid",uid]]));
         this.count += 1;
     }
     removeUser(uid) {

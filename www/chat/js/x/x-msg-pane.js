@@ -42,6 +42,16 @@ async function _make_m_element(user, msg) {
 }
 
 //
+/**
+ * @param {api.Message} msg
+ */
+function _make_m_divider(msg) {
+    return create_element("fieldset", [["class","date-div"]], [
+        create_element("legend", null, [dcTN(msg.time.toString().substring(0, 15))])
+    ]);
+}
+
+//
 customElements.define("x-msg-pane", class extends HTMLElement {
     constructor() {
         super();
@@ -57,6 +67,9 @@ customElements.define("x-msg-pane", class extends HTMLElement {
     async appendMessage(user, msg) {
         const at_bottom = ele_atBottom(this);
         //
+        if (this.children.length === 0 || !this.lastElementChild.time.isSame(msg.time, "day")) {
+            this.appendChild(_make_m_divider(msg));
+        }
         this.appendChild(await _make_m_element(user, msg));
         //
         if (at_bottom) this.scrollTop = this.scrollHeight;
@@ -69,7 +82,11 @@ customElements.define("x-msg-pane", class extends HTMLElement {
             return;
         }
         const f = this.children[0];
+        const d = f.classList.contains("date-div") ? this.children[1] : f;
         this.insertBefore(await _make_m_element(user, msg), f);
+        if (!d.time.isSame(msg.time, "day")) {
+            this.insertBefore(_make_m_divider(d), f);
+        }
         //
         if (at_bottom) this.scrollTop = this.scrollHeight;
     }

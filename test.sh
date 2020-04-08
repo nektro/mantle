@@ -12,6 +12,9 @@ shopt -s globstar
 # https://golang.org/pkg/testing/
 go test
 
+# https://golang.org/cmd/vet/
+go vet -composites=false
+
 
 ########################
 #  Javascript Testing  #

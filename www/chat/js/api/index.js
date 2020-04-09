@@ -78,10 +78,10 @@ function resource_factory(name, cl, cch) {
             return fetchIC(`/${name}/${uid}`, cl, cch, uid);
         },
         update: (uid,k,v) => {
-            return fetchE(`/${name}/${uid}/update`, "put", { p_name: k, p_value: v, });
+            return fetchE(`/${name}/${uid}`, "put", { p_name: k, p_value: v, });
         },
         delete: (uid) => {
-            return fetchE(`/${name}/${uid}/delete`, "delete");
+            return fetchE(`/${name}/${uid}`, "delete");
         },
         remove: (uid) => {
             return caches[cch].delete(uid);
@@ -123,7 +123,7 @@ export const M = {
             return fetchE("/users/online");
         },
         update: (uid,k,v) => {
-            return fetchE(`/users/${uid}/update`, "put", { p_name: k, p_value: v, });
+            return fetchE(`/users/${uid}`, "put", { p_name: k, p_value: v, });
         },
     },
     channels: {

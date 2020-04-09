@@ -72,21 +72,30 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 
 	n := r.Form.Get("p_name")
 	v := r.Form.Get("p_value")
+	up := ws.UserPerms{}.From(user)
 	switch n {
 	case "add_role":
-		if _, ok := db.QueryRoleByUID(v); !ok {
+		rl, ok := db.QueryRoleByUID(v)
+		if !ok {
 			return
 		}
-		if !user.HasRole("o") {
+		if !up.ManageRoles {
+			return
+		}
+		if user.GetRolesSorted()[0].Position >= rl.Position {
 			return
 		}
 		u.AddRole(v)
 		successCb(u, n, v)
 	case "remove_role":
-		if _, ok := db.QueryRoleByUID(v); !ok {
+		rl, ok := db.QueryRoleByUID(v)
+		if !ok {
 			return
 		}
-		if !user.HasRole("o") {
+		if !up.ManageRoles {
+			return
+		}
+		if user.GetRolesSorted()[0].Position >= rl.Position {
 			return
 		}
 		u.RemoveRole(v)

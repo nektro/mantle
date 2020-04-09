@@ -40,6 +40,7 @@ $(document).on("click", (e) => {
     //
     await api.M.users.me().then((x) => {
         ui.volatile.me = x.user;
+        ui.volatile.me.perms = x.perms;
         const n = ui.volatile.me.nickname || ui.volatile.me.name;
         el_3.children[0].textContent = `@${n}`;
         document.querySelectorAll("[data-requires]").forEach((el) => {

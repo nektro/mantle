@@ -87,6 +87,7 @@ func main() {
 							"online": sPaths{GET: handler.UsersOnline},
 							"{uuid}": sPaths{
 								GET: handler.UsersRead,
+								PUT: handler.UserUpdate,
 							},
 						},
 					},

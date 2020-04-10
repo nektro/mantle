@@ -13,6 +13,7 @@ export const volatile = {
     selectedMsgs: [],
     /** @type {api.User} */
     me: null,
+    windowActive: true,
 };
 
 //
@@ -83,3 +84,23 @@ export async function addChannel(ch) {
     //
     await api.M.channels.with(ch.uuid).messages.latest();
 }
+
+//
+export const toggleHandlers = new Map();
+//
+function addToggleHandler(key_name, f) {
+    toggleHandlers.set(key_name, (v) => {
+        localStorage.setItem(key_name, v);
+        f(v);
+        document.querySelector(`x-settings [local-name="${key_name}"]`).setAttribute("value", v);
+    });
+}
+addToggleHandler("notifications_messages", (v) => {
+    if (v === "1") {
+        Notification.requestPermission().then((result) => {
+            if (result !== "granted") {
+                toggleHandlers.get("notifications_messages")("0");
+            }
+        });
+    }
+});

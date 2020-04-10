@@ -25,6 +25,9 @@ export class Channel {
         this.el.dataset.unread = x.toString();
         this.el.querySelector(".unred").textContent = x.toString();
     }
+    get p_name() {
+        return this.el.children[0].textContent;
+    }
     set p_name(n) {
         this.el.children[0].textContent = n;
     }

@@ -16,6 +16,12 @@ $(document).on("click", (e) => {
     const s = document.querySelectorAll("dialog[open]");
     s.forEach((v) => v.removeAttribute("open"));
 });
+window.addEventListener("blur", () => {
+    ui.volatile.windowActive = false;
+});
+window.addEventListener("focus", () => {
+    ui.volatile.windowActive = true;
+});
 
 //
 (async function() {
@@ -62,6 +68,10 @@ $(document).on("click", (e) => {
         document.querySelectorAll("[data-s-for='user'] [data-s-section='my_account'] [fill]").forEach((el) => {
             el.setAttribute("fill", x.user.uuid);
         });
+        //
+        if (Notification.permission !== "granted") {
+            ui.toggleHandlers.get("notifications_messages")("0");
+        }
     }).catch(() => {
         location.assign("../");
     });

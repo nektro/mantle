@@ -2,6 +2,7 @@
 //
 import { WSetting } from "./w-setting.js";
 import { create_element, dcTN } from "./../util.js";
+import * as ui from "./../ui.js";
 
 //
 // jshint -W098
@@ -10,6 +11,7 @@ customElements.define("x-2s-toggle", class extends WSetting {
         super();
     }
     connectedCallback() {
+        const ln = this.getAttribute("local-name");
         const n = this.getAttribute("name");
         const d = this.getAttribute("label")||"";
         this.appendChild(create_element("div", null, [dcTN(d)]));
@@ -17,16 +19,26 @@ customElements.define("x-2s-toggle", class extends WSetting {
             create_element("input", [["type","checkbox"]]),
             create_element("span")
         ]));
-        this.children[1].children[0].addEventListener("change", (ev) => {
+        if (ln !== null) {
+            this.setAttribute("value", localStorage.getItem(ln));
+            this.children[1].children[0].addEventListener("change", () => {
+                ui.toggleHandlers.get(ln)(this._value);
+            });
+            return;
+        }
+        this.children[1].children[0].addEventListener("change", () => {
             const de = this.defaultEndpoint();
             const e = this.getAttribute("endpoint")||de;
             const f = this.getAttribute("fill")||"";
             const e2 = e.replace("%s", f);
             const fd = new FormData();
             fd.append("p_name", n);
-            fd.append("p_value", ev.target.checked ? "1" : "0");
+            fd.append("p_value", this._value);
             return fetch(e2, { method: "put", body: fd, });
         });
+    }
+    get _value() {
+        return this.children[1].children[0].checked ? "1" : "0";
     }
     static get observedAttributes() {
         return ["value"];

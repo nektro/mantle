@@ -58,6 +58,9 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 	if !ok {
 		return
 	}
+	if user.GetRolesSorted()[0].Position >= rl.Position {
+		return
+	}
 
 	successCb := func(rs *db.Role, pk, pv string) {
 		writeAPIResponse(r, w, true, http.StatusOK, map[string]interface{}{

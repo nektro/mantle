@@ -21,6 +21,8 @@
         "Headers": true,
         "MutationObserver": true,
         "moment": true,
+        "localStorage": true,
+        "Notification": true,
         "$": true
     },
     "extends": "eslint:all",

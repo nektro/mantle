@@ -23,16 +23,16 @@
                 </div>
                 <p>{{data.description}}</p>
                 <hr><hr>
-                <p>New? Join here!</p>
                 {{#equal data.public "0"}}
+                <p>New? Join here!</p>
                 <div class="frm-txt">
                     <label for="invc">Invite Code</label>
                     <input type="text" name="code" id="invc" required="" value="{{code}}">
                 </div>
-                {{/equal}}
                 <button type="submit">Enter</button>
                 <hr><hr>
                 <p>Already a member?</p>
+                {{/equal}}
                 <a href="./login">Log In</a>
             </fieldset>
         </form>

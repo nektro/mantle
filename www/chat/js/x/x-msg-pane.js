@@ -21,7 +21,7 @@ async function _make_m_element(user, msg) {
     const time = msg.time.tz(tz).format();
     const el = create_element("x-message", [["class","msg"],["uuid",msg.uuid],["author",user.uuid]], [
         create_element("div", [["class","ts"],["title",time]], [dcTN(time.split(" ")[4])]),
-        create_element("div", attrsU, [dcTN(user.name)]),
+        create_element("div", attrsU, [dcTN(user.getName())]),
         create_element("div", [["class","dat"]], [dcTN(msg.body)]),
     ]);
     const mtx = el.children[2];

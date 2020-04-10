@@ -58,6 +58,10 @@ $(document).on("click", (e) => {
         el_3.children[1].addEventListener("click", () => {
             document.querySelector("x-settings[data-s-for=user]").setAttribute("open","");
         });
+        //
+        document.querySelectorAll("[data-s-for='user'] [data-s-section='my_account'] [fill]").forEach((el) => {
+            el.setAttribute("fill", x.user.uuid);
+        });
     }).catch(() => {
         location.assign("../");
     });

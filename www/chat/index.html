@@ -49,9 +49,15 @@
         <x-settings data-s-for="user">
             <div>
                 <nav>
+                    <a>My Account</a>
                     <a>About Mantle</a>
                 </nav>
                 <div>
+                    <div data-s-section="my_account">
+                        <h2>My Account</h2>
+                        <hr>
+                        <x-text-setting endpoint="./../api/users/%s" name="nickname" label="Nickname" fill=""></x-text-setting>
+                    </div>
                     <div data-s-section="about_mantle">
                         <h2>About Mantle</h2>
                         <hr>

@@ -152,3 +152,8 @@ func (u *User) ResetUID() {
 		Props.Set("owner", u.UUID)
 	}
 }
+
+func (u *User) SetNickname(s string) {
+	db.Build().Up(cTableUsers, "nickname", s).Wh("uuid", u.UUID).Exe()
+	u.Nickname = s
+}

@@ -200,6 +200,14 @@ body {
 
             h2 {
                 margin: 0 0 .5em 0;
+
+                &:empty {
+                    display: none;
+                }
+                &:not(:empty) + h2 {
+                    color: lighten(#839496, 1%);
+                    font-size: 1.25em;
+                }
             }
             >ol {
                 margin: .5em 0;

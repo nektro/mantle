@@ -74,6 +74,12 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 	v := r.Form.Get("p_value")
 	up := ws.UserPerms{}.From(user)
 	switch n {
+	case "nickname":
+		if user.UUID != u.UUID {
+			return
+		}
+		u.SetNickname(v)
+		successCb(u, n, v)
 	case "add_role":
 		rl, ok := db.QueryRoleByUID(v)
 		if !ok {

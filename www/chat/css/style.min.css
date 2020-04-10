@@ -227,6 +227,10 @@ body dialog.popup.user { max-width: 20em; }
 
 body dialog.popup.user h2 { margin: 0 0 .5em 0; }
 
+body dialog.popup.user h2:empty { display: none; }
+
+body dialog.popup.user h2:not(:empty) + h2 { color: #869698; font-size: 1.25em; }
+
 body dialog.popup.user > ol { margin: .5em 0; padding: 0; list-style-type: none; }
 
 body dialog.popup.user > ol li { display: inline-block; background-color: #ccc; border-radius: .25em; padding: .2em; margin-right: .25em; margin-top: .25em; font-size: .9em; }

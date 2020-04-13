@@ -24,16 +24,16 @@
                 <p>{{data.description}}</p>
                 <hr><hr>
                 {{#equal data.public "0"}}
-                <p>New? Join here!</p>
+                <p>{{translate 's001'}}</p>
                 <div class="frm-txt">
-                    <label for="invc">Invite Code</label>
+                    <label for="invc">{{translate 's005'}}</label>
                     <input type="text" name="code" id="invc" required="" value="{{code}}">
                 </div>
-                <button type="submit">Enter</button>
+                <button type="submit">{{translate 's002'}}</button>
                 <hr><hr>
-                <p>Already a member?</p>
+                <p>{{translate 's003'}}</p>
                 {{/equal}}
-                <a href="./login">Log In</a>
+                <a href="./login">{{translate 's004'}}</a>
             </fieldset>
         </form>
     </body>

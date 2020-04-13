@@ -85,7 +85,7 @@ func main() {
 						Sub: map[string]sPaths{
 							"@me":    sPaths{GET: handler.UsersMe},
 							"online": sPaths{GET: handler.UsersOnline},
-							"{uuid}": sPaths{
+							"{uuid:[0-9A-Z]+}": sPaths{
 								GET: handler.UsersRead,
 								PUT: handler.UserUpdate,
 							},
@@ -95,7 +95,7 @@ func main() {
 						Sub: map[string]sPaths{
 							"@me":    sPaths{GET: handler.ChannelsMe},
 							"create": sPaths{POS: handler.ChannelCreate},
-							"{uuid}": sPaths{
+							"{uuid:[0-9A-Z]+}": sPaths{
 								GET: handler.ChannelRead,
 								PUT: handler.ChannelUpdate,
 								DEL: handler.ChannelDelete,
@@ -112,7 +112,7 @@ func main() {
 						Sub: map[string]sPaths{
 							"@me":    sPaths{GET: handler.RolesMe},
 							"create": sPaths{POS: handler.RolesCreate},
-							"{uuid}": sPaths{
+							"{uuid:[0-9A-Z]+}": sPaths{
 								PUT: handler.RoleUpdate,
 								DEL: handler.RoleDelete,
 							},
@@ -122,7 +122,7 @@ func main() {
 						Sub: map[string]sPaths{
 							"@me":    sPaths{GET: handler.InvitesMe},
 							"create": sPaths{POS: handler.InvitesCreate},
-							"{uuid}": sPaths{
+							"{uuid:[0-9A-Z]+}": sPaths{
 								PUT: handler.InviteUpdate,
 								DEL: handler.InviteDelete,
 							},

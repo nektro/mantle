@@ -14,6 +14,7 @@ import (
 
 	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
+	"github.com/nektro/go.etc/translations"
 	"github.com/spf13/pflag"
 
 	_ "github.com/nektro/mantle/statik"
@@ -40,6 +41,9 @@ func main() {
 	// database initialization
 
 	db.Init()
+
+	translations.Fetch()
+	translations.Init()
 
 	//
 	// setup graceful stop

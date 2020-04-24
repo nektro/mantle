@@ -18,7 +18,7 @@ customElements.define("x-uonline-user", class extends HTMLElement {
                 this.setAttribute("data-role", l[0].uuid);
             }
         }
-        this.appendChild(create_element("span", null, [dcTN(o.name)]));
+        this.appendChild(create_element("span", null, [dcTN(o.getName())]));
         this.appendChild(create_element("span", null, [dcTN("#"+o.id)]));
     }
     get role_element() {

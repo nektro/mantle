@@ -52,7 +52,7 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 	if !ok {
 		return
 	}
-	if hGrabFormStrings(r, w, "p_name", "p_value") != nil {
+	if hGrabFormStrings(r, w, "p_name") != nil {
 		return
 	}
 
@@ -73,6 +73,12 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 	n := r.Form.Get("p_name")
 	v := r.Form.Get("p_value")
 	up := ws.UserPerms{}.From(user)
+	if n != "nickname" {
+		if len(v) == 0 {
+			writeAPIResponse(r, w, false, http.StatusBadRequest, "missing form value 'p_value'.")
+			return
+		}
+	}
 	switch n {
 	case "nickname":
 		if user.UUID != u.UUID {

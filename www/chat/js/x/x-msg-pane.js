@@ -59,9 +59,10 @@ customElements.define("x-msg-pane", class extends HTMLElement {
     async connectedCallback() {
         this._uid = this.getAttribute("uuid");
         //
-        for (const item of api.C.messages.get(this._uid)) {
-            const u = await api.M.users.get(item[1].author);
-            await this.prependMessage(u, item[1]);
+        const hst = [...api.C.messages.get(this._uid)].map((v) => v[1]).sort((a,b) => a.id < b.id);
+        for (const item of hst) {
+            const u = await api.M.users.get(item.author);
+            await this.prependMessage(u, item);
         }
         //
         this.addEventListener("scroll", async (e) => {

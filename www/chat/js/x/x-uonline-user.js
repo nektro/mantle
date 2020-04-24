@@ -1,6 +1,7 @@
 "use strict";
 //
 import { create_element, dcTN } from "./../util.js";
+import { el_uonline } from "./../ui.util.js";
 import * as api from "./../api/index.js";
 
 //
@@ -26,5 +27,13 @@ customElements.define("x-uonline-user", class extends HTMLElement {
     }
     removeMe() {
         this.role_element.removeUser(this._uid);
+    }
+    async check_for_switch() {
+        const o = await api.M.users.get(this._uid);
+        const r = await o.getHightestDistinguishedRoleUID();
+        if (r !== this.role_element._uid) {
+            this.removeMe(o.uuid);
+            el_uonline.addUser(o.uuid);
+        }
     }
 });

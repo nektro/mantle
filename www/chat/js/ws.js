@@ -19,11 +19,12 @@ export const M = {
             ui.M.user.disconnect(d.user);
         },
         update: (d) => {
-            new api.User(d.user);
+            const o = new api.User(d.user);
             if (["add_role","remove_role"].includes(d.key)) {
                 document.querySelectorAll(`dialog.popup.user ol [data-role="${d.value}"]`).forEach((v) => {
                     v.classList.toggle("active");
                 });
+                el_uonline.querySelector(`x-uonline-user[uuid="${o.uuid}"]`).check_for_switch();
             }
         },
     },

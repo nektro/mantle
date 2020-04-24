@@ -21,7 +21,10 @@ customElements.define("x-uonline-user", class extends HTMLElement {
         this.appendChild(create_element("span", null, [dcTN(o.name)]));
         this.appendChild(create_element("span", null, [dcTN("#"+o.id)]));
     }
+    get role_element() {
+        return this.parentElement.parentElement;
+    }
     removeMe() {
-        this.parentElement.parentElement.removeUser(this._uid);
+        this.role_element.removeUser(this._uid);
     }
 });

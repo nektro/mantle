@@ -68,6 +68,7 @@ window.addEventListener("focus", () => {
         document.querySelectorAll("[data-s-for='user'] [data-s-section='my_account'] [fill]").forEach((el) => {
             el.setAttribute("fill", x.user.uuid);
         });
+        document.querySelector("[data-s-for='user'] [data-s-section='my_account'] [name='nickname']").setAttribute("value", x.user.nickname);
         //
         if (Notification.permission !== "granted") {
             ui.toggleHandlers.get("notifications_messages")("0");

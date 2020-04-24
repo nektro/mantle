@@ -85,3 +85,28 @@ export function deActivateChild(el) {
         }
     }
 }
+
+/**
+ * @param {HTMLElement} ele
+ * @param {RegExp} regex
+ * @param {Function} matcher function(string): Node
+ */
+export function safe_html_replace(ele, regex, matcher) {
+    for (let i = 0; i < ele.childNodes.length; i++) {
+        const item = ele.childNodes[i];
+        if (item.nodeName !== "#text") {
+            continue;
+        }
+        const fixed = item.textContent.split(regex).map((v) => {
+            return regex.test(v) ? matcher(v) : dcTN(v);
+        });
+        if (fixed.length === 1) {
+            continue;
+        }
+        for (const itn of fixed) {
+            ele.insertBefore(itn, item);
+        }
+        item.remove();
+        i += fixed.length-1;
+    }
+}

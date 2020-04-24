@@ -1,6 +1,6 @@
 "use strict";
 //
-import { create_element, dcTN, ele_atBottom } from "./../util.js";
+import { create_element, dcTN, ele_atBottom, safe_html_replace } from "./../util.js";
 import { msg_processors } from "./../ui.util.js";
 import * as api from "./../api/index.js";
 
@@ -35,8 +35,8 @@ async function _make_m_element(user, msg) {
             return "";
         });
     }
-    mtx.innerHTML = mtx.textContent.replace(/(https?:\/\/[^\s]+)/gu, (match) => `<a target="_blank" href="${match}">${decodeURIComponent(match)}</a>`);
     twemoji.parse(mtx);
+    safe_html_replace(mtx, /(https?:\/\/[^\s]+)/gu, (match) => create_element("a", [["href",match],["target","_blank"]], [dcTN(decodeURIComponent(match))]));
     //
     return el;
 }

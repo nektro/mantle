@@ -29,4 +29,12 @@ export class User {
         }
         return this.name;
     }
+    /** @returns {Promise<string>} */
+    async getHightestDistinguishedRoleUID() {
+        const o = await api.M.users.get(this.uuid);
+        const r = await o.getRoles();
+        const l = r.filter((v) => v.distinguish);
+        const d = l.length > 0 ? l[0].uuid : "";
+        return d;
+    }
 }

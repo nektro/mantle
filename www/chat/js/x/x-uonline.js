@@ -30,9 +30,7 @@ customElements.define("x-uonline", class extends HTMLElement {
     }
     async addUser(uid) {
         const o = await api.M.users.get(uid);
-        const r = await o.getRoles();
-        const l = r.filter((v) => v.distinguish);
-        const d = l.length > 0 ? l[0].uuid : "";
+        const d = await o.getHightestDistinguishedRoleUID();
         this.querySelector(`x-uonline-role[uuid="${d}"]`).addUser(uid);
     }
     removeUser(uid) {

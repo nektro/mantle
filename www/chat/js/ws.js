@@ -3,7 +3,7 @@
 import * as ui from "./ui.js";
 import * as api from "./api/index.js";
 import { Channel } from "./ui.channel.js";
-import { output } from "./ui.util.js";
+import { output, el_uonline } from "./ui.util.js";
 import { setDataBinding } from "./util.js";
 
 //
@@ -48,11 +48,19 @@ export const M = {
             ui.M.role.add(new api.Role(d.role));
         },
         update: (d) => {
-            new api.Role(d.role);
+            const o = new api.Role(d.role);
             if (["color"].includes(d.key)) {
                 const x = document.getElementById("link-role-color");
                 const y = x.href.split("=");
                 x.href = y[0]+"="+(parseInt(y[1],10)+1).toString();
+            }
+            if (d.key === "distinguish") {
+                if (d.value === "0") {
+                    el_uonline.removeRole(d.role.uuid);
+                }
+                if (d.value === "1") {
+                    el_uonline.addRole(o);
+                }
             }
         },
     },

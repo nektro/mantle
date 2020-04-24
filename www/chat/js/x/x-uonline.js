@@ -17,16 +17,27 @@ customElements.define("x-uonline", class extends HTMLElement {
         if (this.children.length === 0) {
             this.appendChild(nel);
         } else {
+            let addd = false;
             for (let i = 0; i < this.children.length; i++) {
                 const item = this.children[i];
-                if (item._pos > o.position) {
+                if (!addd && item._pos > o.position) {
                     this.insertBefore(nel, item);
+                    i++;
+                    addd = true;
+                }
+                if (addd) {
+                    item.check_for_switches();
                 }
             }
         }
     }
-    removeRole(o) {
-        console.log(o,this);
+    async removeRole(uid) {
+        const e = this.querySelector(`x-uonline-role[uuid="${uid}"]`);
+        for (const item of e.getAllUsers()) {
+            e.removeUser(item);
+            await this.addUser(item);
+        }
+        e.remove();
     }
     async addUser(uid) {
         const o = await api.M.users.get(uid);

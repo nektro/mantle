@@ -28,4 +28,12 @@ customElements.define("x-uonline-role", class extends HTMLElement {
         this.querySelector(`x-uonline-user[uuid="${uid}"]`).remove();
         this.count -= 1;
     }
+    getAllUsers() {
+        return Array.from(this.children[1].children).map((v) => v._uid);
+    }
+    async check_for_switches() {
+        for (const item of this.children[1].children) {
+            await item.check_for_switch();
+        }
+    }
 });

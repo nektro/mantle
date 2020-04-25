@@ -128,3 +128,37 @@ func (v *Role) SetPermMngInvites(p int) {
 func (v *Role) Delete() {
 	db.Build().Del(cTableRoles).Wh("uuid", v.UUID).Exe()
 }
+
+// MoveTo sets position cleanly
+func (v *Role) MoveTo(n int) {
+	pH, pL := uHighLow(v.Position, n)
+	allR := Role{}.AllSorted()
+	for i, item := range allR {
+		o := i + 1
+		if o < pL {
+			continue
+		}
+		if o > pH {
+			continue
+		}
+		// role moving down
+		if pL == v.Position {
+			if o == pL {
+				continue
+			}
+			if o == pH {
+				v.SetPosition(n)
+				continue
+			}
+			item.SetPosition(o - 1)
+		}
+		// role moving up
+		if pL == n {
+			if o == pH {
+				v.SetPosition(n)
+				continue
+			}
+			item.SetPosition(o + 1)
+		}
+	}
+}

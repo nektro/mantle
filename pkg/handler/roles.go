@@ -109,36 +109,7 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return
 		}
-		pH, pL := uHighLow(rl.Position, i)
-		allR := db.Role{}.AllSorted()
-		for d, item := range allR {
-			o := d + 1
-			if o < pL {
-				continue
-			}
-			if o > pH {
-				continue
-			}
-			// role moving down
-			if pL == rl.Position {
-				if o == pL {
-					continue
-				}
-				if o == pH {
-					rl.SetPosition(i)
-					continue
-				}
-				item.SetPosition(o - 1)
-			}
-			// role moving up
-			if pL == i {
-				if o == pH {
-					rl.SetPosition(i)
-					continue
-				}
-				item.SetPosition(o + 1)
-			}
-		}
+		rl.MoveTo(i)
 		successCb(rl, n, v)
 	case "distinguish":
 		b, err := strconv.ParseBool(v)

@@ -24,7 +24,7 @@ export const M = {
                 document.querySelectorAll(`dialog.popup.user ol [data-role="${d.value}"]`).forEach((v) => {
                     v.classList.toggle("active");
                 });
-                el_uonline.querySelector(`x-uonline-user[uuid="${o.uuid}"]`).check_for_switch();
+                el_uonline.checkUserForSwitch(o.uuid);
             }
         },
     },

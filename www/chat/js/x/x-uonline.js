@@ -48,4 +48,9 @@ customElements.define("x-uonline", class extends HTMLElement {
     removeUser(uid) {
         this.querySelector(`x-uonline-user[uuid="${uid}"]`).removeMe();
     }
+    checkUserForSwitch(uid) {
+        const el = this.querySelector(`x-uonline-user[uuid="${uid}"]`);
+        if (el === null) { return; }
+        el.check_for_switch();
+    }
 });

@@ -33,6 +33,7 @@ customElements.define("x-uonline", class extends HTMLElement {
     }
     async removeRole(uid) {
         const e = this.querySelector(`x-uonline-role[uuid="${uid}"]`);
+        if (e === null) { return; }
         for (const item of e.getAllUsers()) {
             e.removeUser(item);
             await this.addUser(item);

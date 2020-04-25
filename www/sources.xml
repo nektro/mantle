@@ -42,4 +42,7 @@
     <string name="s039">Max Uses</string>
     <string name="s040">Frozen?</string>
     <string name="s041">Delete</string>
+    <string name="s042">Add New</string>
+    <string name="s043">Send a message...</string>
+    <string name="s044">Create New</string>
 </resources>

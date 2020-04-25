@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Mantle Chat</title>
+        <title>{{translate 's006'}}</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -34,7 +34,7 @@
         <div id="channel-list">
             <ol></ol>
             <hr data-requires="manage_channels">
-            <button data-requires="manage_channels">Add New</button>
+            <button data-requires="manage_channels">{{translate 's042'}}</button>
         </div>
         <x-messages id="messages">
         </x-messages>
@@ -45,41 +45,41 @@
             <a><i class="i user cog icon"></i></a>
         </div>
         <div id="input">
-            <input type="text" placeholder="Send a message...">
+            <input type="text" placeholder="{{translate 's043'}}">
         </div>
         <x-settings data-s-for="user">
             <div>
                 <nav>
-                    <a>My Account</a>
-                    <a>Notifications</a>
+                    <a>{{translate 's007'}}</a>
+                    <a>{{translate 's009'}}</a>
                     <a class="div"></a>
-                    <a>About Mantle</a>
+                    <a>{{translate 's010'}}</a>
                 </nav>
                 <div>
                     <div data-s-section="my_account">
-                        <h2>My Account</h2>
+                        <h2>{{translate 's007'}}</h2>
                         <hr>
                         <x-text-setting endpoint="./../api/users/%s" name="nickname" label="Nickname" fill=""></x-text-setting>
                     </div>
                     <div data-s-section="notifications">
-                        <h2>Notifications</h2>
+                        <h2>{{translate 's009'}}</h2>
                         <hr>
                         <x-2s-toggle local-name="notifications_messages" label="Enable New Message Notifications"></x-2s-toggle>
                     </div>
                     <div data-s-section="about_mantle">
-                        <h2>About Mantle</h2>
+                        <h2>{{translate 's010'}}</h2>
                         <hr>
-                        <h3>GitHub Repository</h3>
+                        <h3>{{translate 's011'}}</h3>
                         <div><a href="https://github.com/nektro/mantle" target="_blank">https://github.com/nektro/mantle</a></div>
-                        <h3>Version</h3>
+                        <h3>{{translate 's012'}}</h3>
                         <div><code data-bind="server_version"></code></div>
-                        <h3>Donate</h3>
+                        <h3>{{translate 's013'}}</h3>
                         <div><img height="32" src="https://unpkg.com/simple-icons@latest/icons/paypal.svg" /><a href="https://paypal.me/nektro">https://paypal.me/nektro</a></div>
                         <div><img height="32" src="https://unpkg.com/simple-icons@latest/icons/stellar.svg" /><code>GDE24X35RCFKKGX6ZSZ7IHBEAHCI6TCRPEJVCAFJ2QYSD4O4PI5NUMPR</code></div>
                         <div><img height="32" src="https://unpkg.com/simple-icons@latest/icons/bitcoin.svg" /><code>3Hv9c5UGgcP34QU5LFiutXiDXtuDohgy3h</code></div>
                         <div><img height="32" src="https://unpkg.com/simple-icons@latest/icons/ethereum.svg" /><code>0x8Be5DBf22B4E7648B27f263B328F69A6Cf3531C8</code></div>
                         <div><img height="32" src="https://unpkg.com/simple-icons@latest/icons/litecoin.svg" /><code>MAfkdqMfPheM94g8KoQZKWv3TkKz2a9Kgo</code></div>
-                        <h3>License</h3>
+                        <h3>{{translate 's014'}}</h3>
                         <div><a href="https://github.com/nektro/mantle/blob/master/LICENSE">Apache 2.0</a></div>
                     </div>
                 </div>
@@ -88,69 +88,69 @@
         <x-settings data-s-for="server">
             <div>
                 <nav>
-                    <a data-requires="manage_server">Overview</a>
-                    <a data-requires="manage_invites">Invites</a>
-                    <a data-requires="manage_channels">Channels</a>
-                    <a data-requires="manage_roles">Roles</a>
+                    <a data-requires="manage_server">{{translate 's015'}}</a>
+                    <a data-requires="manage_invites">{{translate 's016'}}</a>
+                    <a data-requires="manage_channels">{{translate 's017'}}</a>
+                    <a data-requires="manage_roles">{{translate 's018'}}</a>
                 </nav>
                 <div>
                     <div data-s-section="overview">
-                        <h2>Overview</h2>
+                        <h2>{{translate 's015'}}</h2>
                         <hr>
-                        <x-text-setting endpoint="./../api/update_property" name="name" label="Name" binding="server_name"></x-text-setting>
-                        <x-text-setting endpoint="./../api/update_property" name="description" label="Description"></x-text-setting>
-                        <x-text-setting endpoint="./../api/update_property" name="cover_photo" label="Cover Picture"></x-text-setting>
-                        <x-text-setting endpoint="./../api/update_property" name="profile_photo" label="Profile Picture"></x-text-setting>
-                        <x-2s-toggle endpoint="./../api/update_property" name="public" label="Public?"></x-2s-toggle>
+                        <x-text-setting endpoint="./../api/update_property" name="name" label="{{translate 's021'}}" binding="server_name"></x-text-setting>
+                        <x-text-setting endpoint="./../api/update_property" name="description" label="{{translate 's022'}}"></x-text-setting>
+                        <x-text-setting endpoint="./../api/update_property" name="cover_photo" label="{{translate 's032'}}"></x-text-setting>
+                        <x-text-setting endpoint="./../api/update_property" name="profile_photo" label="{{translate 's033'}}"></x-text-setting>
+                        <x-2s-toggle endpoint="./../api/update_property" name="public" label="{{translate 's025'}}"></x-2s-toggle>
                     </div>
                     <div data-s-section="invites">
-                        <h2>Invites</h2>
+                        <h2>{{translate 's016'}}</h2>
                         <hr>
                         <x-selection>
                             <nav class="static">
                                 <a class="div"></a>
-                                <a class="new skip">Create New</a>
+                                <a class="new skip">{{translate 's044'}}</a>
                             </nav>
                             <div>
                                 <x-text-setting readonly="" name="name" label="Code" fill=""></x-text-setting>
                                 <x-text-setting readonly="" name="uses" label="Uses" fill=""></x-text-setting>
                                 <x-text-setting name="max_uses" label="Max Uses" type="number" min="0" fill=""></x-text-setting>
-                                <x-2s-toggle name="is_frozen" label="Frozen?" fill=""></x-2s-toggle>
+                                <x-2s-toggle name="is_frozen" label="{{translate 's040'}}" fill=""></x-2s-toggle>
                                 <hr>
                                 <h3>Danger</h3>
-                                <x-button method="delete" class="danger" fill="" text="Delete"></x-button>
+                                <x-button method="delete" class="danger" fill="" text="{{translate 's041'}}"></x-button>
                             </div>
                         </x-selection>
                     </div>
                     <div data-s-section="channels">
-                        <h2>Channels</h2>
+                        <h2>{{translate 's017'}}</h2>
                         <hr>
                         <x-selection>
                             <nav>
                             </nav>
                             <div>
-                                <x-text-setting name="name" label="Name" fill=""></x-text-setting>
-                                <x-text-setting name="description" label="Description" fill=""></x-text-setting>
-                                <x-2s-toggle name="history_off" label="Save Channel History?" fill="" inverted></x-2s-toggle>
+                                <x-text-setting name="name" label="{{translate 's021'}}" fill=""></x-text-setting>
+                                <x-text-setting name="description" label="{{translate 's022'}}" fill=""></x-text-setting>
+                                <x-2s-toggle name="history_off" label="{{translate 's035'}}" fill="" inverted></x-2s-toggle>
                             </div>
                         </x-selection>
                     </div>
                     <div data-s-section="roles">
-                        <h2>Roles</h2>
+                        <h2>{{translate 's018'}}</h2>
                         <hr>
                         <x-selection>
                             <nav>
                                 <a class="div"></a>
-                                <a class="new">Create New</a>
+                                <a class="new">{{translate 's044'}}</a>
                             </nav>
                             <div>
-                                <x-text-setting name="name" label="Name" fill=""></x-text-setting>
-                                <x-text-setting name="color" label="Color" fill=""></x-text-setting>
-                                <x-2s-toggle name="distinguish" label="Distinguish?" fill=""></x-2s-toggle>
-                                <x-3s-toggle name="perm_manage_server" label="Manage Server" fill=""></x-3s-toggle>
-                                <x-3s-toggle name="perm_manage_channels" label="Manage Channels" fill=""></x-3s-toggle>
-                                <x-3s-toggle name="perm_manage_roles" label="Manage Roles" fill=""></x-3s-toggle>
-                                <x-3s-toggle name="perm_manage_invites" label="Manage Invites" fill=""></x-3s-toggle>
+                                <x-text-setting name="name" label="{{translate 's021'}}" fill=""></x-text-setting>
+                                <x-text-setting name="color" label="{{translate 's026'}}" fill=""></x-text-setting>
+                                <x-2s-toggle name="distinguish" label="{{translate 's027'}}" fill=""></x-2s-toggle>
+                                <x-3s-toggle name="perm_manage_server" label="{{translate 's028'}}" fill=""></x-3s-toggle>
+                                <x-3s-toggle name="perm_manage_channels" label="{{translate 's029'}}" fill=""></x-3s-toggle>
+                                <x-3s-toggle name="perm_manage_roles" label="{{translate 's030'}}" fill=""></x-3s-toggle>
+                                <x-3s-toggle name="perm_manage_invites" label="{{translate 's036'}}" fill=""></x-3s-toggle>
                             </div>
                         </x-selection>
                     </div>

@@ -125,8 +125,18 @@ func (v *Role) SetPermMngInvites(p int) {
 }
 
 // Delete removes this item from the database
-func (v *Role) Delete() {
+// and returns the list of users that got the role removed
+func (v *Role) Delete() []*User {
+	v.MoveTo(len(Role{}.All()))
+	arr := dbstorage.ScanAll(db.Build().Se("*").Fr(cTableUsers).WR("roles", "like", "'%'||?||'%'", true, v.UUID), User{})
+	aru := make([]*User, len(arr))
+	for i, item := range arr {
+		u := item.(*User)
+		u.RemoveRole(v.UUID)
+		aru[i] = u
+	}
 	db.Build().Del(cTableRoles).Wh("uuid", v.UUID).Exe()
+	return aru
 }
 
 // MoveTo sets position cleanly

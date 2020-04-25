@@ -152,7 +152,15 @@ func RoleDelete(w http.ResponseWriter, r *http.Request) {
 	if !ok {
 		return
 	}
-	v.Delete()
+	us := v.Delete()
+	for _, item := range us {
+		ws.BroadcastMessage(map[string]interface{}{
+			"type":  "user-update",
+			"user":  item,
+			"key":   "remove_role",
+			"value": v.UUID,
+		})
+	}
 	ws.BroadcastMessage(map[string]interface{}{
 		"type": "role-delete",
 		"role": uu,

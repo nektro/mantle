@@ -102,13 +102,6 @@ func hGrabFormStrings(r *http.Request, w http.ResponseWriter, s ...string) error
 	return nil
 }
 
-func uHighLow(a, b int) (int, int) {
-	if a >= b {
-		return a, b
-	}
-	return b, a
-}
-
 func hBetween(x, l, h int) bool {
 	if x < l {
 		return false

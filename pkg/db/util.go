@@ -35,3 +35,10 @@ func randomString(n int) string {
 	}
 	return string(b)
 }
+
+func uHighLow(a, b int) (int, int) {
+	if a >= b {
+		return a, b
+	}
+	return b, a
+}

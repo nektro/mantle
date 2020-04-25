@@ -70,6 +70,11 @@ func main() {
 			"invite":  sPaths{POS: handler.InvitePost},
 			"verify":  sPaths{GET: handler.Verify},
 			"ws":      sPaths{GET: handler.Websocket},
+			"chat": sPaths{
+				Sub: map[string]sPaths{
+					"": sPaths{GET: handler.Chat},
+				},
+			},
 			"api": sPaths{
 				Sub: map[string]sPaths{
 					"about":           sPaths{GET: handler.ApiAbout},

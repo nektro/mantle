@@ -107,6 +107,12 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusFound)
 }
 
+func Chat(w http.ResponseWriter, r *http.Request) {
+	etc.WriteHandlebarsFile(r, w, "/chat/index.hbs", map[string]interface{}{
+		//
+	})
+}
+
 // ApiAbout is handler for /api/about
 func ApiAbout(w http.ResponseWriter, r *http.Request) {
 	writeAPIResponse(r, w, true, http.StatusOK, db.Props.GetAll())

@@ -94,6 +94,10 @@ customElements.define("x-selection", class extends HTMLElement {
             }
         }
         if (r) {
+            if (this.count === 0) {
+                this.classList.remove("active");
+                return;
+            }
             this.setActive(this.count-1);
         }
     }

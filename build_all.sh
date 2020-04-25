@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
 init() {
-    mkdir -p 'bin_www'
-    cp -a ./www/. ./bin_www/
     go get -v -u github.com/rakyll/statik
     $GOPATH/bin/statik -src="./bin_www/"
 }

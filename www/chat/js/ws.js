@@ -63,6 +63,10 @@ export const M = {
                 }
             }
         },
+        delete: (d) => {
+            api.M.roles.remove(d.role);
+            ui.M.role.remove(d.role);
+        },
     },
     message: {
         new: async (d) => {

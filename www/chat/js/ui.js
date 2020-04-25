@@ -56,6 +56,10 @@ export const M = {
             });
             document.querySelector("dialog.popup.user div ol").appendChild(nEl3);
         },
+        remove: (uid) => {
+            document.querySelector("x-settings[data-s-for=server] [data-s-section=roles] x-selection").removeItem(uid);
+            el_uonline.removeRole(uid);
+        },
     },
     message: {
     },

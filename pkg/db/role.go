@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"strconv"
 
-	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
 )
 
@@ -28,7 +27,6 @@ type Role struct {
 func CreateRole(name string) *Role {
 	id := db.QueryNextID(cTableRoles)
 	uid := newUUID()
-	util.Log("[role-create]", uid, name)
 	p := PermIgnore
 	co := now()
 	r := &Role{id, uid, int(id), name, "", p, p, false, p, p, co}

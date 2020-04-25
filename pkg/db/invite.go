@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"strconv"
 
-	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
 )
 
@@ -31,7 +30,6 @@ func CreateInvite() *Invite {
 	uid := newUUID()
 	co := now()
 	code := randomString(8)
-	util.Log("[invite-create]", uid, code)
 	n := &Invite{id, uid, co, code, 0, 0, 0, "", NewTime(timeZero), false, Array{}}
 	db.Build().InsI(cTableInvites, n).Exe()
 	return n

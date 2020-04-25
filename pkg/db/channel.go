@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"strconv"
 
-	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
 )
 
@@ -25,7 +24,6 @@ type Channel struct {
 func CreateChannel(name string) *Channel {
 	id := db.QueryNextID(cTableChannels)
 	uid := newUUID()
-	util.Log("[channel-create]", uid, "#"+name)
 	co := now()
 	ch := &Channel{id, uid, int(id), name, "", false, "", co}
 	db.Build().InsI(cTableChannels, ch).Exe()

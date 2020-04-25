@@ -39,6 +39,15 @@ customElements.define("x-selection", class extends HTMLElement {
             });
         }
     }
+    get count() {
+        let n = 0;
+        for (const item of this.children[0].children) {
+            if (item.dataset.uid !== undefined) {
+                n += 1;
+            }
+        }
+        return n;
+    }
     addItem(item) {
         const rlist = this.children[0];
         const oLen = rlist.children.length;
@@ -85,7 +94,7 @@ customElements.define("x-selection", class extends HTMLElement {
             }
         }
         if (r) {
-            this.setActive(0);
+            this.setActive(this.count-1);
         }
     }
 });

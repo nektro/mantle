@@ -156,36 +156,7 @@ func ChannelUpdate(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return
 		}
-		pH, pL := uHighLow(ch.Position, i)
-		allR := db.Role{}.AllSorted()
-		for d, item := range allR {
-			o := d + 1
-			if o < pL {
-				continue
-			}
-			if o > pH {
-				continue
-			}
-			// role moving down
-			if pL == ch.Position {
-				if o == pL {
-					continue
-				}
-				if o == pH {
-					ch.SetPosition(i)
-					continue
-				}
-				item.SetPosition(o - 1)
-			}
-			// role moving up
-			if pL == i {
-				if o == pH {
-					ch.SetPosition(i)
-					continue
-				}
-				item.SetPosition(o + 1)
-			}
-		}
+		ch.MoveTo(i)
 		successCb(ch, n, v)
 	case "description":
 		if len(v) == 0 {

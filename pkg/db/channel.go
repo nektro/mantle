@@ -111,3 +111,41 @@ func (v *Channel) Delete() {
 	db.Build().Del(cTableChannels).Wh("uuid", v.UUID).Exe()
 	db.DropTable(cTableMessagesPrefix + v.UUID)
 }
+
+// MoveTo sets position cleanly
+func (v *Channel) MoveTo(n int) {
+	pH, pL := uHighLow(v.Position, n)
+	allC := Channel{}.All()
+	for i, item := range allC {
+		o := i + 1
+		if o < pL {
+			continue
+		}
+		if o > pH {
+			continue
+		}
+		// role moving down
+		if pL == v.Position {
+			if o == pL {
+				continue
+			}
+			if o == pH {
+				v.SetPosition(n)
+				continue
+			}
+			item.SetPosition(o - 1)
+		}
+		// role moving up
+		if pL == n {
+			if o == pH {
+				v.SetPosition(n)
+				continue
+			}
+			item.SetPosition(o + 1)
+		}
+	}
+}
+
+func (v *Channel) MessageCount() int64 {
+	return db.QueryRowCount(cTableMessagesPrefix + v.UUID)
+}

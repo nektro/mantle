@@ -96,6 +96,12 @@ x-message {
                 margin-top: -100%;
                 margin-bottom: -100%;
             }
+            code {
+                background-color: $based1;
+                padding: .2em;
+                border-radius: .2em;
+                line-height: 1.35;
+            }
         }
     }
 }

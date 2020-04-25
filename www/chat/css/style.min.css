@@ -151,6 +151,8 @@ x-message > div.dat a:hover { color: #268bd2; }
 
 x-message > div.dat img { max-height: 1.5em; vertical-align: middle; margin-top: -100%; margin-bottom: -100%; }
 
+x-message > div.dat code { background-color: #586e75; padding: .2em; border-radius: .2em; line-height: 1.35; }
+
 * { box-sizing: border-box; }
 
 input { display: block; }

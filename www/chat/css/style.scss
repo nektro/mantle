@@ -31,7 +31,7 @@ body {
     display: grid;
     grid-template-columns: 15rem 1fr 15rem;
     grid-template-rows: 3rem 1fr 3rem;
-    background-color: $based3;
+    background-color: $based2;
     color: $fg;
     font-family: '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Ubuntu', 'Open Sans', sans-serif;
 
@@ -73,7 +73,7 @@ body {
         }
     }
     #channel-name {
-        background-color: $based2;
+        background-color: $based3;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -96,7 +96,7 @@ body {
         }
     }
     #channel-list {
-        background-color: $based2;
+        background-color: $based3;
         text-align: center;
 
         ol {

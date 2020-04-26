@@ -1,7 +1,7 @@
 @import './../color.scss';
 
 x-messages {
-    background-color: $based3;
+    background-color: darken($based3, 2%);
     color: $comment;
     display: flex;
     flex-direction: column;

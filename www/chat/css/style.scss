@@ -155,12 +155,14 @@ body {
         }
     }
     #input {
+        background-color: $based3;
+
         input[type="text"] {
-            background-color: $based2;
+            background-color: transparent;
             color: $fg;
             margin: .25em;
             width: calc(100% - 1em);
-            border: .1em solid $based1;
+            border: 0;
             border-radius: .25em;
             padding: .5em;
         }

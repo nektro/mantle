@@ -211,7 +211,9 @@ body #me div { margin: 1em; flex-grow: 1; }
 
 body #me a { margin: 1em; }
 
-body #input input[type="text"] { background-color: #073642; color: #839496; margin: .25em; width: calc(100% - 1em); border: 0.1em solid #586e75; border-radius: .25em; padding: .5em; }
+body #input { background-color: #002b36; }
+
+body #input input[type="text"] { background-color: transparent; color: #839496; margin: .25em; width: calc(100% - 1em); border: 0; border-radius: .25em; padding: .5em; }
 
 body x-settings [data-s-section] a[href] { color: #2aa198; }
 

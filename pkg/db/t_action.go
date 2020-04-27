@@ -14,6 +14,9 @@ const (
 	ActionNull Action = iota
 	ActionSettingUpdate
 	ActionUserUpdate
+	ActionChannelCreate
+	ActionChannelUpdate
+	ActionChannelDelete
 )
 
 // Value - Implement the database/sql Valuer interface

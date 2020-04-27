@@ -39,6 +39,7 @@ func ChannelCreate(w http.ResponseWriter, r *http.Request) {
 	}
 	name := r.Form.Get("name")
 	nch := db.CreateChannel(name)
+	db.CreateAudit(db.ActionChannelCreate, user, nch.UUID, "", "")
 	w.WriteHeader(http.StatusCreated)
 	ws.BroadcastMessage(map[string]interface{}{
 		"type":    "channel-new",
@@ -101,6 +102,7 @@ func ChannelMessagesDelete(w http.ResponseWriter, r *http.Request) {
 		user.DeleteMessage(c, item)
 		actioned = append(actioned, item)
 	}
+	db.CreateAudit(db.ActionChannelDelete, user, c.UUID, "", "")
 	ws.BroadcastMessage(map[string]interface{}{
 		"type":     "message-delete",
 		"channel":  c.UUID,
@@ -129,6 +131,7 @@ func ChannelUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	successCb := func(rs *db.Channel, pk, pv string) {
+		db.CreateAudit(db.ActionChannelUpdate, user, rs.UUID, pk, pv)
 		writeAPIResponse(r, w, true, http.StatusOK, map[string]interface{}{
 			"channel": rs,
 			"key":     pk,

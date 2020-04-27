@@ -35,6 +35,7 @@ func InvitesCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	nr := db.CreateInvite()
+	db.CreateAudit(db.ActionInviteCreate, user, nr.UUID, "", "")
 	w.WriteHeader(http.StatusCreated)
 	ws.BroadcastMessage(map[string]interface{}{
 		"type":   "invite-new",
@@ -62,6 +63,7 @@ func InviteUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	successCb := func(rs *db.Invite, pk, pv string) {
+		db.CreateAudit(db.ActionInviteUpdate, user, rs.UUID, pk, pv)
 		writeAPIResponse(r, w, true, http.StatusOK, map[string]interface{}{
 			"invite": rs,
 			"key":    pk,
@@ -104,6 +106,7 @@ func InviteDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	v.Delete()
+	db.CreateAudit(db.ActionInviteDelete, user, v.UUID, "", "")
 	ws.BroadcastMessage(map[string]interface{}{
 		"type":   "invite-delete",
 		"invite": uu,

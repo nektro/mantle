@@ -20,6 +20,9 @@ const (
 	ActionRoleCreate
 	ActionRoleUpdate
 	ActionRoleDelete
+	ActionInviteCreate
+	ActionInviteUpdate
+	ActionInviteDelete
 )
 
 // Value - Implement the database/sql Valuer interface

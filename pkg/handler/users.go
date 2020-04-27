@@ -57,6 +57,7 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	successCb := func(us *db.User, pk, pv string) {
+		db.CreateAudit(db.ActionUserUpdate, user, us.UUID, pk, pv)
 		writeAPIResponse(r, w, true, http.StatusOK, map[string]interface{}{
 			"user":  us,
 			"key":   pk,

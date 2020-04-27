@@ -13,6 +13,7 @@ type Action int16
 const (
 	ActionNull Action = iota
 	ActionSettingUpdate
+	ActionUserUpdate
 )
 
 // Value - Implement the database/sql Valuer interface

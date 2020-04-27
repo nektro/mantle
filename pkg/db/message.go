@@ -20,6 +20,7 @@ type Message struct {
 func CreateMessage(user *User, channel *Channel, body string) *Message {
 	dbstorage.InsertsLock.Lock()
 	defer dbstorage.InsertsLock.Unlock()
+	//
 	m := &Message{db.QueryNextID(cTableMessagesPrefix + channel.UUID), newUUID(), now(), user.UUID, body}
 	if channel.HistoryOff {
 		return m

@@ -25,6 +25,9 @@ type Role struct {
 //
 
 func CreateRole(name string) *Role {
+	dbstorage.InsertsLock.Lock()
+	defer dbstorage.InsertsLock.Unlock()
+	//
 	id := db.QueryNextID(cTableRoles)
 	uid := newUUID()
 	p := PermIgnore

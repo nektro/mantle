@@ -26,6 +26,9 @@ type Invite struct {
 
 // CreateInvite creates a new permanent invite and returns it
 func CreateInvite() *Invite {
+	dbstorage.InsertsLock.Lock()
+	defer dbstorage.InsertsLock.Unlock()
+	//
 	id := db.QueryNextID(cTableInvites)
 	uid := newUUID()
 	co := now()

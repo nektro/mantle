@@ -22,6 +22,9 @@ type Channel struct {
 //
 
 func CreateChannel(name string) *Channel {
+	dbstorage.InsertsLock.Lock()
+	defer dbstorage.InsertsLock.Unlock()
+	//
 	id := db.QueryNextID(cTableChannels)
 	uid := newUUID()
 	co := now()

@@ -37,9 +37,9 @@ func QueryUserBySnowflake(provider string, flake string, name string) *User {
 	if ok {
 		return us
 	}
-	// else
 	dbstorage.InsertsLock.Lock()
 	defer dbstorage.InsertsLock.Unlock()
+	//
 	id := db.QueryNextID(cTableUsers)
 	uid := newUUID()
 	co := now()

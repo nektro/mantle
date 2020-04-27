@@ -6,7 +6,6 @@
     <string name="s003">Already a member?</string>
     <string name="s004">Log In</string>
     <string name="s005">Invite Code</string>
-    <string name="s006">Mantle Chat</string>
     <string name="s007">My Account</string>
     <string name="s008">Privacy &amp; Safety</string>
     <string name="s009">Notifications</string>
@@ -23,8 +22,6 @@
     <string name="s020">Bans</string>
     <string name="s021">Name</string>
     <string name="s022">Description</string>
-    <string name="s023" replaced-by="s032">Cover Photo</string>
-    <string name="s024" replaced-by="s033">Profile Photo</string>
     <string name="s025">Public?</string>
     <string name="s026">Color</string>
     <string name="s027">Distinguish?</string>

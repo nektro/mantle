@@ -42,7 +42,7 @@ func Init() {
 	db.CreateTableStruct(cTableChannels, Channel{})
 	db.CreateTableStruct(cTableRoles, Role{})
 	db.CreateTableStruct(cTableInvites, Invite{})
-	db.CreateTableStruct(cTableChannelPerms, ChannelPerm{})
+	db.DropTable(cTableChannelPerms)
 
 	// load server properties
 	Props.SetDefault("name", idata.Name)

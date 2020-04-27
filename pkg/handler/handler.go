@@ -138,5 +138,6 @@ func ApiPropertyUpdate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	db.Props.Set(n, v)
+	db.CreateAudit(db.ActionSettingUpdate, user, "", n, v)
 	writeAPIResponse(r, w, true, http.StatusOK, []string{n, v})
 }

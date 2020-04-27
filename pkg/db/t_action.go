@@ -12,6 +12,7 @@ type Action int16
 // Actions Enum
 const (
 	ActionNull Action = iota
+	ActionSettingUpdate
 )
 
 // Value - Implement the database/sql Valuer interface

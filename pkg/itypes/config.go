@@ -5,7 +5,8 @@ import (
 )
 
 type Config struct {
+	Port      int
 	Clients   []oauth2.AppConf  `json:"clients"`
 	Providers []oauth2.Provider `json:"providers"`
-	Port      int
+	Themes    []string          `json:"themes"`
 }

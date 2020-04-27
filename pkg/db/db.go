@@ -15,6 +15,7 @@ const (
 	cTableChannelPerms   = "channel_perms"
 	cTableMessagesPrefix = "channel_messages_"
 	cTableInvites        = "invites"
+	cTableAudits         = "audits"
 )
 
 var (
@@ -27,7 +28,7 @@ var (
 	Props        = Properties{}
 	BuiltInRoles = map[string]*Role{
 		"o": &Role{
-			0, "o", 0, "Owner", "", pa, pa, false, pa, pa, Time(epoch),
+			0, "o", 0, "Owner", "", pa, pa, false, pa, pa, Time(epoch), pa,
 		},
 	}
 )
@@ -43,6 +44,7 @@ func Init() {
 	db.CreateTableStruct(cTableRoles, Role{})
 	db.CreateTableStruct(cTableInvites, Invite{})
 	db.DropTable(cTableChannelPerms)
+	db.CreateTableStruct(cTableAudits, Audit{})
 
 	// load server properties
 	Props.SetDefault("name", idata.Name)

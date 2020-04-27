@@ -90,6 +90,7 @@
             <div>
                 <nav>
                     <a data-requires="manage_server">{{translate 's015'}}</a>
+                    <a data-requires="view_audits">{{translate 's045'}}</a>
                     <a data-requires="manage_invites">{{translate 's016'}}</a>
                     <a data-requires="manage_channels">{{translate 's017'}}</a>
                     <a data-requires="manage_roles">{{translate 's018'}}</a>
@@ -103,6 +104,12 @@
                         <x-text-setting endpoint="./../api/update_property" name="cover_photo" label="{{translate 's032'}}"></x-text-setting>
                         <x-text-setting endpoint="./../api/update_property" name="profile_photo" label="{{translate 's033'}}"></x-text-setting>
                         <x-2s-toggle endpoint="./../api/update_property" name="public" label="{{translate 's025'}}"></x-2s-toggle>
+                    </div>
+                    <div data-s-section="audits">
+                        <h2>{{translate 's045'}}</h2>
+                        <p>Here you can view a full print-out of the history of actions that have taken place on your Mantle instance. This will include: the type of action, the time it took place, a unique identifier, the ID of the member who performed the action, the ID of the resource affected, and any additional data specific to that action.</p>
+                        <p><a href="./../api/admin/audits.csv">Audits.csv</a></p>
+                        <p>Full UI element coming soon!</p>
                     </div>
                     <div data-s-section="invites">
                         <h2>{{translate 's016'}}</h2>
@@ -152,6 +159,7 @@
                                 <x-3s-toggle name="perm_manage_channels" label="{{translate 's029'}}" fill=""></x-3s-toggle>
                                 <x-3s-toggle name="perm_manage_roles" label="{{translate 's030'}}" fill=""></x-3s-toggle>
                                 <x-3s-toggle name="perm_manage_invites" label="{{translate 's036'}}" fill=""></x-3s-toggle>
+                                <x-3s-toggle name="perm_view_audits" label="{{translate 's046'}}" fill=""></x-3s-toggle>
                                 <hr>
                                 <h3>Danger</h3>
                                 <x-button method="delete" class="danger" fill="" text="{{translate 's041'}}"></x-button>

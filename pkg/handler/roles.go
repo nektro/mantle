@@ -134,6 +134,10 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 		processPerm(n, v, rl, func(x int) {
 			rl.SetPermMngInvites(x)
 		})
+	case "perm_view_audits":
+		processPerm(n, v, rl, func(x int) {
+			rl.SetPermViewAudits(x)
+		})
 	}
 }
 

@@ -19,6 +19,7 @@ type Role struct {
 	PermManageServer   Perm   `json:"perm_manage_server" sqlite:"tinyint(1)"`
 	PermManageInvites  Perm   `json:"perm_manage_invites" sqlite:"tinyint(1)"`
 	CreatedOn          Time   `json:"created_on" sqlite:"text"`
+	PermViewAudits     Perm   `json:"perm_view_audits" sqlite:"tinyint(1)"`
 }
 
 //
@@ -32,7 +33,7 @@ func CreateRole(name string) *Role {
 	uid := newUUID()
 	p := PermIgnore
 	co := now()
-	r := &Role{id, uid, int(id), name, "", p, p, false, p, p, co}
+	r := &Role{id, uid, int(id), name, "", p, p, false, p, p, co, p}
 	db.Build().InsI(cTableRoles, r).Exe()
 	return r
 }
@@ -52,7 +53,8 @@ func QueryRoleByUID(uid string) (*Role, bool) {
 
 // Scan implements dbstorage.Scannable
 func (v Role) Scan(rows *sql.Rows) dbstorage.Scannable {
-	rows.Scan(&v.ID, &v.UUID, &v.Position, &v.Name, &v.Color, &v.PermManageChannels, &v.PermManageRoles, &v.Distinguish, &v.PermManageServer, &v.PermManageInvites, &v.CreatedOn)
+	rows.Scan(&v.ID, &v.UUID, &v.Position, &v.Name, &v.Color, &v.PermManageChannels, &v.PermManageRoles, &v.Distinguish, &v.PermManageServer, &v.PermManageInvites, &v.CreatedOn,
+		&v.PermViewAudits)
 	return &v
 }
 
@@ -174,4 +176,10 @@ func (v *Role) MoveTo(n int) {
 			item.SetPosition(o + 1)
 		}
 	}
+}
+
+// SetPermViewAudits sets
+func (v *Role) SetPermViewAudits(p int) {
+	db.Build().Up(cTableRoles, "perm_view_audits", strconv.Itoa(p)).Wh("uuid", v.UUID).Exe()
+	v.PermManageInvites = Perm(p)
 }

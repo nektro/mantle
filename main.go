@@ -137,6 +137,11 @@ func main() {
 							},
 						},
 					},
+					"admin": sPaths{
+						Sub: map[string]sPaths{
+							"audits.csv": sPaths{GET: handler.AuditsCsv},
+						},
+					},
 				},
 			},
 		},

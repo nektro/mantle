@@ -45,4 +45,6 @@
     <string name="s042">Add New</string>
     <string name="s043">Send a message...</string>
     <string name="s044">Create New</string>
+    <string name="s045">Audit Log</string>
+    <string name="s046">View Audit Log</string>
 </resources>

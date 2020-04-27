@@ -33,6 +33,7 @@ func RolesCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	nr := db.CreateRole(n)
+	db.CreateAudit(db.ActionRoleCreate, user, nr.UUID, "", "")
 	w.WriteHeader(http.StatusCreated)
 	ws.BroadcastMessage(map[string]interface{}{
 		"type": "role-new",
@@ -63,6 +64,7 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	successCb := func(rs *db.Role, pk, pv string) {
+		db.CreateAudit(db.ActionRoleUpdate, user, rs.UUID, pk, pv)
 		writeAPIResponse(r, w, true, http.StatusOK, map[string]interface{}{
 			"role":  rs,
 			"key":   pk,
@@ -157,6 +159,7 @@ func RoleDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	us := v.Delete()
+	db.CreateAudit(db.ActionRoleDelete, user, v.UUID, "", "")
 	for _, item := range us {
 		ws.BroadcastMessage(map[string]interface{}{
 			"type":  "user-update",

@@ -109,7 +109,7 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 
 func Chat(w http.ResponseWriter, r *http.Request) {
 	etc.WriteHandlebarsFile(r, w, "/chat/index.hbs", map[string]interface{}{
-		//
+		"data": db.Props.GetAll(),
 	})
 }
 

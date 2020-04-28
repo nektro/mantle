@@ -38,4 +38,12 @@ export class User {
         const d = l.length > 0 ? l[0].uuid : "";
         return d;
     }
+    /** @returns {Promise<string>} */
+    async getHightestColoredRoleUID() {
+        const o = await api.M.users.get(this.uuid);
+        const r = await o.getRoles();
+        const l = r.filter((v) => v.color.length > 0);
+        const d = l.length > 0 ? l[0].uuid : "";
+        return d;
+    }
 }

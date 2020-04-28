@@ -137,6 +137,9 @@ body {
             margin: 0 1em;
             border-color: $based2;
         }
+        button {
+            background-color: lighten($based3, 5%);
+        }
     }
     #me {
         display: flex;

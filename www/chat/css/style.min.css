@@ -195,9 +195,9 @@ body #channel-list ol { list-style-type: none; padding-left: 0; text-align: left
 
 body #channel-list ol li { padding: .25em; margin: 0 .5em; border-radius: .25em; cursor: pointer; display: flex; flex-direction: row; align-items: center; justify-content: space-between; }
 
-body #channel-list ol li:hover { background-color: #07323d; }
 
 body #channel-list ol li.active { background-color: #002b36; }
+body #channel-list ol li:hover { background-color: #073a47; }
 
 body #channel-list ol li[data-unread="0"] div.unred { display: none; }
 

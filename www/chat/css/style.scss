@@ -115,10 +115,10 @@ body {
                 justify-content: space-between;
 
                 &:hover {
-                    background-color: darken($based2, 1%);
                 }
                 &.active {
                     background-color: $based3;
+                    background-color: lighten($based2, 1%);
                 }
                 &[data-unread="0"] div.unred {
                     display: none;

@@ -24,13 +24,13 @@ customElements.define("x-messages", class extends HTMLElement {
      */
     async addMessage(ch_uid, user, msg) {
         const ch_sb = new Channel(ch_uid);
+        const ch_afk = ch_uid !== this.active_channel_uid || !ui.volatile.windowActive;
         if (localStorage.getItem("notifications_messages") === "1") {
-            if (ch_uid !== this.active_channel_uid || !ui.volatile.windowActive) {
-                const n = new Notification(`${user.getName()} (#${ch_sb.p_name})`, {
+            if (ch_afk) {
+                new Notification(`${user.getName()} (#${ch_sb.p_name})`, {
                     body: msg.body,
                     tag: ch_uid,
                 });
-                console.log(n);
             }
         }
         if (this.active_channel_uid !== ch_uid) {

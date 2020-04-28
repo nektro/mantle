@@ -42,4 +42,7 @@ customElements.define("x-messages", class extends HTMLElement {
     getChannel(uid) {
         return this.querySelector(`x-msg-pane[uuid="${uid}"]`);
     }
+    async refreshUser(uid) {
+        await this.getChannel(this.active_channel_uid).refreshUser(uid);
+    }
 });

@@ -25,6 +25,11 @@ export const M = {
                     v.classList.toggle("active");
                 });
                 el_uonline.checkUserForSwitch(o.uuid);
+                output.refreshUser(o.uuid);
+            }
+            if (d.key === "nickname") {
+                el_uonline.checkUserForSwitch(o.uuid);
+                output.refreshUser(o.uuid);
             }
         },
     },

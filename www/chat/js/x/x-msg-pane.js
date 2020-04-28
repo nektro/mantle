@@ -147,4 +147,16 @@ customElements.define("x-msg-pane", class extends HTMLElement {
         const el = this.querySelector(`x-message[uuid="${uid}"]`);
         el.remove();
     }
+    async refreshUser(uid) {
+        const u = await api.M.users.get(uid);
+        const n = u.getName();
+        const r = await u.getHightestColoredRoleUID();
+        for (const item of this.children) {
+            if (!item.classList.contains("msg")) { continue; }
+            if (item._author !== uid) { continue; }
+            const s = item.querySelector(".usr");
+            s.textContent = n;
+            s.dataset.role = r;
+        }
+    }
 });

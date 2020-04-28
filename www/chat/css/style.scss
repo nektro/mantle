@@ -77,6 +77,7 @@ body {
         display: flex;
         flex-direction: row;
         align-items: center;
+        justify-content: space-between;
         padding-left: 1em;
         grid-row: 1 / 2;
         grid-column: 2 / 4;
@@ -92,6 +93,27 @@ body {
             }
             &:last-child {
                 color: $basel0;
+            }
+        }
+        >div {
+            >a {
+                display: inline-block;
+                padding: .5em;
+                margin: .5em;
+                border: 1px solid transparent;
+                border-radius: 50%;
+                text-align: center;
+                
+                &:hover {
+                    border-color: $basel3;
+                }
+                &:active {
+                    background-color: lighten($based3, 10%);
+                }
+                >i {
+                    display: inline-block;
+                    margin: 0;
+                }
             }
         }
     }
@@ -154,8 +176,20 @@ body {
             margin: 1em;
         }
     }
+    x-messages {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+        transition: grid-column-end .2s;
+
+        &.extended-right {
+            grid-column-end: 4;
+        }
+    }
     #input {
+        grid-column: 2 / 3;
+        grid-row: 3 / 4;
         background-color: $based3;
+        transition: grid-column-end .2s;
 
         input[type="text"] {
             background-color: transparent;
@@ -165,6 +199,9 @@ body {
             border: 0;
             border-radius: .25em;
             padding: .5em;
+        }
+        &.extended-right {
+            grid-column-end: 4;
         }
     }
     x-settings {

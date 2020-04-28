@@ -181,13 +181,21 @@ body #server-name span.loading::after { content: "🕒"; }
 
 body #server-name a { margin: 1em; }
 
-body #channel-name { background-color: #002b36; display: flex; flex-direction: row; align-items: center; padding-left: 1em; grid-row: 1 / 2; grid-column: 2 / 4; }
+body #channel-name { background-color: #002b36; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 1em; grid-row: 1 / 2; grid-column: 2 / 4; }
 
 body #channel-name span { padding-right: 1em; color: #93a1a1; }
 
 body #channel-name span:first-child::before { content: "# "; }
 
 body #channel-name span:last-child { color: #839496; }
+
+body #channel-name > div > a { display: inline-block; padding: .5em; margin: .5em; border: 1px solid transparent; border-radius: 50%; text-align: center; }
+
+body #channel-name > div > a:hover { border-color: #fdf6e3; }
+
+body #channel-name > div > a:active { background-color: #005469; }
+
+body #channel-name > div > a > i { display: inline-block; margin: 0; }
 
 body #channel-list { background-color: #002b36; text-align: center; }
 
@@ -213,9 +221,15 @@ body #me div { margin: 1em; flex-grow: 1; }
 
 body #me a { margin: 1em; }
 
-body #input { background-color: #002b36; }
+body x-messages { grid-column: 2 / 3; grid-row: 2 / 3; transition: grid-column-end .2s; }
+
+body x-messages.extended-right { grid-column-end: 4; }
+
+body #input { grid-column: 2 / 3; grid-row: 3 / 4; background-color: #002b36; transition: grid-column-end .2s; }
 
 body #input input[type="text"] { background-color: transparent; color: #839496; margin: .25em; width: calc(100% - 1em); border: 0; border-radius: .25em; padding: .5em; }
+
+body #input.extended-right { grid-column-end: 4; }
 
 body x-settings [data-s-section] a[href] { color: #2aa198; }
 

@@ -4,7 +4,7 @@ import "./x/index.js";
 //
 import { setDataBinding } from "./util.js";
 import * as ui from "./ui.js";
-import { el_2, el_3, el_1, output } from "./ui.util.js";
+import { el_2, el_3, el_1, output, el_uonline, el_input } from "./ui.util.js";
 import * as api from "./api/index.js";
 import * as ws from "./ws.js";
 
@@ -21,6 +21,12 @@ window.addEventListener("blur", () => {
 });
 window.addEventListener("focus", () => {
     ui.volatile.windowActive = true;
+});
+document.getElementById("shrink_uonline").addEventListener("click", () => {
+    output.classList.toggle("extended-right");
+    el_uonline.toggleAttribute("hidden");
+    el_input.classList.toggle("extended-right");
+    output.children[0]._scroll_to_bottom();
 });
 
 //

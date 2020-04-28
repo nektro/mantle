@@ -31,6 +31,7 @@ customElements.define("x-uonline-user", class extends HTMLElement {
     async check_for_switch() {
         const o = await api.M.users.get(this._uid);
         const r = await o.getHightestDistinguishedRoleUID();
+        this.children[0].textContent = o.getName();
         if (r !== this.role_element._uid) {
             this.removeMe(o.uuid);
             el_uonline.addUser(o.uuid);

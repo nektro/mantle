@@ -47,7 +47,7 @@ async function _make_m_element(user, msg) {
  * @param {api.Message} msg
  */
 function _make_m_divider(msg) {
-    return create_element("fieldset", [["class","date-div"]], [
+    return create_element("fieldset", [["class","div date"]], [
         create_element("legend", null, [dcTN(msg.time.toString().substring(0, 15))])
     ]);
 }

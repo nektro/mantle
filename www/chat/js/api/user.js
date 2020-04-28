@@ -23,6 +23,7 @@ export class User {
             return l.sort((a,b) => a.position - b.position);
         });
     }
+    /** @returns {string} */
     getName() {
         if (this.nickname.length > 0) {
             return this.nickname;

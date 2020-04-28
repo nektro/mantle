@@ -141,7 +141,6 @@ func (u *User) SetUID(uid string) {
 	for _, item := range (Channel{}.All()) {
 		db.Build().Up(cTableMessagesPrefix+item.UUID, "author", uid).Wh("author", u.UUID).Exe()
 	}
-	db.Build().Up(cTableChannelPerms, "snowflake", uid).Wh("snowflake", u.UUID).Exe()
 	u.UUID = uid
 	util.Log("user-update:", "updated", u.Name+"#"+strconv.FormatInt(u.ID, 10), "from", oid, "to", u.UUID)
 }

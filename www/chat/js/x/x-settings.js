@@ -31,6 +31,12 @@ class SettingsDialog extends HTMLElement {
                             deActivateChild(this.nav());
                             deActivateChild(this.pane());
                         }
+                        if (this.kidsVisible().length === 0) {
+                            document.getElementById(this.dataset.bindTo).setAttribute("hidden","");
+                        }
+                        if (this.kidsVisible().length > 0) {
+                            document.getElementById(this.dataset.bindTo).removeAttribute("hidden");
+                        }
                     }
                 }
             }
@@ -50,6 +56,9 @@ class SettingsDialog extends HTMLElement {
     kids() {
         return this.nav().querySelectorAll("a:not(.div)");
     }
+    kidsVisible() {
+        return Array.from(this.kids()).filter((v) => !v.hasAttribute("hidden"));
+    }
     /**
      * @param {Number} n
      */
@@ -62,13 +71,7 @@ class SettingsDialog extends HTMLElement {
     }
     _open() {
         this.setAttribute("open","");
-        for (let i = 0; i < this.nav().children.length; i++) {
-            const item = this.nav().children[i];
-            if (!item.hasAttribute("hidden")) {
-                this.setActivePane(i);
-                break;
-            }
-        }
+        this.setActivePane(this.kidsVisible()[0].indexOfMe());
     }
 }
 

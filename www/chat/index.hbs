@@ -27,7 +27,7 @@
     <body>
         <div id="server-name">
             <span class="loading" data-bind="server_name"></span>
-            <a><i class="i cog icon"></i></a>
+            <a id="open_settings_server"><i class="i cog icon"></i></a>
         </div>
         <div id="channel-name">
             <span data-bind="channel_name"></span>
@@ -87,7 +87,7 @@
                 </div>
             </div>
         </x-settings>
-        <x-settings data-s-for="server">
+        <x-settings data-s-for="server" data-bind-to="open_settings_server">
             <div>
                 <nav>
                     <a data-requires="manage_server">{{translate 's015'}}</a>

@@ -97,6 +97,9 @@ customElements.define("x-msg-pane", class extends HTMLElement {
             this.classList.remove("loading");
         });
     }
+    _scroll_to_bottom() {
+        this.scrollTop = this.scrollHeight;
+    }
     /**
      * @param {api.User} user
      * @param {api.Message} msg
@@ -118,7 +121,7 @@ customElements.define("x-msg-pane", class extends HTMLElement {
         }
         this.appendChild(await _make_m_element(user, msg));
         //
-        if (at_bottom) this.scrollTop = this.scrollHeight;
+        if (at_bottom) this._scroll_to_bottom();
     }
     /**
      * @param {api.User} user
@@ -138,7 +141,7 @@ customElements.define("x-msg-pane", class extends HTMLElement {
             this.insertBefore(_make_m_divider(d), f);
         }
         //
-        if (at_bottom) this.scrollTop = this.scrollHeight;
+        if (at_bottom) this._scroll_to_bottom();
     }
     selected() {
         return Array.from(this.querySelectorAll("x-message.selected"));

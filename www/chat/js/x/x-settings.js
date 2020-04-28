@@ -14,7 +14,7 @@ class SettingsDialog extends HTMLElement {
         for (const item of this.kids()) {
             item.addEventListener("click", (ev) => {
                 const t = ev.target;
-                const i = Array.from(t.parentElement.querySelectorAll("a:not(.div)")).indexOf(t);
+                const i = Array.from(this.kids()).indexOf(t);
                 this.setActivePane(i);
             });
         }

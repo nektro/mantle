@@ -60,6 +60,16 @@ class SettingsDialog extends HTMLElement {
         this.kids()[n].classList.add("active");
         this.pane().children[n].classList.add("active");
     }
+    _open() {
+        this.setAttribute("open","");
+        for (let i = 0; i < this.nav().children.length; i++) {
+            const item = this.nav().children[i];
+            if (!item.hasAttribute("hidden")) {
+                this.setActivePane(i);
+                break;
+            }
+        }
+    }
 }
 
 customElements.define("x-settings", SettingsDialog);

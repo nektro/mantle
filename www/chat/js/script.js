@@ -39,7 +39,7 @@ window.addEventListener("focus", () => {
         }
         //
         el_2.children[1].addEventListener("click", () => {
-            document.querySelector("x-settings[data-s-for=server]").setAttribute("open","");
+            document.querySelector("x-settings[data-s-for=server]")._open();
         });
     });
 
@@ -62,7 +62,7 @@ window.addEventListener("focus", () => {
         }
         //
         el_3.children[1].addEventListener("click", () => {
-            document.querySelector("x-settings[data-s-for=user]").setAttribute("open","");
+            document.querySelector("x-settings[data-s-for=user]")._open();
         });
         //
         document.querySelectorAll("[data-s-for='user'] [data-s-section='my_account'] [fill]").forEach((el) => {

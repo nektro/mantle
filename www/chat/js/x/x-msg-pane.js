@@ -70,10 +70,13 @@ customElements.define("x-msg-pane", class extends HTMLElement {
         const c = await api.M.channels.get(this._uid);
         setDataBinding("channel_name", c.name);
         setDataBinding("channel_description", c.description);
-        const hst = [...api.C.messages.get(this._uid)].map((v) => v[1]).sort((a,b) => a.id < b.id).reverse();
+        const hst = [...api.C.messages.get(this._uid)].map((v) => v[1]).sort((a,b) => a.id < b.id);
         for (const item of hst) {
             const u = await api.M.users.get(item.author);
-            await this.appendMessage(u, item);
+            await this.prependMessage(u, item);
+        }
+        if (hst.length < 50) {
+            this.insertBefore(_make_m_divider(hst[hst.length-1]), this.children[0]);
         }
         //
         this.addEventListener("scroll", async (e) => {

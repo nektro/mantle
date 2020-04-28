@@ -97,7 +97,9 @@ customElements.define("x-msg-pane", class extends HTMLElement {
     async appendMessage(user, msg) {
         const at_bottom = ele_atBottom(this);
         //
-        if (this.children.length === 0 || !this.lastElementChild.time.isSame(msg.time, "day")) {
+        const prev_msg = this.lastElementChild;
+        //
+        if (this.children.length === 0 || !prev_msg.time.isSame(msg.time, "day")) {
             this.appendChild(_make_m_divider(msg));
         }
         this.appendChild(await _make_m_element(user, msg));

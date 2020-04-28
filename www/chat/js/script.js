@@ -93,10 +93,6 @@ window.addEventListener("focus", () => {
         }
         await output.setActiveChannel(x[0].uuid);
 
-        const el2 = document.getElementById("channel-name");
-        el2.children[0].textContent = x[0].name;
-        el2.children[1].textContent = x[0].description;
-
         el_1.querySelector("button").addEventListener("click", async () => {
             const {value: name} = await Swal({
                 title: "Enter the new channel's name",

@@ -1,6 +1,6 @@
 "use strict";
 //
-import { create_element, dcTN, ele_atBottom, safe_html_replace } from "./../util.js";
+import { create_element, dcTN, ele_atBottom, safe_html_replace, setDataBinding } from "./../util.js";
 import { msg_processors } from "./../ui.util.js";
 import * as api from "./../api/index.js";
 
@@ -67,6 +67,9 @@ customElements.define("x-msg-pane", class extends HTMLElement {
     async connectedCallback() {
         this._uid = this.getAttribute("uuid");
         //
+        const c = await api.M.channels.get(this._uid);
+        setDataBinding("channel_name", c.name);
+        setDataBinding("channel_description", c.description);
         const hst = [...api.C.messages.get(this._uid)].map((v) => v[1]).sort((a,b) => a.id < b.id).reverse();
         for (const item of hst) {
             const u = await api.M.users.get(item.author);

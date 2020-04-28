@@ -26,6 +26,12 @@ x-msg-pane {
             padding: 0 1em;
             margin: auto;
         }
+        &.div {
+            &.new {
+                border-color: $red;
+                color: $red;
+            }
+        }
     }
 }
 

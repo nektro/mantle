@@ -37,7 +37,7 @@ customElements.define("x-messages", class extends HTMLElement {
             ch_sb.unread++;
             return;
         }
-        await this.children[0].appendMessage(user, msg);
+        await this.children[0].appendMessage(user, msg, ch_afk);
     }
     getChannel(uid) {
         return this.querySelector(`x-msg-pane[uuid="${uid}"]`);

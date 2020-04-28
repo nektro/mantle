@@ -123,6 +123,8 @@ x-msg-pane > fieldset { border-width: 0; border-top-width: inherit; border-color
 
 x-msg-pane > fieldset > legend { padding: 0 1em; margin: auto; }
 
+x-msg-pane > fieldset.div.new { border-color: #dc322f; color: #dc322f; }
+
 x-message { padding: .25em 1em; display: flex; flex-direction: row; border: 2px solid transparent; border-bottom-width: 0; color: white; }
 
 x-message:last-child { border-bottom-width: 2px; }

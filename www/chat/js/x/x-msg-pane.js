@@ -53,6 +53,13 @@ function _make_m_divider(msg) {
 }
 
 //
+function _make_m_newdiv() {
+    return create_element("fieldset", [["class","div new"]], [
+        create_element("legend", null, [dcTN("New")])
+    ]);
+}
+
+//
 customElements.define("x-msg-pane", class extends HTMLElement {
     constructor() {
         super();
@@ -94,11 +101,18 @@ customElements.define("x-msg-pane", class extends HTMLElement {
      * @param {api.User} user
      * @param {api.Message} msg
      */
-    async appendMessage(user, msg) {
+    async appendMessage(user, msg, afk=false) {
         const at_bottom = ele_atBottom(this);
         //
         const prev_msg = this.lastElementChild;
+        const ndv = this.querySelector(".div.new");
         //
+        if (afk && ndv === null) {
+            this.appendChild(_make_m_newdiv());
+        }
+        if (!afk && ndv !== null) {
+            ndv.remove();
+        }
         if (this.children.length === 0 || !prev_msg.time.isSame(msg.time, "day")) {
             this.appendChild(_make_m_divider(msg));
         }

@@ -154,18 +154,18 @@ func RoleDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	uu := mux.Vars(r)["uuid"]
-	v, ok := db.QueryRoleByUID(uu)
+	rl, ok := db.QueryRoleByUID(uu)
 	if !ok {
 		return
 	}
-	us := v.Delete()
-	db.CreateAudit(db.ActionRoleDelete, user, v.UUID, "", "")
+	us := rl.Delete()
+	db.CreateAudit(db.ActionRoleDelete, user, rl.UUID, "", "")
 	for _, item := range us {
 		ws.BroadcastMessage(map[string]interface{}{
 			"type":  "user-update",
 			"user":  item,
 			"key":   "remove_role",
-			"value": v.UUID,
+			"value": rl.UUID,
 		})
 	}
 	ws.BroadcastMessage(map[string]interface{}{

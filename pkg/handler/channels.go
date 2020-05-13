@@ -54,8 +54,8 @@ func ChannelRead(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	uu := mux.Vars(r)["uuid"]
-	u, ok := db.QueryChannelByUUID(uu)
-	writeAPIResponse(r, w, ok, http.StatusOK, u)
+	ch, ok := db.QueryChannelByUUID(uu)
+	writeAPIResponse(r, w, ok, http.StatusOK, ch)
 }
 
 // ChannelMessagesRead reads message data from channel
@@ -65,7 +65,7 @@ func ChannelMessagesRead(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, 1)
 		return
 	}
-	c, ok := db.QueryChannelByUUID(mux.Vars(r)["uuid"])
+	ch, ok := db.QueryChannelByUUID(mux.Vars(r)["uuid"])
 	if !ok {
 		fmt.Fprintln(w, 2)
 		return
@@ -78,7 +78,7 @@ func ChannelMessagesRead(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, 4)
 		return
 	}
-	msgs := c.QueryMsgAfterUID(r.URL.Query().Get("after"), int(lmn))
+	msgs := ch.QueryMsgAfterUID(r.URL.Query().Get("after"), int(lmn))
 	writeAPIResponse(r, w, true, http.StatusOK, msgs)
 }
 
@@ -89,7 +89,7 @@ func ChannelMessagesDelete(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, 1)
 		return
 	}
-	c, ok := db.QueryChannelByUUID(mux.Vars(r)["uuid"])
+	ch, ok := db.QueryChannelByUUID(mux.Vars(r)["uuid"])
 	if !ok {
 		fmt.Fprintln(w, 2)
 		return
@@ -99,13 +99,13 @@ func ChannelMessagesDelete(w http.ResponseWriter, r *http.Request) {
 		if !db.IsUID(item) {
 			continue
 		}
-		user.DeleteMessage(c, item)
+		user.DeleteMessage(ch, item)
 		actioned = append(actioned, item)
 	}
-	db.CreateAudit(db.ActionChannelDelete, user, c.UUID, "", "")
+	db.CreateAudit(db.ActionChannelDelete, user, ch.UUID, "", "")
 	ws.BroadcastMessage(map[string]interface{}{
 		"type":     "message-delete",
-		"channel":  c.UUID,
+		"channel":  ch.UUID,
 		"affected": actioned,
 	})
 	writeAPIResponse(r, w, true, http.StatusOK, actioned)
@@ -188,11 +188,11 @@ func ChannelDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	uu := mux.Vars(r)["uuid"]
-	v, ok := db.QueryChannelByUUID(uu)
+	ch, ok := db.QueryChannelByUUID(uu)
 	if !ok {
 		return
 	}
-	v.Delete()
+	ch.Delete()
 	ws.BroadcastMessage(map[string]interface{}{
 		"type":    "channel-delete",
 		"channel": uu,

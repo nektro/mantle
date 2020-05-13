@@ -57,7 +57,7 @@ func InviteUpdate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	uu := mux.Vars(r)["uuid"]
-	rl, ok := db.QueryInviteByUID(uu)
+	iv, ok := db.QueryInviteByUID(uu)
 	if !ok {
 		return
 	}
@@ -85,8 +85,8 @@ func InviteUpdate(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return
 		}
-		rl.SetMaxUses(x)
-		successCb(rl, n, v)
+		iv.SetMaxUses(x)
+		successCb(iv, n, v)
 	}
 }
 
@@ -101,12 +101,12 @@ func InviteDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	uu := mux.Vars(r)["uuid"]
-	v, ok := db.QueryInviteByUID(uu)
+	iv, ok := db.QueryInviteByUID(uu)
 	if !ok {
 		return
 	}
-	v.Delete()
-	db.CreateAudit(db.ActionInviteDelete, user, v.UUID, "", "")
+	iv.Delete()
+	db.CreateAudit(db.ActionInviteDelete, user, iv.UUID, "", "")
 	ws.BroadcastMessage(map[string]interface{}{
 		"type":   "invite-delete",
 		"invite": uu,

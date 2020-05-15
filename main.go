@@ -75,7 +75,7 @@ func main() {
 	htp.Register("/api/about", http.MethodGet, handler.ApiAbout)
 	htp.Register("/api/update_property", http.MethodPost, handler.ApiPropertyUpdate)
 
-	htp.Register("/api/etc/role_color.css", http.MethodGet, handler.EtcRoleColorCSS)
+	htp.Register("/api/etc/role_colors.css", http.MethodGet, handler.EtcRoleColorCSS)
 
 	htp.Register("/api/etc/badges/members_online.svg", http.MethodGet, handler.EtcBadgeMembersOnline)
 	htp.Register("/api/etc/badges/members_total.svg", http.MethodGet, handler.EtcBadgeMembersTotal)
@@ -85,14 +85,14 @@ func main() {
 	htp.Register("/api/users/{uuid}", http.MethodGet, handler.UsersRead)
 	htp.Register("/api/users/{uuid}", http.MethodPut, handler.UserUpdate)
 
-	htp.Register("/api/chanels/@me", http.MethodGet, handler.ChannelsMe)
-	htp.Register("/api/chanels/create", http.MethodPost, handler.ChannelCreate)
-	htp.Register("/api/chanels/{uuid}", http.MethodGet, handler.ChannelRead)
-	htp.Register("/api/chanels/{uuid}", http.MethodPut, handler.ChannelUpdate)
-	htp.Register("/api/chanels/{uuid}", http.MethodDelete, handler.ChannelDelete)
+	htp.Register("/api/channels/@me", http.MethodGet, handler.ChannelsMe)
+	htp.Register("/api/channels/create", http.MethodPost, handler.ChannelCreate)
+	htp.Register("/api/channels/{uuid}", http.MethodGet, handler.ChannelRead)
+	htp.Register("/api/channels/{uuid}", http.MethodPut, handler.ChannelUpdate)
+	htp.Register("/api/channels/{uuid}", http.MethodDelete, handler.ChannelDelete)
 
-	htp.Register("/api/chanels/{uuid}/messages", http.MethodGet, handler.ChannelMessagesRead)
-	htp.Register("/api/chanels/{uuid}/messages", http.MethodDelete, handler.ChannelMessagesDelete)
+	htp.Register("/api/channels/{uuid}/messages", http.MethodGet, handler.ChannelMessagesRead)
+	htp.Register("/api/channels/{uuid}/messages", http.MethodDelete, handler.ChannelMessagesDelete)
 
 	htp.Register("/api/roles/@me", http.MethodGet, handler.RolesMe)
 	htp.Register("/api/roles/create", http.MethodPost, handler.RolesCreate)

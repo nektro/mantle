@@ -21,7 +21,6 @@ func ChannelsMe(w http.ResponseWriter, r *http.Request) {
 func ChannelCreate(w http.ResponseWriter, r *http.Request) {
 	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPost, true)
 	if err != nil {
-		fmt.Fprintln(w, err.Error())
 		return
 	}
 	if etc.AssertPostFormValuesExist(r, "name") != nil {
@@ -62,7 +61,6 @@ func ChannelRead(w http.ResponseWriter, r *http.Request) {
 func ChannelMessagesRead(w http.ResponseWriter, r *http.Request) {
 	_, _, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
 	if err != nil {
-		fmt.Fprintln(w, 1)
 		return
 	}
 	ch, ok := db.QueryChannelByUUID(mux.Vars(r)["uuid"])
@@ -86,7 +84,6 @@ func ChannelMessagesRead(w http.ResponseWriter, r *http.Request) {
 func ChannelMessagesDelete(w http.ResponseWriter, r *http.Request) {
 	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodDelete, true)
 	if err != nil {
-		fmt.Fprintln(w, 1)
 		return
 	}
 	ch, ok := db.QueryChannelByUUID(mux.Vars(r)["uuid"])

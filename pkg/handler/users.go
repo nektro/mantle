@@ -7,6 +7,7 @@ import (
 	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/gorilla/mux"
+	"github.com/nektro/go.etc/htp"
 )
 
 // UsersMe is handler for /api/users/@me
@@ -43,18 +44,15 @@ func UsersOnline(w http.ResponseWriter, r *http.Request) {
 
 // UserUpdate is handler for /api/users/{uuid}/update
 func UserUpdate(w http.ResponseWriter, r *http.Request) {
+	c := htp.GetController(r)
 	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPut, true)
 	if err != nil {
 		return
 	}
 	uu := mux.Vars(r)["uuid"]
 	u, ok := db.QueryUserByUUID(uu)
-	if !ok {
-		return
-	}
-	if hGrabFormStrings(r, w, "p_name") != nil {
-		return
-	}
+	c.Assert(ok, "404: unable to find user with that uuid")
+	c.Assert(hGrabFormStrings(r, w, "p_name") == nil, "400: missing post value")
 
 	successCb := func(us *db.User, pk, pv string) {
 		db.CreateAudit(db.ActionUserUpdate, user, us.UUID, pk, pv)
@@ -75,10 +73,7 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 	v := r.Form.Get("p_value")
 	up := ws.UserPerms{}.From(user)
 	if n != "nickname" {
-		if len(v) == 0 {
-			writeAPIResponse(r, w, false, http.StatusBadRequest, "missing form value 'p_value'.")
-			return
-		}
+		c.Assert(len(v) > 0, "400: missing form value p_value")
 	}
 	switch n {
 	case "nickname":
@@ -92,12 +87,8 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 		if !ok {
 			return
 		}
-		if !up.ManageRoles {
-			return
-		}
-		if user.GetRolesSorted()[0].Position >= rl.Position {
-			return
-		}
+		c.Assert(up.ManageRoles, "403: users require the manage_roles permission to update roles")
+		c.Assert(user.GetRolesSorted()[0].Position < rl.Position, "403: role rank must be higher to update")
 		u.AddRole(v)
 		successCb(u, n, v)
 	case "remove_role":
@@ -105,12 +96,8 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 		if !ok {
 			return
 		}
-		if !up.ManageRoles {
-			return
-		}
-		if user.GetRolesSorted()[0].Position >= rl.Position {
-			return
-		}
+		c.Assert(up.ManageRoles, "403: users require the manage_roles permission to update roles")
+		c.Assert(user.GetRolesSorted()[0].Position < rl.Position, "403: role rank must be higher to update")
 		u.RemoveRole(v)
 		successCb(u, n, v)
 	}

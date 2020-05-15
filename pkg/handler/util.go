@@ -80,7 +80,7 @@ func writeAPIResponse(r *http.Request, w http.ResponseWriter, good bool, status 
 }
 
 func hGrabInt(s string) (string, int64, error) {
-	n, err := strconv.ParseInt(s, 10, 64)
+	n, err := strconv.ParseInt(s, 10, 32)
 	return s, n, err
 }
 

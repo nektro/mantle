@@ -7,19 +7,20 @@ import (
 
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/ws"
+
+	"github.com/nektro/go.etc/htp"
 )
 
 // AuditsCsv handles /api/admin/audits.csv
 func AuditsCsv(w http.ResponseWriter, r *http.Request) {
+	c := htp.GetController(r)
 	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
 	if err != nil {
 		return
 	}
 	usp := ws.UserPerms{}.From(user)
-	if !usp.ViewAudits {
-		writeAPIResponse(r, w, false, http.StatusForbidden, "action requires the view_audits permission")
-		return
-	}
+	c.Assert(usp.ViewAudits, "403: action requires the view_audits permission")
+
 	w.Header().Add("content-type", "text/csv")
 	cw := csv.NewWriter(w)
 	for _, item := range (db.Audit{}.All()) {

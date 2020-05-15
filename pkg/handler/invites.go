@@ -7,6 +7,7 @@ import (
 	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/gorilla/mux"
+	"github.com/nektro/go.etc/htp"
 )
 
 // InvitesMe reads info about channel
@@ -25,15 +26,14 @@ func InvitesMe(w http.ResponseWriter, r *http.Request) {
 
 // InvitesCreate reads info about channel
 func InvitesCreate(w http.ResponseWriter, r *http.Request) {
+	c := htp.GetController(r)
 	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPost, true)
 	if err != nil {
 		return
 	}
 	usp := ws.UserPerms{}.From(user)
-	if !usp.ManageInvites {
-		writeAPIResponse(r, w, false, http.StatusForbidden, "users require the manage_invites permission to update invites.")
-		return
-	}
+	c.Assert(usp.ManageInvites, "403: users require the manage_invites permission to update invites")
+
 	nr := db.CreateInvite()
 	db.CreateAudit(db.ActionInviteCreate, user, nr.UUID, "", "")
 	w.WriteHeader(http.StatusCreated)
@@ -45,22 +45,21 @@ func InvitesCreate(w http.ResponseWriter, r *http.Request) {
 
 // InviteUpdate updates info about this invite
 func InviteUpdate(w http.ResponseWriter, r *http.Request) {
+	c := htp.GetController(r)
 	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPut, true)
 	if err != nil {
 		return
 	}
 	usp := ws.UserPerms{}.From(user)
-	if !usp.ManageInvites {
-		return
-	}
+	c.Assert(usp.ManageInvites, "403: users require the manage_invites permission to update invites")
+
 	if hGrabFormStrings(r, w, "p_name") != nil {
+		c.Assert(false, "400: missing post value")
 		return
 	}
 	uu := mux.Vars(r)["uuid"]
 	iv, ok := db.QueryInviteByUID(uu)
-	if !ok {
-		return
-	}
+	c.Assert(ok, "404: unable to find invite with that uuid")
 
 	successCb := func(rs *db.Invite, pk, pv string) {
 		db.CreateAudit(db.ActionInviteUpdate, user, rs.UUID, pk, pv)
@@ -82,9 +81,8 @@ func InviteUpdate(w http.ResponseWriter, r *http.Request) {
 	switch n {
 	case "max_uses":
 		_, x, err := hGrabInt(v)
-		if err != nil {
-			return
-		}
+		c.Assert(err == nil, "400: error parsing p_value")
+		c.Assert(x >= 0, "400: p_value must be >= 0")
 		iv.SetMaxUses(x)
 		successCb(iv, n, v)
 	}
@@ -92,19 +90,18 @@ func InviteUpdate(w http.ResponseWriter, r *http.Request) {
 
 // InviteDelete updates info about this invite
 func InviteDelete(w http.ResponseWriter, r *http.Request) {
+	c := htp.GetController(r)
 	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodDelete, true)
 	if err != nil {
 		return
 	}
 	usp := ws.UserPerms{}.From(user)
-	if !usp.ManageInvites {
-		return
-	}
+	c.Assert(usp.ManageInvites, "403: users require the manage_invites permission to update invites")
+
 	uu := mux.Vars(r)["uuid"]
 	iv, ok := db.QueryInviteByUID(uu)
-	if !ok {
-		return
-	}
+	c.Assert(ok, "404: unable to find invite with that uuid")
+
 	iv.Delete()
 	db.CreateAudit(db.ActionInviteDelete, user, iv.UUID, "", "")
 	ws.BroadcastMessage(map[string]interface{}{

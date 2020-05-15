@@ -58,3 +58,12 @@ func (p *Properties) Has(key string) bool {
 	_, ok := p.cache.Load(key)
 	return ok
 }
+
+// GetSome returns a subset of the store in a map structure
+func (p *Properties) GetSome(ks ...string) map[string]string {
+	res := map[string]string{}
+	for _, k := range ks {
+		res[k] = p.Get(k)
+	}
+	return res
+}

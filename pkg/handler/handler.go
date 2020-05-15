@@ -115,7 +115,7 @@ func Chat(w http.ResponseWriter, r *http.Request) {
 
 // ApiAbout is handler for /api/about
 func ApiAbout(w http.ResponseWriter, r *http.Request) {
-	writeAPIResponse(r, w, true, http.StatusOK, db.Props.GetAll())
+	writeAPIResponse(r, w, true, http.StatusOK, db.Props.GetSome("name", "owner", "public", "description", "cover_photo", "profile_photo", "version"))
 }
 
 func ApiPropertyUpdate(w http.ResponseWriter, r *http.Request) {

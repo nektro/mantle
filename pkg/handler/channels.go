@@ -65,6 +65,7 @@ func ChannelMessagesRead(w http.ResponseWriter, r *http.Request) {
 	if lmn == 0 {
 		lmn = 50
 	}
+	c.Assert(lmn > 0, "400: limit minimum is 1")
 	c.Assert(lmn <= 50, "400: limit max is 50")
 
 	msgs := ch.QueryMsgAfterUID(r.URL.Query().Get("after"), int(lmn))

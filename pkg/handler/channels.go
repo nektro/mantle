@@ -99,7 +99,6 @@ func ChannelMessagesDelete(w http.ResponseWriter, r *http.Request) {
 		user.DeleteMessage(ch, item)
 		actioned = append(actioned, item)
 	}
-	db.CreateAudit(db.ActionChannelDelete, user, ch.UUID, "", "")
 	ws.BroadcastMessage(map[string]interface{}{
 		"type":     "message-delete",
 		"channel":  ch.UUID,
@@ -190,6 +189,7 @@ func ChannelDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	ch.Delete()
+	db.CreateAudit(db.ActionChannelDelete, user, ch.UUID, "", "")
 	ws.BroadcastMessage(map[string]interface{}{
 		"type":    "channel-delete",
 		"channel": uu,

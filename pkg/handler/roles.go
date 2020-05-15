@@ -8,6 +8,7 @@ import (
 	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/gorilla/mux"
+	"github.com/nektro/go.etc/htp"
 	"gopkg.in/go-playground/colors.v1"
 )
 
@@ -18,20 +19,17 @@ func RolesMe(w http.ResponseWriter, r *http.Request) {
 
 // RolesCreate reads info about channel
 func RolesCreate(w http.ResponseWriter, r *http.Request) {
+	c := htp.GetController(r)
 	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPost, true)
 	if err != nil {
 		return
 	}
+	c.Assert(hGrabFormStrings(r, w, "name") == nil, "400: missing post value")
 	n := r.Form.Get("name")
-	if !(len(n) > 0) {
-		writeAPIResponse(r, w, false, http.StatusBadRequest, "missing form value 'p_name'.")
-		return
-	}
+
 	usp := ws.UserPerms{}.From(user)
-	if !usp.ManageRoles {
-		writeAPIResponse(r, w, false, http.StatusForbidden, "users require the manage_roles permission to update roles.")
-		return
-	}
+	c.Assert(usp.ManageRoles, "403: users require the manage_roles permission to update roles")
+
 	nr := db.CreateRole(n)
 	db.CreateAudit(db.ActionRoleCreate, user, nr.UUID, "", "")
 	w.WriteHeader(http.StatusCreated)
@@ -43,25 +41,19 @@ func RolesCreate(w http.ResponseWriter, r *http.Request) {
 
 // RoleUpdate updates info about this role
 func RoleUpdate(w http.ResponseWriter, r *http.Request) {
+	c := htp.GetController(r)
 	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPut, true)
 	if err != nil {
 		return
 	}
 	usp := ws.UserPerms{}.From(user)
-	if !usp.ManageRoles {
-		return
-	}
-	if hGrabFormStrings(r, w, "p_name") != nil {
-		return
-	}
+	c.Assert(usp.ManageRoles, "403: users require the manage_roles permission to update roles")
+	c.Assert(hGrabFormStrings(r, w, "p_name") == nil, "400: missing post value")
+
 	uu := mux.Vars(r)["uuid"]
 	rl, ok := db.QueryRoleByUID(uu)
-	if !ok {
-		return
-	}
-	if user.GetRolesSorted()[0].Position >= rl.Position {
-		return
-	}
+	c.Assert(ok, "404: unable to find role with that uuid")
+	c.Assert(user.GetRolesSorted()[0].Position < rl.Position, "403: role rank must be higher to update")
 
 	successCb := func(rs *db.Role, pk, pv string) {
 		db.CreateAudit(db.ActionRoleUpdate, user, rs.UUID, pk, pv)
@@ -145,19 +137,19 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 
 // RoleDelete updates info about this role
 func RoleDelete(w http.ResponseWriter, r *http.Request) {
+	c := htp.GetController(r)
 	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodDelete, true)
 	if err != nil {
 		return
 	}
 	usp := ws.UserPerms{}.From(user)
-	if !usp.ManageRoles {
-		return
-	}
+	c.Assert(usp.ManageRoles, "403: users require the manage_roles permission to update roles")
+
 	uu := mux.Vars(r)["uuid"]
 	rl, ok := db.QueryRoleByUID(uu)
-	if !ok {
-		return
-	}
+	c.Assert(ok, "404: unable to find role with that uuid")
+	c.Assert(user.GetRolesSorted()[0].Position < rl.Position, "403: role rank must be higher to update")
+
 	us := rl.Delete()
 	db.CreateAudit(db.ActionRoleDelete, user, rl.UUID, "", "")
 	for _, item := range us {

@@ -60,8 +60,8 @@ func ChannelMessagesRead(w http.ResponseWriter, r *http.Request) {
 	ch, ok := db.QueryChannelByUUID(mux.Vars(r)["uuid"])
 	c.Assert(ok, "404: unable to find channel with this uuid")
 
-	_, lmn, err := hGrabInt(r.URL.Query().Get("limit"))
-	c.Assert(err == nil, "400: error parsing limit query parameter")
+	slm, lmn, err := hGrabInt(r.URL.Query().Get("limit"))
+	c.Assert(len(slm) == 0 || err == nil, "400: error parsing limit query parameter")
 	if lmn == 0 {
 		lmn = 50
 	}

@@ -13,9 +13,9 @@ import (
 	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/nektro/go-util/util"
+	"github.com/nektro/go-util/vflag"
 	etc "github.com/nektro/go.etc"
 	"github.com/nektro/go.etc/translations"
-	"github.com/spf13/pflag"
 
 	_ "github.com/nektro/mantle/statik"
 )
@@ -30,7 +30,7 @@ func main() {
 	util.Log("Welcome to " + idata.Name + " " + idata.Version + ".")
 
 	//
-	pflag.IntVar(&idata.Config.Port, "port", 8000, "The port to bind the web server to.")
+	vflag.IntVar(&idata.Config.Port, "port", 8000, "The port to bind the web server to.")
 	etc.AppID = strings.ToLower(idata.Name)
 	etc.PreInit()
 

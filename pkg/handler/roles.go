@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/nektro/mantle/pkg/db"
+	"github.com/nektro/mantle/pkg/handler/controls"
 	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/gorilla/mux"
@@ -24,7 +25,7 @@ func RolesCreate(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
-	c.Assert(hGrabFormStrings(r, w, "name") == nil, "400: missing post value")
+	controls.AssertFormKeysExist(c, r, "name")
 	n := r.Form.Get("name")
 
 	usp := ws.UserPerms{}.From(user)
@@ -48,7 +49,7 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ManageRoles, "403: users require the manage_roles permission to update roles")
-	c.Assert(hGrabFormStrings(r, w, "p_name") == nil, "400: missing post value")
+	controls.AssertFormKeysExist(c, r, "p_name")
 
 	uu := mux.Vars(r)["uuid"]
 	rl, ok := db.QueryRoleByUID(uu)

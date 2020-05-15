@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/nektro/mantle/pkg/db"
+	"github.com/nektro/mantle/pkg/handler/controls"
 	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/nektro/go-util/util"
@@ -112,9 +113,8 @@ func ApiPropertyUpdate(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
-	if hGrabFormStrings(r, w, "p_name", "p_value") != nil {
-		return
-	}
+	controls.AssertFormKeysExist(c, r, "p_name", "p_value")
+
 	n := r.Form.Get("p_name")
 	v := r.Form.Get("p_value")
 	usp := ws.UserPerms{}.From(user)

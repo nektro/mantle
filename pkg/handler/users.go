@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/nektro/mantle/pkg/db"
+	"github.com/nektro/mantle/pkg/handler/controls"
 	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/gorilla/mux"
@@ -52,7 +53,7 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 	uu := mux.Vars(r)["uuid"]
 	u, ok := db.QueryUserByUUID(uu)
 	c.Assert(ok, "404: unable to find user with that uuid")
-	c.Assert(hGrabFormStrings(r, w, "p_name") == nil, "400: missing post value")
+	controls.AssertFormKeysExist(c, r, "p_name")
 
 	successCb := func(us *db.User, pk, pv string) {
 		db.CreateAudit(db.ActionUserUpdate, user, us.UUID, pk, pv)

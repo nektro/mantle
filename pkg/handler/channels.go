@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/nektro/mantle/pkg/db"
+	"github.com/nektro/mantle/pkg/handler/controls"
 	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/gorilla/mux"
@@ -23,7 +24,7 @@ func ChannelCreate(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
-	c.Assert(hGrabFormStrings(r, w, "name") == nil, "400: missing post value")
+	controls.AssertFormKeysExist(c, r, "name")
 
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ManageChannels, "403: action requires the manage_channels permission")
@@ -105,11 +106,8 @@ func ChannelUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ManageChannels, "403: action requires the manage_channels permission")
+	controls.AssertFormKeysExist(c, r, "p_name")
 
-	if hGrabFormStrings(r, w, "p_name") != nil {
-		c.Assert(false, "400: missing post value")
-		return
-	}
 	uu := mux.Vars(r)["uuid"]
 	ch, ok := db.QueryChannelByUUID(uu)
 	c.Assert(ok, "404: unable to find channel with this uuid")

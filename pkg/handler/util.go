@@ -102,15 +102,6 @@ func hBadge(w http.ResponseWriter, r *http.Request, l, m, c string) {
 	fmt.Fprintln(w, string(bys))
 }
 
-func hGrabFormStrings(r *http.Request, w http.ResponseWriter, s ...string) error {
-	for _, item := range s {
-		if len(r.Form.Get(item)) == 0 {
-			return E("missing " + item + " in form")
-		}
-	}
-	return nil
-}
-
 func hBetween(x, l, h int) bool {
 	if x < l {
 		return false

@@ -15,6 +15,7 @@ import (
 	"github.com/nektro/go-util/util"
 	"github.com/nektro/go-util/vflag"
 	etc "github.com/nektro/go.etc"
+	"github.com/nektro/go.etc/htp"
 	"github.com/nektro/go.etc/translations"
 
 	_ "github.com/nektro/mantle/statik"
@@ -165,7 +166,7 @@ func iregister(m, p string, h http.HandlerFunc) {
 	if h == nil {
 		return
 	}
-	etc.Router.Methods(m).Path(p).HandlerFunc(h)
+	htp.Register(m, p, h)
 }
 
 func fRegister(s string, p sPaths) {

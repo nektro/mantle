@@ -14,6 +14,7 @@ import (
 	"github.com/nektro/go-util/arrays/stringsu"
 	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
+	"github.com/nektro/go.etc/htp"
 	sdrie "github.com/nektro/go.sdrie"
 
 	. "github.com/nektro/go-util/alias"
@@ -23,6 +24,14 @@ var (
 	formMethods = []string{http.MethodPost, http.MethodPut, http.MethodPatch, http.MethodDelete}
 	badgeCache  = sdrie.New()
 )
+
+func init() {
+	htp.ErrorHandleFunc = func(w http.ResponseWriter, r *http.Request, data string) {
+		code, _ := strconv.ParseInt(data[:3], 10, 32)
+		good := !(code >= 400)
+		writeAPIResponse(r, w, good, int(code), data[5:])
+	}
+}
 
 func apiBootstrapRequireLogin(r *http.Request, w http.ResponseWriter, method string, assertMembership bool) (*sessions.Session, *db.User, error) {
 	if r.Method != method {

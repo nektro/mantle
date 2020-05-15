@@ -11,6 +11,7 @@ import (
 
 	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
+	"github.com/nektro/go.etc/htp"
 )
 
 // SaveOAuth2InfoCb saves info from go.oauth to user session cookie
@@ -44,6 +45,7 @@ func InvitePost(w http.ResponseWriter, r *http.Request) {
 
 // Verify is handler for /verify
 func Verify(w http.ResponseWriter, r *http.Request) {
+	c := htp.GetController(r)
 	sess, user, err := apiBootstrapRequireLogin(r, w, http.MethodGet, false)
 	if err != nil {
 		return
@@ -54,37 +56,24 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 		sess.Values["user"] = user.UUID
 		sess.Save(r, w)
 	}
-	if user.IsMember {
-		w.Header().Add("Location", "./chat/")
-		w.WriteHeader(http.StatusFound)
-		return
-	}
+	c.RedirectIf(user.IsMember, "./chat/")
+
 	if o, _ := strconv.ParseBool(db.Props.Get("public")); o {
 		if !user.IsMember {
 			user.SetAsMember(true)
 		}
-		w.Header().Add("Location", "./chat/")
-		w.WriteHeader(http.StatusFound)
+		c.RedirectIf(true, "./chat/")
 		return
 	}
+
 	code, ok := sess.Values["code"].(string)
-	if !ok {
-		writeAPIResponse(r, w, false, http.StatusBadRequest, "invite code required to enter")
-		return
-	}
+	c.Assert(ok, "400: invite code required to enter")
+
 	inv, ok := db.QueryInviteByCode(code)
-	if !ok {
-		writeAPIResponse(r, w, false, http.StatusBadRequest, "invalid invite code")
-		return
-	}
-	if inv.IsFrozen {
-		writeAPIResponse(r, w, false, http.StatusBadRequest, "invite is frozen and can not be used")
-		return
-	}
-	if inv.MaxUses > 0 && inv.Uses >= inv.MaxUses {
-		writeAPIResponse(r, w, false, http.StatusBadRequest, "invite use count has been exceeded")
-		return
-	}
+	c.Assert(ok, "400: invalid invite code")
+	c.Assert(!inv.IsFrozen, "400: invite is frozen and can not be used")
+	c.Assert(inv.MaxUses > 0 && inv.Uses >= inv.MaxUses, "400: invite use count has been exceeded")
+
 	switch inv.Mode {
 	case 0:
 		// permanent
@@ -97,14 +86,13 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	//
+
 	inv.Use()
 	user.SetAsMember(true)
 	for _, item := range inv.GivenRoles {
 		user.AddRole(item)
 	}
-	w.Header().Add("Location", "./chat/")
-	w.WriteHeader(http.StatusFound)
+	c.RedirectIf(true, "./chat/")
 }
 
 func Chat(w http.ResponseWriter, r *http.Request) {
@@ -119,6 +107,7 @@ func ApiAbout(w http.ResponseWriter, r *http.Request) {
 }
 
 func ApiPropertyUpdate(w http.ResponseWriter, r *http.Request) {
+	c := htp.GetController(r)
 	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPut, true)
 	if err != nil {
 		return
@@ -129,14 +118,9 @@ func ApiPropertyUpdate(w http.ResponseWriter, r *http.Request) {
 	n := r.Form.Get("p_name")
 	v := r.Form.Get("p_value")
 	usp := ws.UserPerms{}.From(user)
-	if !usp.ManageServer {
-		writeAPIResponse(r, w, false, http.StatusForbidden, "users require the manage_server permission to update properties.")
-		return
-	}
-	if !db.Props.Has(n) {
-		writeAPIResponse(r, w, false, http.StatusBadRequest, "specified property does not exist.")
-		return
-	}
+	c.Assert(usp.ManageServer, "403: users require the manage_server permission to update properties")
+	c.Assert(db.Props.Has(n), "400: specified property does not exist")
+
 	db.Props.Set(n, v)
 	db.CreateAudit(db.ActionSettingUpdate, user, "", n, v)
 	writeAPIResponse(r, w, true, http.StatusOK, []string{n, v})

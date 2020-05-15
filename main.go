@@ -65,122 +65,49 @@ func main() {
 	//
 	// create http service
 
-	fRegister("/", sPaths{
-		GET: handler.InviteGet,
-		Sub: map[string]sPaths{
-			"invite":  sPaths{POS: handler.InvitePost},
-			"verify":  sPaths{GET: handler.Verify},
-			"ws":      sPaths{GET: handler.Websocket},
-			"chat": sPaths{
-				Sub: map[string]sPaths{
-					"": sPaths{GET: handler.Chat},
-				},
-			},
-			"api": sPaths{
-				Sub: map[string]sPaths{
-					"about":           sPaths{GET: handler.ApiAbout},
-					"update_property": sPaths{PUT: handler.ApiPropertyUpdate},
-					"etc": sPaths{
-						Sub: map[string]sPaths{
-							"role_colors.css": sPaths{GET: handler.EtcRoleColorCSS},
-							"badges": sPaths{
-								Sub: map[string]sPaths{
-									"members_online.svg": sPaths{GET: handler.EtcBadgeMembersOnline},
-									"members_total.svg":  sPaths{GET: handler.EtcBadgeMembersTotal},
-								},
-							},
-						},
-					},
-					"users": sPaths{
-						Sub: map[string]sPaths{
-							"@me":    sPaths{GET: handler.UsersMe},
-							"online": sPaths{GET: handler.UsersOnline},
-							"{uuid}": sPaths{
-								GET: handler.UsersRead,
-								PUT: handler.UserUpdate,
-							},
-						},
-					},
-					"channels": sPaths{
-						Sub: map[string]sPaths{
-							"@me":    sPaths{GET: handler.ChannelsMe},
-							"create": sPaths{POS: handler.ChannelCreate},
-							"{uuid}": sPaths{
-								GET: handler.ChannelRead,
-								PUT: handler.ChannelUpdate,
-								DEL: handler.ChannelDelete,
-								Sub: map[string]sPaths{
-									"messages": sPaths{
-										GET: handler.ChannelMessagesRead,
-										DEL: handler.ChannelMessagesDelete,
-									},
-								},
-							},
-						},
-					},
-					"roles": sPaths{
-						Sub: map[string]sPaths{
-							"@me":    sPaths{GET: handler.RolesMe},
-							"create": sPaths{POS: handler.RolesCreate},
-							"{uuid}": sPaths{
-								PUT: handler.RoleUpdate,
-								DEL: handler.RoleDelete,
-							},
-						},
-					},
-					"invites": sPaths{
-						Sub: map[string]sPaths{
-							"@me":    sPaths{GET: handler.InvitesMe},
-							"create": sPaths{POS: handler.InvitesCreate},
-							"{uuid}": sPaths{
-								PUT: handler.InviteUpdate,
-								DEL: handler.InviteDelete,
-							},
-						},
-					},
-					"admin": sPaths{
-						Sub: map[string]sPaths{
-							"audits.csv": sPaths{GET: handler.AuditsCsv},
-						},
-					},
-				},
-			},
-		},
-	})
+	htp.Register("/", http.MethodGet, handler.InviteGet)
+	htp.Register("/invite", http.MethodPost, handler.InvitePost)
+	htp.Register("/verify", http.MethodGet, handler.Verify)
+	htp.Register("/ws", http.MethodGet, handler.Websocket)
+
+	htp.Register("/chat/", http.MethodGet, handler.Chat)
+
+	htp.Register("/api/about", http.MethodGet, handler.ApiAbout)
+	htp.Register("/api/update_property", http.MethodPost, handler.ApiPropertyUpdate)
+
+	htp.Register("/api/etc/role_color.css", http.MethodGet, handler.EtcRoleColorCSS)
+
+	htp.Register("/api/etc/badges/members_online.svg", http.MethodGet, handler.EtcBadgeMembersOnline)
+	htp.Register("/api/etc/badges/members_total.svg", http.MethodGet, handler.EtcBadgeMembersTotal)
+
+	htp.Register("/api/users/@me", http.MethodGet, handler.UsersMe)
+	htp.Register("/api/users/online", http.MethodGet, handler.UsersOnline)
+	htp.Register("/api/users/{uuid}", http.MethodGet, handler.UsersRead)
+	htp.Register("/api/users/{uuid}", http.MethodPut, handler.UserUpdate)
+
+	htp.Register("/api/chanels/@me", http.MethodGet, handler.ChannelsMe)
+	htp.Register("/api/chanels/create", http.MethodPost, handler.ChannelCreate)
+	htp.Register("/api/chanels/{uuid}", http.MethodGet, handler.ChannelRead)
+	htp.Register("/api/chanels/{uuid}", http.MethodPut, handler.ChannelUpdate)
+	htp.Register("/api/chanels/{uuid}", http.MethodDelete, handler.ChannelDelete)
+
+	htp.Register("/api/chanels/{uuid}/messages", http.MethodGet, handler.ChannelMessagesRead)
+	htp.Register("/api/chanels/{uuid}/messages", http.MethodDelete, handler.ChannelMessagesDelete)
+
+	htp.Register("/api/roles/@me", http.MethodGet, handler.RolesMe)
+	htp.Register("/api/roles/create", http.MethodPost, handler.RolesCreate)
+	htp.Register("/api/roles/{uuid}", http.MethodPut, handler.RoleUpdate)
+	htp.Register("/api/roles/{uuid}", http.MethodDelete, handler.RoleDelete)
+
+	htp.Register("/api/invites/@me", http.MethodGet, handler.InvitesMe)
+	htp.Register("/api/invites/create", http.MethodPost, handler.InvitesCreate)
+	htp.Register("/api/invites/{uuid}", http.MethodPut, handler.InviteUpdate)
+	htp.Register("/api/invites/{uuid}", http.MethodDelete, handler.InviteDelete)
+
+	htp.Register("/api/admin/audits.csv", http.MethodGet, handler.AuditsCsv)
 
 	//
 	// start server
 
 	etc.StartServer(idata.Config.Port)
-}
-
-type sPaths struct {
-	GET http.HandlerFunc
-	POS http.HandlerFunc
-	PUT http.HandlerFunc
-	DEL http.HandlerFunc
-	Sub map[string]sPaths
-}
-
-func iregister(m, p string, h http.HandlerFunc) {
-	if h == nil {
-		return
-	}
-	htp.Register(m, p, h)
-}
-
-func fRegister(s string, p sPaths) {
-	if strings.HasPrefix(s, "//") {
-		s = s[1:]
-	}
-	iregister(http.MethodGet, s, p.GET)
-	iregister(http.MethodPost, s, p.POS)
-	iregister(http.MethodPut, s, p.PUT)
-	iregister(http.MethodDelete, s, p.DEL)
-	//
-	if p.Sub != nil {
-		for k, v := range p.Sub {
-			fRegister(s+"/"+k, v)
-		}
-	}
 }

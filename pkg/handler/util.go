@@ -25,7 +25,8 @@ var (
 	badgeCache  = sdrie.New()
 )
 
-func init() {
+// Init sets up this package
+func Init() {
 	htp.ErrorHandleFunc = func(w http.ResponseWriter, r *http.Request, data string) {
 		code, _ := strconv.ParseInt(data[:3], 10, 32)
 		good := !(code >= 400)

@@ -65,6 +65,8 @@ func main() {
 	//
 	// create http service
 
+	handler.Init()
+
 	htp.Register("/", http.MethodGet, handler.InviteGet)
 	htp.Register("/invite", http.MethodPost, handler.InvitePost)
 	htp.Register("/verify", http.MethodGet, handler.Verify)

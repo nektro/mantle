@@ -17,7 +17,7 @@ func AuditsCsv(w http.ResponseWriter, r *http.Request) {
 	}
 	usp := ws.UserPerms{}.From(user)
 	if !usp.ViewAudits {
-		writeAPIResponse(r, w, false, http.StatusForbidden, "users require the view_audits permission to update invites.")
+		writeAPIResponse(r, w, false, http.StatusForbidden, "action requires the view_audits permission")
 		return
 	}
 	w.Header().Add("content-type", "text/csv")

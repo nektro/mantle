@@ -52,7 +52,9 @@ customElements.define("x-text-setting", class extends WSetting {
             fd.append("p_value", iv);
             return fetch(e2, { method: "put", body: fd, }).then((x) => x.json()).then(() => {
                 if (n === "name") {
-                    this.parentElement.parentElement.children[0].querySelector(`[data-uid="${f}"]`).textContent = iv;
+                    // live update role/channel names in the x-selection list
+                    const el = this.parentElement.parentElement.children[0].querySelector(`[data-uid="${f}"]`);
+                    if (el !== null) { el.textContent = iv; }
                 }
                 if (b === null) return;
                 setDataBinding(b, iv);

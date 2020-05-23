@@ -18,7 +18,7 @@ export class User {
         cache.set(this.uuid, this);
     }
     /** @returns {Promise<api.Role[]>} */
-    getRoles() {
+    async getRoles() {
         return Promise.all(this.roles.map((v) => api.M.roles.get(v))).then((l) => {
             return l.sort((a,b) => a.position - b.position);
         });

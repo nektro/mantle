@@ -27,30 +27,7 @@ customElements.define("x-message", class extends HTMLElement {
             }
         });
         this.querySelector(".usr").addEventListener("click", async (e) => {
-            const userN = await api.M.users.get(e.target.parentElement._author);
-            setDataBinding("pp_user_name", userN.name);
-            setDataBinding("pp_user_nickname", userN.nickname);
-            setDataBinding("pp_user_id", userN.id);
-            setDataBinding("pp_user_uuid", userN.uuid);
-            setDataBinding("pp_user_provider", userN.provider);
-            setDataBinding("pp_user_snowflake", userN.snowflake);
-            const pp = document.querySelector("dialog.popup.user");
-            const ppr = pp.querySelector("ol");
-            deActivateChild(ppr);
-            const pps = pp.querySelector("div ol");
-            deActivateChild(pps);
-            const rls = await userN.getRoles();
-            for (const item of rls) {
-                const ppra = ppr.querySelector(`[data-role="${item.uuid}"]`);
-                if (ppra === null) continue;
-                ppra.classList.add("active");
-                const ppsa = pps.querySelector(`[data-role="${item.uuid}"]`);
-                if (ppsa === null) continue;
-                ppsa.classList.add("active");
-            }
-            pp.setAttribute("open","");
-            pp.style.top = e.y+"px";
-            pp.style.left = e.x+"px";
+            document.querySelector("x-user-dialog").openWith(e.target.parentElement._author, e);
         });
     }
 });

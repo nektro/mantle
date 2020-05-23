@@ -175,18 +175,6 @@
                 </div>
             </div>
         </x-settings>
-        <dialog class="popup user">
-            <h2 data-bind="pp_user_nickname"></h2>
-            <h2><span data-bind="pp_user_name"></span><span>#<span data-bind="pp_user_id"></span></span></h2>
-            <div data-bind="pp_user_uuid"></div>
-            <div>Provider: <span data-bind="pp_user_provider"></span></div>
-            <hr>
-            <div>Roles</div>
-            <ol></ol>
-            <div data-requires="manage_roles">
-                <i class="plus icon"></i>
-                <ol></ol>
-            </div>
-        </dialog>
+        <x-user-dialog></x-user-dialog>
     </body>
 </html>

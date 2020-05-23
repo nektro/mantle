@@ -20,3 +20,6 @@ import "./x-uonline-user.js";
 import "./x-messages.js";
 import "./x-msg-pane.js";
 import "./x-message.js";
+
+// etc
+import "./x-user-dialog.js";

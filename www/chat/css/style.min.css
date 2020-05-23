@@ -155,6 +155,42 @@ x-message > div.dat img { max-height: 1.5em; vertical-align: middle; margin-top:
 
 x-message > div.dat code { background-color: #586e75; padding: .2em; border-radius: .2em; line-height: 1.35; }
 
+x-user-dialog { margin: 0; }
+
+x-user-dialog > div { position: absolute; max-width: 20em; background-color: white; color: black; padding: 1em; border: .1em solid black; }
+
+x-user-dialog > div h2 { margin: 0 0 .5em 0; }
+
+x-user-dialog > div h2:empty { display: none; }
+
+x-user-dialog > div h2:not(:empty) + h2 { color: #869698; font-size: 1.25em; }
+
+x-user-dialog > div > ol { margin: .5em 0; padding: 0; list-style-type: none; }
+
+x-user-dialog > div > ol li { display: inline-block; background-color: #ccc; border-radius: .25em; padding: .2em; margin-right: .25em; margin-top: .25em; font-size: .9em; }
+
+x-user-dialog > div > ol li:not(.active) { display: none; }
+
+x-user-dialog > div > ol li::before { content: ""; background-color: #ddd; display: inline-block; border-radius: 50%; vertical-align: center; text-align: center; width: 1.1em; height: 1.1em; margin-right: .25em; color: inherit; line-height: 1.45em; }
+
+x-user-dialog > div > ol li:hover { cursor: pointer; }
+
+x-user-dialog > div > ol li:hover::before { content: "✘"; color: black; }
+
+x-user-dialog > div div i { cursor: pointer; display: block; width: 100%; text-align: left; }
+
+x-user-dialog > div div i:hover + ol { display: block; }
+
+x-user-dialog > div div ol { display: none; box-shadow: 0 0 5px black; list-style-type: none; padding: 0; margin: 0; }
+
+x-user-dialog > div div ol:hover { display: block; }
+
+x-user-dialog > div div ol li { padding: .25em .5em; cursor: pointer; }
+
+x-user-dialog > div div ol li:hover { background-color: #ddd; }
+
+x-user-dialog > div div ol li.active { display: none; }
+
 * { box-sizing: border-box; }
 
 input { display: block; }
@@ -240,39 +276,3 @@ body x-settings [data-s-section] code { background-color: #002b36; padding: .5em
 body x-settings [data-s-section] > div { display: flex; flex-direction: row; align-items: center; }
 
 body x-settings [data-s-section] > div img { margin-right: .5em; margin-bottom: .5em; }
-
-body dialog.popup { position: absolute; margin: 0; }
-
-body dialog.popup.user { max-width: 20em; }
-
-body dialog.popup.user h2 { margin: 0 0 .5em 0; }
-
-body dialog.popup.user h2:empty { display: none; }
-
-body dialog.popup.user h2:not(:empty) + h2 { color: #869698; font-size: 1.25em; }
-
-body dialog.popup.user > ol { margin: .5em 0; padding: 0; list-style-type: none; }
-
-body dialog.popup.user > ol li { display: inline-block; background-color: #ccc; border-radius: .25em; padding: .2em; margin-right: .25em; margin-top: .25em; font-size: .9em; }
-
-body dialog.popup.user > ol li:not(.active) { display: none; }
-
-body dialog.popup.user > ol li::before { content: ""; background-color: #ddd; display: inline-block; border-radius: 50%; vertical-align: center; text-align: center; width: 1.1em; height: 1.1em; margin-right: .25em; color: inherit; line-height: 1.45em; }
-
-body dialog.popup.user > ol li:hover { cursor: pointer; }
-
-body dialog.popup.user > ol li:hover::before { content: "✘"; color: black; }
-
-body dialog.popup.user div i { cursor: pointer; display: block; width: 100%; text-align: left; }
-
-body dialog.popup.user div i:hover + ol { display: block; }
-
-body dialog.popup.user div ol { display: none; box-shadow: 0 0 5px black; list-style-type: none; padding: 0; margin: 0; }
-
-body dialog.popup.user div ol:hover { display: block; }
-
-body dialog.popup.user div ol li { padding: .25em .5em; cursor: pointer; }
-
-body dialog.popup.user div ol li:hover { background-color: #ddd; }
-
-body dialog.popup.user div ol li.active { display: none; }

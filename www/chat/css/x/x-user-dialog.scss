@@ -1,0 +1,100 @@
+@import './../color.scss';
+
+x-user-dialog {
+    margin: 0;
+    
+    >div {
+        position: absolute;
+        max-width: 20em;
+        background-color: white;
+        color: black;
+        padding: 1em;
+        border: .1em solid black;
+
+        h2 {
+            margin: 0 0 .5em 0;
+
+            &:empty {
+                display: none;
+            }
+            &:not(:empty) + h2 {
+                color: lighten(#839496, 1%);
+                font-size: 1.25em;
+            }
+        }
+        >ol {
+            margin: .5em 0;
+            padding: 0;
+            list-style-type: none;
+
+            li {
+                display: inline-block;
+                background-color: #ccc;
+                border-radius: .25em;
+                padding: .2em;
+                margin-right: .25em;
+                margin-top: .25em;
+                font-size: .9em;
+
+                &:not(.active) {
+                    display: none;
+                }
+                &::before {
+                    content: "";
+                    background-color: #ddd;
+                    display: inline-block;
+                    border-radius: 50%;
+                    vertical-align: center;
+                    text-align: center;
+                    width: 1.1em;
+                    height: 1.1em;
+                    margin-right: .25em;
+                    color: inherit;
+                    line-height: 1.45em;
+                }
+                &:hover {
+                    cursor: pointer;
+                    
+                    &::before {
+                        content: "✘";
+                        color: black;
+                    }
+                }
+            }
+        }
+        div {
+            i {
+                cursor: pointer;
+                display: block;
+                width: 100%;
+                text-align: left;
+
+                &:hover + ol {
+                    display: block;
+                }
+            }
+            ol {
+                display: none;
+                box-shadow: 0 0 5px black;
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+
+                &:hover {
+                    display: block;
+                }
+                li {
+                    padding: .25em .5em;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: #ddd;
+                    }
+                    &.active {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

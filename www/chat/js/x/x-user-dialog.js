@@ -3,7 +3,7 @@
 //
 import { create_element, dcTN } from "./../util.js";
 // import { output } from "./../ui.util.js";
-// import * as ui from "./../ui.js";
+import * as ui from "./../ui.js";
 import * as api from "./../api/index.js";
 
 //
@@ -28,7 +28,7 @@ customElements.define("x-user-dialog", class extends HTMLElement {
                 dcTN("#"),
                 create_element("span", null, [dcTN(userN.id)]),
             ]),
-            create_element("div", null, [dcTN(userN.uuid)]),
+            create_element("div", [["id","pp_uuid"]], [dcTN(userN.uuid)]),
             create_element("div", null, [
                 dcTN("Provider: "),
                 create_element("span", null, [dcTN(userN.provider)]),
@@ -41,6 +41,31 @@ customElements.define("x-user-dialog", class extends HTMLElement {
                 create_element("ol"),
             ]),
         ]));
+        for (const item of api.C.roles.values()) {
+            if (item.id === undefined) { continue; }
+            //
+            const nEl2 = create_element("li", [["data-role",item.uuid],["class","bg-bf"]], [dcTN(item.name)]);
+            nEl2.addEventListener("click", (e) => {
+                if (!ui.volatile.me.perms.manage_roles) return;
+                const et = e.target;
+                const rid = et.dataset.role;
+                const uid = document.querySelector("#pp_uuid").textContent;
+                this.toggleRole(rid);
+                return api.M.users.update(uid,"remove_role",rid);
+            });
+            this.children[0].querySelectorAll("ol")[0].appendChild(nEl2);
+            //
+            const nEl3 = create_element("li", [["data-role",item.uuid]], [dcTN(item.name)]);
+            nEl3.addEventListener("click", (e) => {
+                if (!ui.volatile.me.perms.manage_roles) return;
+                const et = e.target;
+                const rid = et.dataset.role;
+                const uid = this.querySelector("#pp_uuid").textContent;
+                this.toggleRole(rid);
+                return api.M.users.update(uid,"add_role",rid);
+            });
+            this.children[0].querySelectorAll("ol")[1].appendChild(nEl3);
+        }
         for (const item of await userN.getRoles()) {
             if (item.id === undefined) { continue; }
             this.toggleRole(item.uuid);

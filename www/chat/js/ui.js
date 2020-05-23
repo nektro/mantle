@@ -36,25 +36,6 @@ export const M = {
             if (o.distinguish) {
                 document.querySelector("x-uonline").addRole(o);
             }
-            //
-            const nEl2 = create_element("li", [["data-role",o.uuid],["class","bg-bf"]], [dcTN(o.name)]);
-            nEl2.addEventListener("click", (e) => {
-                if (!volatile.me.perms.manage_roles) return;
-                const et = e.target;
-                const rid = et.dataset.role;
-                const uid = document.querySelector("[data-bind=pp_user_uuid]").textContent;
-                return api.M.users.update(uid,"remove_role",rid);
-            });
-            document.querySelector("dialog.popup.user ol").appendChild(nEl2);
-            //
-            const nEl3 = create_element("li", [["data-role",o.uuid]], [dcTN(o.name)]);
-            nEl3.addEventListener("click", (e) => {
-                const et = e.target;
-                const rid = et.dataset.role;
-                const uid = document.querySelector("[data-bind=pp_user_uuid]").textContent;
-                return api.M.users.update(uid,"add_role",rid);
-            });
-            document.querySelector("dialog.popup.user div ol").appendChild(nEl3);
         },
         remove: (uid) => {
             document.querySelector("x-settings[data-s-for=server] [data-s-section=roles] x-selection").removeItem(uid);

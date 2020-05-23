@@ -41,8 +41,17 @@ customElements.define("x-user-dialog", class extends HTMLElement {
                 create_element("ol"),
             ]),
         ]));
+        for (const item of await userN.getRoles()) {
+            if (item.id === undefined) { continue; }
+            this.toggleRole(item.uuid);
+        }
         set_x(this.children[0], e.x);
         set_y(this.children[0], e.y);
+    }
+    toggleRole(uid) {
+        for (const item of this.querySelectorAll("ol")) {
+            item.querySelector(`[data-role="${uid}"]`).classList.toggle("active");
+        }
     }
 });
 

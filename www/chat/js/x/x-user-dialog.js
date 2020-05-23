@@ -78,3 +78,12 @@ function set_y(el, ey) {
     if (y + eh > wh) { y = wh - eh - 24; }
     el.style.top = `${y}px`;
 }
+
+//
+document.addEventListener("click", (e) => {
+    const p = e.target.path();
+    const ud = document.querySelector("x-user-dialog");
+    if (p.includes(ud)) { return; }
+    if (p[0].classList.contains("usr")) { return; }
+    ud.removeAllChildren();
+});

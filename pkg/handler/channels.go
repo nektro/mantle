@@ -95,7 +95,7 @@ func ChannelMessagesDelete(w http.ResponseWriter, r *http.Request) {
 		"channel":  ch.UUID,
 		"affected": actioned,
 	})
-	writeAPIResponse(r, w, true, http.StatusOK, actioned)
+	w.WriteHeader(http.StatusNoContent)
 }
 
 // ChannelUpdate updates info about this channel
@@ -180,4 +180,5 @@ func ChannelDelete(w http.ResponseWriter, r *http.Request) {
 		"type":    "channel-delete",
 		"channel": uu,
 	})
+	w.WriteHeader(http.StatusNoContent)
 }

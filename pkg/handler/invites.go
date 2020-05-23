@@ -106,4 +106,5 @@ func InviteDelete(w http.ResponseWriter, r *http.Request) {
 		"type":   "invite-delete",
 		"invite": uu,
 	})
+	w.WriteHeader(http.StatusNoContent)
 }

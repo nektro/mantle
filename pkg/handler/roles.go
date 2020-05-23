@@ -165,4 +165,5 @@ func RoleDelete(w http.ResponseWriter, r *http.Request) {
 		"type": "role-delete",
 		"role": uu,
 	})
+	w.WriteHeader(http.StatusNoContent)
 }

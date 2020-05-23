@@ -75,7 +75,7 @@ func main() {
 	htp.Register("/chat/", http.MethodGet, handler.Chat)
 
 	htp.Register("/api/about", http.MethodGet, handler.ApiAbout)
-	htp.Register("/api/update_property", http.MethodPost, handler.ApiPropertyUpdate)
+	htp.Register("/api/update_property", http.MethodPut, handler.ApiPropertyUpdate)
 
 	htp.Register("/api/etc/role_colors.css", http.MethodGet, handler.EtcRoleColorCSS)
 

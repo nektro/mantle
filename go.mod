@@ -11,8 +11,6 @@ require (
 	github.com/gorilla/websocket v1.4.2
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
-	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
-	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/nektro/go-util v0.0.0-20200515093218-75e527c1e1ca
 	github.com/nektro/go.dbstorage v0.0.0-20200515093335-8e2c19fc1929
 	github.com/nektro/go.etc v0.0.0-20200516202753-5e7ff12a36eb

@@ -11,7 +11,7 @@ type Action int16
 
 // Actions Enum
 const (
-	ActionNull Action = iota
+	actionNull Action = iota
 	ActionSettingUpdate
 	ActionUserUpdate
 	ActionChannelCreate
@@ -33,7 +33,7 @@ func (p Action) Value() (driver.Value, error) {
 // Scan - Implement the database/sql Scanner interface
 func (p *Action) Scan(value interface{}) error {
 	if value == nil {
-		*p = ActionNull
+		*p = actionNull
 		return nil
 	}
 	if bv, err := driver.Int32.ConvertValue(value); err == nil {

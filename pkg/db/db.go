@@ -1,6 +1,8 @@
 package db
 
 import (
+	"strconv"
+
 	"github.com/nektro/mantle/pkg/idata"
 
 	dbstorage "github.com/nektro/go.dbstorage"
@@ -16,6 +18,11 @@ const (
 	cTableMessagesPrefix = "channel_messages_"
 	cTableInvites        = "invites"
 	cTableAudits         = "audits"
+)
+
+var (
+	// ResourceTables is the list of db table names that represent the various resources in Mantle
+	ResourceTables = []string{cTableUsers, cTableChannels, cTableRoles, cTableInvites, cTableAudits}
 )
 
 var (
@@ -53,6 +60,11 @@ func Init() {
 	Props.SetDefault("description", "The new easy and effective communication platform for any successful team or community that's independently hosted and puts users, privacy, and effiecency first.")
 	Props.SetDefault("cover_photo", "https://www.transparenttextures.com/patterns/gplay.png")
 	Props.SetDefault("profile_photo", "https://avatars.discourse.org/v4/letter/m/ec9cab/90.png")
+
+	for _, item := range ResourceTables {
+		Props.SetDefaultInt64("count_"+item, db.QueryRowCount(item))
+	}
+
 	Props.Init()
 	Props.Set("version", idata.Version)
 

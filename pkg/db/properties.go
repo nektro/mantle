@@ -1,6 +1,7 @@
 package db
 
 import (
+	"strconv"
 	"sync"
 )
 
@@ -66,4 +67,38 @@ func (p *Properties) GetSome(ks ...string) map[string]string {
 		res[k] = p.Get(k)
 	}
 	return res
+}
+
+// SetDefaultInt64 sets key's value to value if never set before
+func (p *Properties) SetDefaultInt64(key string, value int64) {
+	p.SetDefault(key, strconv.FormatInt(value, 10))
+}
+
+// SetInt64 sets key's value to value
+func (p *Properties) SetInt64(key string, value int64) {
+	p.Set(key, strconv.FormatInt(value, 10))
+}
+
+// GetInt64 returns key's value as an int64
+func (p *Properties) GetInt64(key string) int64 {
+	i, _ := strconv.ParseInt(p.Get(key), 10, 64)
+	return i
+}
+
+// Increment adds 1 to key's value if it is an integer
+func (p *Properties) Increment(key string) {
+	i, err := strconv.ParseInt(p.Get(key), 10, 64)
+	if err != nil {
+		return
+	}
+	p.SetInt64(key, i+1)
+}
+
+// Decrement subtracts 1 from key's value if it is an integer
+func (p *Properties) Decrement(key string) {
+	i, err := strconv.ParseInt(p.Get(key), 10, 64)
+	if err != nil {
+		return
+	}
+	p.SetInt64(key, i-1)
 }

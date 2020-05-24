@@ -35,6 +35,7 @@ func CreateRole(name string) *Role {
 	co := now()
 	r := &Role{id, uid, int(id), name, "", p, p, false, p, p, co, p}
 	db.Build().InsI(cTableRoles, r).Exe()
+	Props.Increment("count_" + cTableRoles)
 	return r
 }
 
@@ -141,6 +142,7 @@ func (v *Role) Delete() []*User {
 		aru[i] = u
 	}
 	db.Build().Del(cTableRoles).Wh("uuid", v.UUID).Exe()
+	Props.Decrement("count_" + cTableRoles)
 	return aru
 }
 

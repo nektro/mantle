@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"strconv"
 
 	dbstorage "github.com/nektro/go.dbstorage"
 )
@@ -29,6 +30,8 @@ func CreateAudit(ac Action, agent *User, aff string, key, val string) *Audit {
 	co := now()
 	a := &Audit{id, uid, co, ac, agent.UUID, aff, key, val}
 	db.Build().InsI(cTableAudits, a).Exe()
+	Props.Increment("count_" + cTableAudits)
+	Props.Increment("count_" + cTableAudits + "_action_" + strconv.Itoa(int(ac)))
 	return a
 }
 

@@ -50,6 +50,7 @@ func QueryUserBySnowflake(provider string, flake string, name string) *User {
 	}
 	u := &User{id, provider, flake, uid, false, false, name, "", co, co, roles}
 	db.Build().InsI(cTableUsers, u).Exe()
+	Props.Increment("count_" + cTableUsers)
 	return u
 }
 
@@ -81,6 +82,11 @@ func (v User) MemberCount() int64 {
 
 func (u *User) SetAsMember(b bool) {
 	db.Build().Up(cTableUsers, "is_member", strconv.Itoa(util.Btoi(b))).Wh("uuid", u.UUID).Exe()
+	if b {
+		Props.Increment("count_users_members")
+	} else {
+		Props.Decrement("count_users_members")
+	}
 	u.IsMember = b
 }
 

@@ -31,6 +31,7 @@ func CreateChannel(name string) *Channel {
 	ch := &Channel{id, uid, int(id), name, "", false, "", co}
 	db.Build().InsI(cTableChannels, ch).Exe()
 	ch.AssertMessageTableExists()
+	Props.Increment("count_" + cTableChannels)
 	return ch
 }
 
@@ -113,6 +114,7 @@ func (v *Channel) EnableHistory(b bool) {
 func (v *Channel) Delete() {
 	db.Build().Del(cTableChannels).Wh("uuid", v.UUID).Exe()
 	db.DropTable(cTableMessagesPrefix + v.UUID)
+	Props.Decrement("count_" + cTableChannels)
 }
 
 // MoveTo sets position cleanly

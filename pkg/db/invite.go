@@ -35,6 +35,7 @@ func CreateInvite() *Invite {
 	code := randomString(8)
 	n := &Invite{id, uid, co, code, 0, 0, 0, "", NewTime(timeZero), false, Array{}}
 	db.Build().InsI(cTableInvites, n).Exe()
+	Props.Increment("count_" + cTableInvites)
 	return n
 }
 
@@ -87,4 +88,5 @@ func (v *Invite) SetMaxUses(p int64) {
 // Delete removes this item from the database
 func (v *Invite) Delete() {
 	db.Build().Del(cTableInvites).Wh("uuid", v.UUID).Exe()
+	Props.Decrement("count_" + cTableInvites)
 }

@@ -1,6 +1,7 @@
 package db
 
 import (
+	"database/sql"
 	"math/rand"
 	"time"
 
@@ -41,4 +42,13 @@ func uHighLow(a, b int) (int, int) {
 		return a, b
 	}
 	return b, a
+}
+
+func queryCount(rows *sql.Rows) int64 {
+	s := int64(0)
+	defer rows.Close()
+	for rows.Next() {
+		s++
+	}
+	return s
 }

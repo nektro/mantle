@@ -23,7 +23,13 @@ const (
 	ActionInviteCreate
 	ActionInviteUpdate
 	ActionInviteDelete
+	_last
 )
+
+// ActionLen returns the amount of actions
+func ActionLen() int {
+	return int(_last)
+}
 
 // Value - Implement the database/sql Valuer interface
 func (p Action) Value() (driver.Value, error) {

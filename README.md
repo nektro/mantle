@@ -42,14 +42,22 @@ The Identity Provider IDs can be found from the table in the [nektro/go.oauth2](
 Pre-compiled binaries can be obtained from https://github.com/nektro/mantle/releases/latest.
 
 ## Built With
+- https://github.com/PuerkitoBio/goquery
+- https://github.com/aymerick/raymond
 - https://github.com/gorilla/mux
+- https://github.com/gorilla/securecookie
 - https://github.com/gorilla/sessions
 - https://github.com/gorilla/websocket
+- https://github.com/mattn/go-sqlite3
+- https://github.com/mitchellh/go-homedir
 - https://github.com/nektro/go-util
 - https://github.com/nektro/go.dbstorage
 - https://github.com/nektro/go.etc
 - https://github.com/nektro/go.oauth2
+- https://github.com/nektro/go.sdrie
 - https://github.com/oklog/ulid
+- https://github.com/prometheus/client_golang
+- https://github.com/rakyll/statik
 - https://github.com/spf13/pflag
 - https://github.com/valyala/fastjson
 

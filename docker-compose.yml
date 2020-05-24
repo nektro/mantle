@@ -11,3 +11,11 @@ services:
         environment:
             # DBSTORAGE_DEBUG_SQL: 1
             # DBSTORAGE_DEBUG_VERBOSE: 1
+    prometheus:
+        image: prom/prometheus:latest
+        volumes:
+            - ./data/prometheus/:/data/
+        command:
+            - "--config.file=/data/prometheus.yml"
+        ports:
+            - "9090:9090"

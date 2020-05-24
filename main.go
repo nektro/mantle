@@ -10,6 +10,7 @@ import (
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/handler"
 	"github.com/nektro/mantle/pkg/idata"
+	"github.com/nektro/mantle/pkg/metrics"
 	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/nektro/go-util/util"
@@ -46,6 +47,8 @@ func main() {
 	translations.Fetch()
 	translations.Init()
 
+	metrics.Init()
+
 	//
 	// setup graceful stop
 
@@ -71,6 +74,7 @@ func main() {
 	htp.Register("/invite", http.MethodPost, handler.InvitePost)
 	htp.Register("/verify", http.MethodGet, handler.Verify)
 	htp.Register("/ws", http.MethodGet, handler.Websocket)
+	htp.Register("/metrics", http.MethodGet, metrics.Handler())
 
 	htp.Register("/chat/", http.MethodGet, handler.Chat)
 

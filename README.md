@@ -48,6 +48,7 @@ Pre-compiled binaries can be obtained from https://github.com/nektro/mantle/rele
 - https://github.com/gorilla/securecookie
 - https://github.com/gorilla/sessions
 - https://github.com/gorilla/websocket
+- https://github.com/karalabe/xgo
 - https://github.com/mattn/go-sqlite3
 - https://github.com/mitchellh/go-homedir
 - https://github.com/nektro/go-util

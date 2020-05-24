@@ -67,6 +67,10 @@ func Init() {
 	for _, item := range ResourceTables {
 		Props.SetDefaultInt64("count_"+item, db.QueryRowCount(item))
 	}
+	for i := 1; i < ActionLen(); i++ {
+		is := strconv.Itoa(i)
+		Props.SetDefaultInt64("count_"+cTableAudits+"_action_"+is, queryCount(db.Build().Se("*").Fr(cTableAudits).Wh("action", is).Exe()))
+	}
 
 	Props.Init()
 	Props.Set("version", idata.Version)

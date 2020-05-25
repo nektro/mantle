@@ -41,6 +41,15 @@ The Identity Provider IDs can be found from the table in the [nektro/go.oauth2](
 ## Deployment
 Pre-compiled binaries can be obtained from https://github.com/nektro/mantle/releases/latest.
 
+## Development
+Local development is done with [Docker](https://docs.docker.com/get-docker/) and [`docker-compose`](https://docs.docker.com/compose/install/)
+
+To launch a local instance, edit `./data/config.json` with your OAuth2 client info and then run the following and visit http://localhost/
+
+```
+$ docker-compose up
+```
+
 ## Built With
 - https://github.com/PuerkitoBio/goquery
 - https://github.com/aymerick/raymond

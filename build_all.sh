@@ -17,5 +17,3 @@ go get -v github.com/rakyll/statik
 $GOPATH/bin/statik -src="./www/" -f
 
 build_template linux amd64
-
-go mod tidy

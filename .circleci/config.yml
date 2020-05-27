@@ -3,7 +3,7 @@
 version: 2.1
 jobs:
   build:
-    working_directory: /app_build/
+    working_directory: /go/src/github.com/nektro/mantle
     docker:
       - image: circleci/golang:1.12
     steps:

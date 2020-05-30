@@ -17,9 +17,9 @@ jobs:
           path: ./bin/
           destination: /artifacts/
       - run: ./make_release.sh
-      - docker-publish/check:
+      - docker/check:
           use-docker-credentials-store: true
-      - docker-publish/build:
+      - docker/build:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-      - docker-publish/push:
+      - docker/push:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME

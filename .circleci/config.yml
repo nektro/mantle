@@ -1,6 +1,8 @@
 # Golang CircleCI 2.0 configuration file
 # See https://circleci.com/docs/2.0/language-go/
 version: 2.1
+orbs:
+  docker: circleci/docker@1.0.1
 jobs:
   build:
     working_directory: /go/src/github.com/nektro/mantle
@@ -15,3 +17,9 @@ jobs:
           path: ./bin/
           destination: /artifacts/
       - run: ./make_release.sh
+      - docker-publish/check:
+          use-docker-credentials-store: true
+      - docker-publish/build:
+          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+      - docker-publish/push:
+          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME

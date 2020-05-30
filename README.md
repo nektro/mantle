@@ -10,6 +10,8 @@
 [![downloads](https://img.shields.io/github/downloads/nektro/mantle/total.svg)](https://github.com/nektro/mantle/releases)
 [![crowdin](https://badges.crowdin.net/mantle/localized.svg)](https://crowdin.com/project/mantle)
 [![issuehunt](https://img.shields.io/badge/issuehunt-mantle-38d39f)](https://issuehunt.io/r/nektro/mantle)
+[![docker_pulls](https://img.shields.io/docker/pulls/nektro/mantle)](https://hub.docker.com/r/nektro/mantle)
+[![docker_stars](https://img.shields.io/docker/stars/nektro/mantle)](https://hub.docker.com/r/nektro/mantle)
 
 Easy and effective communication is the foundation of any successful team or community. That's where Mantle comes in, providing you the messaging platform that puts you in charge of both the conversation and the data.
 
@@ -40,6 +42,14 @@ The Identity Provider IDs can be found from the table in the [nektro/go.oauth2](
 
 ## Deployment
 Pre-compiled binaries can be obtained from https://github.com/nektro/mantle/releases/latest.
+
+Or you may run Mantle using the official Docker image. Visit https://hub.docker.com/r/nektro/mantle for the full list of tags.
+
+```
+$ docker run -p 80:80 nektro/mantle
+```
+
+If you wish to pass a `config.json` to the container, mount a volume at the `/data/` directory. Note: all flags are passable as environment variables in the form that `--oauth2-default-auth` may also be passed in with the `OAUTH2_DEFAULT_AUTH` variable.
 
 ## Development
 Local development is done with [Docker](https://docs.docker.com/get-docker/) and [`docker-compose`](https://docs.docker.com/compose/install/)

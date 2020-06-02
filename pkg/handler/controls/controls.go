@@ -27,7 +27,8 @@ func GetSession(c *htp.Controller, r *http.Request) *sessions.Session {
 }
 
 // GetUser asserts a user is logged in
-func GetUser(c *htp.Controller, s *sessions.Session) *db.User {
+func GetUser(c *htp.Controller, r *http.Request) *db.User {
+	s := GetSession(c, r)
 	sessID := s.Values["user"]
 	c.Assert(sessID != nil, "403: must login to access this resource")
 	//
@@ -36,8 +37,10 @@ func GetUser(c *htp.Controller, s *sessions.Session) *db.User {
 	return user
 }
 
-// AssertUserIsMember asserts the user is a member and not banned
-func AssertUserIsMember(c *htp.Controller, u *db.User) {
+// GetMemberUser asserts the user is a member and not banned
+func GetMemberUser(c *htp.Controller, r *http.Request) *db.User {
+	u := GetUser(c, r)
 	c.Assert(u.IsMember, "403: you are not a member of this server")
 	c.Assert(!u.IsBanned, "403: you are banned")
+	return u
 }

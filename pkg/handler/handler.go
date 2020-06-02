@@ -106,9 +106,7 @@ func Chat(w http.ResponseWriter, r *http.Request) {
 func ApiAbout(w http.ResponseWriter, r *http.Request) {
 	if len(r.URL.Query().Get("all")) > 0 {
 		c := htp.GetController(r)
-		s := controls.GetSession(c, r)
-		u := controls.GetUser(c, s)
-		controls.AssertUserIsMember(c, u)
+		u := controls.GetMemberUser(c, r)
 		c.Assert(u.HasRole("o"), "403: resource requires Authorization or to be server owner to access")
 		writeAPIResponse(r, w, true, http.StatusOK, db.Props.GetAll())
 		return

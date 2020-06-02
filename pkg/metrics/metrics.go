@@ -62,9 +62,7 @@ func Handler() http.HandlerFunc {
 		c := htp.GetController(r)
 		withKey := r.Header.Get("Authorization") == "Bearer "+db.Props.Get("prometheus_key")
 		if !withKey {
-			s := controls.GetSession(c, r)
-			u := controls.GetUser(c, s)
-			controls.AssertUserIsMember(c, u)
+			u := controls.GetMemberUser(c, r)
 			c.Assert(u.HasRole("o"), "403: resource requires Authorization or to be server owner to access")
 		}
 		promhttp.Handler().ServeHTTP(w, r)

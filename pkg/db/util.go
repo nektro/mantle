@@ -8,10 +8,11 @@ import (
 	"github.com/oklog/ulid"
 )
 
-var epoch, _ = time.Parse("Jan 2 2006", "Jan 1 2020")
+// Epoch is the epoch for all Mantle ULIDs
+var Epoch, _ = time.Parse("Jan 2 2006", "Jan 1 2020")
 
 func newUUID() string {
-	t := time.Unix(0, time.Now().UnixNano()-epoch.UnixNano())
+	t := time.Unix(0, time.Now().UnixNano()-Epoch.UnixNano())
 	var entropy = ulid.Monotonic(rand.New(rand.NewSource(t.UnixNano())), 0)
 	return ulid.MustNew(ulid.Timestamp(t), entropy).String()
 }

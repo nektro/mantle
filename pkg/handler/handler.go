@@ -55,6 +55,7 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 	if o, _ := strconv.ParseBool(db.Props.Get("public")); o {
 		if !user.IsMember {
 			user.SetAsMember(true)
+			db.CreateAudit(db.ActionInviteUse, user, "", "", "")
 		}
 		c.RedirectIf(true, "./chat/")
 		return
@@ -84,6 +85,7 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 
 	inv.Use()
 	user.SetAsMember(true)
+	db.CreateAudit(db.ActionInviteUse, user, inv.UUID, inv.Code, "")
 	for _, item := range inv.GivenRoles {
 		user.AddRole(item)
 	}

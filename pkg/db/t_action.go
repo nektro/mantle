@@ -23,6 +23,7 @@ const (
 	ActionInviteCreate
 	ActionInviteUpdate
 	ActionInviteDelete
+	ActionInviteUse
 	_last
 )
 

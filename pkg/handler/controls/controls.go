@@ -6,6 +6,7 @@ import (
 	"github.com/nektro/mantle/pkg/db"
 
 	"github.com/gorilla/sessions"
+	"github.com/nektro/go-util/arrays/stringsu"
 	etc "github.com/nektro/go.etc"
 	"github.com/nektro/go.etc/htp"
 )
@@ -26,6 +27,8 @@ func GetSession(c *htp.Controller, r *http.Request) *sessions.Session {
 	return etc.GetSession(r)
 }
 
+var formMethods = []string{http.MethodPost, http.MethodPut, http.MethodPatch, http.MethodDelete}
+
 // GetUser asserts a user is logged in
 func GetUser(c *htp.Controller, r *http.Request) *db.User {
 	s := GetSession(c, r)
@@ -34,6 +37,14 @@ func GetUser(c *htp.Controller, r *http.Request) *db.User {
 	//
 	userID := sessID.(string)
 	user, _ := db.QueryUserByUUID(userID)
+
+	method := r.Method
+	if stringsu.Contains(formMethods, method) {
+		r.Method = http.MethodPost
+		r.ParseMultipartForm(0)
+		r.Method = method
+	}
+
 	return user
 }
 

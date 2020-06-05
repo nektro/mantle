@@ -67,7 +67,7 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 	inv, ok := db.QueryInviteByCode(code)
 	c.Assert(ok, "400: invalid invite code")
 	c.Assert(!inv.IsFrozen, "400: invite is frozen and can not be used")
-	c.Assert(inv.MaxUses > 0 && inv.Uses >= inv.MaxUses, "400: invite use count has been exceeded")
+	c.Assert(!(inv.MaxUses > 0 && inv.Uses >= inv.MaxUses), "400: invite use count has been exceeded")
 
 	switch inv.Mode {
 	case 0:

@@ -25,7 +25,7 @@ func SaveOAuth2InfoCb(w http.ResponseWriter, r *http.Request, provider string, i
 	ru.SetName(strings.ReplaceAll(name, " ", ""))
 }
 
-// InviteGet is handler for GET /invite
+// InviteGet is handler for /
 func InviteGet(w http.ResponseWriter, r *http.Request) {
 	etc.WriteHandlebarsFile(r, w, "/invite.hbs", map[string]interface{}{
 		"data": db.Props.GetAll(),
@@ -33,7 +33,7 @@ func InviteGet(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// InvitePost is handler for POST /invite
+// InvitePost is handler for /invite
 func InvitePost(w http.ResponseWriter, r *http.Request) {
 	if ok, _ := strconv.ParseBool(db.Props.Get("public")); !ok {
 		s := etc.GetSession(r)

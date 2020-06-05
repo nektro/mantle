@@ -51,12 +51,6 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
-	if !db.IsUID(user.UUID) {
-		user.ResetUID()
-		sess := etc.GetSession(r)
-		sess.Values["user"] = user.UUID
-		sess.Save(r, w)
-	}
 	c.RedirectIf(user.IsMember, "./chat/")
 
 	if o, _ := strconv.ParseBool(db.Props.Get("public")); o {

@@ -64,11 +64,9 @@ $ docker-compose up
 ## Built With
 - https://github.com/PuerkitoBio/goquery
 - https://github.com/aymerick/raymond
+- https://github.com/dgrijalva/jwt-go
 - https://github.com/gorilla/mux
-- https://github.com/gorilla/securecookie
-- https://github.com/gorilla/sessions
 - https://github.com/gorilla/websocket
-- https://github.com/karalabe/xgo
 - https://github.com/mattn/go-sqlite3
 - https://github.com/mitchellh/go-homedir
 - https://github.com/nektro/go-util

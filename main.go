@@ -71,7 +71,7 @@ func main() {
 	handler.Init()
 
 	htp.Register("/", http.MethodGet, handler.InviteGet)
-	htp.Register("/invite", http.MethodPost, handler.InvitePost)
+	htp.Register("/invite", http.MethodGet, handler.InvitePost)
 	htp.Register("/verify", http.MethodGet, handler.Verify)
 	htp.Register("/ws", http.MethodGet, handler.Websocket)
 	htp.Register("/metrics", http.MethodGet, metrics.Handler())

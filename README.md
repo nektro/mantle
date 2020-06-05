@@ -34,6 +34,8 @@ The Identity Provider IDs can be found from the table in the [nektro/go.oauth2](
 
 ### Other Flags
 
+> Note: all flags are passable as environment variables in the form that `--oauth2-default-auth` may also be passed in with the `OAUTH2_DEFAULT_AUTH` variable.
+
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | `--dbstorage-debug-sql` | `bool` | `false` | Enable this flag to print all executed SQL statements. |
@@ -48,8 +50,6 @@ Or you may run Mantle using the official Docker image. Visit https://hub.docker.
 ```
 $ docker run -p 80:80 nektro/mantle
 ```
-
-If you wish to pass a `config.json` to the container, mount a volume at the `/data/` directory. Note: all flags are passable as environment variables in the form that `--oauth2-default-auth` may also be passed in with the `OAUTH2_DEFAULT_AUTH` variable.
 
 ## Development
 Local development is done with [Docker](https://docs.docker.com/get-docker/) and [`docker-compose`](https://docs.docker.com/compose/install/)

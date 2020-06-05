@@ -5,9 +5,7 @@ import (
 
 	"github.com/nektro/mantle/pkg/db"
 
-	"github.com/gorilla/sessions"
 	"github.com/nektro/go-util/arrays/stringsu"
-	etc "github.com/nektro/go.etc"
 	"github.com/nektro/go.etc/htp"
 )
 
@@ -22,20 +20,13 @@ func AssertFormKeysExist(c *htp.Controller, r *http.Request, s ...string) map[st
 	return res
 }
 
-// GetSession grabs session
-func GetSession(c *htp.Controller, r *http.Request) *sessions.Session {
-	return etc.GetSession(r)
-}
-
 var formMethods = []string{http.MethodPost, http.MethodPut, http.MethodPatch, http.MethodDelete}
 
 // GetUser asserts a user is logged in
 func GetUser(c *htp.Controller, r *http.Request) *db.User {
-	s := GetSession(c, r)
-	sessID := s.Values["user"]
-	c.Assert(sessID != nil, "403: must login to access this resource")
+	l := GetJWTClaims(c, r)
 	//
-	userID := sessID.(string)
+	userID := l["sub"].(string)
 	user, _ := db.QueryUserByUUID(userID)
 
 	method := r.Method

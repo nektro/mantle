@@ -9,4 +9,5 @@ type Config struct {
 	Clients   []oauth2.AppConf  `json:"clients"`
 	Providers []oauth2.Provider `json:"providers"`
 	Themes    []string          `json:"themes"`
+	JWTSecret string
 }

@@ -6,8 +6,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/handler/controls"
+	"github.com/nektro/mantle/pkg/idata"
 	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/nektro/go-util/util"
@@ -19,9 +21,21 @@ import (
 func SaveOAuth2InfoCb(w http.ResponseWriter, r *http.Request, provider string, id string, name string, oa2resp map[string]interface{}) {
 	ru := db.QueryUserBySnowflake(provider, id, name)
 	util.Log("[user-login]", provider, id, ru.UUID, name)
-	sess := etc.GetSession(r)
-	sess.Values["user"] = ru.UUID
-	sess.Save(r, w)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"iss": "astheno.mantle." + idata.Version,
+		"sub": ru.UUID,
+		"nbf": db.Epoch.Unix(),
+		"iat": time.Now().Unix(),
+	})
+	tokenS, err := token.SignedString([]byte(idata.Config.JWTSecret))
+	if err != nil {
+		return
+	}
+	http.SetCookie(w, &http.Cookie{
+		Name:   "jwt",
+		Value:  tokenS,
+		MaxAge: 0,
+	})
 	ru.SetName(strings.ReplaceAll(name, " ", ""))
 }
 

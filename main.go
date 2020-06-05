@@ -33,6 +33,8 @@ func main() {
 
 	//
 	vflag.IntVar(&idata.Config.Port, "port", 8000, "The port to bind the web server to.")
+	vflag.StringVar(&idata.Config.JWTSecret, "jwt-secret", db.RandomString(64), "Privte secret to sign and verify JWT auth tokens with.")
+
 	etc.AppID = strings.ToLower(idata.Name)
 	etc.PreInit()
 

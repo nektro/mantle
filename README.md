@@ -49,7 +49,7 @@ Pre-compiled binaries can be obtained from https://github.com/nektro/mantle/rele
 Or you may run Mantle using the official Docker image. Visit https://hub.docker.com/r/nektro/mantle for the full list of tags.
 
 ```
-$ docker run -p 80:80 nektro/mantle
+$ docker run -p 80:8000 nektro/mantle
 ```
 
 ## Development

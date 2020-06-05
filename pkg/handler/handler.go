@@ -36,9 +36,11 @@ func InviteGet(w http.ResponseWriter, r *http.Request) {
 // InvitePost is handler for /invite
 func InvitePost(w http.ResponseWriter, r *http.Request) {
 	if ok, _ := strconv.ParseBool(db.Props.Get("public")); !ok {
-		s := etc.GetSession(r)
-		s.Values["code"] = r.URL.Query().Get("code")
-		s.Save(r, w)
+		http.SetCookie(w, &http.Cookie{
+			Name:    "invite_code",
+			Value:   r.URL.Query().Get("code"),
+			Expires: time.Now().Add(1 * time.Minute),
+		})
 	}
 	w.Header().Add("Location", "./login")
 	w.WriteHeader(http.StatusFound)
@@ -58,8 +60,9 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	code, ok := sess.Values["code"].(string)
-	c.Assert(ok, "400: invite code required to enter")
+	codeC, err := r.Cookie("invite_code")
+	c.Assert(err == nil, "400: invite code required to enter")
+	code := codeC.Value
 
 	inv, ok := db.QueryInviteByCode(code)
 	c.Assert(ok, "400: invalid invite code")

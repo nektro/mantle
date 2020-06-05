@@ -32,7 +32,7 @@ func CreateInvite() *Invite {
 	id := db.QueryNextID(cTableInvites)
 	uid := newUUID()
 	co := now()
-	code := randomString(8)
+	code := RandomString(8)
 	n := &Invite{id, uid, co, code, 0, 0, 0, "", NewTime(timeZero), false, Array{}}
 	db.Build().InsI(cTableInvites, n).Exe()
 	Props.Increment("count_" + cTableInvites)

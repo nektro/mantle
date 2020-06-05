@@ -20,10 +20,7 @@ func ChannelsMe(w http.ResponseWriter, r *http.Request) {
 // ChannelCreate is the handler for /api/channels/create
 func ChannelCreate(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPost, true)
-	if err != nil {
-		return
-	}
+	user := controls.GetMemberUser(c, r)
 	controls.AssertFormKeysExist(c, r, "name")
 
 	usp := ws.UserPerms{}.From(user)
@@ -41,10 +38,8 @@ func ChannelCreate(w http.ResponseWriter, r *http.Request) {
 
 // ChannelRead reads info about channel
 func ChannelRead(w http.ResponseWriter, r *http.Request) {
-	_, _, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
-	if err != nil {
-		return
-	}
+	c := htp.GetController(r)
+	controls.GetMemberUser(c, r)
 	uu := mux.Vars(r)["uuid"]
 	ch, ok := db.QueryChannelByUUID(uu)
 	writeAPIResponse(r, w, ok, http.StatusOK, ch)
@@ -53,10 +48,7 @@ func ChannelRead(w http.ResponseWriter, r *http.Request) {
 // ChannelMessagesRead reads message data from channel
 func ChannelMessagesRead(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	_, _, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
-	if err != nil {
-		return
-	}
+	controls.GetMemberUser(c, r)
 	ch, ok := db.QueryChannelByUUID(mux.Vars(r)["uuid"])
 	c.Assert(ok, "404: unable to find channel with this uuid")
 
@@ -75,10 +67,7 @@ func ChannelMessagesRead(w http.ResponseWriter, r *http.Request) {
 // ChannelMessagesDelete reads message data from channel
 func ChannelMessagesDelete(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodDelete, true)
-	if err != nil {
-		return
-	}
+	user := controls.GetMemberUser(c, r)
 	ch, ok := db.QueryChannelByUUID(mux.Vars(r)["uuid"])
 	c.Assert(ok, "404: unable to find channel with this uuid")
 
@@ -101,10 +90,7 @@ func ChannelMessagesDelete(w http.ResponseWriter, r *http.Request) {
 // ChannelUpdate updates info about this channel
 func ChannelUpdate(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPut, true)
-	if err != nil {
-		return
-	}
+	user := controls.GetMemberUser(c, r)
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ManageChannels, "403: action requires the manage_channels permission")
 	controls.AssertFormKeysExist(c, r, "p_name")
@@ -163,10 +149,7 @@ func ChannelUpdate(w http.ResponseWriter, r *http.Request) {
 // ChannelDelete updates info about this channel
 func ChannelDelete(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodDelete, true)
-	if err != nil {
-		return
-	}
+	user := controls.GetMemberUser(c, r)
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ManageChannels, "403: action requires the manage_channels permission")
 

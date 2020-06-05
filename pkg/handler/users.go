@@ -13,10 +13,8 @@ import (
 
 // UsersMe is handler for /api/users/@me
 func UsersMe(w http.ResponseWriter, r *http.Request) {
-	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
-	if err != nil {
-		return
-	}
+	c := htp.GetController(r)
+	user := controls.GetMemberUser(c, r)
 	writeAPIResponse(r, w, true, http.StatusOK, map[string]interface{}{
 		"me":    user,
 		"perms": ws.UserPerms{}.From(user),
@@ -25,10 +23,8 @@ func UsersMe(w http.ResponseWriter, r *http.Request) {
 
 // UsersRead is handler for /api/users/{uuid}
 func UsersRead(w http.ResponseWriter, r *http.Request) {
-	_, _, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
-	if err != nil {
-		return
-	}
+	c := htp.GetController(r)
+	controls.GetMemberUser(c, r)
 	uu := mux.Vars(r)["uuid"]
 	u, ok := db.QueryUserByUUID(uu)
 	writeAPIResponse(r, w, ok, http.StatusOK, u)
@@ -36,20 +32,15 @@ func UsersRead(w http.ResponseWriter, r *http.Request) {
 
 // UsersOnline is handler for /api/users/online
 func UsersOnline(w http.ResponseWriter, r *http.Request) {
-	_, _, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
-	if err != nil {
-		return
-	}
+	c := htp.GetController(r)
+	controls.GetMemberUser(c, r)
 	writeAPIResponse(r, w, true, http.StatusOK, ws.AllOnlineIDs())
 }
 
 // UserUpdate is handler for /api/users/{uuid}/update
 func UserUpdate(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPut, true)
-	if err != nil {
-		return
-	}
+	user := controls.GetMemberUser(c, r)
 	uu := mux.Vars(r)["uuid"]
 	u, ok := db.QueryUserByUUID(uu)
 	c.Assert(ok, "404: unable to find user with that uuid")

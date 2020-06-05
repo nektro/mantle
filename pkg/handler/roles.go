@@ -21,10 +21,7 @@ func RolesMe(w http.ResponseWriter, r *http.Request) {
 // RolesCreate reads info about channel
 func RolesCreate(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPost, true)
-	if err != nil {
-		return
-	}
+	user := controls.GetMemberUser(c, r)
 	controls.AssertFormKeysExist(c, r, "name")
 	n := r.Form.Get("name")
 
@@ -43,10 +40,7 @@ func RolesCreate(w http.ResponseWriter, r *http.Request) {
 // RoleUpdate updates info about this role
 func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPut, true)
-	if err != nil {
-		return
-	}
+	user := controls.GetMemberUser(c, r)
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ManageRoles, "403: users require the manage_roles permission to update roles")
 	controls.AssertFormKeysExist(c, r, "p_name")
@@ -139,10 +133,7 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 // RoleDelete updates info about this role
 func RoleDelete(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodDelete, true)
-	if err != nil {
-		return
-	}
+	user := controls.GetMemberUser(c, r)
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ManageRoles, "403: users require the manage_roles permission to update roles")
 

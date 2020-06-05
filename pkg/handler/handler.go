@@ -47,10 +47,7 @@ func InvitePost(w http.ResponseWriter, r *http.Request) {
 // Verify is handler for /verify
 func Verify(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	sess, user, err := apiBootstrapRequireLogin(r, w, http.MethodGet, false)
-	if err != nil {
-		return
-	}
+	user := controls.GetUser(c, r)
 	c.RedirectIf(user.IsMember, "./chat/")
 
 	if o, _ := strconv.ParseBool(db.Props.Get("public")); o {
@@ -110,10 +107,7 @@ func ApiAbout(w http.ResponseWriter, r *http.Request) {
 
 func ApiPropertyUpdate(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodPut, true)
-	if err != nil {
-		return
-	}
+	user := controls.GetMemberUser(c, r)
 	controls.AssertFormKeysExist(c, r, "p_name", "p_value")
 
 	n := r.Form.Get("p_name")

@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/nektro/mantle/pkg/db"
+	"github.com/nektro/mantle/pkg/handler/controls"
 	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/nektro/go.etc/htp"
@@ -14,10 +15,7 @@ import (
 // AuditsCsv handles /api/admin/audits.csv
 func AuditsCsv(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
-	if err != nil {
-		return
-	}
+	user := controls.GetMemberUser(c, r)
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ViewAudits, "403: action requires the view_audits permission")
 

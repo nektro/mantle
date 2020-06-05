@@ -4,17 +4,17 @@ import (
 	"net/http"
 
 	"github.com/nektro/mantle/pkg/db"
+	"github.com/nektro/mantle/pkg/handler/controls"
 	"github.com/nektro/mantle/pkg/ws"
 
+	"github.com/nektro/go.etc/htp"
 	"github.com/valyala/fastjson"
 )
 
 // Websocket is the handler for /ws
 func Websocket(w http.ResponseWriter, r *http.Request) {
-	_, user, err := apiBootstrapRequireLogin(r, w, http.MethodGet, true)
-	if err != nil {
-		return
-	}
+	c := htp.GetController(r)
+	user := controls.GetMemberUser(c, r)
 	wuser, err := ws.Connect(user, w, r)
 	if err != nil {
 		return

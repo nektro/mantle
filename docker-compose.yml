@@ -5,7 +5,7 @@ services:
         volumes:
         - .:/app/
         working_dir: /app/
-        command: go run . --port 8000 --skip-translation-fetch --config './data/config.json'
+        command: go run main.go --port 8000 --skip-translation-fetch --config './data/config.json'
         ports:
             - "80:8000"
         environment:

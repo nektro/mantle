@@ -13,10 +13,6 @@ var (
 	This *Store
 )
 
-// PreInit registers flags
-func PreInit() {
-}
-
 // Init takes flag values and initializes datastore
 func Init() {
 	defer ensureStore()

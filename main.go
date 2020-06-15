@@ -28,14 +28,13 @@ var Version = "vMASTER"
 func main() {
 	rand.Seed(time.Now().UnixNano())
 
+	etc.AppID = strings.ToLower(idata.Name)
 	idata.Version = etc.FixBareVersion(Version)
 	util.Log("Welcome to " + idata.Name + " " + idata.Version + ".")
 
 	//
-	etc.AppID = strings.ToLower(idata.Name)
-	store.PreInit()
-	etc.PreInit()
 
+	etc.PreInit()
 	etc.Init(&idata.Config, "./verify", handler.SaveOAuth2InfoCb)
 
 	//

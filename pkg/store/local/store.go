@@ -97,3 +97,9 @@ func (p *Store) ListLen(key string) int {
 	p.initListK(key)
 	return len(p.l[key])
 }
+
+// ListGet returns all items for the list at key
+func (p *Store) ListGet(key string) []string {
+	p.initListK(key)
+	return p.l[key]
+}

@@ -31,6 +31,7 @@ type Inner interface {
 	ListAdd(key, value string)
 	ListRemove(key, value string)
 	ListLen(key string) int
+	ListGet(key string) []string
 	sync.Locker
 }
 

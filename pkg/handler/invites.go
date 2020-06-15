@@ -14,7 +14,7 @@ import (
 // InvitesMe reads info about channel
 func InvitesMe(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	user := controls.GetMemberUser(c, r)
+	user := controls.GetMemberUser(c, r, w)
 	usp := ws.UserPerms{}.From(user)
 	if !usp.ManageInvites {
 		writeAPIResponse(r, w, true, http.StatusOK, []db.Invite{})
@@ -26,7 +26,7 @@ func InvitesMe(w http.ResponseWriter, r *http.Request) {
 // InvitesCreate reads info about channel
 func InvitesCreate(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	user := controls.GetMemberUser(c, r)
+	user := controls.GetMemberUser(c, r, w)
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ManageInvites, "403: users require the manage_invites permission to update invites")
 
@@ -42,7 +42,7 @@ func InvitesCreate(w http.ResponseWriter, r *http.Request) {
 // InviteUpdate updates info about this invite
 func InviteUpdate(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	user := controls.GetMemberUser(c, r)
+	user := controls.GetMemberUser(c, r, w)
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ManageInvites, "403: users require the manage_invites permission to update invites")
 	controls.AssertFormKeysExist(c, r, "p_name")
@@ -81,7 +81,7 @@ func InviteUpdate(w http.ResponseWriter, r *http.Request) {
 // InviteDelete updates info about this invite
 func InviteDelete(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	user := controls.GetMemberUser(c, r)
+	user := controls.GetMemberUser(c, r, w)
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ManageInvites, "403: users require the manage_invites permission to update invites")
 

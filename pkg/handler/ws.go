@@ -14,7 +14,7 @@ import (
 // Websocket is the handler for /ws
 func Websocket(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	user := controls.GetMemberUser(c, r)
+	user := controls.GetMemberUser(c, r, w)
 	wuser, err := ws.Connect(user, w, r)
 	if err != nil {
 		return

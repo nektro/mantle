@@ -15,7 +15,7 @@ import (
 // AuditsCsv handles /api/admin/audits.csv
 func AuditsCsv(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	user := controls.GetMemberUser(c, r)
+	user := controls.GetMemberUser(c, r, w)
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ViewAudits, "403: action requires the view_audits permission")
 

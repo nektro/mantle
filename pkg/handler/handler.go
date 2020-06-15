@@ -55,7 +55,7 @@ func InvitePost(w http.ResponseWriter, r *http.Request) {
 // Verify is handler for /verify
 func Verify(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	user := controls.GetUser(c, r)
+	user := controls.GetUser(c, r, w)
 	c.RedirectIf(user.IsMember, "./chat/")
 
 	if o, _ := strconv.ParseBool(db.Props.Get("public")); o {
@@ -108,7 +108,7 @@ func Chat(w http.ResponseWriter, r *http.Request) {
 func ApiAbout(w http.ResponseWriter, r *http.Request) {
 	if len(r.URL.Query().Get("all")) > 0 {
 		c := htp.GetController(r)
-		u := controls.GetMemberUser(c, r)
+		u := controls.GetMemberUser(c, r, w)
 		c.Assert(u.HasRole("o"), "403: resource requires Authorization or to be server owner to access")
 		writeAPIResponse(r, w, true, http.StatusOK, db.Props.GetAll())
 		return
@@ -118,7 +118,7 @@ func ApiAbout(w http.ResponseWriter, r *http.Request) {
 
 func ApiPropertyUpdate(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
-	user := controls.GetMemberUser(c, r)
+	user := controls.GetMemberUser(c, r, w)
 	controls.AssertFormKeysExist(c, r, "p_name", "p_value")
 
 	n := r.Form.Get("p_name")

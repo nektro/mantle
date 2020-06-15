@@ -25,8 +25,8 @@ func AssertFormKeysExist(c *htp.Controller, r *http.Request, s ...string) map[st
 var formMethods = []string{http.MethodPost, http.MethodPut, http.MethodPatch, http.MethodDelete}
 
 // GetUser asserts a user is logged in
-func GetUser(c *htp.Controller, r *http.Request) *db.User {
-	l := GetJWTClaims(c, r)
+func GetUser(c *htp.Controller, r *http.Request, w http.ResponseWriter) *db.User {
+	l := GetJWTClaims(c, r, w)
 	//
 	userID := l["sub"].(string)
 	user, _ := db.QueryUserByUUID(userID)
@@ -42,15 +42,15 @@ func GetUser(c *htp.Controller, r *http.Request) *db.User {
 }
 
 // GetMemberUser asserts the user is a member and not banned
-func GetMemberUser(c *htp.Controller, r *http.Request) *db.User {
-	u := GetUser(c, r)
+func GetMemberUser(c *htp.Controller, r *http.Request, w http.ResponseWriter) *db.User {
+	u := GetUser(c, r, w)
 	c.Assert(u.IsMember, "403: you are not a member of this server")
 	c.Assert(!u.IsBanned, "403: you are banned")
 	return u
 }
 
 // GetJWTClaims reads the Bearer token from the Request and asserts it is valid
-func GetJWTClaims(c *htp.Controller, r *http.Request) map[string]interface{} {
+func GetJWTClaims(c *htp.Controller, r *http.Request, w http.ResponseWriter) map[string]interface{} {
 	claims, ok := jwt.VerifyRequest(r, etc.JWTSecret)
 	c.Assert(ok, "401: jwt missing/invalid")
 	r.Header.Add("x-iss", claims["iss"].(string))

@@ -53,7 +53,7 @@ func GetMemberUser(c *htp.Controller, r *http.Request, w http.ResponseWriter) *d
 func GetJWTClaims(c *htp.Controller, r *http.Request, w http.ResponseWriter) map[string]interface{} {
 	claims, ok := jwt.VerifyRequest(r, etc.JWTSecret)
 	c.Assert(ok, "401: jwt missing/invalid")
-	r.Header.Add("x-iss", claims["iss"].(string))
-	r.Header.Add("x-sub", claims["sub"].(string))
+	w.Header().Add("x-iss", claims["iss"].(string))
+	w.Header().Add("x-sub", claims["sub"].(string))
 	return claims
 }

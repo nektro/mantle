@@ -25,7 +25,7 @@ func SaveOAuth2InfoCb(w http.ResponseWriter, r *http.Request, provider string, i
 	n, _ := os.Hostname()
 	http.SetCookie(w, &http.Cookie{
 		Name:   "jwt",
-		Value:  jwt.Get("astheno.mantle."+idata.Version+"."+n, ru.UUID, etc.JWTSecret, db.Epoch, time.Hour),
+		Value:  jwt.Get("astheno.mantle."+strings.ReplaceAll(idata.Version, "-", ".")+"."+n, ru.UUID, etc.JWTSecret, db.Epoch, time.Hour*24*30),
 		MaxAge: 0,
 	})
 	ru.SetName(strings.ReplaceAll(name, " ", ""))

@@ -2,20 +2,20 @@ package ws
 
 import (
 	"github.com/nektro/mantle/pkg/db"
+	"github.com/nektro/mantle/pkg/store"
 
 	"github.com/gorilla/websocket"
 )
 
 type User struct {
-	Conn  *websocket.Conn
-	User  *db.User
-	Perms *UserPerms
+	Conn *websocket.Conn
+	User *db.User
 }
 
 func (u *User) Disconnect() {
 	if u.IsConnected() {
 		delete(UserCache, u.User.UUID)
-		listRemove(connected, u.User.UUID)
+		store.This.ListRemove(keyOnline, u.User.UUID)
 		BroadcastMessage(map[string]interface{}{
 			"type": "user-disconnect",
 			"user": u.User.UUID,
@@ -24,7 +24,7 @@ func (u *User) Disconnect() {
 }
 
 func (u *User) IsConnected() bool {
-	return listHas(connected, u.User.UUID)
+	return store.This.ListHas(keyOnline, u.User.UUID)
 }
 
 func (u *User) SendMessageRaw(msg map[string]interface{}) {

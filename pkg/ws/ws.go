@@ -1,17 +1,20 @@
 package ws
 
 import (
-	"container/list"
 	"net/http"
 
 	"github.com/nektro/mantle/pkg/db"
+	"github.com/nektro/mantle/pkg/store"
 
 	"github.com/gorilla/websocket"
 )
 
+const (
+	keyOnline = "online_users"
+)
+
 var (
 	reqUpgrader = websocket.Upgrader{ReadBufferSize: 1024, WriteBufferSize: 1024}
-	connected   = list.New() // user UUIDs
 )
 
 var (
@@ -28,12 +31,11 @@ func Connect(user *db.User, w http.ResponseWriter, r *http.Request) (*User, erro
 	u := &User{
 		conn,
 		user,
-		UserPerms{}.From(user),
 	}
 	UserCache[u.User.UUID] = u
 
 	if !u.IsConnected() {
-		connected.PushBack(u.User.UUID)
+		store.This.ListAdd(keyOnline, u.User.UUID)
 		BroadcastMessage(map[string]interface{}{
 			"type": "user-connect",
 			"user": u.User.UUID,
@@ -58,10 +60,10 @@ func BroadcastMessage(message map[string]interface{}) {
 
 // AllOnlineIDs returns ULID of every online user
 func AllOnlineIDs() []string {
-	return listToArray(connected)
+	return store.This.ListGet(keyOnline)
 }
 
 // OnlineUserCount is the total number of active users
 func OnlineUserCount() int64 {
-	return int64(len(UserCache))
+	return int64(store.This.ListLen(keyOnline))
 }

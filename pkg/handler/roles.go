@@ -13,8 +13,10 @@ import (
 	"github.com/nektro/go.etc/htp"
 )
 
-// RolesMe reads info about channel
+// RolesMe is the handler for /api/roles/@me
 func RolesMe(w http.ResponseWriter, r *http.Request) {
+	c := htp.GetController(r)
+	controls.GetMemberUser(c, r)
 	writeAPIResponse(r, w, true, http.StatusOK, db.Role{}.All())
 }
 

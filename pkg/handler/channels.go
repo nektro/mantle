@@ -14,6 +14,8 @@ import (
 
 // ChannelsMe is the handler for /api/channels/@me
 func ChannelsMe(w http.ResponseWriter, r *http.Request) {
+	c := htp.GetController(r)
+	controls.GetMemberUser(c, r)
 	writeAPIResponse(r, w, true, http.StatusOK, db.Channel{}.All())
 }
 

@@ -8,9 +8,9 @@ import (
 	"github.com/nektro/mantle/pkg/handler/controls"
 	"github.com/nektro/mantle/pkg/ws"
 
+	"github.com/go-playground/colors"
 	"github.com/gorilla/mux"
 	"github.com/nektro/go.etc/htp"
-	"gopkg.in/go-playground/colors.v1"
 )
 
 // RolesMe reads info about channel

@@ -14,7 +14,6 @@ import (
 	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/nektro/go-util/util"
-	"github.com/nektro/go-util/vflag"
 	etc "github.com/nektro/go.etc"
 	"github.com/nektro/go.etc/htp"
 	"github.com/nektro/go.etc/translations"
@@ -32,14 +31,11 @@ func main() {
 	util.Log("Welcome to " + idata.Name + " " + idata.Version + ".")
 
 	//
-	vflag.IntVar(&idata.Config.Port, "port", 8000, "The port to bind the web server to.")
-	vflag.StringVar(&idata.Config.JWTSecret, "jwt-secret", db.RandomString(64), "Privte secret to sign and verify JWT auth tokens with.")
-
 	etc.AppID = strings.ToLower(idata.Name)
 	etc.PreInit()
 
 	//
-	etc.Init("mantle", &idata.Config, "./verify", handler.SaveOAuth2InfoCb)
+	etc.Init(&idata.Config, "./verify", handler.SaveOAuth2InfoCb)
 
 	//
 	// database initialization
@@ -117,5 +113,5 @@ func main() {
 	//
 	// start server
 
-	etc.StartServer(idata.Config.Port)
+	etc.StartServer()
 }

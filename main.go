@@ -11,6 +11,7 @@ import (
 	"github.com/nektro/mantle/pkg/handler"
 	"github.com/nektro/mantle/pkg/idata"
 	"github.com/nektro/mantle/pkg/metrics"
+	"github.com/nektro/mantle/pkg/store"
 	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/nektro/go-util/util"
@@ -32,13 +33,16 @@ func main() {
 
 	//
 	etc.AppID = strings.ToLower(idata.Name)
+	store.PreInit()
 	etc.PreInit()
 
-	//
 	etc.Init(&idata.Config, "./verify", handler.SaveOAuth2InfoCb)
 
 	//
 	// database initialization
+
+	store.Init()
+	util.Log("store:", store.This.Type())
 
 	db.Init()
 

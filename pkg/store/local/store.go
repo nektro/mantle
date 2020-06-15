@@ -27,6 +27,11 @@ func (p *Store) Type() string {
 	return "local"
 }
 
+// Ping ensures we have a valid connection to this store
+func (p *Store) Ping() error {
+	return nil
+}
+
 // Has tests whether this Store contains a certain key
 func (p *Store) Has(key string) bool {
 	_, ok := p.m[key]

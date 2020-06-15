@@ -4,6 +4,8 @@ import (
 	"sync"
 
 	"github.com/nektro/mantle/pkg/store/local"
+
+	"github.com/nektro/go-util/util"
 )
 
 // global singleton
@@ -16,12 +18,21 @@ func PreInit() {
 }
 
 // Init takes flag values and initializes datastore
+func Init() {
+	defer ensureStore()
+
 	This = &Store{local.Get()}
+}
+
+func ensureStore() {
+	util.Log("store:", This.Type())
+	util.DieOnError(This.Ping())
 }
 
 // Inner holds KV values
 type Inner interface {
 	Type() string
+	Ping() error
 	Has(key string) bool
 	Set(key string, val string)
 	Get(key string) string

@@ -6,7 +6,9 @@ import (
 	"github.com/nektro/mantle/pkg/db"
 
 	"github.com/nektro/go-util/arrays/stringsu"
+	etc "github.com/nektro/go.etc"
 	"github.com/nektro/go.etc/htp"
+	"github.com/nektro/go.etc/jwt"
 )
 
 // AssertFormKeysExist asserts Request.Form keys exist in htp
@@ -45,4 +47,13 @@ func GetMemberUser(c *htp.Controller, r *http.Request) *db.User {
 	c.Assert(u.IsMember, "403: you are not a member of this server")
 	c.Assert(!u.IsBanned, "403: you are banned")
 	return u
+}
+
+// GetJWTClaims reads the Bearer token from the Request and asserts it is valid
+func GetJWTClaims(c *htp.Controller, r *http.Request) map[string]interface{} {
+	claims, ok := jwt.VerifyRequest(r, etc.JWTSecret)
+	c.Assert(ok, "401: jwt missing/invalid")
+	r.Header.Add("x-iss", claims["iss"].(string))
+	r.Header.Add("x-sub", claims["sub"].(string))
+	return claims
 }

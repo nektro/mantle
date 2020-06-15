@@ -42,7 +42,6 @@ func main() {
 	// database initialization
 
 	store.Init()
-	util.Log("store:", store.This.Type())
 
 	db.Init()
 

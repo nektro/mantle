@@ -8,9 +8,6 @@ services:
         command: go run main.go --port 8000 --skip-translation-fetch --config './data/config.json'
         ports:
             - "80:8000"
-        environment:
-            # DBSTORAGE_DEBUG_SQL: 1
-            # DBSTORAGE_DEBUG_VERBOSE: 1
     prometheus:
         image: prom/prometheus:v2.18.1
         volumes:

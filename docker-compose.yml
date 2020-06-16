@@ -8,6 +8,8 @@ services:
         command: go run main.go --port 8000 --skip-translation-fetch --config './data/config.json'
         ports:
             - "80:8000"
+        environment:
+            REDIS_URL: redis:6379
     prometheus:
         image: prom/prometheus:latest
         volumes:
@@ -16,3 +18,6 @@ services:
             - "--config.file=/data/prometheus.yml"
         ports:
             - "9090:9090"
+    redis:
+        image: redis:latest
+        command: [sh, -c, "rm -f /data/dump.rdb && redis-server"]

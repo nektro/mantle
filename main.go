@@ -15,6 +15,7 @@ import (
 	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/nektro/go-util/util"
+	"github.com/nektro/go-util/vflag"
 	etc "github.com/nektro/go.etc"
 	"github.com/nektro/go.etc/htp"
 	"github.com/nektro/go.etc/translations"
@@ -33,6 +34,7 @@ func main() {
 	util.Log("Welcome to " + idata.Name + " " + idata.Version + ".")
 
 	//
+	vflag.StringVar(&idata.Config.RedisURL, "redis-url", "", "")
 
 	etc.PreInit()
 	etc.Init(&idata.Config, "./verify", handler.SaveOAuth2InfoCb)

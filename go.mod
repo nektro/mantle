@@ -5,9 +5,11 @@ go 1.12
 require (
 	github.com/PuerkitoBio/goquery v1.5.1 // indirect
 	github.com/aymerick/raymond v2.0.2+incompatible // indirect
+	github.com/bsm/redislock v0.5.0
 	github.com/deckarep/golang-set v1.7.1 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/go-playground/colors v1.2.0
+	github.com/go-redis/redis/v7 v7.4.0
 	github.com/gorilla/mux v1.7.4
 	github.com/gorilla/websocket v1.4.2
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible // indirect

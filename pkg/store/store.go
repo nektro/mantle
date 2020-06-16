@@ -3,7 +3,9 @@ package store
 import (
 	"sync"
 
+	"github.com/nektro/mantle/pkg/idata"
 	"github.com/nektro/mantle/pkg/store/local"
+	"github.com/nektro/mantle/pkg/store/redis"
 
 	"github.com/nektro/go-util/util"
 )
@@ -18,6 +20,11 @@ func Init() {
 	defer ensureStore()
 
 	doInit := func() Inner {
+		c := idata.Config
+
+		if len(c.RedisURL) > 0 {
+			return redis.Get(c.RedisURL)
+		}
 		return local.Get()
 	}
 	This = &Store{doInit()}

@@ -33,13 +33,12 @@ Once you have finished the app creation process you should now have a Client ID 
 The Identity Provider IDs can be found from the table in the [nektro/go.oauth2](https://github.com/nektro/go.oauth2#readme) documentation.
 
 ### Other Flags
-
-> Note: all flags are passable as environment variables in the form that `--oauth2-default-auth` may also be passed in with the `OAUTH2_DEFAULT_AUTH` variable.
+These flags are optional but offer more customization and enable debugging, or assist in running in containerized environments. They also may all be passed as environment variables in the form that `--oauth2-default-auth` may also be passed in with the `OAUTH2_DEFAULT_AUTH` variable.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | `--dbstorage-debug-sql` | `bool` | `false` | Enable this flag to print all executed SQL statements. |
-| `--oauth2-default-auth` | `string` | none. | Use this if you'd like to have a default auth when multiple are enabled. |
+| `--oauth2-default-auth` | `string` | none | Use this if you'd like to have a default auth when multiple are enabled. |
 | `--port` | `int` | `8000` | The port to bind the web server to. |
 | `--jwt-secret` | `string` | random | HMAC JWT signing secret. |
 

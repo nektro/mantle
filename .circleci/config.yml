@@ -10,7 +10,7 @@ jobs:
       - image: circleci/golang:1.12
     steps:
       - checkout
-      - run: go get -v -u .
+      - run: go get -v .
       - run: go test -v .
       - run: ./build_all.sh
       - store_artifacts:

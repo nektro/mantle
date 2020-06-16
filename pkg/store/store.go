@@ -17,7 +17,10 @@ var (
 func Init() {
 	defer ensureStore()
 
-	This = &Store{local.Get()}
+	doInit := func() Inner {
+		return local.Get()
+	}
+	This = &Store{doInit()}
 }
 
 func ensureStore() {

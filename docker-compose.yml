@@ -9,7 +9,7 @@ services:
         ports:
             - "80:8000"
     prometheus:
-        image: prom/prometheus:v2.18.1
+        image: prom/prometheus:latest
         volumes:
             - ./data/prometheus/:/data/
         command:

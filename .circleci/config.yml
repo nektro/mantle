@@ -5,7 +5,7 @@ orbs:
   docker: circleci/docker@1.0.1
 jobs:
   build:
-    working_directory: /home/circleci/my_app
+    working_directory: /home/circleci/mantle
     docker:
       - image: circleci/golang:1.12
     steps:

@@ -5,6 +5,8 @@ import (
 	"sort"
 	"strconv"
 
+	"github.com/nektro/mantle/pkg/store"
+
 	"github.com/nektro/go-util/arrays/stringsu"
 	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
@@ -37,8 +39,8 @@ func QueryUserBySnowflake(provider string, flake string, name string) *User {
 	if ok {
 		return us
 	}
-	dbstorage.InsertsLock.Lock()
-	defer dbstorage.InsertsLock.Unlock()
+	store.This.Lock()
+	defer store.This.Unlock()
 	//
 	id := db.QueryNextID(cTableUsers)
 	uid := newUUID()

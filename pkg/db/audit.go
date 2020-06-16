@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"strconv"
 
+	"github.com/nektro/mantle/pkg/store"
+
 	dbstorage "github.com/nektro/go.dbstorage"
 )
 
@@ -22,8 +24,8 @@ type Audit struct {
 //
 
 func CreateAudit(ac Action, agent *User, aff string, key, val string) *Audit {
-	dbstorage.InsertsLock.Lock()
-	defer dbstorage.InsertsLock.Unlock()
+	store.This.Lock()
+	defer store.This.Unlock()
 	//
 	id := db.QueryNextID(cTableAudits)
 	uid := newUUID()

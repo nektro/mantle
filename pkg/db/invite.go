@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"strconv"
 
+	"github.com/nektro/mantle/pkg/store"
+
 	dbstorage "github.com/nektro/go.dbstorage"
 )
 
@@ -26,8 +28,8 @@ type Invite struct {
 
 // CreateInvite creates a new permanent invite and returns it
 func CreateInvite() *Invite {
-	dbstorage.InsertsLock.Lock()
-	defer dbstorage.InsertsLock.Unlock()
+	store.This.Lock()
+	defer store.This.Unlock()
 	//
 	id := db.QueryNextID(cTableInvites)
 	uid := newUUID()

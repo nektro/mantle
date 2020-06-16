@@ -3,6 +3,8 @@ package db
 import (
 	"database/sql"
 
+	"github.com/nektro/mantle/pkg/store"
+
 	dbstorage "github.com/nektro/go.dbstorage"
 )
 
@@ -18,8 +20,8 @@ type Message struct {
 //
 
 func CreateMessage(user *User, channel *Channel, body string) *Message {
-	dbstorage.InsertsLock.Lock()
-	defer dbstorage.InsertsLock.Unlock()
+	store.This.Lock()
+	defer store.This.Unlock()
 	//
 	m := &Message{db.QueryNextID(cTableMessagesPrefix + channel.UUID), newUUID(), now(), user.UUID, body}
 	if channel.HistoryOff {

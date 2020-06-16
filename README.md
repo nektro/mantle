@@ -41,6 +41,7 @@ These flags are optional but offer more customization and enable debugging, or a
 | `--oauth2-default-auth` | `string` | none | Use this if you'd like to have a default auth when multiple are enabled. |
 | `--port` | `int` | `8000` | The port to bind the web server to. |
 | `--jwt-secret` | `string` | random | HMAC JWT signing secret. |
+| `--redis-url` | `string` | none | Host of Redis instance to use. |
 
 ## Deployment
 Pre-compiled binaries can be obtained from https://github.com/nektro/mantle/releases/latest.

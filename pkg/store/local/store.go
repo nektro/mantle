@@ -75,8 +75,7 @@ func (p *Store) initListK(key string) {
 
 // ListHas returns true if the list at this key contains value
 func (p *Store) ListHas(key, value string) bool {
-	p.initListK(key)
-	return util.Contains(p.l[key], value)
+	return util.Contains(p.ListGet(key), value)
 }
 
 // ListAdd appends value to the list at key
@@ -87,9 +86,8 @@ func (p *Store) ListAdd(key, value string) {
 
 // ListRemove removes value from the list at key
 func (p *Store) ListRemove(key, value string) {
-	p.initListK(key)
 	r := []string{}
-	for _, item := range p.l[value] {
+	for _, item := range p.ListGet(key) {
 		if item != value {
 			r = append(r, item)
 		}
@@ -99,8 +97,7 @@ func (p *Store) ListRemove(key, value string) {
 
 // ListLen returns the number of items in the list at key
 func (p *Store) ListLen(key string) int {
-	p.initListK(key)
-	return len(p.l[key])
+	return len(p.ListGet(key))
 }
 
 // ListGet returns all items for the list at key

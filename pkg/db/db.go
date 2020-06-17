@@ -62,8 +62,8 @@ func Init() {
 	Props.SetDefault("profile_photo", "https://avatars.discourse.org/v4/letter/m/ec9cab/90.png")
 	Props.SetDefault("prometheus_key", util.RandomString(64))
 
-	Props.SetDefaultInt64("count_"+cTableUsers+"_members", queryCount(db.Build().Se("*").Fr(cTableUsers).Wh("is_member", "1").Exe()))
-	Props.SetDefaultInt64("count_"+cTableUsers+"_banned", queryCount(db.Build().Se("*").Fr(cTableUsers).Wh("is_banned", "1").Exe()))
+	Props.SetDefaultInt64("count_users_members", queryCount(db.Build().Se("*").Fr(cTableUsers).Wh("is_member", "1").Exe()))
+	Props.SetDefaultInt64("count_users_banned", queryCount(db.Build().Se("*").Fr(cTableUsers).Wh("is_banned", "1").Exe()))
 
 	for _, item := range ResourceTables {
 		Props.SetDefaultInt64("count_"+item, db.QueryRowCount(item))

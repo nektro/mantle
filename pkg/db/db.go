@@ -58,7 +58,7 @@ func Init() {
 	Props.SetDefault("owner", "")
 	Props.SetDefault("public", "1")
 	Props.SetDefault("description", "The new easy and effective communication platform for any successful team or community that's independently hosted and puts users, privacy, and effiecency first.")
-	Props.SetDefault("cover_photo", "https://www.transparenttextures.com/patterns/gplay.png")
+	Props.SetDefault("cover_photo", "data:,")
 	Props.SetDefault("profile_photo", "https://avatars.discourse.org/v4/letter/m/ec9cab/90.png")
 	Props.SetDefault("prometheus_key", util.RandomString(64))
 

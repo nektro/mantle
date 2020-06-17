@@ -91,9 +91,12 @@ x-message {
 
             a {
                 color: $cyan;
+                text-decoration: none;
+                padding-bottom: 2px;
 
                 &:hover {
                     color: $blue;
+                    border-bottom: 1px solid $blue;
                 }
             }
             img {

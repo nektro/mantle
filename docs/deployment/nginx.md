@@ -10,10 +10,16 @@ location / {
     proxy_pass http://localhost:8000/;
     proxy_set_header Host $host;
 }
+location /ws {
+    proxy_pass http://localhost:8000;
+    proxy_set_header Host $host;
+    proxy_set_header Connection "Upgrade";
+    proxy_set_header Upgrade $http_upgrade;
+}
 ```
 
 ## Using HTTPS
-Modify your location block and add
+Modify your `/` location block and add
 
 ```
 proxy_set_header X-TLS-Enabled true;

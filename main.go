@@ -31,7 +31,7 @@ func main() {
 
 	etc.AppID = strings.ToLower(idata.Name)
 	idata.Version = etc.FixBareVersion(Version)
-	util.Log("Welcome to " + idata.Name + " " + idata.Version + ".")
+	util.Log("Starting " + idata.Name + " " + idata.Version + ".")
 
 	//
 	vflag.StringVar(&idata.Config.RedisURL, "redis-url", "", "")

@@ -36,6 +36,7 @@ func main() {
 
 	//
 	vflag.StringVar(&idata.Config.RedisURL, "redis-url", "", "")
+	vflag.IntVar(&idata.Config.MaxMemberCount, "max-member-count", 0, "")
 
 	etc.PreInit()
 	etc.Init(&idata.Config, "./verify", handler.SaveOAuth2InfoCb)

@@ -85,6 +85,11 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 		c.Assert(time.Since(inv.ExpiresOn.T()) <= 0, "401: invite is expired")
 	}
 
+	cm := idata.Config.MaxMemberCount
+	if cm > 0 {
+		c.Assert(db.Props.GetInt64("count_users_members") <= int64(cm), "401: unable to join, max member count has been met")
+	}
+
 	inv.Use(user)
 	for _, item := range inv.GivenRoles {
 		user.AddRole(item)

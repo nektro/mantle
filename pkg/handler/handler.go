@@ -58,6 +58,11 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 	user := controls.GetUser(c, r, w)
 	c.RedirectIf(user.IsMember, "./chat/")
 
+	cm := idata.Config.MaxMemberCount
+	if cm > 0 {
+		c.Assert(db.Props.GetInt64("count_users_members") < int64(cm), "401: unable to join, max member count has been met")
+	}
+
 	if o, _ := strconv.ParseBool(db.Props.Get("public")); o {
 		if !user.IsMember {
 			user.SetAsMember(true)
@@ -83,11 +88,6 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 		//
 	case 2:
 		c.Assert(time.Since(inv.ExpiresOn.T()) <= 0, "401: invite is expired")
-	}
-
-	cm := idata.Config.MaxMemberCount
-	if cm > 0 {
-		c.Assert(db.Props.GetInt64("count_users_members") <= int64(cm), "401: unable to join, max member count has been met")
 	}
 
 	inv.Use(user)

@@ -89,9 +89,7 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	inv.Use()
-	user.SetAsMember(true)
-	db.CreateAudit(db.ActionInviteUse, user, inv.UUID, inv.Code, "")
+	inv.Use(user)
 	for _, item := range inv.GivenRoles {
 		user.AddRole(item)
 	}

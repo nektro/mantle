@@ -77,9 +77,11 @@ func (v Invite) All() []*Invite {
 //
 
 // Use increments Uses by 1
-func (v *Invite) Use() {
+func (v *Invite) Use(u *User) {
 	v.Uses++
 	db.Build().Up(cTableInvites, "uses", strconv.FormatInt(v.Uses, 10)).Wh("uuid", v.UUID).Exe()
+	CreateAudit(ActionInviteUse, u, v.UUID, v.Code, "")
+	u.SetAsMember(true)
 }
 
 // SetMaxUses sets

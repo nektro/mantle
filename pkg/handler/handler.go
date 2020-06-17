@@ -63,6 +63,11 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 		c.Assert(db.Props.GetInt64("count_users_members") < int64(cm), "401: unable to join, max member count has been met")
 	}
 
+	pm := db.Props.GetInt64("count_users_members_max")
+	if pm > 0 {
+		c.Assert(db.Props.GetInt64("count_users_members") < pm, "401: unable to join, max member count has been met")
+	}
+
 	if o, _ := strconv.ParseBool(db.Props.Get("public")); o {
 		if !user.IsMember {
 			user.SetAsMember(true)
@@ -112,7 +117,7 @@ func ApiAbout(w http.ResponseWriter, r *http.Request) {
 		writeAPIResponse(r, w, true, http.StatusOK, db.Props.GetAll())
 		return
 	}
-	writeAPIResponse(r, w, true, http.StatusOK, db.Props.GetSome("name", "owner", "public", "description", "cover_photo", "profile_photo", "version"))
+	writeAPIResponse(r, w, true, http.StatusOK, db.Props.GetSome("name", "owner", "public", "description", "cover_photo", "profile_photo", "version", "count_users_members_max"))
 }
 
 func ApiPropertyUpdate(w http.ResponseWriter, r *http.Request) {

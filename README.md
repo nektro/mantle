@@ -42,6 +42,7 @@ These flags are optional but offer more customization and enable debugging, or a
 | `--port` | `int` | `8000` | The port to bind the web server to. |
 | `--jwt-secret` | `string` | random | HMAC JWT signing secret. |
 | `--redis-url` | `string` | none | Host of Redis instance to use. |
+| `--max-member-count` | `int`| none | The maximum number of users that may be a "member" of the server at one time. Overrides setting in "Overview". Not retroactive. |
 
 ## Deployment
 Pre-compiled binaries can be obtained from https://github.com/nektro/mantle/releases/latest.

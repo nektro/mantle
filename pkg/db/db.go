@@ -64,6 +64,7 @@ func Init() {
 
 	Props.SetDefaultInt64("count_users_members", queryCount(db.Build().Se("*").Fr(cTableUsers).Wh("is_member", "1").Exe()))
 	Props.SetDefaultInt64("count_users_banned", queryCount(db.Build().Se("*").Fr(cTableUsers).Wh("is_banned", "1").Exe()))
+	Props.SetDefaultInt64("count_users_members_max", 0)
 
 	for _, item := range ResourceTables {
 		Props.SetDefaultInt64("count_"+item, db.QueryRowCount(item))

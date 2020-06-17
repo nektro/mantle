@@ -83,10 +83,12 @@ func (v User) MemberCount() int64 {
 //
 
 func (u *User) SetAsMember(b bool) {
+	m := u.IsMember
 	db.Build().Up(cTableUsers, "is_member", strconv.Itoa(util.Btoi(b))).Wh("uuid", u.UUID).Exe()
-	if b {
+	if !m && b {
 		Props.Increment("count_users_members")
-	} else {
+	}
+	if m && !b {
 		Props.Decrement("count_users_members")
 	}
 	u.IsMember = b

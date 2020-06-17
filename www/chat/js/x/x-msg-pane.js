@@ -36,6 +36,7 @@ async function _make_m_element(user, msg) {
         });
     }
     safe_html_replace(mtx, /(`.+`)/gu, (match) => create_element("code", null, [dcTN(match.substring(1, match.length - 1))]));
+    safe_html_replace(mtx, /(\|\|[\w ]+\|\|)/gu, (match) => create_element("x-spoiler", [], [dcTN(match.substring(2, match.length-2))]));
     twemoji.parse(mtx);
     safe_html_replace(mtx, /([a-z]+:\/\/[^\s]+)/gu, (match) => create_element("a", [["href",match],["target","_blank"]], [dcTN(decodeURIComponent(match))]));
     safe_html_replace(mtx, /(magnet:[^\s]+)/gu, (match) => create_element("a", [["href",match],["target","_blank"]], [dcTN(decodeURIComponent(match))]));

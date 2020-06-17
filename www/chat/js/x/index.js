@@ -23,3 +23,4 @@ import "./x-message.js";
 
 // etc
 import "./x-user-dialog.js";
+import "./x-spoiler.js";

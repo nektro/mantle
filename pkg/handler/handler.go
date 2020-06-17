@@ -82,11 +82,7 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 	case 1:
 		//
 	case 2:
-		s := time.Since(inv.ExpiresOn.T())
-		if s > 0 {
-			writeAPIResponse(r, w, false, http.StatusBadRequest, "invite is expired")
-			return
-		}
+		c.Assert(time.Since(inv.ExpiresOn.T()) <= 0, "401: invite is expired")
 	}
 
 	inv.Use(user)

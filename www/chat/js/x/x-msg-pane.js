@@ -38,6 +38,7 @@ async function _make_m_element(user, msg) {
     safe_html_replace(mtx, /(`.+`)/gu, (match) => create_element("code", null, [dcTN(match.substring(1, match.length - 1))]));
     twemoji.parse(mtx);
     safe_html_replace(mtx, /([a-z]+:\/\/[^\s]+)/gu, (match) => create_element("a", [["href",match],["target","_blank"]], [dcTN(decodeURIComponent(match))]));
+    safe_html_replace(mtx, /(magnet:[^\s]+)/gu, (match) => create_element("a", [["href",match],["target","_blank"]], [dcTN(decodeURIComponent(match))]));
     //
     return el;
 }

@@ -2,7 +2,7 @@ FROM golang:alpine as golang
 WORKDIR /go/src/mantle
 COPY . .
 RUN apk add --no-cache git libc-dev musl-dev build-base gcc ca-certificates \
-    && export VCS_REF=$(git describe --tags) \
+    && export VCS_REF=$(git tag --points-at HEAD) \
     && echo $VCS_REF \
     && go get -u github.com/rakyll/statik \
     && $GOPATH/bin/statik -src="./www/" \

@@ -14,4 +14,4 @@ COPY --from=golang /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=golang /app/mantle /app/mantle
 
 VOLUME /data
-ENTRYPOINT ["/app/mantle", "--port", "80", "--config", "/data/config.json"]
+ENTRYPOINT ["/app/mantle", "--port", "8000", "--config", "/data/config.json"]

@@ -1,5 +1,5 @@
 FROM golang:alpine as golang
-WORKDIR /go/src/mantle
+WORKDIR /app
 COPY . .
 RUN apk add --no-cache git libc-dev musl-dev build-base gcc ca-certificates \
     && export VCS_REF=$(git tag --points-at HEAD) \
@@ -11,7 +11,7 @@ RUN apk add --no-cache git libc-dev musl-dev build-base gcc ca-certificates \
 
 FROM alpine
 COPY --from=golang /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=golang /go/src/mantle/mantle /app/mantle
+COPY --from=golang /app/mantle /app/mantle
 
 VOLUME /data
 ENTRYPOINT ["/app/mantle", "--port", "80", "--config", "/data/config.json"]

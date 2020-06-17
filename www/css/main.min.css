@@ -10,6 +10,8 @@ body.p-invite form { max-width: 30em; background-color: rgba(7, 54, 66, 0.9); co
 
 body.p-invite form legend { margin: auto; padding: 0 .5em; }
 
+body.p-invite form div.v { text-align: center; margin-bottom: .5em; }
+
 body.p-invite form .badges { display: flex; flex-direction: row; justify-content: space-around; align-items: center; }
 
 body.p-invite form .badges img { padding: .25em; }

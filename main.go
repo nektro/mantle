@@ -31,6 +31,7 @@ func main() {
 
 	etc.AppID = strings.ToLower(idata.Name)
 	idata.Version = etc.FixBareVersion(Version)
+	idata.Version = strings.ReplaceAll(idata.Version, "-", ".")
 	util.Log("Starting " + idata.Name + " " + idata.Version + ".")
 
 	//

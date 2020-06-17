@@ -86,6 +86,7 @@ func main() {
 
 	htp.Register("/api/etc/role_colors.css", http.MethodGet, handler.EtcRoleColorCSS)
 
+	htp.Register("/api/etc/badges/version.svg", http.MethodGet, handler.EtcBadgeVersion)
 	htp.Register("/api/etc/badges/members_online.svg", http.MethodGet, handler.EtcBadgeMembersOnline)
 	htp.Register("/api/etc/badges/members_total.svg", http.MethodGet, handler.EtcBadgeMembersTotal)
 

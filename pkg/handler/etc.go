@@ -7,10 +7,21 @@ import (
 
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/handler/controls"
+	"github.com/nektro/mantle/pkg/idata"
 	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/nektro/go.etc/htp"
 )
+
+// EtcBadgeVersion is the handler for /api/etc/badges/version.svg
+func EtcBadgeVersion(w http.ResponseWriter, r *http.Request) {
+	hBadge(
+		w, r,
+		idata.Name,
+		idata.Version,
+		"blue",
+	)
+}
 
 // EtcBadgeMembersOnline is the handler for /api/etc/badges/members_online.svg
 func EtcBadgeMembersOnline(w http.ResponseWriter, r *http.Request) {

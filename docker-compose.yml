@@ -10,6 +10,7 @@ services:
             - "8000"
         environment:
             REDIS_URL: redis:6379
+            JWT_SECRET: secret_secret
     nginx:
         image: nginx:latest
         volumes:

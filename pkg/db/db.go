@@ -5,6 +5,7 @@ import (
 
 	"github.com/nektro/mantle/pkg/idata"
 
+	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
 	etc "github.com/nektro/go.etc"
 )
@@ -59,7 +60,7 @@ func Init() {
 	Props.SetDefault("description", "The new easy and effective communication platform for any successful team or community that's independently hosted and puts users, privacy, and effiecency first.")
 	Props.SetDefault("cover_photo", "https://www.transparenttextures.com/patterns/gplay.png")
 	Props.SetDefault("profile_photo", "https://avatars.discourse.org/v4/letter/m/ec9cab/90.png")
-	Props.SetDefault("prometheus_key", RandomString(64))
+	Props.SetDefault("prometheus_key", util.RandomString(64))
 
 	Props.SetDefaultInt64("count_"+cTableUsers+"_members", queryCount(db.Build().Se("*").Fr(cTableUsers).Wh("is_member", "1").Exe()))
 	Props.SetDefaultInt64("count_"+cTableUsers+"_banned", queryCount(db.Build().Se("*").Fr(cTableUsers).Wh("is_banned", "1").Exe()))

@@ -6,6 +6,7 @@ import (
 
 	"github.com/nektro/mantle/pkg/store"
 
+	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
 )
 
@@ -34,7 +35,7 @@ func CreateInvite() *Invite {
 	id := db.QueryNextID(cTableInvites)
 	uid := newUUID()
 	co := now()
-	code := RandomString(8)
+	code := util.RandomString(8)
 	n := &Invite{id, uid, co, code, 0, 0, 0, "", NewTime(timeZero), false, Array{}}
 	db.Build().InsI(cTableInvites, n).Exe()
 	Props.Increment("count_" + cTableInvites)

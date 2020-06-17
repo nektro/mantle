@@ -28,16 +28,6 @@ func now() Time {
 	return Time(t)
 }
 
-const letterBytes = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
-func RandomString(n int) string {
-	b := make([]byte, n)
-	for i := range b {
-		b[i] = letterBytes[rand.Intn(len(letterBytes))]
-	}
-	return string(b)
-}
-
 func uHighLow(a, b int) (int, int) {
 	if a >= b {
 		return a, b

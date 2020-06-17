@@ -40,8 +40,10 @@ document.getElementById("shrink_uonline").addEventListener("click", () => {
         setDataBinding("server_version", x.version);
         //
         const sx = document.querySelector("x-settings[data-s-for=server] [data-s-section=overview]");
-        for (const item of ["name","description","cover_photo","profile_photo","public"]) {
-            sx.querySelector(`[name="${item}"]`).setAttribute("value", x[item]);
+        const sxc = sx.querySelectorAll("[endpoint][name]");
+        for (const item of sxc) {
+            const n = item.getAttribute("name");
+            sx.querySelector(`[name="${n}"]`).setAttribute("value", x[n]);
         }
         //
         el_2.children[1].addEventListener("click", () => {

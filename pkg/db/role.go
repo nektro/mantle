@@ -10,17 +10,17 @@ import (
 
 type Role struct {
 	ID                 int64  `json:"id"`
-	UUID               string `json:"uuid" sqlite:"text"`
-	Position           int    `json:"position" sqlite:"int"`
-	Name               string `json:"name" sqlite:"text"`
-	Color              string `json:"color" sqlite:"text"`
-	PermManageChannels Perm   `json:"perm_manage_channels" sqlite:"tinyint(1)"`
-	PermManageRoles    Perm   `json:"perm_manage_roles" sqlite:"tinyint(1)"`
-	Distinguish        bool   `json:"distinguish" sqlite:"tinyint(1)"`
-	PermManageServer   Perm   `json:"perm_manage_server" sqlite:"tinyint(1)"`
-	PermManageInvites  Perm   `json:"perm_manage_invites" sqlite:"tinyint(1)"`
-	CreatedOn          Time   `json:"created_on" sqlite:"text"`
-	PermViewAudits     Perm   `json:"perm_view_audits" sqlite:"tinyint(1)"`
+	UUID               string `json:"uuid" dbsorm:"1"`
+	Position           int    `json:"position" dbsorm:"1"`
+	Name               string `json:"name" dbsorm:"1"`
+	Color              string `json:"color" dbsorm:"1"`
+	PermManageChannels Perm   `json:"perm_manage_channels" dbsorm:"1"`
+	PermManageRoles    Perm   `json:"perm_manage_roles" dbsorm:"1"`
+	Distinguish        bool   `json:"distinguish" dbsorm:"1"`
+	PermManageServer   Perm   `json:"perm_manage_server" dbsorm:"1"`
+	PermManageInvites  Perm   `json:"perm_manage_invites" dbsorm:"1"`
+	CreatedOn          Time   `json:"created_on" dbsorm:"1"`
+	PermViewAudits     Perm   `json:"perm_view_audits" dbsorm:"1"`
 }
 
 //

@@ -11,16 +11,16 @@ import (
 
 type Invite struct {
 	ID         int64  `json:"id"`
-	UUID       string `json:"uuid" sqlite:"text"`
-	CreatedOn  Time   `json:"created_on" sqlite:"text"`
-	Code       string `json:"name" sqlite:"text"`
-	Uses       int64  `json:"uses" sqlite:"int"`
-	MaxUses    int64  `json:"max_uses" sqlite:"int"`
-	Mode       int    `json:"mode" sqlite:"int"`
-	ExpiresIn  string `json:"expires_in" sqlite:"text"`
-	ExpiresOn  Time   `json:"expires_on" sqlite:"text"`
-	IsFrozen   bool   `json:"is_frozen" sqlite:"tinyint(1)"`
-	GivenRoles Array  `json:"given_roles" sqlite:"string"`
+	UUID       string `json:"uuid" dbsorm:"1"`
+	CreatedOn  Time   `json:"created_on" dbsorm:"1"`
+	Code       string `json:"name" dbsorm:"1"`
+	Uses       int64  `json:"uses" dbsorm:"1"`
+	MaxUses    int64  `json:"max_uses" dbsorm:"1"`
+	Mode       int    `json:"mode" dbsorm:"1"`
+	ExpiresIn  string `json:"expires_in" dbsorm:"1"`
+	ExpiresOn  Time   `json:"expires_on" dbsorm:"1"`
+	IsFrozen   bool   `json:"is_frozen" dbsorm:"1"`
+	GivenRoles Array  `json:"given_roles" dbsorm:"1"`
 }
 
 //

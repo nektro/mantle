@@ -10,13 +10,13 @@ import (
 
 type Audit struct {
 	ID        int64  `json:"id"`
-	UUID      string `json:"uuid" sqlite:"text"`
-	CreatedOn Time   `json:"created_on" sqlite:"text"`
-	Action    Action `json:"action" sqlite:"smallint"`
-	Agent     string `json:"agent" sqlite:"text"`
-	Affected  string `json:"affected" sqlite:"text"`
-	Key       string `json:"a_key" sqlite:"text"`
-	Value     string `json:"a_value" sqlite:"text"`
+	UUID      string `json:"uuid" dbsorm:"1"`
+	CreatedOn Time   `json:"created_on" dbsorm:"1"`
+	Action    Action `json:"action" dbsorm:"1"`
+	Agent     string `json:"agent" dbsorm:"1"`
+	Affected  string `json:"affected" dbsorm:"1"`
+	Key       string `json:"a_key" dbsorm:"1"`
+	Value     string `json:"a_value" dbsorm:"1"`
 }
 
 //

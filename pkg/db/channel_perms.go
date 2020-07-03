@@ -8,9 +8,9 @@ import (
 
 type ChannelPerm struct {
 	ID        int64  `json:"id"`
-	Channel   string `json:"channel" sqlite:"text"`
-	Type      int    `json:"p_type" sqlite:"int"`
-	Snowflake string `json:"snowflake" sqlite:"text"`
+	Channel   string `json:"channel" dbsorm:"1"`
+	Type      int    `json:"p_type" dbsorm:"1"`
+	Snowflake string `json:"snowflake" dbsorm:"1"`
 }
 
 // Scan implements dbstorage.Scannable

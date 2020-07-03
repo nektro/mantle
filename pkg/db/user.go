@@ -13,16 +13,16 @@ import (
 
 type User struct {
 	ID         int64  `json:"id"`
-	Provider   string `json:"provider" sqlite:"text"`
-	Snowflake  string `json:"snowflake" sqlite:"text"`
-	UUID       string `json:"uuid" sqlite:"text"`
-	IsMember   bool   `json:"is_member" sqlite:"tinyint(1)"`
-	IsBanned   bool   `json:"is_banned" sqlite:"tinyint(1)"`
-	Name       string `json:"name" sqlite:"text"`
-	Nickname   string `json:"nickname" sqlite:"text"`
-	JoindedOn  Time   `json:"joined_on" sqlite:"text"`
-	LastActive Time   `json:"last_active" sqlite:"text"`
-	Roles      Array  `json:"roles" sqlite:"text"`
+	Provider   string `json:"provider" dbsorm:"1"`
+	Snowflake  string `json:"snowflake" dbsorm:"1"`
+	UUID       string `json:"uuid" dbsorm:"1"`
+	IsMember   bool   `json:"is_member" dbsorm:"1"`
+	IsBanned   bool   `json:"is_banned" dbsorm:"1"`
+	Name       string `json:"name" dbsorm:"1"`
+	Nickname   string `json:"nickname" dbsorm:"1"`
+	JoindedOn  Time   `json:"joined_on" dbsorm:"1"`
+	LastActive Time   `json:"last_active" dbsorm:"1"`
+	Roles      Array  `json:"roles" dbsorm:"1"`
 }
 
 //

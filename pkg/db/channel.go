@@ -10,13 +10,13 @@ import (
 
 type Channel struct {
 	ID          int64  `json:"id"`
-	UUID        string `json:"uuid" sqlite:"text"`
-	Position    int    `json:"position" sqlite:"int"`
-	Name        string `json:"name" sqlite:"text"`
-	Description string `json:"description" sqlite:"text"`
-	HistoryOff  bool   `json:"history_off" sqlite:"tinyint(1)"`
-	LatestMsg   string `json:"latest_message" sqlite:"text"`
-	CreatedOn   Time   `json:"created_on" sqlite:"text"`
+	UUID        string `json:"uuid" dbsorm:"1"`
+	Position    int    `json:"position" dbsorm:"1"`
+	Name        string `json:"name" dbsorm:"1"`
+	Description string `json:"description" dbsorm:"1"`
+	HistoryOff  bool   `json:"history_off" dbsorm:"1"`
+	LatestMsg   string `json:"latest_message" dbsorm:"1"`
+	CreatedOn   Time   `json:"created_on" dbsorm:"1"`
 }
 
 //

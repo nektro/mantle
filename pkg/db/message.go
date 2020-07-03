@@ -9,10 +9,10 @@ import (
 
 type Message struct {
 	ID   int64  `json:"id"`
-	UUID string `json:"uuid" sqlite:"text"`
-	At   Time   `json:"time" sqlite:"text"`
-	By   string `json:"author" sqlite:"text"`
-	Body string `json:"body" sqlite:"text"`
+	UUID string `json:"uuid" dbsorm:"1"`
+	At   Time   `json:"time" dbsorm:"1"`
+	By   string `json:"author" dbsorm:"1"`
+	Body string `json:"body" dbsorm:"1"`
 }
 
 //

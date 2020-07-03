@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
+	etc "github.com/nektro/go.etc"
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/handler/controls"
 	"github.com/nektro/mantle/pkg/idata"
@@ -18,7 +19,7 @@ func EtcBadgeVersion(w http.ResponseWriter, r *http.Request) {
 	hBadge(
 		w, r,
 		idata.Name,
-		idata.Version,
+		etc.Version,
 		"blue",
 	)
 }

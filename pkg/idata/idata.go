@@ -5,8 +5,7 @@ import (
 )
 
 var (
-	Name    = "Mantle"
-	Version = "vMASTER"
+	Name = "Mantle"
 
 	Config = new(itypes.Config)
 )

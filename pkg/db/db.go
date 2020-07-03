@@ -75,7 +75,7 @@ func Init() {
 	}
 
 	Props.Init()
-	Props.Set("version", idata.Version)
+	Props.Set("version", etc.Version)
 
 	// for loop create channel message tables
 	_chans := (Channel{}.All())

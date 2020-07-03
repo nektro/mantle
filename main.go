@@ -30,9 +30,10 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	etc.AppID = strings.ToLower(idata.Name)
-	idata.Version = etc.FixBareVersion(Version)
-	idata.Version = strings.ReplaceAll(idata.Version, "-", ".")
-	util.Log("Starting " + idata.Name + " " + idata.Version + ".")
+	etc.Version = Version
+	etc.FixBareVersion()
+	etc.Version = strings.ReplaceAll(etc.Version, "-", ".")
+	util.Log("Starting " + idata.Name + " " + etc.Version + ".")
 
 	//
 	vflag.StringVar(&idata.Config.RedisURL, "redis-url", "", "")

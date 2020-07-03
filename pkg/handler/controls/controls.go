@@ -8,7 +8,6 @@ import (
 	"github.com/nektro/go-util/arrays/stringsu"
 	etc "github.com/nektro/go.etc"
 	"github.com/nektro/go.etc/htp"
-	"github.com/nektro/go.etc/jwt"
 )
 
 // AssertFormKeysExist asserts Request.Form keys exist in htp
@@ -26,10 +25,11 @@ var formMethods = []string{http.MethodPost, http.MethodPut, http.MethodPatch, ht
 
 // GetUser asserts a user is logged in
 func GetUser(c *htp.Controller, r *http.Request, w http.ResponseWriter) *db.User {
-	l := GetJWTClaims(c, r, w)
+	l := etc.JWTGetClaims(c, r)
 	//
 	userID := l["sub"].(string)
-	user, _ := db.QueryUserByUUID(userID)
+	user, ok := db.QueryUserByUUID(userID)
+	c.Assert(ok, "500: unable to find user: "+userID)
 
 	method := r.Method
 	if stringsu.Contains(formMethods, method) {
@@ -47,13 +47,4 @@ func GetMemberUser(c *htp.Controller, r *http.Request, w http.ResponseWriter) *d
 	c.Assert(u.IsMember, "403: you are not a member of this server")
 	c.Assert(!u.IsBanned, "403: you are banned")
 	return u
-}
-
-// GetJWTClaims reads the Bearer token from the Request and asserts it is valid
-func GetJWTClaims(c *htp.Controller, r *http.Request, w http.ResponseWriter) map[string]interface{} {
-	claims, ok := jwt.VerifyRequest(r, etc.JWTSecret)
-	c.Assert(ok, "401: jwt missing/invalid")
-	w.Header().Add("x-iss", claims["iss"].(string))
-	w.Header().Add("x-sub", claims["sub"].(string))
-	return claims
 }

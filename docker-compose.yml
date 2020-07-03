@@ -11,6 +11,11 @@ services:
         environment:
             REDIS_URL: redis:6379
             JWT_SECRET: secret_secret
+            POSTGRES_URL: postgres:5432
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: mysecretpassword
+            POSTGRES_DATABASE: dbname
+            POSTGRES_SSLMODE: disable
     nginx:
         image: nginx:latest
         volumes:
@@ -28,3 +33,10 @@ services:
     redis:
         image: redis:latest
         command: [sh, -c, "rm -f /data/dump.rdb && redis-server"]
+    postgres:
+        image: postgres:latest
+        environment:
+            POSTGRES_PASSWORD: mysecretpassword 
+            POSTGRES_DB: dbname
+        ports:
+            - "5432"

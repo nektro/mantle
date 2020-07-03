@@ -2,9 +2,9 @@ package ws
 
 import (
 	"github.com/nektro/mantle/pkg/db"
-	"github.com/nektro/mantle/pkg/store"
 
 	"github.com/gorilla/websocket"
+	"github.com/nektro/go.etc/store"
 )
 
 type User struct {

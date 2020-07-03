@@ -4,10 +4,9 @@ import (
 	"database/sql"
 	"strconv"
 
-	"github.com/nektro/mantle/pkg/store"
-
 	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
+	"github.com/nektro/go.etc/store"
 )
 
 type Invite struct {

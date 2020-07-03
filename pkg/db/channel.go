@@ -4,9 +4,8 @@ import (
 	"database/sql"
 	"strconv"
 
-	"github.com/nektro/mantle/pkg/store"
-
 	dbstorage "github.com/nektro/go.dbstorage"
+	"github.com/nektro/go.etc/store"
 )
 
 type Channel struct {

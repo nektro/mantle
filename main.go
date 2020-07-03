@@ -11,7 +11,6 @@ import (
 	"github.com/nektro/mantle/pkg/handler"
 	"github.com/nektro/mantle/pkg/idata"
 	"github.com/nektro/mantle/pkg/metrics"
-	"github.com/nektro/mantle/pkg/store"
 	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/nektro/go-util/util"
@@ -45,7 +44,7 @@ func main() {
 	//
 	// database initialization
 
-	store.Init()
+	idata.InitStore()
 
 	db.Init()
 

@@ -3,9 +3,8 @@ package db
 import (
 	"database/sql"
 
-	"github.com/nektro/mantle/pkg/store"
-
 	dbstorage "github.com/nektro/go.dbstorage"
+	"github.com/nektro/go.etc/store"
 )
 
 type Message struct {

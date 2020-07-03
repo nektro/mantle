@@ -3,7 +3,7 @@ package db
 import (
 	"strconv"
 
-	"github.com/nektro/mantle/pkg/store"
+	"github.com/nektro/go.etc/store"
 )
 
 // Properties is a KV-store abstraction around a cached db table

@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/nektro/go-util/util"
-	"github.com/nektro/go.etc/htp"
+	etc "github.com/nektro/go.etc"
 	sdrie "github.com/nektro/go.sdrie"
 
 	. "github.com/nektro/go-util/alias"
@@ -21,10 +21,8 @@ var (
 
 // Init sets up this package
 func Init() {
-	htp.ErrorHandleFunc = func(w http.ResponseWriter, r *http.Request, data string) {
-		code, _ := strconv.ParseInt(data[:3], 10, 32)
-		good := !(code >= 400)
-		writeAPIResponse(r, w, good, int(code), data[5:])
+	etc.HtpErrCb = func(r *http.Request, w http.ResponseWriter, good bool, code int, data string) {
+		writeAPIResponse(r, w, good, code, data[5:])
 	}
 }
 
@@ -34,7 +32,6 @@ func writeAPIResponse(r *http.Request, w http.ResponseWriter, good bool, status 
 		"message": message,
 	}
 	w.Header().Add("content-type", "application/json")
-	w.WriteHeader(status)
 	dat, _ := json.Marshal(resp)
 	fmt.Fprintln(w, string(dat))
 	if !good {

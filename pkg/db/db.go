@@ -8,6 +8,8 @@ import (
 	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
 	etc "github.com/nektro/go.etc"
+
+	. "github.com/nektro/go.etc/dbt"
 )
 
 const (

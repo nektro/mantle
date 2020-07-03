@@ -9,6 +9,8 @@ import (
 	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
 	"github.com/nektro/go.etc/store"
+
+	. "github.com/nektro/go.etc/dbt"
 )
 
 type User struct {
@@ -22,7 +24,7 @@ type User struct {
 	Nickname   string `json:"nickname" dbsorm:"1"`
 	JoindedOn  Time   `json:"joined_on" dbsorm:"1"`
 	LastActive Time   `json:"last_active" dbsorm:"1"`
-	Roles      Array  `json:"roles" dbsorm:"1"`
+	Roles      List   `json:"roles" dbsorm:"1"`
 }
 
 //
@@ -44,7 +46,7 @@ func QueryUserBySnowflake(provider string, flake string, name string) *User {
 	id := db.QueryNextID(cTableUsers)
 	uid := newUUID()
 	co := now()
-	roles := Array{}
+	roles := List{}
 	if id == 1 {
 		roles = append(roles, "o")
 		Props.Set("owner", uid)

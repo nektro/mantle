@@ -41,6 +41,6 @@ func (u *User) SendMessage(in *db.Channel, msg string) {
 		"in":      in.UUID,
 		"from":    u,
 		"message": m,
-		"at":      m.At.T().Format("2 Jan 2006 15:04:05 MST"),
+		"at":      m.At.V().Format("2 Jan 2006 15:04:05 MST"),
 	})
 }

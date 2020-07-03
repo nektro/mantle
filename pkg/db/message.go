@@ -5,6 +5,8 @@ import (
 
 	dbstorage "github.com/nektro/go.dbstorage"
 	"github.com/nektro/go.etc/store"
+
+	. "github.com/nektro/go.etc/dbt"
 )
 
 type Message struct {

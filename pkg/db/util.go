@@ -6,6 +6,8 @@ import (
 	"time"
 
 	"github.com/oklog/ulid"
+
+	. "github.com/nektro/go.etc/dbt"
 )
 
 // Epoch is the epoch for all Mantle ULIDs
@@ -24,7 +26,7 @@ func IsUID(s string) bool {
 
 func now() Time {
 	s := time.Now().UTC().String()[0:19]
-	t, _ := time.Parse(timeFormat, s)
+	t, _ := time.Parse(TimeFormat, s)
 	return Time(t)
 }
 

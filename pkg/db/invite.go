@@ -7,6 +7,8 @@ import (
 	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
 	"github.com/nektro/go.etc/store"
+
+	. "github.com/nektro/go.etc/dbt"
 )
 
 type Invite struct {
@@ -20,7 +22,7 @@ type Invite struct {
 	ExpiresIn  string `json:"expires_in" dbsorm:"1"`
 	ExpiresOn  Time   `json:"expires_on" dbsorm:"1"`
 	IsFrozen   bool   `json:"is_frozen" dbsorm:"1"`
-	GivenRoles Array  `json:"given_roles" dbsorm:"1"`
+	GivenRoles List   `json:"given_roles" dbsorm:"1"`
 }
 
 //
@@ -35,7 +37,7 @@ func CreateInvite() *Invite {
 	uid := newUUID()
 	co := now()
 	code := util.RandomString(8)
-	n := &Invite{id, uid, co, code, 0, 0, 0, "", NewTime(timeZero), false, Array{}}
+	n := &Invite{id, uid, co, code, 0, 0, 0, "", NewTime(TimeZero), false, List{}}
 	db.Build().InsI(cTableInvites, n).Exe()
 	Props.Increment("count_" + cTableInvites)
 	return n

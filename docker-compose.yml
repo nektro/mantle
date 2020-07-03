@@ -9,6 +9,7 @@ services:
         ports:
             - "8000"
         environment:
+            GOPATH: /home/$USER/go
             REDIS_URL: redis:6379
             JWT_SECRET: secret_secret
             POSTGRES_URL: postgres:5432

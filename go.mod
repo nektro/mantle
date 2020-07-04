@@ -24,7 +24,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/nektro/go-util v0.0.0-20200628005533-4f8d3b6caf28
 	github.com/nektro/go.dbstorage v0.0.0-20200703031328-c6828ca0b2c1
-	github.com/nektro/go.etc v0.0.0-20200703033646-5626f457180a
+	github.com/nektro/go.etc v0.0.0-20200703231252-593f51f22cfa
 	github.com/nektro/go.oauth2 v0.0.0-20200413024519-33aeafe6ee91
 	github.com/nektro/go.sdrie v0.0.0-20200407210253-32d3319e3835
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect

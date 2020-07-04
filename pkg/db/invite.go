@@ -12,17 +12,17 @@ import (
 )
 
 type Invite struct {
-	ID         int64  `json:"id"`
-	UUID       string `json:"uuid" dbsorm:"1"`
-	CreatedOn  Time   `json:"created_on" dbsorm:"1"`
-	Code       string `json:"name" dbsorm:"1"`
-	Uses       int64  `json:"uses" dbsorm:"1"`
-	MaxUses    int64  `json:"max_uses" dbsorm:"1"`
-	Mode       int    `json:"mode" dbsorm:"1"`
-	ExpiresIn  string `json:"expires_in" dbsorm:"1"`
-	ExpiresOn  Time   `json:"expires_on" dbsorm:"1"`
-	IsFrozen   bool   `json:"is_frozen" dbsorm:"1"`
-	GivenRoles List   `json:"given_roles" dbsorm:"1"`
+	ID         int64    `json:"id"`
+	UUID       string   `json:"uuid" dbsorm:"1"`
+	CreatedOn  Time     `json:"created_on" dbsorm:"1"`
+	Code       string   `json:"name" dbsorm:"1"`
+	Uses       int64    `json:"uses" dbsorm:"1"`
+	MaxUses    int64    `json:"max_uses" dbsorm:"1"`
+	Mode       int      `json:"mode" dbsorm:"1"`
+	ExpiresIn  Duration `json:"expires_in" dbsorm:"1"`
+	ExpiresOn  Time     `json:"expires_on" dbsorm:"1"`
+	IsFrozen   bool     `json:"is_frozen" dbsorm:"1"`
+	GivenRoles List     `json:"given_roles" dbsorm:"1"`
 }
 
 //
@@ -37,7 +37,7 @@ func CreateInvite() *Invite {
 	uid := newUUID()
 	co := now()
 	code := util.RandomString(8)
-	n := &Invite{id, uid, co, code, 0, 0, 0, "", NewTime(TimeZero), false, List{}}
+	n := &Invite{id, uid, co, code, 0, 0, 0, DurationZero, NewTime(TimeZero), false, List{}}
 	db.Build().InsI(cTableInvites, n).Exe()
 	Props.Increment("count_" + cTableInvites)
 	return n

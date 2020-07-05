@@ -38,6 +38,9 @@ func GetUser(c *htp.Controller, r *http.Request, w http.ResponseWriter) *db.User
 		r.Method = method
 	}
 
+	w.Header().Add("x-m-jwt-iss", l["iss"].(string))
+	w.Header().Add("x-m-jwt-sub", l["sub"].(string))
+
 	return user
 }
 

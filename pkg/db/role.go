@@ -99,49 +99,49 @@ func (v Role) b() dbstorage.QueryBuilder {
 
 // SetName sets name
 func (v *Role) SetName(s string) {
-	db.Build().Up(cTableRoles, "name", s).Wh("uuid", v.UUID).Exe()
+	doUp(v, "name", s)
 	v.Name = s
 }
 
 // SetColor sets color
 func (v *Role) SetColor(s string) {
-	db.Build().Up(cTableRoles, "color", s).Wh("uuid", v.UUID).Exe()
+	doUp(v, "color", s)
 	v.Color = s
 }
 
 // SetPosition sets position
 func (v *Role) SetPosition(n int) {
-	db.Build().Up(cTableRoles, "position", strconv.Itoa(n)).Wh("uuid", v.UUID).Exe()
+	doUp(v, "position", strconv.Itoa(n))
 	v.Position = n
 }
 
 // SetDistinguish sets position
 func (v *Role) SetDistinguish(b bool) {
-	db.Build().Up(cTableRoles, "distinguish", strconv.FormatBool(b)).Wh("uuid", v.UUID).Exe()
+	doUp(v, "distinguish", strconv.FormatBool(b))
 	v.Distinguish = b
 }
 
 // SetPermMngServer sets
 func (v *Role) SetPermMngServer(p int) {
-	db.Build().Up(cTableRoles, "perm_manage_server", strconv.Itoa(p)).Wh("uuid", v.UUID).Exe()
+	doUp(v, "perm_manage_server", strconv.Itoa(p))
 	v.PermManageServer = Perm(p)
 }
 
 // SetPermMngChannels sets
 func (v *Role) SetPermMngChannels(p int) {
-	db.Build().Up(cTableRoles, "perm_manage_channels", strconv.Itoa(p)).Wh("uuid", v.UUID).Exe()
+	doUp(v, "perm_manage_channels", strconv.Itoa(p))
 	v.PermManageChannels = Perm(p)
 }
 
 // SetPermMngRoles sets
 func (v *Role) SetPermMngRoles(p int) {
-	db.Build().Up(cTableRoles, "perm_manage_roles", strconv.Itoa(p)).Wh("uuid", v.UUID).Exe()
+	doUp(v, "perm_manage_roles", strconv.Itoa(p))
 	v.PermManageRoles = Perm(p)
 }
 
 // SetPermMngInvites sets
 func (v *Role) SetPermMngInvites(p int) {
-	db.Build().Up(cTableRoles, "perm_manage_invites", strconv.Itoa(p)).Wh("uuid", v.UUID).Exe()
+	doUp(v, "perm_manage_invites", strconv.Itoa(p))
 	v.PermManageInvites = Perm(p)
 }
 
@@ -156,7 +156,7 @@ func (v *Role) Delete() []*User {
 		u.RemoveRole(v.UUID)
 		aru[i] = u
 	}
-	db.Build().Del(cTableRoles).Wh("uuid", v.UUID).Exe()
+	doDel(v)
 	Props.Decrement("count_" + cTableRoles)
 	return aru
 }
@@ -197,6 +197,6 @@ func (v *Role) MoveTo(n int) {
 
 // SetPermViewAudits sets
 func (v *Role) SetPermViewAudits(p int) {
-	db.Build().Up(cTableRoles, "perm_view_audits", strconv.Itoa(p)).Wh("uuid", v.UUID).Exe()
+	doUp(v, "perm_view_audits", strconv.Itoa(p))
 	v.PermManageInvites = Perm(p)
 }

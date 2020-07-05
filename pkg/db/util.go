@@ -45,3 +45,16 @@ func queryCount(rows *sql.Rows) int64 {
 	}
 	return s
 }
+
+type iIDers interface {
+	t() string
+	i() string
+}
+
+func doUp(v iIDers, col string, value string) {
+	db.Build().Up(v.t(), col, value).Wh("uuid", v.i()).Exe()
+}
+
+func doDel(v iIDers) {
+	db.Build().Del(v.t()).Wh("uuid", v.i()).Exe()
+}

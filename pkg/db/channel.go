@@ -103,31 +103,31 @@ func (c *Channel) QueryMsgAfterUID(uid string, limit int) []*Message {
 
 // SetName sets name
 func (v *Channel) SetName(s string) {
-	db.Build().Up(cTableChannels, "name", s).Wh("uuid", v.UUID).Exe()
+	doUp(v, "name", s)
 	v.Name = s
 }
 
 // SetPosition sets position
 func (v *Channel) SetPosition(n int) {
-	db.Build().Up(cTableChannels, "position", strconv.Itoa(n)).Wh("uuid", v.UUID).Exe()
+	doUp(v, "position", strconv.Itoa(n))
 	v.Position = n
 }
 
 // SetDescription sets description
 func (v *Channel) SetDescription(s string) {
-	db.Build().Up(cTableChannels, "description", s).Wh("uuid", v.UUID).Exe()
+	doUp(v, "description", s)
 	v.Description = s
 }
 
 // EnableHistory sets position
 func (v *Channel) EnableHistory(b bool) {
-	db.Build().Up(cTableChannels, "history_off", strconv.FormatBool(!b)).Wh("uuid", v.UUID).Exe()
+	doUp(v, "history_off", strconv.FormatBool(!b))
 	v.HistoryOff = !b
 }
 
 // Delete removes this item from the database
 func (v *Channel) Delete() {
-	db.Build().Del(cTableChannels).Wh("uuid", v.UUID).Exe()
+	doDel(v)
 	db.DropTable(cTableMessagesPrefix + v.UUID)
 	Props.Decrement("count_" + cTableChannels)
 }

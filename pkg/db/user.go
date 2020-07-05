@@ -97,7 +97,7 @@ func (v User) b() dbstorage.QueryBuilder {
 
 func (u *User) SetAsMember(b bool) {
 	m := u.IsMember
-	db.Build().Up(cTableUsers, "is_member", strconv.Itoa(util.Btoi(b))).Wh("uuid", u.UUID).Exe()
+	doUp(u, "is_member", strconv.Itoa(util.Btoi(b)))
 	if !m && b {
 		Props.Increment("count_users_members")
 	}
@@ -108,7 +108,7 @@ func (u *User) SetAsMember(b bool) {
 }
 
 func (u *User) SetName(s string) {
-	db.Build().Up(cTableUsers, "name", s).Wh("uuid", u.UUID).Exe()
+	doUp(u, "name", s)
 	u.Name = s
 }
 
@@ -127,7 +127,7 @@ func (u *User) AddRole(role string) {
 		return
 	}
 	u.Roles = append(u.Roles, role)
-	db.Build().Up(cTableUsers, "roles", u.Roles.String()).Wh("uuid", u.UUID).Exe()
+	doUp(u, "roles", u.Roles.String())
 }
 
 func (u *User) RemoveRole(role string) {
@@ -135,7 +135,7 @@ func (u *User) RemoveRole(role string) {
 		return
 	}
 	u.Roles = stringsu.Remove(u.Roles, role)
-	db.Build().Up(cTableUsers, "roles", u.Roles.String()).Wh("uuid", u.UUID).Exe()
+	doUp(u, "roles", u.Roles.String())
 }
 
 func (u *User) GetRoles() []*Role {
@@ -176,6 +176,6 @@ func (u *User) ResetUID() {
 }
 
 func (u *User) SetNickname(s string) {
-	db.Build().Up(cTableUsers, "nickname", s).Wh("uuid", u.UUID).Exe()
+	doUp(u, "nickname", s)
 	u.Nickname = s
 }

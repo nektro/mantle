@@ -81,18 +81,10 @@ func (p *Properties) GetInt64(key string) int64 {
 
 // Increment adds 1 to key's value if it is an integer
 func (p *Properties) Increment(key string) {
-	i, err := strconv.ParseInt(p.Get(key), 10, 64)
-	if err != nil {
-		return
-	}
-	p.SetInt64(key, i+1)
+	p.SetInt64(key, p.GetInt64(key)+1)
 }
 
 // Decrement subtracts 1 from key's value if it is an integer
 func (p *Properties) Decrement(key string) {
-	i, err := strconv.ParseInt(p.Get(key), 10, 64)
-	if err != nil {
-		return
-	}
-	p.SetInt64(key, i-1)
+	p.SetInt64(key, p.GetInt64(key)-1)
 }

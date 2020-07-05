@@ -149,7 +149,7 @@ func (v *Role) SetPermMngInvites(p int) {
 // and returns the list of users that got the role removed
 func (v *Role) Delete() []*User {
 	v.MoveTo(len(Role{}.All()))
-	arr := dbstorage.ScanAll(db.Build().Se("*").Fr(cTableUsers).WR("roles", "like", "'%'||?||'%'", true, v.UUID), User{})
+	arr := dbstorage.ScanAll(User{}.b().WR("roles", "like", "'%'||?||'%'", true, v.UUID), User{})
 	aru := make([]*User, len(arr))
 	for i, item := range arr {
 		u := item.(*User)

@@ -65,6 +65,18 @@ func (v Channel) All() []*Channel {
 //
 //
 
+func (v *Channel) i() string {
+	return v.UUID
+}
+
+func (v Channel) t() string {
+	return cTableChannels
+}
+
+func (v Channel) b() dbstorage.QueryBuilder {
+	return db.Build().Se("*").Fr(v.t())
+}
+
 func (c *Channel) AssertMessageTableExists() {
 	db.CreateTableStruct(cTableMessagesPrefix+c.UUID, Message{})
 }

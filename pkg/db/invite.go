@@ -77,6 +77,18 @@ func (v Invite) All() []*Invite {
 //
 //
 
+func (v *Invite) i() string {
+	return v.UUID
+}
+
+func (v Invite) t() string {
+	return cTableInvites
+}
+
+func (v Invite) b() dbstorage.QueryBuilder {
+	return db.Build().Se("*").Fr(v.t())
+}
+
 // Use increments Uses by 1
 func (v *Invite) Use(u *User) {
 	v.Uses++

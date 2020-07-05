@@ -83,6 +83,18 @@ func (v User) MemberCount() int64 {
 //
 //
 
+func (v *User) i() string {
+	return v.UUID
+}
+
+func (v User) t() string {
+	return cTableUsers
+}
+
+func (v User) b() dbstorage.QueryBuilder {
+	return db.Build().Se("*").Fr(v.t())
+}
+
 func (u *User) SetAsMember(b bool) {
 	m := u.IsMember
 	db.Build().Up(cTableUsers, "is_member", strconv.Itoa(util.Btoi(b))).Wh("uuid", u.UUID).Exe()

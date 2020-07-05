@@ -85,6 +85,18 @@ func (v Role) AllSorted() []*Role {
 //
 //
 
+func (v *Role) i() string {
+	return v.UUID
+}
+
+func (v Role) t() string {
+	return cTableRoles
+}
+
+func (v Role) b() dbstorage.QueryBuilder {
+	return db.Build().Se("*").Fr(v.t())
+}
+
 // SetName sets name
 func (v *Role) SetName(s string) {
 	db.Build().Up(cTableRoles, "name", s).Wh("uuid", v.UUID).Exe()

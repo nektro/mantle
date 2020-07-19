@@ -42,3 +42,11 @@ func (v Message) Scan(rows *sql.Rows) dbstorage.Scannable {
 func (v *Message) i() string {
 	return v.UUID.String()
 }
+
+//
+// searchers
+//
+
+//
+// modifiers
+//

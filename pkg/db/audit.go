@@ -56,3 +56,11 @@ func (Audit) All() []*Audit {
 
 //
 //
+
+//
+// searchers
+//
+
+//
+// modifiers
+//

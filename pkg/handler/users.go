@@ -7,7 +7,6 @@ import (
 	"github.com/nektro/mantle/pkg/handler/controls"
 	"github.com/nektro/mantle/pkg/ws"
 
-	"github.com/gorilla/mux"
 	"github.com/nektro/go.etc/dbt"
 	"github.com/nektro/go.etc/htp"
 )

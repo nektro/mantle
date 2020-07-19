@@ -97,6 +97,15 @@ func (v Role) b() dbstorage.QueryBuilder {
 	return db.Build().Se("*").Fr(v.t())
 }
 
+
+//
+// searchers
+//
+
+//
+// modifiers
+//
+
 // SetName sets name
 func (v *Role) SetName(s string) {
 	doUp(v, "name", s)

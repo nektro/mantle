@@ -81,6 +81,15 @@ func (v Channel) b() dbstorage.QueryBuilder {
 	return db.Build().Se("*").Fr(v.t())
 }
 
+
+//
+// searchers
+//
+
+//
+// modifiers
+//
+
 func (c *Channel) AssertMessageTableExists() {
 	db.CreateTableStruct(c.m(), Message{})
 }

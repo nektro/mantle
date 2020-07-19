@@ -89,6 +89,15 @@ func (v Invite) b() dbstorage.QueryBuilder {
 	return db.Build().Se("*").Fr(v.t())
 }
 
+
+//
+// searchers
+//
+
+//
+// modifiers
+//
+
 // Use increments Uses by 1
 func (v *Invite) Use(u *User) {
 	v.Uses++

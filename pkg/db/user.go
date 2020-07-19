@@ -95,6 +95,15 @@ func (v User) b() dbstorage.QueryBuilder {
 	return db.Build().Se("*").Fr(v.t())
 }
 
+
+//
+// searchers
+//
+
+//
+// modifiers
+//
+
 func (u *User) SetAsMember(b bool) {
 	m := u.IsMember
 	doUp(u, "is_member", strconv.Itoa(util.Btoi(b)))

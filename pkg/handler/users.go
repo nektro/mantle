@@ -8,6 +8,7 @@ import (
 	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/gorilla/mux"
+	"github.com/nektro/go.etc/dbt"
 	"github.com/nektro/go.etc/htp"
 )
 
@@ -25,7 +26,7 @@ func UsersMe(w http.ResponseWriter, r *http.Request) {
 func UsersRead(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
 	controls.GetMemberUser(c, r, w)
-	uu := mux.Vars(r)["uuid"]
+	uu := controls.GetUIDFromPath(c, r)
 	u, ok := db.QueryUserByUUID(uu)
 	writeAPIResponse(r, w, ok, http.StatusOK, u)
 }
@@ -41,7 +42,7 @@ func UsersOnline(w http.ResponseWriter, r *http.Request) {
 func UserUpdate(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
 	user := controls.GetMemberUser(c, r, w)
-	uu := mux.Vars(r)["uuid"]
+	uu := controls.GetUIDFromPath(c, r)
 	u, ok := db.QueryUserByUUID(uu)
 	c.Assert(ok, "404: unable to find user with that uuid")
 	controls.AssertFormKeysExist(c, r, "p_name")
@@ -75,22 +76,24 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 		u.SetNickname(v)
 		successCb(u, n, v)
 	case "add_role":
-		rl, ok := db.QueryRoleByUID(v)
+		vr := dbt.UUID(v)
+		rl, ok := db.QueryRoleByUID(vr)
 		if !ok {
 			return
 		}
 		c.Assert(up.ManageRoles, "403: users require the manage_roles permission to update roles")
 		c.Assert(user.GetRolesSorted()[0].Position < rl.Position, "403: role rank must be higher to update")
-		u.AddRole(v)
+		u.AddRole(vr)
 		successCb(u, n, v)
 	case "remove_role":
-		rl, ok := db.QueryRoleByUID(v)
+		vr := dbt.UUID(v)
+		rl, ok := db.QueryRoleByUID(vr)
 		if !ok {
 			return
 		}
 		c.Assert(up.ManageRoles, "403: users require the manage_roles permission to update roles")
 		c.Assert(user.GetRolesSorted()[0].Position < rl.Position, "403: role rank must be higher to update")
-		u.RemoveRole(v)
+		u.RemoveRole(vr)
 		successCb(u, n, v)
 	}
 }

@@ -24,11 +24,11 @@ func AuditsCsv(w http.ResponseWriter, r *http.Request) {
 	for _, item := range (db.Audit{}.All()) {
 		cw.Write([]string{
 			strconv.FormatInt(item.ID, 10),
-			item.UUID,
+			item.UUID.String(),
 			item.CreatedOn.String(),
 			item.Action.String(),
-			item.Agent,
-			item.Affected,
+			item.Agent.String(),
+			item.Affected.String(),
 			item.Key,
 			item.Value,
 		})

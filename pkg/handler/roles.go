@@ -9,7 +9,6 @@ import (
 	"github.com/nektro/mantle/pkg/ws"
 
 	"github.com/go-playground/colors"
-	"github.com/gorilla/mux"
 	"github.com/nektro/go.etc/htp"
 )
 
@@ -47,7 +46,7 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 	c.Assert(usp.ManageRoles, "403: users require the manage_roles permission to update roles")
 	controls.AssertFormKeysExist(c, r, "p_name")
 
-	uu := mux.Vars(r)["uuid"]
+	uu := controls.GetUIDFromPath(c, r)
 	rl, ok := db.QueryRoleByUID(uu)
 	c.Assert(ok, "404: unable to find role with that uuid")
 	c.Assert(user.GetRolesSorted()[0].Position < rl.Position, "403: role rank must be higher to update")
@@ -139,7 +138,7 @@ func RoleDelete(w http.ResponseWriter, r *http.Request) {
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ManageRoles, "403: users require the manage_roles permission to update roles")
 
-	uu := mux.Vars(r)["uuid"]
+	uu := controls.GetUIDFromPath(c, r)
 	rl, ok := db.QueryRoleByUID(uu)
 	c.Assert(ok, "404: unable to find role with that uuid")
 	c.Assert(user.GetRolesSorted()[0].Position < rl.Position, "403: role rank must be higher to update")

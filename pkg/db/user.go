@@ -17,7 +17,7 @@ type User struct {
 	ID         int64  `json:"id"`
 	Provider   string `json:"provider" dbsorm:"1"`
 	Snowflake  string `json:"snowflake" dbsorm:"1"`
-	UUID       string `json:"uuid" dbsorm:"1"`
+	UUID       UUID   `json:"uuid" dbsorm:"1"`
 	IsMember   bool   `json:"is_member" dbsorm:"1"`
 	IsBanned   bool   `json:"is_banned" dbsorm:"1"`
 	Name       string `json:"name" dbsorm:"1"`
@@ -30,8 +30,8 @@ type User struct {
 //
 //
 
-func QueryUserByUUID(uid string) (*User, bool) {
-	ch, ok := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableUsers).Wh("uuid", uid), User{}).(*User)
+func QueryUserByUUID(uid UUID) (*User, bool) {
+	ch, ok := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableUsers).Wh("uuid", uid.String()), User{}).(*User)
 	return ch, ok
 }
 
@@ -44,12 +44,12 @@ func QueryUserBySnowflake(provider string, flake string, name string) *User {
 	defer store.This.Unlock()
 	//
 	id := db.QueryNextID(cTableUsers)
-	uid := newUUID()
+	uid := NewUUID()
 	co := now()
 	roles := List{}
 	if id == 1 {
 		roles = append(roles, "o")
-		Props.Set("owner", uid)
+		Props.Set("owner", uid.String())
 	}
 	u := &User{id, provider, flake, uid, false, false, name, "", co, co, roles}
 	db.Build().InsI(cTableUsers, u).Exe()
@@ -84,7 +84,7 @@ func (v User) MemberCount() int64 {
 //
 
 func (v *User) i() string {
-	return v.UUID
+	return v.UUID.String()
 }
 
 func (v User) t() string {
@@ -114,34 +114,34 @@ func (u *User) SetName(s string) {
 
 // DeleteMessage attempts to delete a UID from this Channel's associated message
 // table. If the UID is not a message in this Channel, nothing happens.
-func (u *User) DeleteMessage(c *Channel, uid string) {
-	db.Build().Del(cTableMessagesPrefix+c.UUID).Wh("uuid", uid).Wh("author", u.UUID).Exe()
+func (u *User) DeleteMessage(c *Channel, uid UUID) {
+	db.Build().Del(cTableMessagesPrefix+c.UUID.String()).Wh("uuid", uid.String()).Wh("author", u.UUID.String()).Exe()
 }
 
-func (u *User) HasRole(role string) bool {
-	return stringsu.Contains(u.Roles, role)
+func (u *User) HasRole(role UUID) bool {
+	return stringsu.Contains(u.Roles, role.String())
 }
 
-func (u *User) AddRole(role string) {
+func (u *User) AddRole(role UUID) {
 	if u.HasRole(role) {
 		return
 	}
-	u.Roles = append(u.Roles, role)
+	u.Roles = append(u.Roles, role.String())
 	doUp(u, "roles", u.Roles.String())
 }
 
-func (u *User) RemoveRole(role string) {
+func (u *User) RemoveRole(role UUID) {
 	if !u.HasRole(role) {
 		return
 	}
-	u.Roles = stringsu.Remove(u.Roles, role)
+	u.Roles = stringsu.Remove(u.Roles, role.String())
 	doUp(u, "roles", u.Roles.String())
 }
 
 func (u *User) GetRoles() []*Role {
 	res := []*Role{}
 	for _, item := range u.Roles {
-		r, ok := QueryRoleByUID(item)
+		r, ok := QueryRoleByUID(UUID(item))
 		if !ok {
 			continue
 		}
@@ -158,20 +158,20 @@ func (u *User) GetRolesSorted() []*Role {
 	return res
 }
 
-func (u *User) SetUID(uid string) {
+func (u *User) SetUID(uid UUID) {
 	oid := u.UUID
-	db.Build().Up(cTableUsers, "uuid", uid).Wh("uuid", u.UUID).Exe()
+	db.Build().Up(cTableUsers, "uuid", uid.String()).Wh("uuid", u.UUID.String()).Exe()
 	for _, item := range (Channel{}.All()) {
-		db.Build().Up(cTableMessagesPrefix+item.UUID, "author", uid).Wh("author", u.UUID).Exe()
+		db.Build().Up(cTableMessagesPrefix+item.UUID.String(), "author", uid.String()).Wh("author", u.UUID.String()).Exe()
 	}
 	u.UUID = uid
 	util.Log("user-update:", "updated", u.Name+"#"+strconv.FormatInt(u.ID, 10), "from", oid, "to", u.UUID)
 }
 
 func (u *User) ResetUID() {
-	u.SetUID(newUUID())
+	u.SetUID(NewUUID())
 	if u.HasRole("o") {
-		Props.Set("owner", u.UUID)
+		Props.Set("owner", u.UUID.String())
 	}
 }
 

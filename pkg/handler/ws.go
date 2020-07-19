@@ -7,6 +7,7 @@ import (
 	"github.com/nektro/mantle/pkg/handler/controls"
 	"github.com/nektro/mantle/pkg/ws"
 
+	"github.com/nektro/go.etc/dbt"
 	"github.com/nektro/go.etc/htp"
 	"github.com/valyala/fastjson"
 )
@@ -41,7 +42,8 @@ func Websocket(w http.ResponseWriter, r *http.Request) {
 			})
 
 		case "message":
-			c, ok := db.QueryChannelByUUID(string(smg.GetStringBytes("in")))
+			inch := dbt.UUID(string(smg.GetStringBytes("in")))
+			c, ok := db.QueryChannelByUUID(inch)
 			if !ok {
 				continue
 			}

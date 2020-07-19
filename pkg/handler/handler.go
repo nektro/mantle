@@ -13,6 +13,7 @@ import (
 
 	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
+	"github.com/nektro/go.etc/dbt"
 	"github.com/nektro/go.etc/htp"
 )
 
@@ -20,7 +21,7 @@ import (
 func SaveOAuth2InfoCb(w http.ResponseWriter, r *http.Request, provider string, id string, name string, oa2resp map[string]interface{}) {
 	ru := db.QueryUserBySnowflake(provider, id, name)
 	util.Log("[user-login]", provider, id, ru.UUID, name)
-	etc.JWTSet(w, ru.UUID)
+	etc.JWTSet(w, ru.UUID.String())
 	ru.SetName(strings.ReplaceAll(name, " ", ""))
 }
 
@@ -90,7 +91,7 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 
 	inv.Use(user)
 	for _, item := range inv.GivenRoles {
-		user.AddRole(item)
+		user.AddRole(dbt.UUID(item))
 	}
 	c.RedirectIf(true, "./chat/")
 }

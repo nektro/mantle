@@ -6,6 +6,7 @@ import (
 	"github.com/nektro/mantle/pkg/db"
 
 	"github.com/gorilla/websocket"
+	"github.com/nektro/go.etc/dbt"
 	"github.com/nektro/go.etc/store"
 )
 
@@ -19,7 +20,7 @@ var (
 
 var (
 	// UserCache is the list of users currently with ws connections to this instance
-	UserCache = map[string]*User{}
+	UserCache = map[dbt.UUID]*User{}
 )
 
 // Connect takes a db.User and upgrades it to a ws.User
@@ -35,7 +36,7 @@ func Connect(user *db.User, w http.ResponseWriter, r *http.Request) (*User, erro
 	UserCache[u.User.UUID] = u
 
 	if !u.IsConnected() {
-		store.This.ListAdd(keyOnline, u.User.UUID)
+		store.This.ListAdd(keyOnline, u.User.UUID.String())
 		BroadcastMessage(map[string]interface{}{
 			"type": "user-connect",
 			"user": u.User.UUID,

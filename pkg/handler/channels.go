@@ -4,11 +4,11 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/nektro/go.etc/dbt"
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/handler/controls"
 	"github.com/nektro/mantle/pkg/ws"
 
-	"github.com/gorilla/mux"
 	"github.com/nektro/go.etc/htp"
 )
 
@@ -42,7 +42,7 @@ func ChannelCreate(w http.ResponseWriter, r *http.Request) {
 func ChannelRead(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
 	controls.GetMemberUser(c, r, w)
-	uu := mux.Vars(r)["uuid"]
+	uu := controls.GetUIDFromPath(c, r)
 	ch, ok := db.QueryChannelByUUID(uu)
 	writeAPIResponse(r, w, ok, http.StatusOK, ch)
 }
@@ -51,7 +51,7 @@ func ChannelRead(w http.ResponseWriter, r *http.Request) {
 func ChannelMessagesRead(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
 	controls.GetMemberUser(c, r, w)
-	ch, ok := db.QueryChannelByUUID(mux.Vars(r)["uuid"])
+	ch, ok := db.QueryChannelByUUID(controls.GetUIDFromPath(c, r))
 	c.Assert(ok, "404: unable to find channel with this uuid")
 
 	slm, lmn, err := hGrabInt(r.URL.Query().Get("limit"))
@@ -62,7 +62,8 @@ func ChannelMessagesRead(w http.ResponseWriter, r *http.Request) {
 	c.Assert(lmn > 0, "400: limit minimum is 1")
 	c.Assert(lmn <= 50, "400: limit max is 50")
 
-	msgs := ch.QueryMsgAfterUID(r.URL.Query().Get("after"), int(lmn))
+	aft := dbt.UUID(r.URL.Query().Get("after"))
+	msgs := ch.QueryMsgAfterUID(aft, int(lmn))
 	writeAPIResponse(r, w, true, http.StatusOK, msgs)
 }
 
@@ -70,15 +71,15 @@ func ChannelMessagesRead(w http.ResponseWriter, r *http.Request) {
 func ChannelMessagesDelete(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
 	user := controls.GetMemberUser(c, r, w)
-	ch, ok := db.QueryChannelByUUID(mux.Vars(r)["uuid"])
+	ch, ok := db.QueryChannelByUUID(controls.GetUIDFromPath(c, r))
 	c.Assert(ok, "404: unable to find channel with this uuid")
 
 	actioned := []string{}
 	for _, item := range r.Form["ids"] {
-		if !db.IsUID(item) {
+		if !dbt.IsUUID(dbt.UUID(item)) {
 			continue
 		}
-		user.DeleteMessage(ch, item)
+		user.DeleteMessage(ch, dbt.UUID(item))
 		actioned = append(actioned, item)
 	}
 	ws.BroadcastMessage(map[string]interface{}{
@@ -97,7 +98,7 @@ func ChannelUpdate(w http.ResponseWriter, r *http.Request) {
 	c.Assert(usp.ManageChannels, "403: action requires the manage_channels permission")
 	controls.AssertFormKeysExist(c, r, "p_name")
 
-	uu := mux.Vars(r)["uuid"]
+	uu := controls.GetUIDFromPath(c, r)
 	ch, ok := db.QueryChannelByUUID(uu)
 	c.Assert(ok, "404: unable to find channel with this uuid")
 
@@ -155,7 +156,7 @@ func ChannelDelete(w http.ResponseWriter, r *http.Request) {
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ManageChannels, "403: action requires the manage_channels permission")
 
-	uu := mux.Vars(r)["uuid"]
+	uu := controls.GetUIDFromPath(c, r)
 	ch, ok := db.QueryChannelByUUID(uu)
 	c.Assert(ok, "404: unable to find channel with this uuid")
 

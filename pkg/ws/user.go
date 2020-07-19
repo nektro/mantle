@@ -15,7 +15,7 @@ type User struct {
 func (u *User) Disconnect() {
 	if u.IsConnected() {
 		delete(UserCache, u.User.UUID)
-		store.This.ListRemove(keyOnline, u.User.UUID)
+		store.This.ListRemove(keyOnline, u.User.UUID.String())
 		BroadcastMessage(map[string]interface{}{
 			"type": "user-disconnect",
 			"user": u.User.UUID,
@@ -24,7 +24,7 @@ func (u *User) Disconnect() {
 }
 
 func (u *User) IsConnected() bool {
-	return store.This.ListHas(keyOnline, u.User.UUID)
+	return store.This.ListHas(keyOnline, u.User.UUID.String())
 }
 
 func (u *User) SendMessageRaw(msg map[string]interface{}) {

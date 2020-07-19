@@ -11,9 +11,9 @@ import (
 
 type Message struct {
 	ID   int64  `json:"id"`
-	UUID string `json:"uuid" dbsorm:"1"`
+	UUID UUID   `json:"uuid" dbsorm:"1"`
 	At   Time   `json:"time" dbsorm:"1"`
-	By   string `json:"author" dbsorm:"1"`
+	By   UUID   `json:"author" dbsorm:"1"`
 	Body string `json:"body" dbsorm:"1"`
 }
 
@@ -24,20 +24,21 @@ func CreateMessage(user *User, channel *Channel, body string) *Message {
 	store.This.Lock()
 	defer store.This.Unlock()
 	//
-	m := &Message{db.QueryNextID(cTableMessagesPrefix + channel.UUID), newUUID(), now(), user.UUID, body}
+	m := &Message{db.QueryNextID(cTableMessagesPrefix + channel.i()), NewUUID(), now(), user.UUID, body}
 	if channel.HistoryOff {
 		return m
 	}
-	db.Build().InsI(cTableMessagesPrefix+channel.UUID, m).Exe()
-	db.Build().Up(cTableChannels, "latest_message", m.UUID).Wh("uuid", channel.UUID).Exe()
+	db.Build().InsI(cTableMessagesPrefix+channel.i(), m).Exe()
+	db.Build().Up(cTableChannels, "latest_message", m.i()).Wh("uuid", channel.i()).Exe()
 	return m
 }
-
-//
-//
 
 // Scan implements dbstorage.Scannable
 func (v Message) Scan(rows *sql.Rows) dbstorage.Scannable {
 	rows.Scan(&v.ID, &v.UUID, &v.At, &v.By, &v.Body)
 	return &v
+}
+
+func (v *Message) i() string {
+	return v.UUID.String()
 }

@@ -12,12 +12,12 @@ import (
 
 type Channel struct {
 	ID          int64  `json:"id"`
-	UUID        string `json:"uuid" dbsorm:"1"`
+	UUID        UUID   `json:"uuid" dbsorm:"1"`
 	Position    int    `json:"position" dbsorm:"1"`
 	Name        string `json:"name" dbsorm:"1"`
 	Description string `json:"description" dbsorm:"1"`
 	HistoryOff  bool   `json:"history_off" dbsorm:"1"`
-	LatestMsg   string `json:"latest_message" dbsorm:"1"`
+	LatestMsg   UUID   `json:"latest_message" dbsorm:"1"`
 	CreatedOn   Time   `json:"created_on" dbsorm:"1"`
 }
 
@@ -29,7 +29,7 @@ func CreateChannel(name string) *Channel {
 	defer store.This.Unlock()
 	//
 	id := db.QueryNextID(cTableChannels)
-	uid := newUUID()
+	uid := NewUUID()
 	co := now()
 	ch := &Channel{id, uid, int(id), name, "", false, "", co}
 	db.Build().InsI(cTableChannels, ch).Exe()
@@ -38,8 +38,8 @@ func CreateChannel(name string) *Channel {
 	return ch
 }
 
-func QueryChannelByUUID(uid string) (*Channel, bool) {
-	ch, ok := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableChannels).Wh("uuid", uid), Channel{}).(*Channel)
+func QueryChannelByUUID(uid UUID) (*Channel, bool) {
+	ch, ok := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableChannels).Wh("uuid", uid.String()), Channel{}).(*Channel)
 	return ch, ok
 }
 
@@ -66,7 +66,7 @@ func (v Channel) All() []*Channel {
 //
 
 func (v *Channel) i() string {
-	return v.UUID
+	return v.UUID.String()
 }
 
 func (v Channel) t() string {
@@ -82,14 +82,14 @@ func (c *Channel) AssertMessageTableExists() {
 }
 
 // QueryMsgAfterUID runs 'select * from messages where uuid < ? order by uuid desc limit 50'
-func (c *Channel) QueryMsgAfterUID(uid string, limit int) []*Message {
+func (c *Channel) QueryMsgAfterUID(uid UUID, limit int) []*Message {
 	res := []*Message{}
 	qb := db.Build()
 	qb.Se("*")
 	qb.Fr(cTableMessagesPrefix + c.UUID)
 	if len(uid) > 0 {
-		if IsUID(uid) {
-			qb.Wr("uuid", "<=", uid)
+		if IsUUID(uid) {
+			qb.Wr("uuid", "<=", uid.String())
 		}
 	}
 	qb.Or("uuid", "desc")

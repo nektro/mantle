@@ -13,7 +13,7 @@ import (
 
 type Invite struct {
 	ID         int64    `json:"id"`
-	UUID       string   `json:"uuid" dbsorm:"1"`
+	UUID       UUID     `json:"uuid" dbsorm:"1"`
 	CreatedOn  Time     `json:"created_on" dbsorm:"1"`
 	Code       string   `json:"name" dbsorm:"1"`
 	Uses       int64    `json:"uses" dbsorm:"1"`
@@ -34,7 +34,7 @@ func CreateInvite() *Invite {
 	defer store.This.Unlock()
 	//
 	id := db.QueryNextID(cTableInvites)
-	uid := newUUID()
+	uid := NewUUID()
 	co := now()
 	code := util.RandomString(8)
 	n := &Invite{id, uid, co, code, 0, 0, 0, DurationZero, NewTime(TimeZero), false, List{}}
@@ -50,8 +50,8 @@ func QueryInviteByCode(c string) (*Invite, bool) {
 }
 
 // QueryInviteByUID does exactly that
-func QueryInviteByUID(uid string) (*Invite, bool) {
-	ch, ok := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableInvites).Wh("uuid", uid), Invite{}).(*Invite)
+func QueryInviteByUID(uid UUID) (*Invite, bool) {
+	ch, ok := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableInvites).Wh("uuid", uid.String()), Invite{}).(*Invite)
 	return ch, ok
 }
 
@@ -78,7 +78,7 @@ func (v Invite) All() []*Invite {
 //
 
 func (v *Invite) i() string {
-	return v.UUID
+	return v.UUID.String()
 }
 
 func (v Invite) t() string {

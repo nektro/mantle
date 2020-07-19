@@ -7,7 +7,6 @@ import (
 	"github.com/nektro/mantle/pkg/handler/controls"
 	"github.com/nektro/mantle/pkg/ws"
 
-	"github.com/gorilla/mux"
 	"github.com/nektro/go.etc/htp"
 )
 
@@ -47,7 +46,7 @@ func InviteUpdate(w http.ResponseWriter, r *http.Request) {
 	c.Assert(usp.ManageInvites, "403: users require the manage_invites permission to update invites")
 	controls.AssertFormKeysExist(c, r, "p_name")
 
-	uu := mux.Vars(r)["uuid"]
+	uu := controls.GetUIDFromPath(c, r)
 	iv, ok := db.QueryInviteByUID(uu)
 	c.Assert(ok, "404: unable to find invite with that uuid")
 
@@ -85,7 +84,7 @@ func InviteDelete(w http.ResponseWriter, r *http.Request) {
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ManageInvites, "403: users require the manage_invites permission to update invites")
 
-	uu := mux.Vars(r)["uuid"]
+	uu := controls.GetUIDFromPath(c, r)
 	iv, ok := db.QueryInviteByUID(uu)
 	c.Assert(ok, "404: unable to find invite with that uuid")
 

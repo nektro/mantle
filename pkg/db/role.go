@@ -12,7 +12,7 @@ import (
 
 type Role struct {
 	ID                 int64  `json:"id"`
-	UUID               string `json:"uuid" dbsorm:"1"`
+	UUID               UUID   `json:"uuid" dbsorm:"1"`
 	Position           int    `json:"position" dbsorm:"1"`
 	Name               string `json:"name" dbsorm:"1"`
 	Color              string `json:"color" dbsorm:"1"`
@@ -33,7 +33,7 @@ func CreateRole(name string) *Role {
 	defer store.This.Unlock()
 	//
 	id := db.QueryNextID(cTableRoles)
-	uid := newUUID()
+	uid := NewUUID()
 	p := PermIgnore
 	co := now()
 	r := &Role{id, uid, int(id), name, "", p, p, false, p, p, co, p}
@@ -43,12 +43,12 @@ func CreateRole(name string) *Role {
 }
 
 // QueryRoleByUID finds a Role with the specified uid
-func QueryRoleByUID(uid string) (*Role, bool) {
+func QueryRoleByUID(uid UUID) (*Role, bool) {
 	rl, ok := BuiltInRoles[uid]
 	if ok {
 		return rl, true
 	}
-	ch, ok := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableRoles).Wh("uuid", uid), Role{}).(*Role)
+	ch, ok := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableRoles).Wh("uuid", uid.String()), Role{}).(*Role)
 	return ch, ok
 }
 
@@ -86,7 +86,7 @@ func (v Role) AllSorted() []*Role {
 //
 
 func (v *Role) i() string {
-	return v.UUID
+	return v.UUID.String()
 }
 
 func (v Role) t() string {

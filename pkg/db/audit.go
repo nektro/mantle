@@ -45,7 +45,7 @@ func (v Audit) Scan(rows *sql.Rows) dbstorage.Scannable {
 }
 
 // All returns an array of all channels sorted by their position
-func (v Audit) All() []*Audit {
+func (Audit) All() []*Audit {
 	arr := dbstorage.ScanAll(db.Build().Se("*").Fr(cTableAudits), Audit{})
 	res := []*Audit{}
 	for _, item := range arr {

@@ -73,12 +73,16 @@ func (v Channel) t() string {
 	return cTableChannels
 }
 
+func (v Channel) m() string {
+	return cTableMessagesPrefix + v.i()
+}
+
 func (v Channel) b() dbstorage.QueryBuilder {
 	return db.Build().Se("*").Fr(v.t())
 }
 
 func (c *Channel) AssertMessageTableExists() {
-	db.CreateTableStruct(cTableMessagesPrefix+c.UUID, Message{})
+	db.CreateTableStruct(c.m(), Message{})
 }
 
 // QueryMsgAfterUID runs 'select * from messages where uuid < ? order by uuid desc limit 50'
@@ -86,7 +90,7 @@ func (c *Channel) QueryMsgAfterUID(uid UUID, limit int) []*Message {
 	res := []*Message{}
 	qb := db.Build()
 	qb.Se("*")
-	qb.Fr(cTableMessagesPrefix + c.UUID)
+	qb.Fr(c.m())
 	if len(uid) > 0 {
 		if IsUUID(uid) {
 			qb.Wr("uuid", "<=", uid.String())
@@ -128,7 +132,7 @@ func (v *Channel) EnableHistory(b bool) {
 // Delete removes this item from the database
 func (v *Channel) Delete() {
 	doDel(v)
-	db.DropTable(cTableMessagesPrefix + v.UUID)
+	db.DropTable(v.m())
 	Props.Decrement("count_" + cTableChannels)
 }
 
@@ -167,5 +171,5 @@ func (v *Channel) MoveTo(n int) {
 }
 
 func (v *Channel) MessageCount() int64 {
-	return db.QueryRowCount(cTableMessagesPrefix + v.UUID)
+	return db.QueryRowCount(v.m())
 }

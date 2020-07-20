@@ -16,6 +16,7 @@ func (u *User) Disconnect() {
 	if u.IsConnected() {
 		delete(UserCache, u.User.UUID)
 		store.This.ListRemove(keyOnline, u.User.UUID.String())
+		db.Props.Decrement("count_users_online")
 		BroadcastMessage(map[string]interface{}{
 			"type": "user-disconnect",
 			"user": u.User.UUID,

@@ -37,6 +37,7 @@ func Connect(user *db.User, w http.ResponseWriter, r *http.Request) (*User, erro
 
 	if !u.IsConnected() {
 		store.This.ListAdd(keyOnline, u.User.UUID.String())
+		db.Props.Increment("count_users_online")
 		BroadcastMessage(map[string]interface{}{
 			"type": "user-connect",
 			"user": u.User.UUID,

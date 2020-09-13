@@ -44,7 +44,6 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 	uu := controls.GetUIDFromPath(c, r)
 	u, ok := db.QueryUserByUUID(uu)
 	c.Assert(ok, "404: unable to find user with that uuid")
-	controls.AssertFormKeysExist(c, r, "p_name")
 
 	successCb := func(us *db.User, pk, pv string) {
 		db.CreateAudit(db.ActionUserUpdate, user, us.UUID, pk, pv)
@@ -61,7 +60,7 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 
-	n := r.Form.Get("p_name")
+	n := c.GetFormString("p_name")
 	v := r.Form.Get("p_value")
 	up := ws.UserPerms{}.From(user)
 	if n != "nickname" {

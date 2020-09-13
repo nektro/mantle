@@ -44,7 +44,6 @@ func InviteUpdate(w http.ResponseWriter, r *http.Request) {
 	user := controls.GetMemberUser(c, r, w)
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ManageInvites, "403: users require the manage_invites permission to update invites")
-	controls.AssertFormKeysExist(c, r, "p_name")
 
 	uu := controls.GetUIDFromPath(c, r)
 	iv, ok := db.QueryInviteByUID(uu)
@@ -65,7 +64,7 @@ func InviteUpdate(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 
-	n := r.Form.Get("p_name")
+	n := c.GetFormString("p_name")
 	v := r.Form.Get("p_value")
 	switch n {
 	case "max_uses":

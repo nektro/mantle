@@ -23,8 +23,7 @@ func RolesMe(w http.ResponseWriter, r *http.Request) {
 func RolesCreate(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
 	user := controls.GetMemberUser(c, r, w)
-	controls.AssertFormKeysExist(c, r, "name")
-	n := r.Form.Get("name")
+	n := c.GetFormString("name")
 
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ManageRoles, "403: users require the manage_roles permission to update roles")
@@ -44,7 +43,6 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 	user := controls.GetMemberUser(c, r, w)
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ManageRoles, "403: users require the manage_roles permission to update roles")
-	controls.AssertFormKeysExist(c, r, "p_name")
 
 	uu := controls.GetUIDFromPath(c, r)
 	rl, ok := db.QueryRoleByUID(uu)
@@ -78,7 +76,7 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 		successCb(rs, n, v)
 	}
 
-	n := r.Form.Get("p_name")
+	n := c.GetFormString("p_name")
 	v := r.Form.Get("p_value")
 	switch n {
 	case "name":

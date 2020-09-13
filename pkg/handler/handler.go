@@ -119,8 +119,8 @@ func ApiPropertyUpdate(w http.ResponseWriter, r *http.Request) {
 	user := controls.GetMemberUser(c, r, w)
 	controls.AssertFormKeysExist(c, r, "p_name", "p_value")
 
-	n := r.Form.Get("p_name")
-	v := r.Form.Get("p_value")
+	n := c.GetFormString("p_name")
+	v := c.GetFormString("p_value")
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ManageServer, "403: users require the manage_server permission to update properties")
 	c.Assert(db.Props.Has(n), "400: specified property does not exist")

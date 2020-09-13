@@ -23,12 +23,11 @@ func ChannelsMe(w http.ResponseWriter, r *http.Request) {
 func ChannelCreate(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
 	user := controls.GetMemberUser(c, r, w)
-	controls.AssertFormKeysExist(c, r, "name")
 
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ManageChannels, "403: action requires the manage_channels permission")
 
-	name := r.Form.Get("name")
+	name := c.GetFormString("name")
 	nch := db.CreateChannel(name)
 	db.CreateAudit(db.ActionChannelCreate, user, nch.UUID, "", "")
 	w.WriteHeader(http.StatusCreated)
@@ -96,7 +95,6 @@ func ChannelUpdate(w http.ResponseWriter, r *http.Request) {
 	user := controls.GetMemberUser(c, r, w)
 	usp := ws.UserPerms{}.From(user)
 	c.Assert(usp.ManageChannels, "403: action requires the manage_channels permission")
-	controls.AssertFormKeysExist(c, r, "p_name")
 
 	uu := controls.GetUIDFromPath(c, r)
 	ch, ok := db.QueryChannelByUUID(uu)
@@ -117,7 +115,7 @@ func ChannelUpdate(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 
-	n := r.Form.Get("p_name")
+	n := c.GetFormString("p_name")
 	v := r.Form.Get("p_value")
 	switch n {
 	case "name":

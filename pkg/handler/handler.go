@@ -117,7 +117,6 @@ func ApiAbout(w http.ResponseWriter, r *http.Request) {
 func ApiPropertyUpdate(w http.ResponseWriter, r *http.Request) {
 	c := htp.GetController(r)
 	user := controls.GetMemberUser(c, r, w)
-	controls.AssertFormKeysExist(c, r, "p_name", "p_value")
 
 	n := c.GetFormString("p_name")
 	v := c.GetFormString("p_value")

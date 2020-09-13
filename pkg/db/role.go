@@ -131,27 +131,27 @@ func (v *Role) SetDistinguish(b bool) {
 }
 
 // SetPermMngServer sets
-func (v *Role) SetPermMngServer(p int) {
-	doUp(v, "perm_manage_server", strconv.Itoa(p))
-	v.PermManageServer = Perm(p)
+func (v *Role) SetPermMngServer(p Perm) {
+	doUp(v, "perm_manage_server", strconv.Itoa(int(p)))
+	v.PermManageServer = p
 }
 
 // SetPermMngChannels sets
-func (v *Role) SetPermMngChannels(p int) {
-	doUp(v, "perm_manage_channels", strconv.Itoa(p))
-	v.PermManageChannels = Perm(p)
+func (v *Role) SetPermMngChannels(p Perm) {
+	doUp(v, "perm_manage_channels", strconv.Itoa(int(p)))
+	v.PermManageChannels = p
 }
 
 // SetPermMngRoles sets
-func (v *Role) SetPermMngRoles(p int) {
-	doUp(v, "perm_manage_roles", strconv.Itoa(p))
-	v.PermManageRoles = Perm(p)
+func (v *Role) SetPermMngRoles(p Perm) {
+	doUp(v, "perm_manage_roles", strconv.Itoa(int(p)))
+	v.PermManageRoles = p
 }
 
 // SetPermMngInvites sets
-func (v *Role) SetPermMngInvites(p int) {
-	doUp(v, "perm_manage_invites", strconv.Itoa(p))
-	v.PermManageInvites = Perm(p)
+func (v *Role) SetPermMngInvites(p Perm) {
+	doUp(v, "perm_manage_invites", strconv.Itoa(int(p)))
+	v.PermManageInvites = p
 }
 
 // Delete removes this item from the database
@@ -205,7 +205,7 @@ func (v *Role) MoveTo(n int) {
 }
 
 // SetPermViewAudits sets
-func (v *Role) SetPermViewAudits(p int) {
-	doUp(v, "perm_view_audits", strconv.Itoa(p))
-	v.PermManageInvites = Perm(p)
+func (v *Role) SetPermViewAudits(p Perm) {
+	doUp(v, "perm_view_audits", strconv.Itoa(int(p)))
+	v.PermManageInvites = p
 }

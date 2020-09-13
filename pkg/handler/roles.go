@@ -63,7 +63,7 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 			"value": pv,
 		})
 	}
-	processPerm := func(n, v string, rs *db.Role, f func(int)) {
+	processPerm := func(n, v string, rs *db.Role, f func(db.Perm)) {
 		_, a, err := hGrabInt(v)
 		if err != nil {
 			return
@@ -72,7 +72,7 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 		if !hBetween(b, 0, 2) {
 			return
 		}
-		f(b)
+		f(db.Perm(b))
 		successCb(rs, n, v)
 	}
 
@@ -107,23 +107,23 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 		rl.SetDistinguish(b)
 		successCb(rl, n, v)
 	case "perm_manage_server":
-		processPerm(n, v, rl, func(x int) {
+		processPerm(n, v, rl, func(x db.Perm) {
 			rl.SetPermMngServer(x)
 		})
 	case "perm_manage_channels":
-		processPerm(n, v, rl, func(x int) {
+		processPerm(n, v, rl, func(x db.Perm) {
 			rl.SetPermMngChannels(x)
 		})
 	case "perm_manage_roles":
-		processPerm(n, v, rl, func(x int) {
+		processPerm(n, v, rl, func(x db.Perm) {
 			rl.SetPermMngRoles(x)
 		})
 	case "perm_manage_invites":
-		processPerm(n, v, rl, func(x int) {
+		processPerm(n, v, rl, func(x db.Perm) {
 			rl.SetPermMngInvites(x)
 		})
 	case "perm_view_audits":
-		processPerm(n, v, rl, func(x int) {
+		processPerm(n, v, rl, func(x db.Perm) {
 			rl.SetPermViewAudits(x)
 		})
 	}

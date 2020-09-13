@@ -1,0 +1,16 @@
+<script>
+    // functions copied from ./../../js/util.js so that the custom elements
+    // here can use them since html-imports doesn't support JS modules
+    // @see https://github.com/webcomponents/polyfills/issues/371
+    
+    function create_element(name, attrs, children) {
+        const ele = document.createElement(name);
+        (attrs || []).forEach((v) => { ele.setAttribute(v[0], v[1]); });
+        (children || []).forEach((v) => { ele.appendChild(v); });
+        return ele;
+    }
+    function dcTN(string) {
+        return document.createTextNode(string);
+    }
+</script>
+

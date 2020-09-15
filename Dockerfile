@@ -5,8 +5,8 @@ RUN apk add --no-cache git libc-dev musl-dev build-base gcc ca-certificates \
     && export VCS_REF=$(git tag --points-at HEAD) \
     && echo $VCS_REF \
     && go get -u github.com/rakyll/statik \
+    && go get -v . \
     && $GOPATH/bin/statik -src="./www/" \
-    && go get -u . \
     && CGO_ENABLED=1 go build -ldflags "-s -w -X main.Version=$VCS_REF" .
 
 FROM alpine

@@ -1,0 +1,76 @@
+<!--
+    HTML input implementation for a https://github.com/nektro/go.etc/blob/master/dbt/duration.go
+-->
+<style>
+    /*  */
+    x-duration-input {
+        display: block;
+        margin: 1em 0;
+    }
+    x-duration-input label {
+        display: block;
+        margin: .5em 0;
+    }
+    x-duration-input div {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    x-duration-input div >* {
+        width: 90%;
+    }
+    x-duration-input input {
+        padding: .5em .25em;
+        border: 0;
+    }
+    x-duration-input select {
+        display: block;
+    }
+</style>
+<script>
+    //
+    customElements.define("x-duration-input", class extends HTMLElement {
+        constructor() {
+            super();
+        }
+        connectedCallback() {
+            const label = this.getAttribute("label");
+            const name = this.getAttribute("name");
+
+            const inp = create_element("input", [["type","number"],["min","0"],["value","0"]]);
+            const sel = create_element("select", [], [
+                create_element("option", [["value","0"]], [dcTN("Seconds")]),
+                create_element("option", [["value","1"]], [dcTN("Minutes")]),
+                create_element("option", [["value","2"]], [dcTN("Hours")]),
+                create_element("option", [["value","3"]], [dcTN("Days")]),
+                create_element("option", [["value","4"]], [dcTN("Weeks")]),
+                create_element("option", [["value","5"]], [dcTN("Months")]),
+                create_element("option", [["value","6"]], [dcTN("Years")]),
+            ]);
+
+            inp.addEventListener("change", (ev) => {
+                doSettingUpdate(this, inp.value+","+sel.value);
+            });
+            sel.addEventListener("change", (ev) => {
+                doSettingUpdate(this, inp.value+","+sel.value);
+            });
+
+            this.appendChild(create_element("label", [], [dcTN(label)]));
+            this.appendChild(create_element("div", [], [ inp, sel, ]));
+        }
+        get value() {
+            const dv = this.children[1];
+            return dv.children[0].value + ":" + dv.children[1].value;
+        }
+        static get observedAttributes() {
+            return ["value"];
+        }
+        attributeChangedCallback(name, oV, nV) {
+            if (name === "value") {
+                const sp = nV.split(",");
+                const ip = this.children[1];
+                ip.children[0].value = parseInt(sp[0]);
+                ip.children[1].value = parseInt(sp[1]);
+            }
+        }
+    });
+</script>

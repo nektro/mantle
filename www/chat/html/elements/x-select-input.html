@@ -1,0 +1,47 @@
+<style>
+    /*  */
+    x-select-input {
+        display: block;
+        margin: 1em 0;
+    }
+    x-select-input label {
+        display: block;
+        margin: .5em 0;
+    }
+    x-select-input select {
+        display: block;
+    }
+</style>
+<script>
+    //
+    customElements.define("x-select-input", class extends HTMLElement {
+        constructor() {
+            super();
+        }
+        connectedCallback() {
+            const label = this.getAttribute("label");
+            const name = this.getAttribute("name");
+
+            this.appendChild(create_element("label", [], [dcTN(label)]));
+            const select = create_element("select", [["name",name]], [
+                ...Array.from(this.children).filter((v) => v.tagName === "OPTION"),
+            ]);
+            select.addEventListener("change", (ev) => {
+                this.setAttribute("value", ev.target.value);
+                doSettingUpdate(this, ev.target.value);
+            });
+            this.appendChild(select);
+        }
+        get value() {
+            return this.children[1].value;
+        }
+        static get observedAttributes() {
+            return ["value"];
+        }
+        attributeChangedCallback(name, oV, nV) {
+            if (name === "value") {
+                this.children[1].value = nV;
+            }
+        }
+    });
+</script>

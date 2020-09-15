@@ -77,7 +77,7 @@ customElements.define("x-msg-pane", class extends HTMLElement {
             const u = await api.M.users.get(item.author);
             await this.prependMessage(u, item);
         }
-        if (hst.length < 50) {
+        if (hst.length > 0 && hst.length < 50) {
             this.insertBefore(_make_m_divider(hst[hst.length-1]), this.children[0]);
         }
         //

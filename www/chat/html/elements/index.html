@@ -12,5 +12,16 @@
     function dcTN(string) {
         return document.createTextNode(string);
     }
+    function doSettingUpdate(el, v) {
+        const de = `./../api/${el.parentElement.parentElement.parentElement.getAttribute("data-s-section")}/%s`;
+        const e = el.getAttribute("endpoint")||de;
+        const f = el.getAttribute("fill")||"";
+        const e2 = e.replace("%s", f);
+        const n = el.getAttribute("name");
+        const fd = new FormData();
+        fd.append("p_name", n);
+        fd.append("p_value", v);
+        return fetch(e2, { method: "put", body: fd, });
+    }
 </script>
 

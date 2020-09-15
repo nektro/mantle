@@ -7,7 +7,7 @@ scrape_configs:
         - "localhost:9090"
   - job_name: "mantle"
     # See docs/prometheus.md for more details.
-    bearer_token: <BEARER_TOKEN>
+    bearer_token: BEARER_TOKEN
     static_configs:
       - targets:
         - "app:8000"

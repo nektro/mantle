@@ -231,5 +231,16 @@ body {
                 }
             }
         }
+        [data-s-section="invites"] {
+            x-duration-input, x-calendar-input {
+                display: none;
+            }
+            x-select-input[value="1"] ~ x-duration-input {
+                display: initial;
+            }
+            x-select-input[value="2"] ~ x-calendar-input {
+                display: initial;
+            }
+        }
     }
 }

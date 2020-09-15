@@ -2,6 +2,9 @@ package handler
 
 import (
 	"net/http"
+	"strconv"
+	"strings"
+	"time"
 
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/handler/controls"
@@ -72,6 +75,25 @@ func InviteUpdate(w http.ResponseWriter, r *http.Request) {
 		c.Assert(err == nil, "400: error parsing p_value")
 		c.Assert(x >= 0, "400: p_value must be >= 0")
 		iv.SetMaxUses(x)
+		successCb(iv, n, v)
+	case "mode":
+		x, err := strconv.Atoi(v)
+		c.AssertNilErr(err)
+		iv.SetMode(x)
+		successCb(iv, n, v)
+	case "expires_in":
+		spl := strings.SplitN(v, ",", 2)
+		c.Assert(len(spl) == 2, "400: must send data in form Int,Int")
+		a, err := strconv.Atoi(spl[0])
+		c.AssertNilErr(err)
+		b, err := strconv.Atoi(spl[1])
+		c.AssertNilErr(err)
+		iv.SetExpIn([...]int{a, b})
+		successCb(iv, n, v)
+	case "expires_on":
+		t, err := time.Parse("2006-01-02", v)
+		c.AssertNilErr(err)
+		iv.SetExpOn(t)
 		successCb(iv, n, v)
 	}
 }

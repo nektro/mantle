@@ -45,4 +45,8 @@
     <string name="s045">Audit Log</string>
     <string name="s046">View Audit Log</string>
     <string name="s047">Danger</string>
+    <string name="s048">Expiration</string>
+    <string name="s049">Never</string>
+    <string name="s050">Expires In</string>
+    <string name="s051">Expires On</string>
 </resources>

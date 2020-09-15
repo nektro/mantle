@@ -3,6 +3,7 @@ package db
 import (
 	"database/sql"
 	"strconv"
+	"time"
 
 	"github.com/nektro/go-util/util"
 	dbstorage "github.com/nektro/go.dbstorage"
@@ -116,4 +117,22 @@ func (v *Invite) SetMaxUses(p int64) {
 func (v *Invite) Delete() {
 	doDel(v)
 	Props.Decrement("count_" + cTableInvites)
+}
+
+// SetMode does
+func (v *Invite) SetMode(x int) {
+	doUp(v, "mode", strconv.Itoa(x))
+	v.Mode = x
+}
+
+// SetExpIn does
+func (v *Invite) SetExpIn(x [2]int) {
+	doUp(v, "expires_in", strconv.Itoa(x[0])+":"+strconv.Itoa(x[1]))
+	v.ExpiresIn = Duration(x)
+}
+
+// SetExpOn does
+func (v *Invite) SetExpOn(t time.Time) {
+	doUp(v, "expires_on", t.Format(TimeFormat))
+	v.ExpiresOn = Time(t)
 }

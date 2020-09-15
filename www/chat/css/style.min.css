@@ -280,3 +280,9 @@ body x-settings [data-s-section] code { background-color: #002b36; padding: .5em
 body x-settings [data-s-section] > div { display: flex; flex-direction: row; align-items: center; }
 
 body x-settings [data-s-section] > div img { margin-right: .5em; margin-bottom: .5em; }
+
+body x-settings [data-s-section="invites"] x-duration-input, body x-settings [data-s-section="invites"] x-calendar-input { display: none; }
+
+body x-settings [data-s-section="invites"] x-select-input[value="1"] ~ x-duration-input { display: initial; }
+
+body x-settings [data-s-section="invites"] x-select-input[value="2"] ~ x-calendar-input { display: initial; }

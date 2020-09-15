@@ -134,6 +134,13 @@
                                 <x-text-setting readonly="" name="name" label="{{translate 's037'}}" fill=""></x-text-setting>
                                 <x-text-setting readonly="" name="uses" label="{{translate 's038'}}" fill=""></x-text-setting>
                                 <x-text-setting name="max_uses" label="{{translate 's039'}}" type="number" min="0" fill=""></x-text-setting>
+                                <x-select-input name="mode" label="{{translate 's048'}}" fill="">
+                                    <option value="0">{{translate 's049'}}</option>
+                                    <option value="1">{{translate 's050'}}</option>
+                                    <option value="2">{{translate 's051'}}</option>
+                                </x-select-input>
+                                <x-duration-input name="expires_in" label="{{translate 's050'}}" fill=""></x-duration-input>
+                                <x-calendar-input name="expires_on" label="{{translate 's051'}}" fill=""></x-calendar-input>
                                 <x-2s-toggle name="is_frozen" label="{{translate 's040'}}" fill=""></x-2s-toggle>
                                 <hr>
                                 <h3>{{translate 's047'}}</h3>

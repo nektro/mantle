@@ -1,0 +1,47 @@
+<style>
+    /*  */
+    x-calendar-input {
+        display: block;
+        margin: 1em 0;
+    }
+    x-calendar-input label {
+        display: block;
+        margin: .5em 0;
+    }
+    x-calendar-input input {
+        padding: .5em .25em;
+        border: 0;
+    }
+</style>
+<script>
+    //
+    customElements.define("x-calendar-input", class extends HTMLElement {
+        constructor() {
+            super();
+        }
+        connectedCallback() {
+            const label = this.getAttribute("label");
+            const name = this.getAttribute("name");
+
+            const inp = create_element("input", [["type","date"],["name",name],["pattern","\d{4}-\d{2}-\d{2}"]]);
+            inp.addEventListener("change", (ev) => {
+                doSettingUpdate(this, ev.target.value);
+            });
+
+            this.appendChild(create_element("label", [], [dcTN(label)]));
+            this.appendChild(inp);
+        }
+        get value() {
+            return this.children[1].value;
+        }
+        static get observedAttributes() {
+            return ["value"];
+        }
+        attributeChangedCallback(name, oV, nV) {
+            if (name === "value") {
+                if (nV === "Z") { return; }
+                this.children[1].value = nV.substring(0, 10);
+            }
+        }
+    });
+</script>

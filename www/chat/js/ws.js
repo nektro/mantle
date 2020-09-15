@@ -47,6 +47,10 @@ export const M = {
                 setDataBinding("channel_description", c.description);
             }
         },
+        delete: (d) => {
+            api.M.channels.remove(d.channel);
+            ui.M.channel.remove(d.channel);
+        },
     },
     role: {
         new: (d) => {

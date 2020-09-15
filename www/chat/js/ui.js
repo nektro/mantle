@@ -2,7 +2,7 @@
 //
 // jshint -W003
 import { create_element, dcTN } from "./util.js";
-import { el_1, el_uonline } from "./ui.util.js";
+import { el_1, el_uonline, output } from "./ui.util.js";
 import * as api from "./api/index.js";
 
 //
@@ -36,6 +36,11 @@ export const M = {
             ]));
             document.querySelector("x-settings[data-s-for=server] [data-s-section=channels] x-selection").addItem(o);
             await api.M.channels.with(o.uuid).messages.latest();
+        },
+        remove: (uid) => {
+            el_1.firstElementChild.querySelector(`li[data-uuid="${uid}"]`).remove();
+            document.querySelector("x-settings[data-s-for=server] [data-s-section=channels] x-selection").removeItem(uid);
+            output.setActiveChannel(document.querySelector("x-settings[data-s-for=server] [data-s-section=channels] x-selection").items()[0]);
         },
     },
     role: {

@@ -35,7 +35,7 @@ export const M = {
     },
     channel: {
         new: (d) => {
-            ui.addChannel(new api.Channel(d.channel));
+            ui.M.channel.add(new api.Channel(d.channel));
         },
         update: (d) => {
             const c = new api.Channel(d.channel);

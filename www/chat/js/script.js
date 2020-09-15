@@ -97,7 +97,7 @@ document.getElementById("shrink_uonline").addEventListener("click", () => {
     //
     await api.M.channels.me().then(async (x) => {
         for (const item of x) {
-            await ui.addChannel(item);
+            await ui.M.channel.add(item);
         }
         await output.setActiveChannel(x[0].uuid);
 

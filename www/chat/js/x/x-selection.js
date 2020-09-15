@@ -101,4 +101,11 @@ customElements.define("x-selection", class extends HTMLElement {
             this.setActive(this.count-1);
         }
     }
+    items() {
+        let n = [];
+        for (const item of this.children[0].children) {
+            n.push(item.dataset.uid);
+        }
+        return n;
+    }
 });

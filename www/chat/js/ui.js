@@ -28,6 +28,15 @@ export const M = {
         },
     },
     channel: {
+        add: async (o) => {
+            el_1.firstElementChild.appendChild(create_element("li", [["data-uuid",o.uuid],["data-unread","0"]], [
+                create_element("div", [], [dcTN(o.name)]),
+                // create_element("div", [["class","ments"]], [dcTN("0")]),
+                create_element("div", [["class","unred"]], [dcTN("0")]),
+            ]));
+            document.querySelector("x-settings[data-s-for=server] [data-s-section=channels] x-selection").addItem(o);
+            await api.M.channels.with(o.uuid).messages.latest();
+        },
     },
     role: {
         add: (o) => {
@@ -55,20 +64,6 @@ export const M = {
 };
 
 //
-
-/**
- * @param {api.Channel} ch
- */
-export async function addChannel(ch) {
-    el_1.firstElementChild.appendChild(create_element("li", [["data-uuid",ch.uuid],["data-unread","0"]], [
-        create_element("div", [], [dcTN(ch.name)]),
-        create_element("div", [["class","unred"]], [dcTN("0")]),
-    ]));
-    //
-    document.querySelector("x-settings[data-s-for=server] [data-s-section=channels] x-selection").addItem(ch);
-    //
-    await api.M.channels.with(ch.uuid).messages.latest();
-}
 
 //
 export const toggleHandlers = new Map();

@@ -180,4 +180,7 @@ document.getElementById("shrink_uonline").addEventListener("click", () => {
             e.target.value = "";
         }
     });
+
+    //
+    console.log("finished init");
 })();

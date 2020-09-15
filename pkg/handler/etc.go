@@ -52,10 +52,12 @@ func EtcRoleColorCSS(w http.ResponseWriter, r *http.Request) {
 	ar := db.Role{}.AllSorted()
 	for i := len(ar) - 1; i >= 0; i-- {
 		item := ar[i]
+		n := item.Name
+		s := item.UUID.String()
 		if len(item.Color) > 0 {
-			fmt.Fprintln(w, `[data-role="`+item.UUID.String()+`"] { color: `+item.Color+` !important; } /* `+item.Name+` */`)
-			fmt.Fprintln(w, `[data-role="`+item.UUID.String()+`"].bg { background-color: `+item.Color+` !important; } /* `+item.Name+` */`)
-			fmt.Fprintln(w, `[data-role="`+item.UUID.String()+`"].bg-bf::before { background-color: `+item.Color+` !important; } /* `+item.Name+` */`)
+			fmt.Fprintln(w, `[data-role="`+s+`"] { color: `+item.Color+` !important; } /* `+n+` */`)
+			fmt.Fprintln(w, `[data-role="`+s+`"].bg { background-color: `+item.Color+` !important; } /* `+n+` */`)
+			fmt.Fprintln(w, `[data-role="`+s+`"].bg-bf::before { background-color: `+item.Color+` !important; } /* `+n+` */`)
 			fmt.Fprintln(w)
 		}
 	}

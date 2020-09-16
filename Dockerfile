@@ -3,6 +3,7 @@ WORKDIR /app
 COPY . .
 RUN apk add --no-cache git libc-dev musl-dev build-base gcc ca-certificates \
     && export VCS_REF=$(git tag --points-at HEAD) \
+    && export GO_VERSION=$(go version | cut -d' ' -f3) \
     && echo $VCS_REF \
     && go get -v . \
     && go install -v github.com/rakyll/statik \

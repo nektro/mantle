@@ -4,7 +4,7 @@ COPY . .
 ARG BUILD_NUM
 RUN apk add --no-cache git libc-dev musl-dev build-base gcc ca-certificates \
     && export GO_VERSION=$(go version | cut -d' ' -f3) \
-    && export VCS_REF="v${BUILD_NUM}.docker.$GO_VERSION" \
+    && export VCS_REF="v${BUILD_NUM}-docker-$GO_VERSION" \
     && echo $VCS_REF \
     && go get -v . \
     && go install -v github.com/rakyll/statik \

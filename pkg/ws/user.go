@@ -28,8 +28,12 @@ func (u *User) IsConnected() bool {
 	return store.This.ListHas(keyOnline, u.User.UUID.String())
 }
 
-func (u *User) SendMessageRaw(msg map[string]interface{}) {
+func (u *User) SendWsMessage(msg map[string]interface{}) {
 	u.Conn.WriteJSON(msg)
+}
+
+func (u *User) SendWsMessageRaw(msg []byte) {
+	u.Conn.WriteMessage(websocket.TextMessage, msg)
 }
 
 func (u *User) SendMessage(in *db.Channel, msg string) {

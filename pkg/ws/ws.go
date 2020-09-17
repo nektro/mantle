@@ -56,7 +56,7 @@ func Close() {
 // BroadcastMessage sends message to all users
 func BroadcastMessage(message map[string]interface{}) {
 	for _, item := range UserCache {
-		item.SendMessageRaw(message)
+		item.SendWsMessage(message)
 	}
 }
 

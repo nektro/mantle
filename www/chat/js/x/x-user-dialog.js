@@ -68,24 +68,24 @@ customElements.define("x-user-dialog", class extends HTMLElement {
             if (item.id === undefined) { continue; }
             //
             const nEl2 = create_element("li", [["data-role",item.uuid],["class","bg-bf"]], [dcTN(item.name)]);
-            nEl2.addEventListener("click", (e) => {
+            nEl2.addEventListener("click", (ev) => {
                 if (!ui.volatile.me.perms.manage_roles) return;
-                const et = e.target;
+                const et = ev.target;
                 const rid = et.dataset.role;
-                const uid = document.querySelector("#pp_uuid").textContent;
+                const uid_role = document.querySelector("#pp_uuid").textContent;
                 this.toggleRole(rid);
-                return api.M.users.update(uid,"remove_role",rid);
+                return api.M.users.update(uid_role, "remove_role", rid);
             });
             this.children[0].querySelectorAll("ol")[0].appendChild(nEl2);
             //
             const nEl3 = create_element("li", [["data-role",item.uuid]], [dcTN(item.name)]);
-            nEl3.addEventListener("click", (e) => {
+            nEl3.addEventListener("click", (ev) => {
                 if (!ui.volatile.me.perms.manage_roles) return;
-                const et = e.target;
+                const et = ev.target;
                 const rid = et.dataset.role;
-                const uid = this.querySelector("#pp_uuid").textContent;
+                const uid_role = this.querySelector("#pp_uuid").textContent;
                 this.toggleRole(rid);
-                return api.M.users.update(uid,"add_role",rid);
+                return api.M.users.update(uid_role, "add_role", rid);
             });
             this.children[0].querySelectorAll("ol")[1].appendChild(nEl3);
         }

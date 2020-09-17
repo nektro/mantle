@@ -5,12 +5,12 @@ import (
 	"net/http"
 	"strconv"
 
-	etc "github.com/nektro/go.etc"
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/handler/controls"
 	"github.com/nektro/mantle/pkg/idata"
 	"github.com/nektro/mantle/pkg/ws"
 
+	etc "github.com/nektro/go.etc"
 	"github.com/nektro/go.etc/htp"
 )
 

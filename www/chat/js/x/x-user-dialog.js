@@ -6,6 +6,30 @@ import { create_element, dcTN } from "./../util.js";
 import * as ui from "./../ui.js";
 import * as api from "./../api/index.js";
 
+/**
+ * @param {HTMLDivElement} el
+ * @param {number} ex
+ */
+function set_x(el, ex) {
+    let x = ex + 24;
+    // const ew = el.offsetWidth;
+    // const ww = window.inneroffsetWidth;
+    // if (x + ew > ww) { x = ww - ew - 24; }
+    el.style.left = `${x}px`;
+}
+
+/**
+ * @param {HTMLDivElement} el
+ * @param {number} ey
+ */
+function set_y(el, ey) {
+    let y = ey - 24;
+    const eh = el.offsetHeight;
+    const wh = window.innerHeight;
+    if (y + eh > wh) { y = wh - eh - 24; }
+    el.style.top = `${y}px`;
+}
+
 //
 customElements.define("x-user-dialog", class extends HTMLElement {
     constructor() {
@@ -79,30 +103,6 @@ customElements.define("x-user-dialog", class extends HTMLElement {
         }
     }
 });
-
-/**
- * @param {HTMLDivElement} el
- * @param {number} ex
- */
-function set_x(el, ex) {
-    let x = ex + 24;
-    // const ew = el.offsetWidth;
-    // const ww = window.inneroffsetWidth;
-    // if (x + ew > ww) { x = ww - ew - 24; }
-    el.style.left = `${x}px`;
-}
-
-/**
- * @param {HTMLDivElement} el
- * @param {number} ey
- */
-function set_y(el, ey) {
-    let y = ey - 24;
-    const eh = el.offsetHeight;
-    const wh = window.innerHeight;
-    if (y + eh > wh) { y = wh - eh - 24; }
-    el.style.top = `${y}px`;
-}
 
 //
 document.addEventListener("click", (e) => {

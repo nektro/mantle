@@ -17,7 +17,7 @@ go vet -composites=false
 # https://github.com/fzipp/gocyclo
 $GOPATH/bin/gocyclo -over 10 .
 
-# https://github.com/golang/lint
+# https://golang.org/x/lint
 $GOPATH/bin/golint .
 
 # https://github.com/gordonklaus/ineffassign

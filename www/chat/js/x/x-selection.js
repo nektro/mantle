@@ -102,7 +102,7 @@ customElements.define("x-selection", class extends HTMLElement {
         }
     }
     items() {
-        let n = [];
+        const n = [];
         for (const item of this.children[0].children) {
             n.push(item.dataset.uid);
         }

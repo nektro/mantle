@@ -20,4 +20,4 @@ export const msg_processors = [
 
 export function getSettingsSelection(f, s) {
     return document.querySelector(`x-settings[data-s-for="${f}"] [data-s-section="${s}"] x-selection`);
-};
+}

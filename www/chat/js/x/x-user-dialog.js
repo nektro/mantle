@@ -34,9 +34,6 @@ customElements.define("x-user-dialog", class extends HTMLElement {
     constructor() {
         super();
     }
-    connectedCallback() {
-        //
-    }
     /**
      * @param {string} uid
      * @param {MouseEvent} e

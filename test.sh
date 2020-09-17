@@ -15,7 +15,7 @@ go test
 go vet -composites=false
 
 # https://github.com/fzipp/gocyclo
-$GOPATH/bin/gocyclo -over 10 .
+$GOPATH/bin/gocyclo -over 9 .
 
 # https://golang.org/x/lint
 $GOPATH/bin/golint .

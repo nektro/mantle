@@ -27,6 +27,8 @@
         "moment": true,
         "localStorage": true,
         "Notification": true,
+        "navigator": true,
+        "AudioContext": true,
         "$": true
     }
 }

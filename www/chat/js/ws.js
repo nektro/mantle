@@ -3,7 +3,7 @@
 import * as ui from "./ui.js";
 import * as api from "./api/index.js";
 import { Channel } from "./ui.channel.js";
-import { output, el_uonline } from "./ui.util.js";
+import { output, el_uonline, context, audio_buffer_size } from "./ui.util.js";
 import { setDataBinding } from "./util.js";
 
 //
@@ -101,6 +101,20 @@ export const M = {
         delete: (d) => {
             api.M.invites.remove(d.invite);
             ui.M.invite.remove(d.invite);
+        },
+    },
+    voice: {
+        data: async function (o) {
+            if (o.from === ui.volatile.me.uuid) { return; }
+            const a = context.createBuffer(1, audio_buffer_size, context.sampleRate);
+            const b = a.getChannelData(0);
+            for (let i = 0; i < a.length; i++) {
+                b[i] = o.data[i];
+            }
+            const c = context.createBufferSource();
+            c.buffer = a;
+            c.connect(context.destination);
+            c.start();
         },
     },
 };

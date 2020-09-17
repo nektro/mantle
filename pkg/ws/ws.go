@@ -8,6 +8,7 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/nektro/go.etc/dbt"
 	"github.com/nektro/go.etc/store"
+	"github.com/valyala/fastjson"
 )
 
 const (
@@ -57,6 +58,12 @@ func Close() {
 func BroadcastMessage(message map[string]interface{}) {
 	for _, item := range UserCache {
 		item.SendWsMessage(message)
+	}
+}
+
+func BroadcastMessageRaw(message *fastjson.Value) {
+	for _, item := range UserCache {
+		item.SendWsMessageRaw(message.MarshalTo([]byte{}))
 	}
 }
 

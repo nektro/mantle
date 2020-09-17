@@ -164,6 +164,14 @@ body {
         button {
             background-color: lighten($based3, 5%);
         }
+        >#voice_chat {
+            text-align: left;
+            margin: 0 1em;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
     }
     #me {
         display: flex;

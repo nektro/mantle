@@ -11,9 +11,9 @@ import * as api from "./../api/index.js";
  */
 function set_x(el, ex) {
     let x = ex + 24;
-    // const ew = el.offsetWidth;
-    // const ww = window.inneroffsetWidth;
-    // if (x + ew > ww) { x = ww - ew - 24; }
+    const ew = el.offsetWidth;
+    const ww = window.innerWidth;
+    if (x + ew > ww) { x = ex - ew - 24; }
     el.style.left = `${x}px`;
 }
 
@@ -25,7 +25,7 @@ function set_y(el, ey) {
     let y = ey - 24;
     const eh = el.offsetHeight;
     const wh = window.innerHeight;
-    if (y + eh > wh) { y = wh - eh - 24; }
+    if (y + eh > wh) { y = ey - eh; }
     el.style.top = `${y}px`;
 }
 

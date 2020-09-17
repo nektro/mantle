@@ -33,6 +33,8 @@ function set_y(el, ey) {
 customElements.define("x-user-dialog", class extends HTMLElement {
     constructor() {
         super();
+        this.triggers = [];
+        this.triggers.push("x-user-dialog");
     }
     /**
      * @param {string} uid
@@ -104,7 +106,12 @@ customElements.define("x-user-dialog", class extends HTMLElement {
 document.addEventListener("click", (e) => {
     const p = e.target.path();
     const ud = document.querySelector("x-user-dialog");
-    if (p.includes(ud)) { return; }
-    if (p[0].classList.contains("usr")) { return; }
+    for (const item of ud.triggers) {
+        for (const jtem of p) {
+            if (jtem.matches(item)) {
+                return;
+            }
+        }
+    }
     ud.removeAllChildren();
 });

@@ -1,7 +1,7 @@
 "use strict";
 //
 import { create_element, dcTN, ele_atBottom, safe_html_replace, setDataBinding } from "./../util.js";
-import { msg_processors } from "./../ui.util.js";
+import { async_ready, emoji, msg_processors } from "./../ui.util.js";
 import * as api from "./../api/index.js";
 
 //
@@ -40,6 +40,11 @@ async function _make_m_element(user, msg) {
     twemoji.parse(mtx);
     safe_html_replace(mtx, /([a-z]+:\/\/[^\s]+)/gu, (match) => create_element("a", [["href",match],["target","_blank"]], [dcTN(decodeURIComponent(match))]));
     safe_html_replace(mtx, /(magnet:[^\s]+)/gu, (match) => create_element("a", [["href",match],["target","_blank"]], [dcTN(decodeURIComponent(match))]));
+    safe_html_replace(mtx, /(:[a-z0-9_+-]+:)/gu, (match) => {
+        const n = match.substring(1, match.length-1);
+        const i = emoji.names.includes(n);
+        return i ? dcTN(emoji.map[n]) : dcTN(match);
+    });
     //
     return el;
 }
@@ -67,6 +72,7 @@ customElements.define("x-msg-pane", class extends HTMLElement {
         super();
     }
     async connectedCallback() {
+        await async_ready;
         this._uid = this.getAttribute("uuid");
         //
         const c = await api.M.channels.get(this._uid);

@@ -10,7 +10,7 @@ module.exports = function(results) {
             continue;
         }
         for (const jtem of item.messages) {
-            console.log(`${item.filePath}:${green(jtem.line)}:${cyan(jtem.column)}: ${gray(jtem.ruleId)} ${jtem.message}`);
+            console.log(`.${item.filePath.substring(process.cwd().length)}:${green(jtem.line)}:${cyan(jtem.column)}: ${gray(jtem.ruleId)} ${jtem.message}`);
         }
     }
 };

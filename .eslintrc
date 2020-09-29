@@ -27,6 +27,9 @@
         "AudioContext": true,
         "$": true
     },
+    "plugins": [
+        "html"
+    ],
     "extends": "eslint:all",
     "rules": {
         "strict":"off",

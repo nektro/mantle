@@ -55,7 +55,7 @@
             });
 
             this.appendChild(create_element("label", [], [dcTN(label)]));
-            this.appendChild(create_element("div", [], [ inp, sel, ]));
+            this.appendChild(create_element("div", [], [inp, sel]));
         }
         get value() {
             const dv = this.children[1];
@@ -68,8 +68,8 @@
             if (name === "value") {
                 const sp = nV.split(",");
                 const ip = this.children[1];
-                ip.children[0].value = parseInt(sp[0]);
-                ip.children[1].value = parseInt(sp[1]);
+                ip.children[0].value = parseInt(sp[0], 10);
+                ip.children[1].value = parseInt(sp[1], 10);
             }
         }
     });

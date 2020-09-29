@@ -32,7 +32,7 @@ $GOPATH/bin/misspell -error .
 ########################
 
 # https://jshint.com/
-./node_modules/.bin/jshint --reporter ./.jshintrc.reporter.js ./www/
+./node_modules/.bin/jshint --reporter ./scripts/.jshintrc.fmt.js ./www/
 
 # https://eslint.org/
-./node_modules/.bin/eslint --format ./.eslintrc.formatter.js ./www/
+./node_modules/.bin/eslint --format ./scripts/.eslintrc.fmt.js ./www/ --ext .js,.html

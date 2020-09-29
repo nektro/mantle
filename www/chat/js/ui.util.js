@@ -9,6 +9,7 @@ export const el_2 = document.getElementById("server-name");
 export const el_3 = document.getElementById("me");
 export const el_uonline = document.body.children[4];
 export const el_input = document.getElementById("input");
+export const el_xud = document.querySelector("x-user-dialog");
 export const context = new AudioContext();
 export const audio_buffer_size = 4096;
 export const async_ready = new Promise((resolve) => { async_ready_resolve = resolve; });

@@ -1,7 +1,7 @@
 "use strict";
 //
 import { create_element, dcTN } from "./../util.js";
-import { el_uonline } from "./../ui.util.js";
+import { el_uonline, el_xud } from "./../ui.util.js";
 import * as api from "./../api/index.js";
 
 //
@@ -22,11 +22,10 @@ customElements.define("x-uonline-user", class extends HTMLElement {
         this.appendChild(create_element("span", null, [dcTN(o.getName())]));
         this.appendChild(create_element("span", null, [dcTN("#"+o.id)]));
         //
-        const xud = document.querySelector("x-user-dialog");
-        xud.triggers.push("x-uonline-user");
+        el_xud.triggers.push("x-uonline-user");
         this.addEventListener("click", async (e) => {
             const target = e.target.path().filter((v) => v.tagName.toLowerCase() === "x-uonline-user")[0];
-            xud.openWith(target._uid, e);
+            el_xud.openWith(target._uid, e);
         });
     }
     get role_element() {

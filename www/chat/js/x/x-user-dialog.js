@@ -4,6 +4,7 @@
 import { create_element, dcTN } from "./../util.js";
 import * as ui from "./../ui.js";
 import * as api from "./../api/index.js";
+import { el_xud } from "../ui.util.js";
 
 /**
  * @param {HTMLDivElement} el
@@ -105,13 +106,12 @@ customElements.define("x-user-dialog", class extends HTMLElement {
 //
 document.addEventListener("click", (e) => {
     const p = e.target.path();
-    const ud = document.querySelector("x-user-dialog");
-    for (const item of ud.triggers) {
+    for (const item of el_xud.triggers) {
         for (const jtem of p) {
             if (jtem.matches(item)) {
                 return;
             }
         }
     }
-    ud.removeAllChildren();
+    el_xud.removeAllChildren();
 });

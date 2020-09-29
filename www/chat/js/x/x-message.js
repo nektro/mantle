@@ -1,6 +1,6 @@
 "use strict";
 //
-import { output } from "./../ui.util.js";
+import { el_xud, output } from "./../ui.util.js";
 import * as ui from "./../ui.js";
 import * as api from "./../api/index.js";
 
@@ -25,10 +25,9 @@ customElements.define("x-message", class extends HTMLElement {
                 et.classList.toggle("selected");
             }
         });
-        const xud = document.querySelector("x-user-dialog");
-        xud.triggers.push("x-message .usr");
+        el_xud.triggers.push("x-message .usr");
         this.querySelector(".usr").addEventListener("click", async (e) => {
-            xud.openWith(e.target.parentElement._author, e);
+            el_xud.openWith(e.target.parentElement._author, e);
         });
     }
 });

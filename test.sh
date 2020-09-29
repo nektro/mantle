@@ -26,6 +26,8 @@ $GOPATH/bin/ineffassign .
 # https://github.com/client9/misspell
 $GOPATH/bin/misspell -error .
 
+# https://github.com/golangci/golangci-lint
+$GOPATH/bin/golangci-lint run -D errcheck
 
 ########################
 #  Javascript Testing  #

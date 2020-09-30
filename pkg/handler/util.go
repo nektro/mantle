@@ -11,8 +11,6 @@ import (
 	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
 	sdrie "github.com/nektro/go.sdrie"
-
-	. "github.com/nektro/go-util/alias"
 )
 
 var (
@@ -26,7 +24,7 @@ func Init() {
 	}
 }
 
-func writeAPIResponse(r *http.Request, w http.ResponseWriter, good bool, status int, message interface{}) error {
+func writeAPIResponse(r *http.Request, w http.ResponseWriter, good bool, status int, message interface{}) {
 	resp := map[string]interface{}{
 		"success": good,
 		"message": message,
@@ -34,10 +32,6 @@ func writeAPIResponse(r *http.Request, w http.ResponseWriter, good bool, status 
 	w.Header().Add("content-type", "application/json")
 	dat, _ := json.Marshal(resp)
 	fmt.Fprintln(w, string(dat))
-	if !good {
-		return E(F("%v", message))
-	}
-	return nil
 }
 
 func hGrabInt(s string) (string, int64, error) {

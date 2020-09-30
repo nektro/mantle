@@ -16,10 +16,7 @@ const (
 
 // ToBool returns true if and only if this Perm is equal to PermAllow
 func (p Perm) ToBool() bool {
-	if p == PermAllow {
-		return true
-	}
-	return false
+	return p == PermAllow
 }
 
 // Value - Implement the database/sql Valuer interface

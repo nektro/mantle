@@ -21,6 +21,7 @@ func (u *User) Disconnect() {
 			"type": "user-disconnect",
 			"user": u.User.UUID,
 		})
+		u.Conn.Close()
 	}
 }
 

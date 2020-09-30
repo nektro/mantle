@@ -50,7 +50,7 @@ func Connect(user *db.User, w http.ResponseWriter, r *http.Request) (*User, erro
 // Close disconnect all remaining users
 func Close() {
 	for _, item := range UserCache {
-		item.Conn.Close()
+		item.Disconnect()
 	}
 }
 

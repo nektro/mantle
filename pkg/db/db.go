@@ -31,7 +31,6 @@ var (
 var (
 	db dbstorage.Database
 	pa = PermAllow
-	pi = PermIgnore
 )
 var (
 	Props        = Properties{}

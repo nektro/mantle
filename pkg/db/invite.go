@@ -46,13 +46,13 @@ func CreateInvite() *Invite {
 
 // QueryInviteByCode does exactly that
 func QueryInviteByCode(c string) (*Invite, bool) {
-	ch, ok := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableInvites).Wh("name", c), Invite{}).(*Invite)
+	ch, ok := dbstorage.ScanFirst(Invite{}.b().Wh("name", c), Invite{}).(*Invite)
 	return ch, ok
 }
 
 // QueryInviteByUID does exactly that
 func QueryInviteByUID(uid UUID) (*Invite, bool) {
-	ch, ok := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableInvites).Wh("uuid", uid.String()), Invite{}).(*Invite)
+	ch, ok := dbstorage.ScanFirst(Invite{}.b().Wh("uuid", uid.String()), Invite{}).(*Invite)
 	return ch, ok
 }
 
@@ -67,7 +67,7 @@ func (v Invite) Scan(rows *sql.Rows) dbstorage.Scannable {
 
 // All queries database for all currently existing Invites
 func (v Invite) All() []*Invite {
-	arr := dbstorage.ScanAll(db.Build().Se("*").Fr(cTableInvites), Invite{})
+	arr := dbstorage.ScanAll(v.b(), Invite{})
 	res := []*Invite{}
 	for _, item := range arr {
 		res = append(res, item.(*Invite))

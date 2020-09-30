@@ -39,7 +39,7 @@ func CreateChannel(name string) *Channel {
 }
 
 func QueryChannelByUUID(uid UUID) (*Channel, bool) {
-	ch, ok := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableChannels).Wh("uuid", uid.String()), Channel{}).(*Channel)
+	ch, ok := dbstorage.ScanFirst(Channel{}.b().Wh("uuid", uid.String()), Channel{}).(*Channel)
 	return ch, ok
 }
 
@@ -54,7 +54,7 @@ func (v Channel) Scan(rows *sql.Rows) dbstorage.Scannable {
 
 // All returns an array of all channels sorted by their position
 func (v Channel) All() []*Channel {
-	arr := dbstorage.ScanAll(db.Build().Se("*").Fr(cTableChannels).Or("position", "asc"), Channel{})
+	arr := dbstorage.ScanAll(v.b().Or("position", "asc"), Channel{})
 	res := []*Channel{}
 	for _, item := range arr {
 		res = append(res, item.(*Channel))

@@ -48,7 +48,7 @@ func QueryRoleByUID(uid UUID) (*Role, bool) {
 	if ok {
 		return rl, true
 	}
-	ch, ok := dbstorage.ScanFirst(db.Build().Se("*").Fr(cTableRoles).Wh("uuid", uid.String()), Role{}).(*Role)
+	ch, ok := dbstorage.ScanFirst(Role{}.b().Wh("uuid", uid.String()), Role{}).(*Role)
 	return ch, ok
 }
 
@@ -64,7 +64,7 @@ func (v Role) Scan(rows *sql.Rows) dbstorage.Scannable {
 
 // All queries database for all currently existing Roles
 func (v Role) All() []*Role {
-	arr := dbstorage.ScanAll(db.Build().Se("*").Fr(cTableRoles), Role{})
+	arr := dbstorage.ScanAll(v.b(), Role{})
 	res := []*Role{}
 	for _, item := range arr {
 		res = append(res, item.(*Role))
@@ -74,7 +74,7 @@ func (v Role) All() []*Role {
 
 // AllSorted is the same as All but ordered by position
 func (v Role) AllSorted() []*Role {
-	arr := dbstorage.ScanAll(db.Build().Se("*").Fr(cTableRoles).Or("position", "asc"), Role{})
+	arr := dbstorage.ScanAll(v.b().Or("position", "asc"), Role{})
 	res := []*Role{}
 	for _, item := range arr {
 		res = append(res, item.(*Role))

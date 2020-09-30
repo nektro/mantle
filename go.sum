@@ -83,8 +83,8 @@ github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd/go.mod h1:6dJ
 github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742/go.mod h1:bx2lNnkwVCuqBIxFjflWJWanXIb3RllmbCylyMrvgv0=
 github.com/modern-go/reflect2 v1.0.1/go.mod h1:bx2lNnkwVCuqBIxFjflWJWanXIb3RllmbCylyMrvgv0=
 github.com/mwitkow/go-conntrack v0.0.0-20161129095857-cc309e4a2223/go.mod h1:qRWi+5nqEBWmkhHvq77mSJWrCKwh8bxhgT7d/eI7P4U=
-github.com/nektro/go-util v0.0.0-20200926180207-4bfd3f20d9ca h1:2Cu1q9EjAeGs5je3Imu7QebkUfJs0DU7R4kzbFzhB98=
-github.com/nektro/go-util v0.0.0-20200926180207-4bfd3f20d9ca/go.mod h1:OqP0aYqZsfLrW7f/Awf6o21on20yRmEHSnaKtbUN66g=
+github.com/nektro/go-util v0.0.0-20200930193840-c9f24fd9c7f0 h1:Pf99L/cphxKeJMLVsy533SAAZA48qrw5q1sbT1AN/Es=
+github.com/nektro/go-util v0.0.0-20200930193840-c9f24fd9c7f0/go.mod h1:OqP0aYqZsfLrW7f/Awf6o21on20yRmEHSnaKtbUN66g=
 github.com/nektro/go.dbstorage v0.0.0-20200802192712-7245913dba7b h1:CNd6d0hx61GjVEqppsRLfu/yEtSMzZ8vp4q+lIn7m/Y=
 github.com/nektro/go.dbstorage v0.0.0-20200802192712-7245913dba7b/go.mod h1:8PkaJBrkNn1TsHpOjDLDxOsKXv7QviBBjncs0WgPyO0=
 github.com/nektro/go.etc v0.0.0-20200926180254-65a97c3d51d0 h1:d26SWTUTCZTnPh0DXkhZpPfgGSV4KQO5XKRvXcWGuGc=

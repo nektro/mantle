@@ -16,7 +16,7 @@ require (
 	github.com/lib/pq v1.8.0 // indirect
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
-	github.com/nektro/go-util v0.0.0-20200926180207-4bfd3f20d9ca
+	github.com/nektro/go-util v0.0.0-20200930193840-c9f24fd9c7f0
 	github.com/nektro/go.dbstorage v0.0.0-20200802192712-7245913dba7b
 	github.com/nektro/go.etc v0.0.0-20200926180254-65a97c3d51d0
 	github.com/nektro/go.oauth2 v0.0.0-20200930055238-ad67466c49ff

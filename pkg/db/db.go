@@ -79,6 +79,11 @@ func Init() {
 	for _, item := range ResourceTables {
 		Props.SetDefaultInt64("count_"+item, db.QueryRowCount(item))
 	}
+	for _, item := range (Channel{}.All()) {
+		tn := cTableMessagesPrefix + item.UUID.String()
+		Props.SetDefaultInt64("count_"+tn, db.QueryRowCount(tn))
+		Props.SetDefaultInt64("count_"+tn+"_deletes", 0)
+	}
 	for i := 1; i < ActionLen(); i++ {
 		is := strconv.Itoa(i)
 		Props.SetDefaultInt64("count_"+cTableAudits+"_action_"+is, queryCount(db.Build().Se("*").Fr(cTableAudits).Wh("action", is).Exe()))

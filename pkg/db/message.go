@@ -24,12 +24,14 @@ func CreateMessage(user *User, channel *Channel, body string) *Message {
 	store.This.Lock()
 	defer store.This.Unlock()
 	//
-	m := &Message{db.QueryNextID(cTableMessagesPrefix + channel.i()), NewUUID(), now(), user.UUID, body}
+	tn := cTableMessagesPrefix + channel.i()
+	m := &Message{db.QueryNextID(tn), NewUUID(), now(), user.UUID, body}
 	if channel.HistoryOff {
 		return m
 	}
-	db.Build().InsI(cTableMessagesPrefix+channel.i(), m).Exe()
+	db.Build().InsI(tn, m).Exe()
 	db.Build().Up(cTableChannels, "latest_message", m.i()).Wh("uuid", channel.i()).Exe()
+	Props.Increment("count_" + tn)
 	return m
 }
 

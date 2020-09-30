@@ -124,7 +124,14 @@ func (u *User) SetName(s string) {
 // DeleteMessage attempts to delete a UID from this Channel's associated message
 // table. If the UID is not a message in this Channel, nothing happens.
 func (u *User) DeleteMessage(c *Channel, uid UUID) {
-	db.Build().Del(cTableMessagesPrefix+c.UUID.String()).Wh("uuid", uid.String()).Wh("author", u.UUID.String()).Exe()
+	tn := cTableMessagesPrefix + c.i()
+	r := db.Build().Se("count(*)").Fr(tn).Wh("uuid", uid.String()).Wh("author", u.UUID.String()).Exe()
+	l := 0
+	r.Scan(&l)
+	r.Close()
+	Props.Decrement("count_" + tn)
+	Props.Increment("count_" + tn + "_deletes")
+	db.Build().Del(tn).Wh("uuid", uid.String()).Wh("author", u.UUID.String()).Exe()
 }
 
 func (u *User) HasRole(role UUID) bool {

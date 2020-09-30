@@ -59,11 +59,11 @@ func main() {
 	util.RunOnClose(func() {
 		util.Log("Gracefully shutting down...")
 
-		util.Log("Saving database to disk")
-		db.Close()
-
 		util.Log("Closing all remaining active WebSocket connections")
 		ws.Close()
+
+		util.Log("Saving database to disk")
+		db.Close()
 
 		util.Log("Done")
 		os.Exit(0)

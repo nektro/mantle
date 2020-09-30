@@ -1,6 +1,8 @@
 package db
 
 import (
+	"io/ioutil"
+	"os"
 	"strconv"
 
 	"github.com/nektro/mantle/pkg/idata"
@@ -61,7 +63,13 @@ func Init() {
 	Props.SetDefault("description", "The new easy and effective communication platform for any successful team or community that's independently hosted and puts users, privacy, and effiecency first.")
 	Props.SetDefault("cover_photo", "data:,")
 	Props.SetDefault("profile_photo", "https://avatars.discourse.org/v4/letter/m/ec9cab/90.png")
-	Props.SetDefault("prometheus_key", util.RandomString(64))
+
+	promkey := util.RandomString(64)
+	Props.SetDefault("prometheus_key", promkey)
+	promkeyF := etc.DataRoot() + "/prometheus_key.txt"
+	if !util.DoesFileExist(promkeyF) {
+		ioutil.WriteFile(promkeyF, []byte(promkey), os.ModePerm)
+	}
 
 	Props.SetDefaultInt64("count_users_members", queryCount(db.Build().Se("*").Fr(cTableUsers).Wh("is_member", "1").Exe()))
 	Props.SetDefaultInt64("count_users_banned", queryCount(db.Build().Se("*").Fr(cTableUsers).Wh("is_banned", "1").Exe()))

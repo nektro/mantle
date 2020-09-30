@@ -26,22 +26,34 @@ Once you have finished the app creation process you should now have a Client ID 
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| `--auth-{IDP-ID}-id` | `string` | none. | Client ID. |
-| `--auth-{IDP-ID}-secret` | `string` | none. | Client Secret. |
+| `--oauth2-client` | `string` | none. | OAuth2 Client Config in the form `For|ID|Secret`. |
 
 The Identity Provider IDs can be found from the table in the [nektro/go.oauth2](https://github.com/nektro/go.oauth2#readme) documentation.
 
-### Other Flags
-These flags are optional but offer more customization and enable debugging, or assist in running in containerized environments. They also may all be passed as environment variables in the form that `--oauth2-default-auth` may also be passed in with the `OAUTH2_DEFAULT_AUTH` variable.
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `--dbstorage-debug-sql` | `bool` | `false` | Enable this flag to print all executed SQL statements. |
-| `--oauth2-default-auth` | `string` | none | Use this if you'd like to have a default auth when multiple are enabled. |
-| `--port` | `int` | `8000` | The port to bind the web server to. |
-| `--jwt-secret` | `string` | random | HMAC JWT signing secret. |
-| `--redis-url` | `string` | none | Host of Redis instance to use. |
-| `--max-member-count` | `int`| none | The maximum number of users that may be a "member" of the server at one time. Overrides setting in "Overview". Not retroactive. |
+## All Flags
+```
+      --base string                  The path to mount all listeners on (default "/")
+      --config string                 (default "~/.config/mantle/config.json")
+      --dbstorage-debug-sql          Enable this flag to print all executed SQL statements.
+      --dbstorage-debug-verbose      Enabled this flag to inlcude binded values in logs.
+      --jwt-secret string            Privte secret to sign and verify JWT auth tokens with. (default "Random")
+      --max-member-count int         
+      --mysql-database string        
+      --mysql-password string        
+      --mysql-url string             
+      --mysql-user string            
+      --oauth2-client stringArray    Custom client config. Pass in the form: for|id|secret
+      --oauth2-default-auth string   A default auth to use when multiple appconf's are enabled.
+      --port int                     The port to bind the web server to. (default 8000)
+      --postgres-database string     
+      --postgres-password string     
+      --postgres-sslmode string       (default "verify-full")
+      --postgres-url string          
+      --postgres-user string         
+      --redis-url string             
+      --skip-translation-fetch       Enable this flag to only read native translation data.
+      --theme stringArray            A CLI way to add config themes.
+```
 
 ## Deployment
 Pre-compiled binaries can be obtained from https://github.com/nektro/mantle/releases/latest.

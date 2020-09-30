@@ -16,10 +16,10 @@ require (
 	github.com/lib/pq v1.8.0 // indirect
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
-	github.com/nektro/go-util v0.0.0-20200831224928-5ee14cded1af
+	github.com/nektro/go-util v0.0.0-20200926180207-4bfd3f20d9ca
 	github.com/nektro/go.dbstorage v0.0.0-20200802192712-7245913dba7b
-	github.com/nektro/go.etc v0.0.0-20200915013728-15614ac6f45a
-	github.com/nektro/go.oauth2 v0.0.0-20200901032914-5d8c9a2371d2
+	github.com/nektro/go.etc v0.0.0-20200926180254-65a97c3d51d0
+	github.com/nektro/go.oauth2 v0.0.0-20200930055238-ad67466c49ff
 	github.com/nektro/go.sdrie v0.0.0-20200407210253-32d3319e3835
 	github.com/oklog/ulid v1.3.1 // indirect
 	github.com/prometheus/client_golang v1.7.1

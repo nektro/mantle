@@ -67,7 +67,7 @@ $ docker run -p 80:8000 nektro/mantle
 ## Development
 Local development is done with [Docker](https://docs.docker.com/get-docker/) and [`docker-compose`](https://docs.docker.com/compose/install/)
 
-To launch a local instance, edit `./data/config.json` with your OAuth2 client info and then run the following and visit http://localhost/
+To launch a local instance, add the `OAUTH2_CLIENT_N` env var into `docker-compose.yml` where `N` is 1, 2, 3, etc with your OAuth2 client info and then run the following and visit http://localhost/.
 
 ```
 $ docker-compose up
@@ -107,7 +107,6 @@ Run an instance and want your site here? Contact me below!
 
 ## Contact
 - hello@nektro.net
-- Meghan#2032 on discordapp.com
 - https://twitter.com/nektro
 
 ## License

@@ -87,6 +87,9 @@
         "dot-location":["error", "property"],
         "no-new":"off",
         "no-underscore-dangle":"off",
+        "require-await":"off",
+        "no-negated-condition":"off",
+        "object-shorthand":"off",
         "consistent-return":"off"
     }
 }

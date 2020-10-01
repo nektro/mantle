@@ -57,17 +57,7 @@ document.getElementById("shrink_uonline").addEventListener("click", () => {
         ui.volatile.me.perms = x.perms;
         const n = ui.volatile.me.nickname || ui.volatile.me.name;
         el_3.children[0].textContent = `@${n}`;
-        document.querySelectorAll("[data-requires]").forEach((el) => {
-            el.setAttribute("hidden", "");
-        });
-        const p = x.perms;
-        for (const key in p) {
-            if (p[key]) {
-                document.querySelectorAll(`[data-requires^="${key}"]`).forEach((el) => {
-                    el.removeAttribute("hidden");
-                });
-            }
-        }
+        ui.refresh_permissions();
         //
         el_3.children[1].addEventListener("click", () => {
             document.querySelector("x-settings[data-s-for=user]")._open();

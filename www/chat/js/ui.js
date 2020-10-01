@@ -16,6 +16,20 @@ export const volatile = {
     windowActive: true,
 };
 
+export function refresh_permissions() {
+    for (const el of document.querySelectorAll("[data-requires]")) {
+        el.setAttribute("hidden", "");
+    }
+    for (const key in volatile.me.perms) {
+        const has_perm = volatile.me.perms[key];
+        if (has_perm) {
+            for (const el of document.querySelectorAll(`[data-requires="${key}"]`)) {
+                el.removeAttribute("hidden");
+            }
+        }
+    }
+}
+
 //
 
 export const M = {

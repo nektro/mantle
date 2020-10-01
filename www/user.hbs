@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{{user.Name}} - {{data.name}} - Mantle</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="data:,">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://unpkg.com/terminal.css@0.7.1/dist/terminal.min.css" integrity="sha384-7ss2tgGRAkNdNvqlfqtM8dV0+1u5PcxhKZEhgSUryudxc+Eq2rEF7Rdwlf4bLAtq" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.7/components/icon.min.css" integrity="sha512-I7/aUklkRw/Q5C9/7X2EH1jsng7oBb2P29tXv15+83/hu8qE0BZJyXmCX2u230RZlcf0oylQqmStJGCPxQpUQw==" crossorigin="anonymous" />
+        <link rel="stylesheet" href="./api/etc/role_colors.css">
+        <link rel="stylesheet" href="./css/main.min.css">
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body class="p-user">
+        <div class="container">
+            <header>
+                <div class="terminal-nav">
+                    <div class="terminal-logo">
+                        <div class="logo terminal-prompt"><a class="no-style">{{data.name}}</a></div>
+                    </div>
+                    <nav class="terminal-menu">
+                        <ul>
+                            <li><a class="menu-item" href="./">Home</a></li>
+                            <li><a class="menu-item" href="./chat/">Chat</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+            <h1>
+                <span>{{#if user.Nickname}}{{user.Nickname}} ({{user.Name}}){{else}}{{user.Name}}{{/if}}</span>
+                <span>{{#if admin}}<i class="hat wizard icon" title="{{user.Name}} is the owner here."></i>{{/if}}</span>
+                <span>{{#if user.IsMember}}<i class="user icon" title="User is a member of this server."></i>{{/if}}</span>
+                <span>{{#if user.IsBanned}}<i class="gavel icon" title="User is banned."></i>{{/if}}</span>
+            </h1>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>ID</td>
+                        <td>{{user.ID}}</td>
+                    </tr>
+                    <tr>
+                        <td>ULID</td>
+                        <td>{{user.UUID}}</td>
+                    </tr>
+                    <tr>
+                        <td>Identity</td>
+                        <td>{{user.Snowflake}} @ <object data="{{provider_logo user.Provider}}" type="image/svg+xml" height="24"></object></td>
+                    </tr>
+                    <tr>
+                        <td>Joined On</td>
+                        <td>{{fix_date user.JoindedOn}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <h2>Roles</h2>
+            <div>
+                {{#each roles}}
+                <div class="terminal-alert bd" data-role="{{this.UUID}}">{{this.Name}}</div>
+                {{/each}}
+            </div>
+        </div>
+    </body>
+</html>

@@ -13,11 +13,14 @@ import (
 	"github.com/nektro/mantle/pkg/metrics"
 	"github.com/nektro/mantle/pkg/ws"
 
+	"github.com/aymerick/raymond"
 	"github.com/nektro/go-util/util"
 	"github.com/nektro/go-util/vflag"
 	etc "github.com/nektro/go.etc"
+	"github.com/nektro/go.etc/dbt"
 	"github.com/nektro/go.etc/htp"
 	"github.com/nektro/go.etc/translations"
+	oauth2 "github.com/nektro/go.oauth2"
 
 	_ "github.com/nektro/mantle/statik"
 )
@@ -72,6 +75,28 @@ func main() {
 	//
 	// create http service
 
+	raymond.RegisterHelper("fix_date", func(s string) string {
+		t, err := time.Parse(time.RFC3339, s)
+		if err != nil {
+			return ""
+		}
+		return t.Format(time.RFC1123)
+	})
+	raymond.RegisterHelper("provider_logo", func(s string) string {
+		p, ok := oauth2.ProviderIDMap[s]
+		if !ok {
+			return ""
+		}
+		return p.Logo
+	})
+	raymond.RegisterHelper("role_name", func(s string) string {
+		r, ok := db.QueryRoleByUID(dbt.UUID(s))
+		if !ok {
+			return ""
+		}
+		return r.Name
+	})
+
 	handler.Init()
 
 	htp.Register("/", http.MethodGet, handler.InviteGet)
@@ -79,6 +104,7 @@ func main() {
 	htp.Register("/verify", http.MethodGet, handler.Verify)
 	htp.Register("/ws", http.MethodGet, handler.Websocket)
 	htp.Register("/metrics", http.MethodGet, metrics.Handler())
+	htp.Register("/~{uuid}", http.MethodGet, handler.UserProfile)
 
 	htp.Register("/chat/", http.MethodGet, handler.Chat)
 

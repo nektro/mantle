@@ -11,6 +11,7 @@ import (
 	"github.com/nektro/mantle/pkg/idata"
 	"github.com/nektro/mantle/pkg/ws"
 
+	"github.com/nektro/go-util/arrays/stringsu"
 	"github.com/nektro/go-util/util"
 	etc "github.com/nektro/go.etc"
 	"github.com/nektro/go.etc/dbt"
@@ -127,4 +128,23 @@ func ApiPropertyUpdate(w http.ResponseWriter, r *http.Request) {
 	db.Props.Set(n, v)
 	db.CreateAudit(db.ActionSettingUpdate, user, "", n, v)
 	writeAPIResponse(r, w, true, http.StatusOK, []string{n, v})
+}
+
+func UserProfile(w http.ResponseWriter, r *http.Request) {
+	c := htp.GetController(r)
+	uid := controls.GetUIDFromPath(c, r)
+	u, ok := db.QueryUserByUUID(uid)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	if db.Props.GetInt64("public") == 0 {
+		controls.GetMemberUser(c, r, w)
+	}
+	etc.WriteHandlebarsFile(r, w, "/user.hbs", map[string]interface{}{
+		"data":  db.Props.GetAll(),
+		"user":  u,
+		"roles": u.GetRolesSorted(),
+		"admin": stringsu.Contains([]string(u.Roles), "o"),
+	})
 }

@@ -60,6 +60,7 @@ func EtcRoleColorCSS(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintln(w, d+` { color: `+c)
 			fmt.Fprintln(w, d+`.bg { background-color: `+c)
 			fmt.Fprintln(w, d+`.bg-bf::before { background-color: `+c)
+			fmt.Fprintln(w, d+`.bd { border-color: `+c)
 			fmt.Fprintln(w)
 		}
 	}

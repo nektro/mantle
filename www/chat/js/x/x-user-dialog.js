@@ -35,7 +35,7 @@ customElements.define("x-user-dialog", class extends HTMLElement {
     constructor() {
         super();
         this.triggers = [];
-        this.triggers.push("x-user-dialog");
+        this.triggers.push(this.localName);
     }
     /**
      * @param {string} uid

@@ -20,7 +20,7 @@ var (
 // Init sets up this package
 func Init() {
 	etc.HtpErrCb = func(r *http.Request, w http.ResponseWriter, good bool, code int, data string) {
-		writeAPIResponse(r, w, good, code, data[5:])
+		writeAPIResponse(r, w, good, code, data)
 	}
 }
 

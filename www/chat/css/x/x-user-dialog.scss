@@ -52,14 +52,6 @@ x-user-dialog {
                     color: inherit;
                     line-height: 1.45em;
                 }
-                &:hover {
-                    cursor: pointer;
-                    
-                    &::before {
-                        content: "✘";
-                        color: black;
-                    }
-                }
             }
         }
         div {

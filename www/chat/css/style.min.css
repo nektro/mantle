@@ -177,10 +177,6 @@ x-user-dialog > div > ol li:not(.active) { display: none; }
 
 x-user-dialog > div > ol li::before { content: ""; background-color: #ddd; display: inline-block; border-radius: 50%; vertical-align: center; text-align: center; width: 1.1em; height: 1.1em; margin-right: .25em; color: inherit; line-height: 1.45em; }
 
-x-user-dialog > div > ol li:hover { cursor: pointer; }
-
-x-user-dialog > div > ol li:hover::before { content: "✘"; color: black; }
-
 x-user-dialog > div div i { cursor: pointer; display: block; width: 100%; text-align: left; }
 
 x-user-dialog > div div i:hover + ol { display: block; }

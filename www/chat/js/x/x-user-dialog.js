@@ -35,10 +35,6 @@ customElements.define("x-user-dialog", class extends HTMLElement {
             create_element("hr"),
             create_element("div", null, [dcTN("Roles")]),
             create_element("ol"),
-            create_element("div", [["data-requires","manage_roles"]], [
-                create_element("i", [["class","plus icon"]]),
-                create_element("ol"),
-            ]),
         ]));
         for (const item of api.C.roles.values()) {
             if (item.id === undefined) { continue; }
@@ -53,17 +49,6 @@ customElements.define("x-user-dialog", class extends HTMLElement {
                 return api.M.users.update(uid_role, "remove_role", rid);
             });
             this.children[0].querySelectorAll("ol")[0].appendChild(nEl2);
-            //
-            const nEl3 = create_element("li", [["data-role",item.uuid]], [dcTN(item.name)]);
-            nEl3.addEventListener("click", (ev) => {
-                if (!ui.volatile.me.perms.manage_roles) return;
-                const et = ev.target;
-                const rid = et.dataset.role;
-                const uid_role = this.querySelector("#pp_uuid").textContent;
-                this.toggleRole(rid);
-                return api.M.users.update(uid_role, "add_role", rid);
-            });
-            this.children[0].querySelectorAll("ol")[1].appendChild(nEl3);
         }
         for (const item of await userN.getRoles()) {
             if (item.id === undefined) { continue; }

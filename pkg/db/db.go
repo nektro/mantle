@@ -71,17 +71,18 @@ func Init() {
 		ioutil.WriteFile(promkeyF, []byte(promkey), os.ModePerm)
 	}
 
-	Props.SetDefaultInt64("count_users_members", queryCount(db.Build().Se("*").Fr(cTableUsers).Wh("is_member", "1").Exe()))
-	Props.SetDefaultInt64("count_users_banned", queryCount(db.Build().Se("*").Fr(cTableUsers).Wh("is_banned", "1").Exe()))
+	Props.SetDefaultInt64("count_users_members", 0)
+	Props.SetDefaultInt64("count_users_banned", 0)
 	Props.SetDefaultInt64("count_users_members_max", 0)
 	Props.SetDefaultInt64("count_users_online", 0)
 
 	for _, item := range ResourceTables {
-		Props.SetDefaultInt64("count_"+item, db.QueryRowCount(item))
+		Props.SetDefaultInt64("count_"+item, 0)
 	}
 	for _, item := range (Channel{}.All()) {
 		tn := cTableMessagesPrefix + item.UUID.String()
-		Props.SetDefaultInt64("count_"+tn, db.QueryRowCount(tn))
+		Props.SetDefaultInt64("count_"+tn, 0)
+		Props.SetDefaultInt64("count_"+tn+"_edits", 0)
 		Props.SetDefaultInt64("count_"+tn+"_deletes", 0)
 	}
 	for i := 1; i < ActionLen(); i++ {

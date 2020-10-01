@@ -29,15 +29,15 @@ var (
 )
 
 func refresh() {
-	GaugeUsrTotal.Set(float64(db.Props.GetInt64("count_users")))
-	GaugeChanTotal.Set(float64(db.Props.GetInt64("count_channels")))
-	GaugeRoleTotal.Set(float64(db.Props.GetInt64("count_roles")))
-	GaugeInvTotal.Set(float64(db.Props.GetInt64("count_invites")))
-	GaugeAudTotal.Set(float64(db.Props.GetInt64("count_audits")))
+	GaugeUsrTotal.Set(getPropInt("count_users"))
+	GaugeChanTotal.Set(getPropInt("count_channels"))
+	GaugeRoleTotal.Set(getPropInt("count_roles"))
+	GaugeInvTotal.Set(getPropInt("count_invites"))
+	GaugeAudTotal.Set(getPropInt("count_audits"))
 
-	GaugeUsrBy.With(prometheus.Labels{"stat": "member"}).Set(float64(db.Props.GetInt64("count_users_members")))
+	GaugeUsrBy.With(prometheus.Labels{"stat": "member"}).Set(getPropInt("count_users_members"))
 	GaugeUsrBy.With(prometheus.Labels{"stat": "online"}).Set(float64(ws.OnlineUserCount()))
-	GaugeUsrBy.With(prometheus.Labels{"stat": "banned"}).Set(float64(db.Props.GetInt64("count_users_banned")))
+	GaugeUsrBy.With(prometheus.Labels{"stat": "banned"}).Set(getPropInt("count_users_banned"))
 
 	for _, item := range (db.Channel{}.All()) {
 		uid := item.UUID.String()
@@ -49,7 +49,7 @@ func refresh() {
 	}
 	for i := 1; i < db.ActionLen(); i++ {
 		is := strconv.Itoa(i)
-		GaugeAudBy.With(prometheus.Labels{"action": is}).Set(float64(db.Props.GetInt64("count_audits_action_" + is)))
+		GaugeAudBy.With(prometheus.Labels{"action": is}).Set(getPropInt("count_audits_action_" + is))
 	}
 }
 

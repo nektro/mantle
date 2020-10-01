@@ -1,9 +1,11 @@
 package main
 
 import (
+	"math"
 	"math/rand"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -82,6 +84,13 @@ func main() {
 		}
 		return t.Format(time.RFC1123)
 	})
+	raymond.RegisterHelper("time_since", func(s string) string {
+		t, err := time.Parse(time.RFC3339, s)
+		if err != nil {
+			return ""
+		}
+		return durStringSimple(time.Since(t))
+	})
 	raymond.RegisterHelper("provider_logo", func(s string) string {
 		p, ok := oauth2.ProviderIDMap[s]
 		if !ok {
@@ -147,4 +156,30 @@ func main() {
 	// start server
 
 	etc.StartServer()
+}
+
+func durStringSimple(d time.Duration) string {
+	r := ""
+	s := d.Seconds()
+
+	type tt struct {
+		u string
+		c int64
+	}
+	units := []tt{tt{"s", 60}, tt{"m", 60}, tt{"h", 24}, tt{"d", 30}, tt{"m", 12}, tt{"y", 0}}
+	r = strconv.FormatFloat(math.Mod(s, 60), 'f', 1, 64) + "s"
+	t := int64(s / 60)
+
+	for i := 1; i < len(units); i++ {
+		if t > 1 {
+			r = strconv.FormatInt(t%units[i-1].c, 10) + units[i].u + " " + r
+			if units[i].c == 0 {
+				break
+			}
+			t = t / units[i].c
+			continue
+		}
+		break
+	}
+	return r
 }

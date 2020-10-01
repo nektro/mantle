@@ -1,34 +1,10 @@
 "use strict";
 
 //
-import { create_element, dcTN } from "./../util.js";
+import { create_element, dcTN, popup_set_x, popup_set_y } from "./../util.js";
 import * as ui from "./../ui.js";
 import * as api from "./../api/index.js";
 import { el_xud } from "../ui.util.js";
-
-/**
- * @param {HTMLDivElement} el
- * @param {number} ex
- */
-function set_x(el, ex) {
-    let x = ex + 24;
-    const ew = el.offsetWidth;
-    const ww = window.innerWidth;
-    if (x + ew > ww) { x = ex - ew - 24; }
-    el.style.left = `${x}px`;
-}
-
-/**
- * @param {HTMLDivElement} el
- * @param {number} ey
- */
-function set_y(el, ey) {
-    let y = ey - 24;
-    const eh = el.offsetHeight;
-    const wh = window.innerHeight;
-    if (y + eh > wh) { y = ey - eh; }
-    el.style.top = `${y}px`;
-}
 
 //
 customElements.define("x-user-dialog", class extends HTMLElement {
@@ -93,8 +69,8 @@ customElements.define("x-user-dialog", class extends HTMLElement {
             if (item.id === undefined) { continue; }
             this.toggleRole(item.uuid);
         }
-        set_x(this.children[0], e.x);
-        set_y(this.children[0], e.y);
+        popup_set_x(this.children[0], e.x);
+        popup_set_y(this.children[0], e.y);
     }
     toggleRole(uid) {
         for (const item of this.querySelectorAll("ol")) {

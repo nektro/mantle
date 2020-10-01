@@ -110,3 +110,27 @@ export function safe_html_replace(ele, regex, matcher) {
         i += fixed.length-1;
     }
 }
+
+/**
+ * @param {HTMLDivElement} el
+ * @param {number} ex
+ */
+export function popup_set_x(el, ex) {
+    let x = ex + 24;
+    const ew = el.offsetWidth;
+    const ww = window.innerWidth;
+    if (x + ew > ww) { x = ex - ew - 24; }
+    el.style.left = `${x}px`;
+}
+
+/**
+ * @param {HTMLDivElement} el
+ * @param {number} ey
+ */
+export function popup_set_y(el, ey) {
+    let y = ey - 24;
+    const eh = el.offsetHeight;
+    const wh = window.innerHeight;
+    if (y + eh > wh) { y = wh - eh - 24; }
+    el.style.top = `${y}px`;
+}

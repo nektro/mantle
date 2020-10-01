@@ -13,17 +13,39 @@
         box-shadow: 0 0 10px 0 rgba(255,255,255,0.75);
     }
     x-user-contextmenu ul li a {
-        display: block;
+        display: flex;
         padding: .5em;
         min-width: 10em;
         text-decoration: none;
         color: #2aa198;
+        white-space: nowrap;
+        justify-content: space-between;
     }
     x-user-contextmenu ul li a:hover {
         background-color: #073642;
     }
     x-user-contextmenu ul li a.danger {
         color: #dc322f;
+    }
+    x-user-contextmenu ul li a.more::after {
+        content: ">";
+        font-weight: bold;
+        line-height: 10px;
+        font-size: 1.4em;
+    }
+    x-user-contextmenu ul li ul {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 10.5em;
+        overflow-y: scroll;
+    }
+    x-user-contextmenu ul li:hover ul {
+        display: block;
+    }
+    x-user-contextmenu ul li a label {
+        width: 100%;
+        padding-right: .5em;
     }
 </style>
 <script type="module" src="./js/x-user-contextmenu.js"></script>

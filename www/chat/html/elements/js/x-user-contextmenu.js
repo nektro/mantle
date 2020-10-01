@@ -6,6 +6,26 @@ import { el_xucm } from "./../../../js/ui.util.js";
 import * as api from "./../../../js/api/index.js";
 import * as ui from "./../../../js/ui.js";
 
+/**
+ * @param {HTMLUListElement} el
+ * @param {number} ey
+ */
+function set_y(el, ey) {
+    const y = ey - 24;
+    const eh = el.offsetHeight;
+    const wh = window.innerHeight;
+    console.log(y,eh,wh);
+    if (y + eh > wh) {
+        el.style.bottom = "0";
+        el.style.top = "initial";
+    }
+    if (eh > wh) {
+        el.style.top = `-${ey-48}px`;
+        el.style.bottom = "initial";
+        el.style.maxHeight = `${wh-48}px`;
+    }
+}
+
 //
 customElements.define("x-user-contextmenu", class extends HTMLElement {
     constructor() {
@@ -65,26 +85,6 @@ customElements.define("x-user-contextmenu", class extends HTMLElement {
         }
     }
 });
-
-/**
- * @param {HTMLUListElement} el
- * @param {number} ey 
- */
-function set_y(el, ey) {
-    let y = ey - 24;
-    const eh = el.offsetHeight;
-    const wh = window.innerHeight;
-    console.log(y,eh,wh);
-    if (y + eh > wh) {
-        el.style.bottom = "0";
-        el.style.top = "initial";
-    }
-    if (eh > wh) {
-        el.style.top = `-${ey-48}px`;
-        el.style.bottom = "initial";
-        el.style.maxHeight = `${wh-48}px`;
-    }
-}
 
 //
 document.addEventListener("click", (e) => {

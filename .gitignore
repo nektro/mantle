@@ -3,3 +3,4 @@
 /node_modules/
 /www/chat/css/color.min.css
 /data/*.db
+/data/prometheus_key.txt

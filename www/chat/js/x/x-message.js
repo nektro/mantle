@@ -1,6 +1,6 @@
 "use strict";
 //
-import { el_xud, output } from "./../ui.util.js";
+import { el_xucm, el_xud, output } from "./../ui.util.js";
 import * as ui from "./../ui.js";
 import * as api from "./../api/index.js";
 
@@ -28,6 +28,10 @@ customElements.define("x-message", class extends HTMLElement {
         el_xud.triggers.push("x-message .usr");
         this.querySelector(".usr").addEventListener("click", async (e) => {
             el_xud.openWith(e.target.parentElement._author, e);
+        });
+        el_xucm.triggers.push("x-message .usr");
+        this.querySelector(".usr").addEventListener("contextmenu", async (e) => {
+            el_xucm.openWith(e.target.parentElement._author, e);
         });
     }
 });

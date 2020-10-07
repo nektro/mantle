@@ -106,26 +106,18 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 		}
 		rl.SetDistinguish(b)
 		successCb(rl, n, v)
-	case "perm_manage_server":
-		processPerm(n, v, rl, func(x db.Perm) {
-			rl.SetPermMngServer(x)
-		})
-	case "perm_manage_channels":
-		processPerm(n, v, rl, func(x db.Perm) {
-			rl.SetPermMngChannels(x)
-		})
-	case "perm_manage_roles":
-		processPerm(n, v, rl, func(x db.Perm) {
-			rl.SetPermMngRoles(x)
-		})
-	case "perm_manage_invites":
-		processPerm(n, v, rl, func(x db.Perm) {
-			rl.SetPermMngInvites(x)
-		})
-	case "perm_view_audits":
-		processPerm(n, v, rl, func(x db.Perm) {
-			rl.SetPermViewAudits(x)
-		})
+	}
+	perms := map[string]func(db.Perm){
+		"perm_manage_server":   rl.SetPermMngServer,
+		"perm_manage_channels": rl.SetPermMngChannels,
+		"perm_manage_roles":    rl.SetPermMngRoles,
+		"perm_manage_invites":  rl.SetPermMngInvites,
+		"perm_view_audits":     rl.SetPermViewAudits,
+	}
+	for pk, pv := range perms {
+		if n == pk {
+			processPerm(n, v, rl, pv)
+		}
 	}
 }
 

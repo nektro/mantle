@@ -90,6 +90,7 @@
         "require-await":"off",
         "no-negated-condition":"off",
         "object-shorthand":"off",
+        "guard-for-in":"off",
         "consistent-return":"off"
     }
 }

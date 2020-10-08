@@ -8,6 +8,7 @@
     "unused": "strict",
     "varstmt": true,
     "maxerr": 500,
+    "-W083": false,
     "globals": {
         "document": true,
         "fetch": true,

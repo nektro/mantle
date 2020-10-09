@@ -38,7 +38,7 @@ var (
 	Props        = Properties{}
 	BuiltInRoles = map[UUID]*Role{
 		"o": &Role{
-			0, "o", 0, "Owner", "", pa, pa, false, pa, pa, Time(etc.Epoch), pa,
+			0, "o", 0, "Owner", "", pa, pa, false, pa, pa, Time(etc.Epoch), pa, pa,
 		},
 	}
 )

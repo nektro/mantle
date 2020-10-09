@@ -113,6 +113,7 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 		"perm_manage_roles":    rl.SetPermMngRoles,
 		"perm_manage_invites":  rl.SetPermMngInvites,
 		"perm_view_audits":     rl.SetPermViewAudits,
+		"perm_manage_bans":     rl.SetPermMngBans,
 	}
 	for pk, pv := range perms {
 		if n == pk {

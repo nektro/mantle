@@ -10,6 +10,7 @@ type UserPerms struct {
 	ManageServer   bool `json:"manage_server"`
 	ManageInvites  bool `json:"manage_invites"`
 	ViewAudits     bool `json:"view_audits"`
+	ManageBans     bool `json:"manage_bans"`
 }
 
 // From calculates a user's permissions based on the roles they have
@@ -37,6 +38,10 @@ func (v UserPerms) From(user *db.User) *UserPerms {
 		switch role.PermViewAudits {
 		case db.PermDeny, db.PermAllow:
 			v.ViewAudits = role.PermViewAudits.ToBool()
+		}
+		switch role.PermManageBans {
+		case db.PermDeny, db.PermAllow:
+			v.ManageBans = role.PermManageBans.ToBool()
 		}
 	}
 	return &v

@@ -85,6 +85,7 @@ customElements.define("x-msg-pane", class extends HTMLElement {
         }
         if (hst.length > 0 && hst.length < 50) {
             this.insertBefore(_make_m_divider(hst[hst.length-1]), this.children[0]);
+            this.classList.add("loading-done");
         }
         //
         this.addEventListener("scroll", async (e) => {

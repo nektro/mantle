@@ -34,7 +34,7 @@ export const emoji = {
 };
 
 (async () => {
-    const req = await fetch("https://unpkg.com/emojilib/simplemap.json");
+    const req = await fetch("https://unpkg.com/emojilib@2.4.0/simplemap.json");
     emoji.map = await req.json();
     emoji.names = Object.keys(emoji.map);
 

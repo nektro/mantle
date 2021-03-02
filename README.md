@@ -110,4 +110,4 @@ Run an instance and want your site here? Contact me below!
 - https://twitter.com/nektro
 
 ## License
-Apache 2.0
+AGPL-3.0

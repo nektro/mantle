@@ -6,7 +6,7 @@ build_template() {
     export GOARCH=$2
     export GOARM=7
     ext=$3
-    date=$(date +'%Y.%m.%d')
+    date=$(date +'%Y%m%d')
     version=${CIRCLE_BUILD_NUM-$date}
     tag=v$version-$(git log --format=%h -1)
     echo $tag-$GOOS-$GOARCH

@@ -95,12 +95,11 @@ customElements.define("x-msg-pane", class extends HTMLElement {
             if (this.classList.contains("loading-done")) return;
             //
             this.classList.add("loading");
-            const fc = this.children[0];
-            const lstm = this.children[0]._uid;
-            await api.M.channels.with(this._uid).messages.after(lstm).then(async (y) => {
+            const fc = this.firstMsgChild();
+            await api.M.channels.with(this._uid).messages.after(fc._uid).then(async (y) => {
                 if (y.length <= 1) {
                     this.classList.add("loading-done");
-                    this.insertBefore(_make_m_divider(fc), fc);
+                    this.insertBefore(_make_m_divider(fc), this.firstElementChild);
                     return;
                 }
                 for (const item of y) {
@@ -114,6 +113,14 @@ customElements.define("x-msg-pane", class extends HTMLElement {
     }
     _scroll_to_bottom() {
         this.scrollTop = this.scrollHeight;
+    }
+    firstMsgChild() {
+        for (const item of this.children) {
+            if (item.classList.contains("msg")) {
+                return item;
+            }
+        }
+        return null;
     }
     /**
      * @param {api.User} user

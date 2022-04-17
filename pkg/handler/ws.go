@@ -52,7 +52,7 @@ func Websocket(w http.ResponseWriter, r *http.Request) {
 		case "voice-connect", "voice-disconnect", "voice-data":
 			ws.BroadcastMessageRaw(smg)
 		default:
-			util.LogError("ws: unhandled event discarded: %s", string(smg.GetStringBytes("type")))
+			util.LogError("ws: unhandled event discarded:", string(smg.GetStringBytes("type")))
 		}
 	}
 

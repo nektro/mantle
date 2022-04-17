@@ -4,7 +4,7 @@ import * as ui from "./ui.js";
 import * as api from "./api/index.js";
 import { Channel } from "./ui.channel.js";
 import { output, el_uonline, context, audio_buffer_size, vc_user_list } from "./ui.util.js";
-import { setDataBinding } from "./util.js";
+import { create_element, dcTN, setDataBinding } from "./util.js";
 
 //
 export const M = {

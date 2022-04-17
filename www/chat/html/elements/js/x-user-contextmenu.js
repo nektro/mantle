@@ -67,11 +67,14 @@ customElements.define("x-user-contextmenu", class extends HTMLElement {
                     }),
                 ]),
             ]),
-            create_element("li", [["data-requires", "manage_bans"]], [create_element("hr")]),
-            create_element("li", [["data-requires", "manage_bans"]], [create_element("a", [["class", "danger"]], [dcTN("Kick")]),]),
-            create_element("li", [["data-requires", "manage_bans"]], [create_element("a", [["class", "danger"]], [dcTN("Ban")]),]),
+            create_element("li", [["data-requires", "manage_bans"], ["data-mustbe-member", user.uuid]], [create_element("hr")]),
+            create_element("li", [["data-requires", "manage_bans"], ["data-mustbe-member", user.uuid]], [create_element("a", [["class", "danger"]], [dcTN("Kick")], [["click", async (ev) => {
+                await api.M.users.update(user.uuid, "kick", "true");
+                ui.refresh_members();
+            }]]),]),
         ]));
         ui.refresh_permissions();
+        ui.refresh_members();
         popup_set_x(this, e.x);
         popup_set_y(this, e.y);
         for (const parent of document.querySelectorAll("ul li a")) {

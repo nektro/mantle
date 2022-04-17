@@ -95,5 +95,14 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 		c.Assert(user.GetRolesSorted()[0].Position < rl.Position, "403: role rank must be higher to update")
 		u.RemoveRole(vr)
 		successCb(u, n, v)
+	case "kick":
+		b, err := strconv.ParseBool(v)
+		c.AssertNilErr(err)
+		c.Assert(up.ManageBans, "403: users require the manage_bans permission to kick a user")
+		c.Assert(u.IsMember != b, "200: property unchanged")
+		// send ws user ban reason
+		// disconnect them
+		u.SetAsMember(b)
+		successCb(u, n, v)
 	}
 }

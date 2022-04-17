@@ -45,6 +45,12 @@ body {
         background-color: $based3;
         color: $basel3;
     }
+    [data-hidden] {
+        display: none;
+    }
+    [data-hidden="0"] {
+        display: block;
+    }
 }
 body {
     #server-name {

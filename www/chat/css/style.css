@@ -520,6 +520,12 @@ body button {
   background-color: #002b36;
   color: #fdf6e3;
 }
+body [data-hidden] {
+  display: none;
+}
+body [data-hidden="0"] {
+  display: block;
+}
 
 body #server-name {
   color: #839496;

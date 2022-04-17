@@ -33,10 +33,11 @@ customElements.define("x-user-dialog", class extends HTMLElement {
                 dcTN("Provider: "),
                 create_element("span", [], [dcTN(userN.provider)]),
             ]),
-            create_element("hr"),
-            create_element("div", [], [dcTN("Roles")]),
-            create_element("ol"),
+            create_element("hr", [["data-mustbe-member", userN.uuid]]),
+            create_element("div", [["data-mustbe-member", userN.uuid]], [dcTN("Roles")]),
+            create_element("ol", [["data-mustbe-member", userN.uuid]]),
         ]));
+        ui.refresh_members();
         for (const item of api.C.roles.values()) {
             if (item.id === undefined) { continue; }
             //

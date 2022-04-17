@@ -18,14 +18,26 @@ export const volatile = {
 
 export function refresh_permissions() {
     for (const el of document.querySelectorAll("[data-requires]")) {
-        el.setAttribute("hidden", "");
+        el.dataset.hidden |= 0;
+        el.dataset.hidden += 1;
     }
     for (const key in volatile.me.perms) {
         const has_perm = volatile.me.perms[key];
         if (has_perm) {
             for (const el of document.querySelectorAll(`[data-requires="${key}"]`)) {
-                el.removeAttribute("hidden");
+                el.dataset.hidden -= 1;
             }
+        }
+    }
+}
+
+export function refresh_members() {
+    for (const el of document.querySelectorAll("[data-mustbe-member]")) {
+        el.dataset.hidden |= 0;
+        el.dataset.hidden += 1;
+
+        if (api.C.users.get(el.dataset.mustbeMember).is_member) {
+            el.dataset.hidden -= 1;
         }
     }
 }

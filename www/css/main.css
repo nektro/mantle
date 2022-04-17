@@ -1,0 +1,101 @@
+html, body {
+  width: 100vw;
+  height: 100vh;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Tahoma", "Geneva", "Verdana", sans-serif;
+  background-position: center;
+  background-size: cover;
+}
+body main {
+  max-width: 70ch;
+  padding: 2ch;
+  margin: auto;
+}
+body.p-invite {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #002b36;
+}
+body.p-invite form {
+  max-width: 30em;
+  background-color: rgba(7, 54, 66, 0.9);
+  color: #93a1a1;
+  padding: 1em;
+  border-radius: 0.25em;
+  box-shadow: 0 0 10px white;
+}
+body.p-invite form legend {
+  margin: auto;
+  padding: 0 0.5em;
+}
+body.p-invite form div.v {
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+body.p-invite form .badges {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+body.p-invite form .badges img {
+  padding: 0.25em;
+}
+body.p-invite form .badges > div {
+  display: flex;
+  flex-direction: column;
+}
+body.p-invite form .badges > img {
+  border-radius: 50%;
+  max-height: 4em;
+}
+body.p-invite form .frm-txt {
+  display: block;
+  margin: 1em 0;
+}
+body.p-invite form .frm-txt input {
+  display: block;
+  width: calc(100% - 12px);
+  padding: 0.5em 0.25em;
+  margin: 0.5em 0;
+  border: 0;
+}
+body.p-invite form button, body.p-invite form a {
+  display: block;
+  width: 100%;
+  margin: 1em 0;
+  background-color: #859900;
+  border: 0;
+  padding: 0.5em 0;
+  text-decoration: none;
+  text-align: center;
+  color: initial;
+  cursor: pointer;
+}
+body.p-user {
+  --background-color: #222225;
+  --font-color: #e8e9ed;
+  --invert-font-color: #222225;
+  --secondary-color: #a3abba;
+  --tertiary-color: #a3abba;
+  --primary-color: #62c4ff;
+  --error-color: #ff3c74;
+  --progress-bar-background: #3f3f44;
+  --progress-bar-fill: #62c4ff;
+  --code-bg-color: #3f3f44;
+}
+body.p-user table tr td object {
+  vertical-align: bottom;
+  filter: invert(1);
+}
+body.p-user .terminal-alert {
+  display: inline-block;
+}
+body.p-user i.icon {
+  color: #ff3c74;
+}

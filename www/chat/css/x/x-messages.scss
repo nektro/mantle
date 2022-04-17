@@ -14,7 +14,7 @@ x-messages {
 
 x-msg-pane {
     display: block;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     >fieldset {
         border-width: 0;

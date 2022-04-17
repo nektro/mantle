@@ -1,7 +1,7 @@
 "use strict";
 //
 // jshint -W003
-import { create_element, dcTN } from "./util.js";
+import { create_element, dcTN, decr_data, incr_data } from "./util.js";
 import { el_1, el_uonline, getSettingsSelection, output } from "./ui.util.js";
 import * as api from "./api/index.js";
 
@@ -18,14 +18,13 @@ export const volatile = {
 
 export function refresh_permissions() {
     for (const el of document.querySelectorAll("[data-requires]")) {
-        el.dataset.hidden |= 0;
-        el.dataset.hidden += 1;
+        incr_data(el, "hidden");
     }
     for (const key in volatile.me.perms) {
         const has_perm = volatile.me.perms[key];
         if (has_perm) {
             for (const el of document.querySelectorAll(`[data-requires="${key}"]`)) {
-                el.dataset.hidden -= 1;
+                decr_data(el, "hidden");
             }
         }
     }
@@ -33,11 +32,10 @@ export function refresh_permissions() {
 
 export function refresh_members() {
     for (const el of document.querySelectorAll("[data-mustbe-member]")) {
-        el.dataset.hidden |= 0;
-        el.dataset.hidden += 1;
+        incr_data(el, "hidden");
 
         if (api.C.users.get(el.dataset.mustbeMember).is_member) {
-            el.dataset.hidden -= 1;
+            decr_data(el, "hidden");
         }
     }
 }

@@ -95,11 +95,11 @@ function resource_factory(name, cl, cch) {
 
 //
 export const C = {
-    users:    cacheU,
+    users: cacheU,
     channels: cacheC,
-    roles:    cacheR,
+    roles: cacheR,
     messages: cacheG,
-    invites:  cacheI,
+    invites: cacheI,
 };
 
 //

@@ -36,7 +36,7 @@ The Identity Provider IDs can be found from the table in the [nektro/go.oauth2](
       --config string                 (default "~/.config/mantle/config.json")
       --dbstorage-debug-sql          Enable this flag to print all executed SQL statements.
       --dbstorage-debug-verbose      Enabled this flag to inlcude binded values in logs.
-      --jwt-secret string            Privte secret to sign and verify JWT auth tokens with. (default "Random")
+      --jwt-secret string            Private secret to sign and verify JWT auth tokens with. (default "Random")
       --max-member-count int         
       --mysql-database string        
       --mysql-password string        

@@ -68,7 +68,7 @@ customElements.define("x-user-contextmenu", class extends HTMLElement {
                 ]),
             ]),
             create_element("li", [["data-requires", "manage_bans"], ["data-mustbe-member", user.uuid]], [create_element("hr")]),
-            create_element("li", [["data-requires", "manage_bans"], ["data-mustbe-member", user.uuid]], [create_element("a", [["class", "danger"]], [dcTN("Kick")], [["click", async (ev) => {
+            create_element("li", [["data-requires", "manage_bans"], ["data-mustbe-member", user.uuid]], [create_element("a", [["class", "danger"]], [dcTN("Kick")], [["click", async () => {
                 await api.M.users.update(user.uuid, "kick", "true");
                 ui.refresh_members();
             }]]),]),

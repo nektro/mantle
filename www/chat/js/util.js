@@ -5,7 +5,6 @@
  * @param {String} name
  * @param {String[][]} attrs
  * @param {Node[]} children
- * @returns {HTMLElement}
  */
 export function create_element(name, attrs = [], children = [], events = []) {
     const ele = document.createElement(name);
@@ -16,7 +15,7 @@ export function create_element(name, attrs = [], children = [], events = []) {
 }
 
 /**
- * @param {String} string
+ * @param {string} string
  * @returns {Text}
  */
 export function dcTN(string) {
@@ -24,9 +23,8 @@ export function dcTN(string) {
 }
 
 /**
- * @param {Number} x1
- * @param {Number} x2
- * @returns {Number[]}
+ * @param {number} x1
+ * @param {number} x2
  */
 export function numsBetween(x1, x2) {
     if (x1 === x2) return [x1];
@@ -48,10 +46,9 @@ export function numsBetween(x1, x2) {
 /**
  * Returns true if X is within a Z range of Y
  *
- * @param {Number} x
- * @param {Number} y
- * @param {Number} z
- * @returns {Boolean}
+ * @param {number} x
+ * @param {number} y
+ * @param {number} z
  */
 export function numsNear(x, y, z) {
     return Math.abs(x - y) < z;
@@ -59,15 +56,15 @@ export function numsNear(x, y, z) {
 
 /**
  * @param {Element} ele an element.
- * @returns {Boolean} true if 'ele' is scrolled to within 5px of the bottom of its scroll.
+ * @returns {boolean} true if 'ele' is scrolled to within 5px of the bottom of its scroll.
  */
 export function ele_atBottom(ele) {
     return numsNear(ele.scrollTop, ele.scrollHeight - ele.clientHeight, 5);
 }
 
 /**
- * @param {String} key
- * @param {String} value
+ * @param {string} key
+ * @param {string} value
  */
 export function setDataBinding(key, value) {
     if (value === undefined || value === null) value = "";
@@ -134,4 +131,22 @@ export function popup_set_y(el, ey) {
     const wh = window.innerHeight;
     if (y + eh > wh) { y = wh - eh - 24; }
     el.style.top = `${y}px`;
+}
+
+/**
+ * @param {HTMLElement} el
+ * @param {string} field
+ */
+export function incr_data(el, field) {
+    const v = parseInt(el.dataset[field], 10) | 0;
+    el.dataset[field] = v + 1;
+}
+
+/**
+ * @param {HTMLElement} el
+ * @param {string} field
+ */
+export function decr_data(el, field) {
+    const v = parseInt(el.dataset[field], 10) | 0;
+    el.dataset[field] = v - 1;
 }

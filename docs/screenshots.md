@@ -43,7 +43,7 @@
 ![image](https://user-images.githubusercontent.com/5464072/95520965-4d74e300-097d-11eb-852e-2f6027d2722f.png)
 
 - set a channel topic
-- set a channel into "live" mode and make it so only online members recieve sent messages
+- set a channel into "live" mode and make it so only online members receive sent messages
 
 ![image](https://user-images.githubusercontent.com/5464072/95521218-e4419f80-097d-11eb-8f7e-884c92f11a86.png)
 

@@ -42,6 +42,8 @@ func hGrabInt(s string) (string, int64, error) {
 func hBadge(w http.ResponseWriter, r *http.Request, l, m, c string) {
 	l = strings.ReplaceAll(l, " ", "_")
 	m = strings.ReplaceAll(m, " ", "_")
+	l = strings.ReplaceAll(l, "-", "--")
+	m = strings.ReplaceAll(m, "-", "--")
 	k := l + "-" + m + "-" + c
 	w.Header().Add("content-type", "image/svg+xml")
 	if badgeCache.Has(k) {

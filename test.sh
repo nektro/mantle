@@ -31,7 +31,7 @@ $GOPATH/bin/golint .
 $GOPATH/bin/ineffassign .
 
 # https://github.com/client9/misspell
-$GOPATH/bin/misspell -error .
+$GOPATH/bin/misspell -error . | grep -v 'node_modules/' | grep -v 'statik/'
 
 # https://github.com/golangci/golangci-lint
 $GOPATH/bin/golangci-lint run -D errcheck

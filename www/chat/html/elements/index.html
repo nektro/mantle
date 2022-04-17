@@ -2,7 +2,7 @@
     // functions copied from ./../../js/util.js so that the custom elements
     // here can use them since html-imports doesn't support JS modules
     // @see https://github.com/webcomponents/polyfills/issues/371
-    
+
     function create_element(name, attrs, children) {
         const ele = document.createElement(name);
         (attrs || []).forEach((v) => { ele.setAttribute(v[0], v[1]); });
@@ -14,8 +14,8 @@
     }
     function doSettingUpdate(el, v) {
         const de = `./../api/${el.parentElement.parentElement.parentElement.getAttribute("data-s-section")}/%s`;
-        const e = el.getAttribute("endpoint")||de;
-        const f = el.getAttribute("fill")||"";
+        const e = el.getAttribute("endpoint") || de;
+        const f = el.getAttribute("fill") || "";
         const e2 = e.replace("%s", f);
         const n = el.getAttribute("name");
         const fd = new FormData();

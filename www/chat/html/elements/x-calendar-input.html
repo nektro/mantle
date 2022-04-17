@@ -4,10 +4,12 @@
         display: block;
         margin: 1em 0;
     }
+
     x-calendar-input label {
         display: block;
         margin: .5em 0;
     }
+
     x-calendar-input input {
         padding: .5em .25em;
         border: 0;
@@ -23,7 +25,7 @@
             const label = this.getAttribute("label");
             const name = this.getAttribute("name");
 
-            const inp = create_element("input", [["type","date"],["name",name],["pattern","\\d{4}-\\d{2}-\\d{2}"]]);
+            const inp = create_element("input", [["type", "date"], ["name", name], ["pattern", "\\d{4}-\\d{2}-\\d{2}"]]);
             inp.addEventListener("change", (ev) => {
                 doSettingUpdate(this, ev.target.value);
             });

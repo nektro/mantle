@@ -4,10 +4,12 @@
         display: block;
         margin: 1em 0;
     }
+
     x-select-input label {
         display: block;
         margin: .5em 0;
     }
+
     x-select-input select {
         display: block;
     }
@@ -23,7 +25,7 @@
             const name = this.getAttribute("name");
 
             this.appendChild(create_element("label", [], [dcTN(label)]));
-            const select = create_element("select", [["name",name]], [
+            const select = create_element("select", [["name", name]], [
                 ...Array.from(this.children).filter((v) => v.tagName === "OPTION"),
             ]);
             select.addEventListener("change", (ev) => {

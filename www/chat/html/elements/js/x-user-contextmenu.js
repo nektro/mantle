@@ -14,15 +14,14 @@ function set_y(el, ey) {
     const y = ey - 24;
     const eh = el.offsetHeight;
     const wh = window.innerHeight;
-    console.log(y,eh,wh);
     if (y + eh > wh) {
         el.style.bottom = "0";
         el.style.top = "initial";
     }
     if (eh > wh) {
-        el.style.top = `-${ey-48}px`;
+        el.style.top = `-${ey - 48}px`;
         el.style.bottom = "initial";
-        el.style.maxHeight = `${wh-48}px`;
+        el.style.maxHeight = `${wh - 48}px`;
     }
 }
 
@@ -45,15 +44,15 @@ customElements.define("x-user-contextmenu", class extends HTMLElement {
 
         this.removeAllChildren();
         this.appendChild(create_element("ul", [], [
-            create_element("li", [], [create_element("a", [["href",`./../~${user.uuid}`],["target","_hello"]], [dcTN("Profile")]),]),
-            create_element("li", [["data-requires","manage_roles"]], [
-                create_element("a", [["class","more"]], [dcTN("Roles")]),
+            create_element("li", [], [create_element("a", [["href", `./../~${user.uuid}`], ["target", "_hello"]], [dcTN("Profile")]),]),
+            create_element("li", [["data-requires", "manage_roles"]], [
+                create_element("a", [["class", "more"]], [dcTN("Roles")]),
                 create_element("ul", [], [
                     ...rolesA.map((v) => {
-                        const ch = rolesU.includes(v.uuid) ? ["checked",""] : [];
+                        const ch = rolesU.includes(v.uuid) ? ["checked", ""] : [];
                         return create_element("li", [], [create_element("a", [], [
-                            create_element("label", [["for",`xucm-r-${v.uuid}`]], [dcTN(v.name)]),
-                            create_element("input", [["id",`xucm-r-${v.uuid}`],["type","checkbox"],ch], [], [["change", async (ev) => {
+                            create_element("label", [["for", `xucm-r-${v.uuid}`]], [dcTN(v.name)]),
+                            create_element("input", [["id", `xucm-r-${v.uuid}`], ["type", "checkbox"], ch], [], [["change", async (ev) => {
                                 const t = ev.target;
                                 const r = t.id.split("-")[2];
                                 if (ui.volatile.me.perms.manage_roles) {
@@ -68,9 +67,9 @@ customElements.define("x-user-contextmenu", class extends HTMLElement {
                     }),
                 ]),
             ]),
-            create_element("li", [["data-requires","manage_bans"]], [create_element("hr")]),
-            create_element("li", [["data-requires","manage_bans"]], [create_element("a", [["class","danger"]], [dcTN("Kick")]),]),
-            create_element("li", [["data-requires","manage_bans"]], [create_element("a", [["class","danger"]], [dcTN("Ban")]),]),
+            create_element("li", [["data-requires", "manage_bans"]], [create_element("hr")]),
+            create_element("li", [["data-requires", "manage_bans"]], [create_element("a", [["class", "danger"]], [dcTN("Kick")]),]),
+            create_element("li", [["data-requires", "manage_bans"]], [create_element("a", [["class", "danger"]], [dcTN("Ban")]),]),
         ]));
         ui.refresh_permissions();
         popup_set_x(this, e.x);

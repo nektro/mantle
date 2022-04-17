@@ -48,7 +48,7 @@ func Websocket(w http.ResponseWriter, r *http.Request) {
 				continue
 			}
 			wuser.SendMessage(c, string(smg.GetStringBytes("message")))
-		case "voice-data":
+		case "voice-connect", "voice-disconnect", "voice-data":
 			ws.BroadcastMessageRaw(smg)
 		}
 	}

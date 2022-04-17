@@ -14,6 +14,7 @@ export const el_xucm = document.querySelector("x-user-contextmenu");
 export const context = new AudioContext();
 export const audio_buffer_size = 4096;
 export const async_ready = new Promise((resolve) => { async_ready_resolve = resolve; });
+export const vc_user_list = document.getElementById("voice_chat").children[1];
 
 export const msg_processors = [
     ["/shrug", "¯\\_(ツ)_/¯"],

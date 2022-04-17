@@ -2,7 +2,7 @@
 //
 import "./x/index.js";
 //
-import { create_element, dcTN, setDataBinding } from "./util.js";
+import { setDataBinding } from "./util.js";
 import * as ui from "./ui.js";
 import { el_2, el_3, el_1, output, el_uonline, el_input, context, audio_buffer_size } from "./ui.util.js";
 import * as api from "./api/index.js";
@@ -180,10 +180,6 @@ document.getElementById("shrink_uonline").addEventListener("click", () => {
 
     //
     document.getElementById("voice_chat").addEventListener("click", () => {
-        const usr_list = document.getElementById("voice_chat").children[1];
-        const usr_name = ui.volatile.me.getName() + "#" + ui.volatile.me.id;
-        const usr_uuid = ui.volatile.me.uuid;
-
         if (!voice_connected) {
             navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
                 voice_connected = true;
@@ -193,6 +189,7 @@ document.getElementById("shrink_uonline").addEventListener("click", () => {
                 const processor = context.createScriptProcessor(audio_buffer_size, 1, 1);
                 source.connect(processor);
                 processor.connect(context.destination);
+                socket.send(JSON.stringify({ type: "voice-connect", user: ui.volatile.me.uuid }));
 
                 processor.addEventListener("audioprocess", (e) => {
                     if (!voice_connected) { return; }
@@ -203,19 +200,13 @@ document.getElementById("shrink_uonline").addEventListener("click", () => {
                         data: data,
                     }));
                 });
-
-                usr_list.appendChild(create_element("li", [["data-uuid", usr_uuid]], [dcTN(usr_name)]));
             });
         }
         else {
             voice_connected = false;
             console.debug("disconnected");
+            socket.send(JSON.stringify({ type: "voice-disconnect", user: ui.volatile.me.uuid }));
             voice_source.disconnect();
-            Array.from(usr_list.children).forEach((v) => {
-                if (v.dataset.uuid === usr_uuid) {
-                    v.remove();
-                }
-            });
         }
     });
 

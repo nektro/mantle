@@ -3,7 +3,7 @@
 import * as ui from "./ui.js";
 import * as api from "./api/index.js";
 import { Channel } from "./ui.channel.js";
-import { output, el_uonline, context, audio_buffer_size } from "./ui.util.js";
+import { output, el_uonline, context, audio_buffer_size, vc_user_list } from "./ui.util.js";
 import { setDataBinding } from "./util.js";
 
 //
@@ -104,6 +104,19 @@ export const M = {
         },
     },
     voice: {
+        connect: async function (o) {
+            const uid = o.userId;
+            const user = await api.M.users.get(uid);
+            const name = user.getName() + "#" + user.id;
+            vc_user_list.appendChild(create_element("li", [["data-uuid", user.uuid]], [dcTN(name)]));
+        },
+        disconnect: function (o) {
+            Array.from(vc_user_list.children).forEach((v) => {
+                if (v.dataset.uuid === o.userId) {
+                    v.remove();
+                }
+            });
+        },
         data: async function (o) {
             if (o.from === ui.volatile.me.uuid) { return; }
             const a = context.createBuffer(1, audio_buffer_size, context.sampleRate);

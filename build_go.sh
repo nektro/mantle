@@ -6,9 +6,7 @@ export CGO_ENABLED=1
 export GOOS=$1
 export GOARCH=$2
 export GOARM=7
-ext=$3
-date=$(date +'%Y%m%d')
-version=${CIRCLE_BUILD_NUM-$date}
-tag=v$version
-echo $tag-$GOOS-$GOARCH
-go build -ldflags="-s -w -X main.Version=$tag" -o ./bin/mantle-$tag-$GOOS-$GOARCH$ext
+tag="r$(./release_num.sh)"
+rev=$(git log --format=%h -1)
+echo "$tag.$rev $GOOS $GOARCH"
+go build -ldflags="-s -w -X main.Version=$tag" -o ./bin/mantle-$GOOS-$GOARCH$ext

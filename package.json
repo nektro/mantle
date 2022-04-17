@@ -17,8 +17,8 @@
   },
   "homepage": "https://github.com/nektro/mantle#readme",
   "devDependencies": {
-    "eslint": "^7.11.0",
-    "eslint-plugin-html": "^6.1.0",
-    "jshint": "^2.12.0"
+    "eslint": "^7.32.0",
+    "eslint-plugin-html": "^6.2.0",
+    "jshint": "^2.13.4"
   }
 }

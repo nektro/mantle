@@ -43,10 +43,14 @@ func (p *Properties) Get(key string) string {
 }
 
 // Set sets the value of a single key
-func (p *Properties) Set(key string, val string) {
+func (p *Properties) Set(key string, val string) bool {
 	p.SetDefault(key, "")
+	if p.Get(key) == val {
+		return false
+	}
 	db.Build().Up(cTableSettings, "value", val).Wh("key", key).Exe()
 	p.s.Set(key, val)
+	return true
 }
 
 // Has tests whether this Properties contains a certain key

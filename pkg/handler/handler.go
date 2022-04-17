@@ -125,7 +125,7 @@ func ApiPropertyUpdate(w http.ResponseWriter, r *http.Request) {
 	c.Assert(usp.ManageServer, "403: users require the manage_server permission to update properties")
 	c.Assert(db.Props.Has(n), "400: specified property does not exist")
 
-	db.Props.Set(n, v)
+	c.Assert(db.Props.Set(n, v), "200: property unchanged")
 	db.CreateAudit(db.ActionSettingUpdate, user, "", n, v)
 	writeAPIResponse(r, w, true, http.StatusOK, []string{n, v})
 }

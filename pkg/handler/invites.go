@@ -10,6 +10,7 @@ import (
 	"github.com/nektro/mantle/pkg/handler/controls"
 	"github.com/nektro/mantle/pkg/ws"
 
+	"github.com/nektro/go.etc/dbt"
 	"github.com/nektro/go.etc/htp"
 )
 
@@ -74,11 +75,13 @@ func InviteUpdate(w http.ResponseWriter, r *http.Request) {
 		_, x, err := hGrabInt(v)
 		c.Assert(err == nil, "400: error parsing p_value")
 		c.Assert(x >= 0, "400: p_value must be >= 0")
+		c.Assert(iv.MaxUses != x, "200: property unchanged")
 		iv.SetMaxUses(x)
 		successCb(iv, n, v)
 	case "mode":
 		x, err := strconv.Atoi(v)
 		c.AssertNilErr(err)
+		c.Assert(iv.Mode != x, "200: property unchanged")
 		iv.SetMode(x)
 		successCb(iv, n, v)
 	case "expires_in":
@@ -88,11 +91,13 @@ func InviteUpdate(w http.ResponseWriter, r *http.Request) {
 		c.AssertNilErr(err)
 		b, err := strconv.Atoi(spl[1])
 		c.AssertNilErr(err)
+		c.Assert(iv.ExpiresIn != [...]int{a, b}, "200: property unchanged")
 		iv.SetExpIn([...]int{a, b})
 		successCb(iv, n, v)
 	case "expires_on":
 		t, err := time.Parse("2006-01-02", v)
 		c.AssertNilErr(err)
+		c.Assert(iv.ExpiresOn != dbt.Time(t), "200: property unchanged")
 		iv.SetExpOn(t)
 		successCb(iv, n, v)
 	}

@@ -83,6 +83,7 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 		if len(v) == 0 {
 			return
 		}
+		c.Assert(rl.Name != v, "200: property unchanged")
 		rl.SetName(v)
 		successCb(rl, n, v)
 	case "color":
@@ -90,6 +91,7 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return
 		}
+		c.Assert(rl.Color != v, "200: property unchanged")
 		rl.SetColor(v)
 		successCb(rl, n, v)
 	case "position":
@@ -97,6 +99,7 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return
 		}
+		c.Assert(rl.Position != i, "200: property unchanged")
 		rl.MoveTo(i)
 		successCb(rl, n, v)
 	case "distinguish":
@@ -104,6 +107,7 @@ func RoleUpdate(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return
 		}
+		c.Assert(rl.Distinguish != b, "200: property unchanged")
 		rl.SetDistinguish(b)
 		successCb(rl, n, v)
 	}

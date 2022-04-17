@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/handler/controls"
@@ -71,6 +72,7 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 		if user.UUID != u.UUID {
 			return
 		}
+		c.Assert(u.Nickname != v, "200: property unchanged")
 		u.SetNickname(v)
 		successCb(u, n, v)
 	case "add_role":
@@ -79,6 +81,7 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 		if !ok {
 			return
 		}
+		c.Assert(!u.HasRole(rl.UUID), "200: property unchanged")
 		c.Assert(up.ManageRoles, "403: users require the manage_roles permission to update roles")
 		c.Assert(user.GetRolesSorted()[0].Position < rl.Position, "403: role rank must be higher to update")
 		u.AddRole(vr)
@@ -89,6 +92,7 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 		if !ok {
 			return
 		}
+		c.Assert(u.HasRole(rl.UUID), "200: property unchanged")
 		c.Assert(up.ManageRoles, "403: users require the manage_roles permission to update roles")
 		c.Assert(user.GetRolesSorted()[0].Position < rl.Position, "403: role rank must be higher to update")
 		u.RemoveRole(vr)

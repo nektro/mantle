@@ -122,6 +122,7 @@ func ChannelUpdate(w http.ResponseWriter, r *http.Request) {
 		if len(v) == 0 {
 			return
 		}
+		c.Assert(ch.Name != v, "200: property unchanged")
 		ch.SetName(v)
 		successCb(ch, n, v)
 	case "position":
@@ -129,12 +130,14 @@ func ChannelUpdate(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return
 		}
+		c.Assert(ch.Position != i, "200: property unchanged")
 		ch.MoveTo(i)
 		successCb(ch, n, v)
 	case "description":
 		if len(v) == 0 {
 			return
 		}
+		c.Assert(ch.Description != v, "200: property unchanged")
 		ch.SetDescription(v)
 		successCb(ch, n, v)
 	case "history_off":
@@ -142,6 +145,7 @@ func ChannelUpdate(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return
 		}
+		c.Assert(ch.HistoryOff != b, "200: property unchanged")
 		ch.EnableHistory(b)
 		successCb(ch, n, v)
 	}

@@ -1,0 +1,703 @@
+@charset "UTF-8";
+x-settings {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+x-settings:not([open]) {
+  display: none;
+}
+x-settings > div {
+  max-width: 60em;
+  background-color: #073642;
+  color: #eee8d5;
+  max-height: 50em;
+  overflow-y: scroll;
+  width: inherit;
+  height: inherit;
+  display: grid;
+  grid-template-columns: 12em auto;
+}
+x-settings > div > nav {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  background-color: #586e75;
+}
+x-settings > div > nav a {
+  padding: 0.5em;
+}
+x-settings > div > nav a.active {
+  background-color: #374549;
+}
+x-settings > div > nav a.div {
+  border: 2px solid #374549;
+  margin: 0.25em 0;
+  padding: 0;
+}
+x-settings > div > div {
+  margin: 1em;
+}
+x-settings > div > div > div:not(.active) {
+  display: none;
+}
+x-settings > div > div > div h2 {
+  margin-top: 0;
+}
+
+x-selection {
+  display: grid;
+  grid-template-columns: 10em auto;
+  margin: 1em 0;
+}
+x-selection:not(.active) > div {
+  display: none;
+}
+x-selection > nav {
+  margin: 0;
+  margin-right: 1em;
+  display: flex;
+  flex-direction: column;
+}
+x-selection > nav a {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.5em 0;
+  background-color: #859900;
+  border-radius: 0.25em;
+  margin: 0.25em 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+x-selection > nav a.div {
+  background-color: #839496;
+  padding: 0;
+  padding-bottom: 0.1em;
+}
+x-selection > nav a[data-uid] {
+  background-color: #062e39;
+}
+x-selection > nav a[data-uid]:hover {
+  background-color: #05232b;
+}
+x-selection > nav a[data-uid].active {
+  background-color: #094959;
+}
+x-selection > nav a[data-uid].active:hover {
+  background-color: #083e4b;
+}
+x-selection > div x-text-setting:first-child {
+  margin-top: 0;
+}
+
+x-text-setting {
+  display: block;
+  margin: 1em 0;
+}
+x-text-setting form {
+  display: flex;
+  flex-direction: column;
+}
+x-text-setting form div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+x-text-setting form div input {
+  flex-grow: 1;
+  display: block;
+  width: 100%;
+  padding: 0.5em 0.25em;
+  margin: 0.5em 0;
+  border: 0;
+}
+x-text-setting form div button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #859900;
+  padding: 0.6em;
+  margin: 0.5em 0;
+  height: calc(100% - 1em);
+  border-radius: 0;
+}
+
+x-2s-toggle {
+  display: block;
+  margin: 1em 0;
+}
+x-2s-toggle div {
+  margin: 0.5em 0;
+}
+x-2s-toggle label {
+  position: relative;
+  display: inline-block;
+  width: 4em;
+  height: 2em;
+}
+x-2s-toggle label input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+x-2s-toggle label input:checked + span {
+  background-color: #859900;
+}
+x-2s-toggle label input:checked + span:before {
+  transform: translateX(1.75em);
+}
+x-2s-toggle label input:focus + span {
+  box-shadow: 0 0 1px #859900;
+}
+x-2s-toggle label span {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #93a1a1;
+  transition: 0.2s;
+}
+x-2s-toggle label span:before {
+  position: absolute;
+  content: "";
+  height: 1.5em;
+  width: 1.5em;
+  left: 0.3em;
+  bottom: 0.3em;
+  background-color: white;
+  transition: 0.2s;
+}
+
+x-3s-toggle {
+  display: block;
+  margin: 1em 0;
+}
+x-3s-toggle > form > label {
+  display: block;
+  margin: 0.5em 0;
+}
+x-3s-toggle > form > div {
+  display: inline-flex;
+  flex-direction: row;
+  background-color: #93a1a1;
+}
+x-3s-toggle > form > div > input {
+  display: none;
+}
+x-3s-toggle > form > div > input:checked + label:nth-child(2) {
+  background-color: #dc322f;
+}
+x-3s-toggle > form > div > input:checked + label:nth-child(4) {
+  background-color: #586e75;
+}
+x-3s-toggle > form > div > input:checked + label:nth-child(6) {
+  background-color: #859900;
+}
+x-3s-toggle > form > div > label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.25em;
+}
+x-3s-toggle > form > div > label i.icon {
+  display: block;
+  margin: 0;
+  font-size: 1.5em;
+}
+
+x-button {
+  display: block;
+  margin: 1em 0;
+}
+x-button form button {
+  padding: 0.5em 1em;
+  border: 0.1em solid transparent;
+  border-radius: 0.25em;
+  margin: 0;
+}
+x-button.danger button {
+  color: #dc322f;
+  background-color: inherit;
+  border-color: rgba(220, 50, 47, 0.5);
+  transition: border-color 0.2s;
+}
+x-button.danger button:hover {
+  border-color: #dc322f;
+}
+x-button.danger button:active {
+  background-color: rgba(220, 50, 47, 0.25);
+}
+
+x-uonline {
+  display: block;
+  background-color: #002b36;
+  grid-row: 2/4;
+  grid-column: 3/4;
+  border-left: 2px solid #268bd2;
+  border-top: 2px solid #268bd2;
+}
+
+x-uonline-role {
+  display: block;
+}
+x-uonline-role > div {
+  padding: 1em;
+  padding-bottom: 0.5em;
+  margin: 0;
+}
+x-uonline-role > div::after {
+  content: "—" attr(data-count);
+}
+x-uonline-role > div[data-count="0"] {
+  display: none;
+}
+x-uonline-role > ul {
+  padding: 0;
+  margin: 0;
+}
+x-uonline-role > ul:empty {
+  display: none;
+}
+
+x-uonline-user {
+  display: block;
+  padding: 0.5em 1em;
+  margin: 0 1em;
+  border-radius: 0.2em;
+  padding-right: 0;
+}
+x-uonline-user:hover {
+  background-color: #003745;
+}
+x-uonline-user span:nth-child(2) {
+  color: #465253;
+}
+
+x-messages {
+  background-color: #00232c;
+  color: #586e75;
+  display: flex;
+  flex-direction: row;
+  padding: 1em 0;
+  padding-right: 0;
+  justify-content: space-between;
+  overflow-y: hidden;
+  font-family: "Courier New", "Courier", monospace;
+  align-items: stretch;
+}
+
+x-msg-pane {
+  display: block;
+  overflow-y: auto;
+}
+x-msg-pane > fieldset {
+  border-width: 0;
+  border-top-width: inherit;
+  border-color: #586e75;
+  padding: 0;
+}
+x-msg-pane > fieldset > legend {
+  padding: 0 1em;
+  margin: auto;
+}
+x-msg-pane > fieldset.div.new {
+  border-color: #dc322f;
+  color: #dc322f;
+}
+
+x-message {
+  padding: 0.25em 1em;
+  display: flex;
+  flex-direction: row;
+  border: 2px solid transparent;
+  border-bottom-width: 0;
+  color: white;
+}
+x-message:last-child {
+  border-bottom-width: 2px;
+}
+x-message:hover {
+  background-color: #00232c;
+}
+x-message.selected {
+  border-color: #b58900aa;
+  background-color: rgba(0, 77, 69, 0.5);
+}
+x-message.selected + .selected {
+  border-top-color: transparent;
+}
+x-message.selected + x-message:not(.selected) {
+  border-top-color: #b58900aa;
+}
+x-message > div {
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  font-family: "Ubuntu", sans-serif;
+}
+x-message > div.ts {
+  padding-right: 0.5em;
+  color: #586e75;
+  white-space: nowrap;
+  font-size: 0.9em;
+  font-family: inherit;
+}
+x-message > div.usr {
+  padding-right: 0.5em;
+  font-weight: 500;
+  cursor: pointer;
+}
+x-message > div.usr::after {
+  content: ":";
+  color: white;
+}
+x-message > div.dat {
+  font-weight: 300;
+  word-wrap: anywhere;
+  -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+          hyphens: auto;
+  display: block;
+}
+x-message > div.dat a {
+  color: #2aa198;
+  text-decoration: none;
+  padding-bottom: 2px;
+}
+x-message > div.dat a:hover {
+  color: #268bd2;
+  border-bottom: 1px solid #268bd2;
+}
+x-message > div.dat img {
+  max-height: 1.5em;
+  vertical-align: middle;
+  margin-top: -100%;
+  margin-bottom: -100%;
+}
+x-message > div.dat code {
+  background-color: #586e75;
+  padding: 0.2em;
+  border-radius: 0.2em;
+  line-height: 1.35;
+}
+x-message > div.dat x-spoiler {
+  display: inline-block;
+  padding: 0.1em 0.2em;
+  background-color: black;
+  color: black;
+}
+x-message > div.dat x-spoiler.show {
+  background-color: #2c373b;
+  color: inherit;
+}
+
+x-user-dialog {
+  margin: 0;
+}
+x-user-dialog > div {
+  position: absolute;
+  max-width: 20em;
+  background-color: white;
+  color: black;
+  padding: 1em;
+  border: 0.1em solid black;
+}
+x-user-dialog > div h2 {
+  margin: 0 0 0.5em 0;
+}
+x-user-dialog > div h2:empty {
+  display: none;
+}
+x-user-dialog > div h2:not(:empty) + h2 {
+  color: #869698;
+  font-size: 1.25em;
+}
+x-user-dialog > div > ol {
+  margin: 0.5em 0;
+  padding: 0;
+  list-style-type: none;
+}
+x-user-dialog > div > ol li {
+  display: inline-block;
+  background-color: #ccc;
+  border-radius: 0.25em;
+  padding: 0.2em;
+  margin-right: 0.25em;
+  margin-top: 0.25em;
+  font-size: 0.9em;
+}
+x-user-dialog > div > ol li:not(.active) {
+  display: none;
+}
+x-user-dialog > div > ol li::before {
+  content: "";
+  background-color: #ddd;
+  display: inline-block;
+  border-radius: 50%;
+  vertical-align: center;
+  text-align: center;
+  width: 1.1em;
+  height: 1.1em;
+  margin-right: 0.25em;
+  color: inherit;
+  line-height: 1.45em;
+}
+x-user-dialog > div div i {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+x-user-dialog > div div i:hover + ol {
+  display: block;
+}
+x-user-dialog > div div ol {
+  display: none;
+  box-shadow: 0 0 5px black;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+x-user-dialog > div div ol:hover {
+  display: block;
+}
+x-user-dialog > div div ol li {
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+}
+x-user-dialog > div div ol li:hover {
+  background-color: #ddd;
+}
+x-user-dialog > div div ol li.active {
+  display: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input {
+  display: block;
+}
+
+button, a:hover {
+  cursor: pointer;
+}
+
+body.swal2-height-auto {
+  height: inherit !important;
+}
+
+html, body {
+  height: 100vh;
+}
+
+body {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 15rem 1fr 15rem;
+  grid-template-rows: 3rem 1fr 3rem;
+  background-color: #073642;
+  color: #839496;
+  font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Ubuntu", "Open Sans", sans-serif;
+}
+body button {
+  margin: 1em;
+  border: 0;
+  padding: 0.25em 0.5em;
+  border-radius: 0.2em;
+  background-color: #002b36;
+  color: #fdf6e3;
+}
+
+body #server-name {
+  color: #839496;
+  display: flex;
+  flex-direction: row;
+}
+body #server-name span {
+  margin: 1em;
+  flex-grow: 1;
+  white-space: nowrap;
+  margin-right: 0;
+}
+body #server-name span::after {
+  content: "❌";
+  font-family: "apple color emoji", "segoe ui emoji", "noto color emoji", "android emoji", "emojisymbols", "emojione mozilla", "twemoji mozilla", "segoe ui symbol";
+  padding-left: 0.5em;
+}
+body #server-name span.online::after {
+  content: "✔";
+}
+body #server-name span.loading::after {
+  content: "🕒";
+}
+body #server-name a {
+  margin: 1em;
+}
+body #channel-name {
+  background-color: #002b36;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 1em;
+  grid-row: 1/2;
+  grid-column: 2/4;
+}
+body #channel-name span {
+  padding-right: 1em;
+  color: #93a1a1;
+}
+body #channel-name span:first-child::before {
+  content: "# ";
+}
+body #channel-name span:last-child {
+  color: #839496;
+}
+body #channel-name > div > a {
+  display: inline-block;
+  padding: 0.5em;
+  margin: 0.5em;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  text-align: center;
+}
+body #channel-name > div > a:hover {
+  border-color: #fdf6e3;
+}
+body #channel-name > div > a:active {
+  background-color: #005469;
+}
+body #channel-name > div > a > i {
+  display: inline-block;
+  margin: 0;
+}
+body #channel-list {
+  background-color: #002b36;
+  text-align: center;
+}
+body #channel-list ol {
+  list-style-type: none;
+  padding-left: 0;
+  text-align: left;
+}
+body #channel-list ol li {
+  padding: 0.25em;
+  margin: 0 0.5em;
+  border-radius: 0.25em;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+body #channel-list ol li:hover {
+  background-color: #073a47;
+}
+body #channel-list ol li[data-unread="0"] div.unred {
+  display: none;
+}
+body #channel-list ol li div:nth-child(1)::before {
+  content: "# ";
+}
+body #channel-list ol li div.unred {
+  padding: 0 0.25em;
+  background-color: #586e75;
+  border-radius: 50%;
+  justify-self: right;
+}
+body #channel-list hr {
+  margin: 0 1em;
+  border-color: #073642;
+}
+body #channel-list button {
+  background-color: #003f50;
+}
+body #channel-list > #voice_chat {
+  text-align: left;
+  margin: 0 1em;
+}
+body #channel-list > #voice_chat:hover {
+  cursor: pointer;
+}
+body #me {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+body #me div {
+  margin: 1em;
+  flex-grow: 1;
+}
+body #me a {
+  margin: 1em;
+}
+body x-messages {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  transition: grid-column-end 0.2s;
+  transition: grid-column-end 0.2s, -ms-grid-column-end 0.2s;
+}
+body x-messages.extended-right {
+  grid-column-end: 4;
+}
+body #input {
+  grid-column: 2/3;
+  grid-row: 3/4;
+  background-color: #002b36;
+  transition: grid-column-end 0.2s;
+  transition: grid-column-end 0.2s, -ms-grid-column-end 0.2s;
+}
+body #input input[type=text] {
+  background-color: transparent;
+  color: #839496;
+  margin: 0.25em;
+  width: calc(100% - 1em);
+  border: 0;
+  border-radius: 0.25em;
+  padding: 0.5em;
+}
+body #input.extended-right {
+  grid-column-end: 4;
+}
+body x-settings [data-s-section] a[href] {
+  color: #2aa198;
+}
+body x-settings [data-s-section] a[href]:hover {
+  color: #268bd2;
+}
+body x-settings [data-s-section] code {
+  background-color: #002b36;
+  padding: 0.5em;
+  border-radius: 0.25em;
+}
+body x-settings [data-s-section] > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+body x-settings [data-s-section] > div img {
+  margin-right: 0.5em;
+  margin-bottom: 0.5em;
+}
+body x-settings [data-s-section=invites] x-duration-input, body x-settings [data-s-section=invites] x-calendar-input {
+  display: none;
+}
+body x-settings [data-s-section=invites] x-select-input[value="1"] ~ x-duration-input {
+  display: initial;
+}
+body x-settings [data-s-section=invites] x-select-input[value="2"] ~ x-calendar-input {
+  display: initial;
+}

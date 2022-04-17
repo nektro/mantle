@@ -2,6 +2,7 @@ package ws
 
 import (
 	"net/http"
+	"sync"
 
 	"github.com/nektro/mantle/pkg/db"
 
@@ -33,6 +34,7 @@ func Connect(user *db.User, w http.ResponseWriter, r *http.Request) (*User, erro
 	u := &User{
 		conn,
 		user,
+		sync.Mutex{},
 	}
 	UserCache[u.User.UUID] = u
 

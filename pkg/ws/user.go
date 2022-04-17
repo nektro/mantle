@@ -1,6 +1,8 @@
 package ws
 
 import (
+	"sync"
+
 	"github.com/nektro/mantle/pkg/db"
 
 	"github.com/gorilla/websocket"
@@ -10,6 +12,7 @@ import (
 type User struct {
 	conn *websocket.Conn
 	User *db.User
+	mu   sync.Mutex
 }
 
 func (u *User) Disconnect() {
@@ -34,10 +37,14 @@ func (u *User) IsConnected() bool {
 }
 
 func (u *User) SendWsMessage(msg map[string]interface{}) {
+	u.mu.Lock()
+	defer u.mu.Unlock()
 	u.conn.WriteJSON(msg)
 }
 
 func (u *User) SendWsMessageRaw(msg []byte) {
+	u.mu.Lock()
+	defer u.mu.Unlock()
 	u.conn.WriteMessage(websocket.TextMessage, msg)
 }
 

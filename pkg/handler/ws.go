@@ -3,6 +3,7 @@ package handler
 import (
 	"net/http"
 
+	"github.com/nektro/go-util/util"
 	"github.com/nektro/mantle/pkg/db"
 	"github.com/nektro/mantle/pkg/handler/controls"
 	"github.com/nektro/mantle/pkg/ws"
@@ -50,6 +51,8 @@ func Websocket(w http.ResponseWriter, r *http.Request) {
 			wuser.SendMessage(c, string(smg.GetStringBytes("message")))
 		case "voice-connect", "voice-disconnect", "voice-data":
 			ws.BroadcastMessageRaw(smg)
+		default:
+			util.LogError("ws: unhandled event discarded: %s", string(smg.GetStringBytes("type")))
 		}
 	}
 

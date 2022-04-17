@@ -20,6 +20,7 @@ var (
 	GaugeUsrBy        = newGaugeLabeled("users_by", "stat")
 	GaugeChanTotal    = newGauge("channels_total")
 	GaugeChanMsgTotal = newGaugeLabeled("messages_total", "channel")
+	GaugeChanMsgEdits = newGaugeLabeled("messages_edits", "channel")
 	GaugeChanMsgDels  = newGaugeLabeled("messages_deletes", "channel")
 	GaugeRoleTotal    = newGauge("roles_total")
 	GaugeInvTotal     = newGauge("invites_total")
@@ -42,6 +43,7 @@ func refresh() {
 	for _, item := range (db.Channel{}.All()) {
 		uid := item.UUID.String()
 		GaugeChanMsgTotal.With(prometheus.Labels{"channel": uid}).Set(getPropInt("count_messages_" + uid))
+		GaugeChanMsgEdits.With(prometheus.Labels{"channel": uid}).Set(getPropInt("count_messages_" + uid + "_edits"))
 		GaugeChanMsgDels.With(prometheus.Labels{"channel": uid}).Set(getPropInt("count_messages_" + uid + "_deletes"))
 	}
 	for _, item := range (db.Invite{}.All()) {

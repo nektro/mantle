@@ -28,7 +28,7 @@ import (
 )
 
 // Version takes in version string from build_all.sh
-var Version = "vMASTER"
+var Version = "vdev"
 
 func main() {
 	rand.Seed(time.Now().UnixNano())

@@ -166,7 +166,7 @@ func durStringSimple(d time.Duration) string {
 		u string
 		c int64
 	}
-	units := []tt{tt{"s", 60}, tt{"m", 60}, tt{"h", 24}, tt{"d", 30}, tt{"m", 12}, tt{"y", 0}}
+	units := []tt{{"s", 60}, {"m", 60}, {"h", 24}, {"d", 30}, {"m", 12}, {"y", 0}}
 	r = strconv.FormatFloat(math.Mod(s, 60), 'f', 1, 64) + "s"
 	t := int64(s / 60)
 

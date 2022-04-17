@@ -24,7 +24,7 @@ func Websocket(w http.ResponseWriter, r *http.Request) {
 	// message intake loop
 	for {
 		// Read message from browser
-		_, msg, err := wuser.Conn.ReadMessage()
+		_, msg, err := wuser.ReadMessage()
 		if err != nil {
 			break
 		}

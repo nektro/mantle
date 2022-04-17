@@ -8,7 +8,7 @@ import (
 )
 
 type User struct {
-	Conn *websocket.Conn
+	conn *websocket.Conn
 	User *db.User
 }
 
@@ -21,8 +21,12 @@ func (u *User) Disconnect() {
 			"type": "user-disconnect",
 			"user": u.User.UUID,
 		})
-		u.Conn.Close()
+		u.conn.Close()
 	}
+}
+
+func (u *User) ReadMessage() (int, []byte, error) {
+	return u.conn.ReadMessage()
 }
 
 func (u *User) IsConnected() bool {
@@ -30,11 +34,11 @@ func (u *User) IsConnected() bool {
 }
 
 func (u *User) SendWsMessage(msg map[string]interface{}) {
-	u.Conn.WriteJSON(msg)
+	u.conn.WriteJSON(msg)
 }
 
 func (u *User) SendWsMessageRaw(msg []byte) {
-	u.Conn.WriteMessage(websocket.TextMessage, msg)
+	u.conn.WriteMessage(websocket.TextMessage, msg)
 }
 
 func (u *User) SendMessage(in *db.Channel, msg string) {

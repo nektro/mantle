@@ -18,8 +18,8 @@ customElements.define("x-3s-toggle", class extends WSetting {
             Math.random().toString().replace(".", ""),
             Math.random().toString().replace(".", ""),
         ];
-        this.appendChild(create_element("form", null, [
-            create_element("label", null, [dcTN(d)]),
+        this.appendChild(create_element("form", [], [
+            create_element("label", [], [dcTN(d)]),
             create_element("div", [["clasS", "switch-toggle switch-candy"]], [
                 create_element("input", [["id", `deny_${t[0]}`], ["name", n], ["type", "radio"]]),
                 create_element("label", [["for", `deny_${t[0]}`]], [

@@ -10,8 +10,8 @@ customElements.define("x-button", class extends WSetting {
     }
 
     connectedCallback() {
-        this.appendChild(create_element("form", null, [
-            create_element("button", null, [dcTN(this.getAttribute("text"))]),
+        this.appendChild(create_element("form", [], [
+            create_element("button", [], [dcTN(this.getAttribute("text"))]),
         ]));
         this.querySelector("form").addEventListener("submit", async (ev) => {
             ev.preventDefault();

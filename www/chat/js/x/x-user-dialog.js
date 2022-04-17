@@ -21,20 +21,20 @@ customElements.define("x-user-dialog", class extends HTMLElement {
     async openWith(uid, e) {
         const userN = await api.M.users.get(uid);
         this.removeAllChildren();
-        this.appendChild(create_element("div", null, [
-            create_element("h2", null, [dcTN(userN.nickname)]),
-            create_element("h2", null, [
-                create_element("span", null, [dcTN(userN.name)]),
+        this.appendChild(create_element("div", [], [
+            create_element("h2", [], [dcTN(userN.nickname)]),
+            create_element("h2", [], [
+                create_element("span", [], [dcTN(userN.name)]),
                 dcTN("#"),
-                create_element("span", null, [dcTN(userN.id)]),
+                create_element("span", [], [dcTN(userN.id)]),
             ]),
             create_element("div", [["id", "pp_uuid"]], [dcTN(userN.uuid)]),
-            create_element("div", null, [
+            create_element("div", [], [
                 dcTN("Provider: "),
-                create_element("span", null, [dcTN(userN.provider)]),
+                create_element("span", [], [dcTN(userN.provider)]),
             ]),
             create_element("hr"),
-            create_element("div", null, [dcTN("Roles")]),
+            create_element("div", [], [dcTN("Roles")]),
             create_element("ol"),
         ]));
         for (const item of api.C.roles.values()) {

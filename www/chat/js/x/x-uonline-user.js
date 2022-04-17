@@ -20,8 +20,8 @@ customElements.define("x-uonline-user", class extends HTMLElement {
                 this.setAttribute("data-role", l[0].uuid);
             }
         }
-        this.appendChild(create_element("span", null, [dcTN(o.getName())]));
-        this.appendChild(create_element("span", null, [dcTN("#" + o.id)]));
+        this.appendChild(create_element("span", [], [dcTN(o.getName())]));
+        this.appendChild(create_element("span", [], [dcTN("#" + o.id)]));
         //
         el_xud.triggers.push("x-uonline-user");
         this.addEventListener("click", async (e) => {

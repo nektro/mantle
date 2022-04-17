@@ -16,11 +16,11 @@ customElements.define("x-text-setting", class extends WSetting {
         const v = this.getAttribute("value") || "";
         const d = this.getAttribute("label") || "";
         const b = this.getAttribute("binding");
-        this.appendChild(create_element("form", null, [
+        this.appendChild(create_element("form", [], [
             create_element("label", [["for", "input_" + t]], [dcTN(d)]),
-            create_element("div", null, [
+            create_element("div", [], [
                 create_element("input", [["type", "text"], ["name", n], ["id", "input_" + t], ["value", v]]),
-                create_element("button", null, [
+                create_element("button", [], [
                     create_element("i", [["class", "check icon"]])
                 ]),
             ]),

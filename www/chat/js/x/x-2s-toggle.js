@@ -15,8 +15,8 @@ customElements.define("x-2s-toggle", class extends WSetting {
         const ln = this.getAttribute("local-name");
         const n = this.getAttribute("name");
         const d = this.getAttribute("label") || "";
-        this.appendChild(create_element("div", null, [dcTN(d)]));
-        this.appendChild(create_element("label", null, [
+        this.appendChild(create_element("div", [], [dcTN(d)]));
+        this.appendChild(create_element("label", [], [
             create_element("input", [["type", "checkbox"]]),
             create_element("span")
         ]));

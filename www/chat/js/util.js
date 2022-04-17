@@ -7,11 +7,11 @@
  * @param {Node[]} children
  * @returns {HTMLElement}
  */
-export function create_element(name, attrs, children, events) {
+export function create_element(name, attrs = [], children = [], events = []) {
     const ele = document.createElement(name);
-    (attrs || []).forEach((v) => { ele.setAttribute(v[0], v[1]); });
-    (children || []).forEach((v) => { ele.appendChild(v); });
-    (events || []).forEach((v) => { ele.addEventListener(v[0], v[1]); });
+    attrs.forEach((v) => { ele.setAttribute(v[0], v[1]); });
+    children.forEach((v) => { ele.appendChild(v); });
+    events.forEach((v) => { ele.addEventListener(v[0], v[1]); });
     return ele;
 }
 

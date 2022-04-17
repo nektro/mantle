@@ -35,7 +35,7 @@ async function _make_m_element(user, msg) {
             return "";
         });
     }
-    safe_html_replace(mtx, /(`.+`)/gu, (match) => create_element("code", null, [dcTN(match.substring(1, match.length - 1))]));
+    safe_html_replace(mtx, /(`.+`)/gu, (match) => create_element("code", [], [dcTN(match.substring(1, match.length - 1))]));
     safe_html_replace(mtx, /(\|\|[\w ]+\|\|)/gu, (match) => create_element("x-spoiler", [], [dcTN(match.substring(2, match.length - 2))]));
     safe_html_replace(mtx, /([a-z]+:\/\/[^\s]+)/gu, (match) => create_element("a", [["href", match], ["target", "_blank"]], [dcTN(decodeURIComponent(match))]));
     safe_html_replace(mtx, /(magnet:[^\s]+)/gu, (match) => create_element("a", [["href", match], ["target", "_blank"]], [dcTN(decodeURIComponent(match))]));
@@ -55,14 +55,14 @@ async function _make_m_element(user, msg) {
  */
 function _make_m_divider(msg) {
     return create_element("fieldset", [["class", "div date"]], [
-        create_element("legend", null, [dcTN(msg.time.toString().substring(0, 15))])
+        create_element("legend", [], [dcTN(msg.time.toString().substring(0, 15))])
     ]);
 }
 
 //
 function _make_m_newdiv() {
     return create_element("fieldset", [["class", "div new"]], [
-        create_element("legend", null, [dcTN("New")])
+        create_element("legend", [], [dcTN("New")])
     ]);
 }
 

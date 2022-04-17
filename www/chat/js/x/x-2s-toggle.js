@@ -10,13 +10,14 @@ customElements.define("x-2s-toggle", class extends WSetting {
     constructor() {
         super();
     }
+
     connectedCallback() {
         const ln = this.getAttribute("local-name");
         const n = this.getAttribute("name");
-        const d = this.getAttribute("label")||"";
+        const d = this.getAttribute("label") || "";
         this.appendChild(create_element("div", null, [dcTN(d)]));
         this.appendChild(create_element("label", null, [
-            create_element("input", [["type","checkbox"]]),
+            create_element("input", [["type", "checkbox"]]),
             create_element("span")
         ]));
         if (ln !== null) {
@@ -28,8 +29,8 @@ customElements.define("x-2s-toggle", class extends WSetting {
         }
         this.children[1].children[0].addEventListener("change", () => {
             const de = this.defaultEndpoint();
-            const e = this.getAttribute("endpoint")||de;
-            const f = this.getAttribute("fill")||"";
+            const e = this.getAttribute("endpoint") || de;
+            const f = this.getAttribute("fill") || "";
             const e2 = e.replace("%s", f);
             const fd = new FormData();
             fd.append("p_name", n);
@@ -37,12 +38,15 @@ customElements.define("x-2s-toggle", class extends WSetting {
             return fetch(e2, { method: "put", body: fd, });
         });
     }
+
     get _value() {
         return this.children[1].children[0].checked ? "1" : "0";
     }
+
     static get observedAttributes() {
         return ["value"];
     }
+
     attributeChangedCallback(name, oV, nV) {
         if (name === "value") {
             const b = nV === "true" || nV === "1";

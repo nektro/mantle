@@ -9,9 +9,11 @@ customElements.define("x-message", class extends HTMLElement {
     constructor() {
         super();
     }
+
     get time() {
         return new moment(this.querySelector(".ts").getAttribute("title"), moment.defaultFormat);
     }
+
     connectedCallback() {
         this._uid = this.getAttribute("uuid");
         this._author = this.getAttribute("author");
@@ -48,8 +50,7 @@ document.addEventListener("keydown", async (e) => {
         text: "You won't be able to revert this!",
         type: "warning",
         showCancelButton: true,
-    })
-    .then(async (r) => {
+    }).then(async (r) => {
         if (!r.value) return;
         const m2d = sel.filter((v) => v._author === ui.volatile.me.uuid).map((v) => v._uid);
         await api.M.channels.with(output.active_channel_uid).messages.delete(m2d);

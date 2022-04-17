@@ -20,7 +20,7 @@ export class Role {
 
 //
 new Role({
-    uuid:"o",
-    name:"Owner",
-    color:"",
+    uuid: "o",
+    name: "Owner",
+    color: "",
 });

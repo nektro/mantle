@@ -108,7 +108,7 @@ export function safe_html_replace(ele, regex, matcher) {
             ele.insertBefore(itn, item);
         }
         item.remove();
-        i += fixed.length-1;
+        i += fixed.length - 1;
     }
 }
 

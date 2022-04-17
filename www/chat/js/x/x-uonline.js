@@ -8,11 +8,13 @@ customElements.define("x-uonline", class extends HTMLElement {
     constructor() {
         super();
     }
+
     connectedCallback() {
-        this.addRole({ uuid:"", name:"Online", position:9999 });
+        this.addRole({ uuid: "", name: "Online", position: 9999 });
     }
+
     addRole(o) {
-        const nel = create_element("x-uonline-role", [["uuid",o.uuid],["name",o.name],["position",o.position]]);
+        const nel = create_element("x-uonline-role", [["uuid", o.uuid], ["name", o.name], ["position", o.position]]);
         //
         if (this.children.length === 0) {
             this.appendChild(nel);
@@ -31,6 +33,7 @@ customElements.define("x-uonline", class extends HTMLElement {
             }
         }
     }
+
     async removeRole(uid) {
         const e = this.querySelector(`x-uonline-role[uuid="${uid}"]`);
         if (e === null) { return; }
@@ -40,14 +43,17 @@ customElements.define("x-uonline", class extends HTMLElement {
         }
         e.remove();
     }
+
     async addUser(uid) {
         const o = await api.M.users.get(uid);
         const d = await o.getHightestDistinguishedRoleUID();
         this.querySelector(`x-uonline-role[uuid="${d}"]`).addUser(uid);
     }
+
     removeUser(uid) {
         this.querySelector(`x-uonline-user[uuid="${uid}"]`).removeMe();
     }
+
     checkUserForSwitch(uid) {
         const el = this.querySelector(`x-uonline-user[uuid="${uid}"]`);
         if (el === null) { return; }

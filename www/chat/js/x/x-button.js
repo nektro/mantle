@@ -8,6 +8,7 @@ customElements.define("x-button", class extends WSetting {
     constructor() {
         super();
     }
+
     connectedCallback() {
         this.appendChild(create_element("form", null, [
             create_element("button", null, [dcTN(this.getAttribute("text"))]),
@@ -15,9 +16,9 @@ customElements.define("x-button", class extends WSetting {
         this.querySelector("form").addEventListener("submit", async (ev) => {
             ev.preventDefault();
             const de = this.defaultEndpoint();
-            const e = this.getAttribute("endpoint")||de;
-            const m = this.getAttribute("method")||"post";
-            const f = this.getAttribute("fill")||"";
+            const e = this.getAttribute("endpoint") || de;
+            const m = this.getAttribute("method") || "post";
+            const f = this.getAttribute("fill") || "";
             const e2 = e.replace("%s", f);
             if (m === "delete") {
                 const result = await Swal.fire({
@@ -29,7 +30,7 @@ customElements.define("x-button", class extends WSetting {
                 });
                 if (!result.value) { return; }
             }
-            return fetch(e2, { method:m, body:new FormData() });
+            return fetch(e2, { method: m, body: new FormData() });
         });
     }
 });

@@ -43,10 +43,10 @@ export const M = {
     },
     channel: {
         add: async (o) => {
-            el_1.firstElementChild.appendChild(create_element("li", [["data-uuid",o.uuid],["data-unread","0"]], [
+            el_1.firstElementChild.appendChild(create_element("li", [["data-uuid", o.uuid], ["data-unread", "0"]], [
                 create_element("div", [], [dcTN(o.name)]),
                 // create_element("div", [["class","ments"]], [dcTN("0")]),
-                create_element("div", [["class","unred"]], [dcTN("0")]),
+                create_element("div", [["class", "unred"]], [dcTN("0")]),
             ]));
             getSettingsSelection("server", "channels").addItem(o);
             await api.M.channels.with(o.uuid).messages.latest();

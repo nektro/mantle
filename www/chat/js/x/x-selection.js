@@ -8,15 +8,16 @@ customElements.define("x-selection", class extends HTMLElement {
     constructor() {
         super();
     }
+
     connectedCallback() {
         if (!this.children[0].classList.contains("static")) {
             $(this.children[0]).sortable({
                 // jshint -W098
-                stop: (ev,ue) => {
+                stop: (ev, ue) => {
                     const c = this.parentElement.getAttribute("data-s-section");
                     const a = ue.item[0];
                     const uid = a.dataset.uid;
-                    const pN = a.indexOfMe()+1;
+                    const pN = a.indexOfMe() + 1;
                     api.M[c].update(uid, "position", pN);
                 },
             });
@@ -28,7 +29,7 @@ customElements.define("x-selection", class extends HTMLElement {
                 if (w.classList.contains("skip")) {
                     return api.M[c].create();
                 }
-                const {value: name} = await Swal({
+                const { value: name } = await Swal({
                     title: "Enter the new role's name",
                     input: "text",
                     showCancelButton: true,
@@ -39,6 +40,7 @@ customElements.define("x-selection", class extends HTMLElement {
             });
         }
     }
+
     get count() {
         let n = 0;
         for (const item of this.children[0].children) {
@@ -48,10 +50,11 @@ customElements.define("x-selection", class extends HTMLElement {
         }
         return n;
     }
+
     addItem(item) {
         const rlist = this.children[0];
         const oLen = rlist.children.length;
-        const nEl = create_element("a", [["data-uid",item.uuid]], [dcTN(item.name)]);
+        const nEl = create_element("a", [["data-uid", item.uuid]], [dcTN(item.name)]);
         nEl.addEventListener("click", (e) => {
             const et = e.target;
             this.setActive(Array.from(et.parentElement.children).indexOf(et));
@@ -65,8 +68,9 @@ customElements.define("x-selection", class extends HTMLElement {
             this.setActive(0);
         }
         const iLen = this.children[0].querySelectorAll("a[data-uid]").length;
-        this.setActive(iLen-1);
+        this.setActive(iLen - 1);
     }
+
     setActive(i) {
         const rlist = this.children[0];
         deActivateChild(rlist);
@@ -82,6 +86,7 @@ customElements.define("x-selection", class extends HTMLElement {
             m.setAttribute("value", r[n]);
         }
     }
+
     removeItem(uid) {
         let r = false;
         for (let i = 0; i < this.children[0].children.length; i++) {
@@ -98,9 +103,10 @@ customElements.define("x-selection", class extends HTMLElement {
                 this.classList.remove("active");
                 return;
             }
-            this.setActive(this.count-1);
+            this.setActive(this.count - 1);
         }
     }
+
     items() {
         const n = [];
         for (const item of this.children[0].children) {

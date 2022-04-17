@@ -9,6 +9,7 @@ customElements.define("x-uonline-user", class extends HTMLElement {
     constructor() {
         super();
     }
+
     async connectedCallback() {
         this._uid = this.getAttribute("uuid");
         const o = await api.M.users.get(this._uid);
@@ -20,7 +21,7 @@ customElements.define("x-uonline-user", class extends HTMLElement {
             }
         }
         this.appendChild(create_element("span", null, [dcTN(o.getName())]));
-        this.appendChild(create_element("span", null, [dcTN("#"+o.id)]));
+        this.appendChild(create_element("span", null, [dcTN("#" + o.id)]));
         //
         el_xud.triggers.push("x-uonline-user");
         this.addEventListener("click", async (e) => {
@@ -28,12 +29,15 @@ customElements.define("x-uonline-user", class extends HTMLElement {
             el_xud.openWith(target._uid, e);
         });
     }
+
     get role_element() {
         return this.parentElement.parentElement;
     }
+
     removeMe() {
         this.role_element.removeUser(this._uid);
     }
+
     async check_for_switch() {
         const o = await api.M.users.get(this._uid);
         const r = await o.getHightestDistinguishedRoleUID();

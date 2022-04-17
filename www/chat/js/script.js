@@ -16,12 +16,15 @@ $(document).on("click", (e) => {
     const s = document.querySelectorAll("dialog[open]");
     s.forEach((v) => v.removeAttribute("open"));
 });
+
 window.addEventListener("blur", () => {
     ui.volatile.windowActive = false;
 });
+
 window.addEventListener("focus", () => {
     ui.volatile.windowActive = true;
 });
+
 document.getElementById("shrink_uonline").addEventListener("click", () => {
     output.classList.toggle("extended-right");
     el_uonline.toggleAttribute("hidden");
@@ -30,7 +33,7 @@ document.getElementById("shrink_uonline").addEventListener("click", () => {
 });
 
 //
-(async function() {
+(async function () {
     //
     moment.defaultFormat = "ddd MMM DD Y HH:mm:ss zZZ";
 
@@ -77,7 +80,7 @@ document.getElementById("shrink_uonline").addEventListener("click", () => {
 
     //
     await api.M.roles.me().then((x) => {
-        const rls = x.sort((a,b) => a.position > b.position);
+        const rls = x.sort((a, b) => a.position > b.position);
         //
         for (const item of rls) {
             ui.M.role.add(item);
@@ -92,7 +95,7 @@ document.getElementById("shrink_uonline").addEventListener("click", () => {
         await output.setActiveChannel(x[0].uuid);
 
         el_1.querySelector("button").addEventListener("click", async () => {
-            const {value: name} = await Swal({
+            const { value: name } = await Swal({
                 title: "Enter the new channel's name",
                 input: "text",
                 showCancelButton: true,
@@ -155,7 +158,7 @@ document.getElementById("shrink_uonline").addEventListener("click", () => {
                 type: "ping",
             }));
         }
-    }, 30*1000);
+    }, 30 * 1000);
 
     //
     input.addEventListener("keydown", (e) => {
@@ -201,7 +204,7 @@ document.getElementById("shrink_uonline").addEventListener("click", () => {
                     }));
                 });
 
-                usr_list.appendChild(create_element("li", [["data-uuid",usr_uuid]], [dcTN(usr_name)]));
+                usr_list.appendChild(create_element("li", [["data-uuid", usr_uuid]], [dcTN(usr_name)]));
             });
         }
         else {

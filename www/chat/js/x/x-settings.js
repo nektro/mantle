@@ -7,6 +7,7 @@ class SettingsDialog extends HTMLElement {
     constructor() {
         super();
     }
+
     connectedCallback() {
         if (this.dataset.active === undefined) {
             this.setActivePane(0);
@@ -32,7 +33,7 @@ class SettingsDialog extends HTMLElement {
                             deActivateChild(this.pane());
                         }
                         if (this.kidsVisible().length === 0) {
-                            document.getElementById(this.dataset.bindTo).setAttribute("hidden","");
+                            document.getElementById(this.dataset.bindTo).setAttribute("hidden", "");
                         }
                         if (this.kidsVisible().length > 0) {
                             document.getElementById(this.dataset.bindTo).removeAttribute("hidden");
@@ -47,18 +48,23 @@ class SettingsDialog extends HTMLElement {
             });
         }
     }
+
     nav() {
         return this.children[0].children[0];
     }
+
     pane() {
         return this.children[0].children[1];
     }
+
     kids() {
         return this.nav().querySelectorAll("a:not(.div)");
     }
+
     kidsVisible() {
         return Array.from(this.kids()).filter((v) => !v.hasAttribute("hidden"));
     }
+
     /**
      * @param {Number} n
      */
@@ -69,8 +75,9 @@ class SettingsDialog extends HTMLElement {
         this.kids()[n].classList.add("active");
         this.pane().children[n].classList.add("active");
     }
+
     _open() {
-        this.setAttribute("open","");
+        this.setAttribute("open", "");
         this.setActivePane(this.kidsVisible()[0].indexOfMe());
     }
 }

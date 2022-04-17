@@ -20,7 +20,7 @@ export const M = {
         },
         update: (d) => {
             const o = new api.User(d.user);
-            if (["add_role","remove_role"].includes(d.key)) {
+            if (["add_role", "remove_role"].includes(d.key)) {
                 document.querySelectorAll(`dialog.popup.user ol [data-role="${d.value}"]`).forEach((v) => {
                     v.classList.toggle("active");
                 });
@@ -61,7 +61,7 @@ export const M = {
             if (["color"].includes(d.key)) {
                 const x = document.getElementById("link-role-color");
                 const y = x.href.split("=");
-                x.href = y[0]+"="+(parseInt(y[1],10)+1).toString();
+                x.href = y[0] + "=" + (parseInt(y[1], 10) + 1).toString();
             }
             if (d.key === "distinguish") {
                 if (d.value === "0") {

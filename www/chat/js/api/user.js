@@ -17,12 +17,14 @@ export class User {
         this.is_null = false;
         cache.set(this.uuid, this);
     }
+
     /** @returns {Promise<api.Role[]>} */
     async getRoles() {
         return Promise.all(this.roles.map((v) => api.M.roles.get(v))).then((l) => {
-            return l.sort((a,b) => a.position - b.position);
+            return l.sort((a, b) => a.position - b.position);
         });
     }
+
     /** @returns {string} */
     getName() {
         if (this.nickname.length > 0) {
@@ -30,6 +32,7 @@ export class User {
         }
         return this.name;
     }
+
     /** @returns {Promise<string>} */
     async getHightestDistinguishedRoleUID() {
         const o = await api.M.users.get(this.uuid);
@@ -38,6 +41,7 @@ export class User {
         const d = l.length > 0 ? l[0].uuid : "";
         return d;
     }
+
     /** @returns {Promise<string>} */
     async getHightestColoredRoleUID() {
         const o = await api.M.users.get(this.uuid);

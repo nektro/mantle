@@ -25,7 +25,7 @@ const caches = [
 ];
 
 //
-function fetchE(endpoint, method="get", data={}) {
+function fetchE(endpoint, method = "get", data = {}) {
     const body = new FormData();
     for (const k in data) {
         if (!Object.prototype.hasOwnProperty.call(data, k)) continue;
@@ -37,7 +37,7 @@ function fetchE(endpoint, method="get", data={}) {
         }
         body.set(k, data[k]);
     }
-    const opts = method === "get" ? {} : {method, body};
+    const opts = method === "get" ? {} : { method, body };
     return fetch(`./../api${endpoint}`, opts).then((x) => {
         if (x.headers.getSafe("content-type").includes("application/json")) return x.json();
         return x.text();
@@ -49,12 +49,14 @@ function fetchE(endpoint, method="get", data={}) {
         return x.message;
     });
 }
+
 function fetchI(endpoint, cl, ...a) {
     return fetchE(endpoint).then((x) => {
         if (cl === undefined) return x;
         return new cl(x, ...a);
     });
 }
+
 function fetchL(endpoint, cl, ...a) {
     return fetchE(endpoint).then((x) => {
         return x.map((y) => {
@@ -62,10 +64,12 @@ function fetchL(endpoint, cl, ...a) {
         });
     });
 }
+
 function fetchIC(endpoint, cl, cch, key) {
     if (caches[cch].has(key)) return caches[cch].get(key);
     return fetchI(endpoint, cl);
 }
+
 function resource_factory(name, cl, cch) {
     return {
         me: () => {
@@ -77,7 +81,7 @@ function resource_factory(name, cl, cch) {
         get: (uid) => {
             return fetchIC(`/${name}/${uid}`, cl, cch, uid);
         },
-        update: (uid,k,v) => {
+        update: (uid, k, v) => {
             return fetchE(`/${name}/${uid}`, "put", { p_name: k, p_value: v, });
         },
         delete: (uid) => {
@@ -122,7 +126,7 @@ export const M = {
         online: () => {
             return fetchE("/users/online");
         },
-        update: (uid,k,v) => {
+        update: (uid, k, v) => {
             return fetchE(`/users/${uid}`, "put", { p_name: k, p_value: v, });
         },
     },
@@ -138,7 +142,7 @@ export const M = {
                         return fetchL(`/channels/${ch_uid}/messages?after=${uid}`, Message, ch_uid);
                     },
                     delete: (uids) => {
-                        return fetchE(`/channels/${ch_uid}/messages`, "delete", { "ids":uids });
+                        return fetchE(`/channels/${ch_uid}/messages`, "delete", { "ids": uids });
                     },
                     remove: (uid) => {
                         return C.messages.get(ch_uid).delete(uid);

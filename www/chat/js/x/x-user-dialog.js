@@ -13,6 +13,7 @@ customElements.define("x-user-dialog", class extends HTMLElement {
         this.triggers = [];
         this.triggers.push(this.localName);
     }
+
     /**
      * @param {string} uid
      * @param {MouseEvent} e
@@ -27,7 +28,7 @@ customElements.define("x-user-dialog", class extends HTMLElement {
                 dcTN("#"),
                 create_element("span", null, [dcTN(userN.id)]),
             ]),
-            create_element("div", [["id","pp_uuid"]], [dcTN(userN.uuid)]),
+            create_element("div", [["id", "pp_uuid"]], [dcTN(userN.uuid)]),
             create_element("div", null, [
                 dcTN("Provider: "),
                 create_element("span", null, [dcTN(userN.provider)]),
@@ -39,7 +40,7 @@ customElements.define("x-user-dialog", class extends HTMLElement {
         for (const item of api.C.roles.values()) {
             if (item.id === undefined) { continue; }
             //
-            const nEl2 = create_element("li", [["data-role",item.uuid],["class","bg-bf"]], [dcTN(item.name)]);
+            const nEl2 = create_element("li", [["data-role", item.uuid], ["class", "bg-bf"]], [dcTN(item.name)]);
             nEl2.addEventListener("click", (ev) => {
                 if (!ui.volatile.me.perms.manage_roles) return;
                 const et = ev.target;
@@ -57,6 +58,7 @@ customElements.define("x-user-dialog", class extends HTMLElement {
         popup_set_x(this.children[0], e.x);
         popup_set_y(this.children[0], e.y);
     }
+
     toggleRole(uid) {
         for (const item of this.querySelectorAll("ol")) {
             item.querySelector(`[data-role="${uid}"]`).classList.toggle("active");

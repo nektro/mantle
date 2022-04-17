@@ -3,19 +3,21 @@
 
 //
 if (!("removeAllChildren" in Element.prototype)) {
-    Element.prototype.removeAllChildren = function() {
+    Element.prototype.removeAllChildren = function () {
         while (this.children.length > 0) {
             this.children[0].remove();
         }
     };
 }
+
 if (!("indexOfMe" in Element.prototype)) {
-    Element.prototype.indexOfMe = function() {
+    Element.prototype.indexOfMe = function () {
         return Array.from(this.parentElement.children).indexOf(this);
     };
 }
+
 if (!("path" in Element.prototype)) {
-    Element.prototype.path = function() {
+    Element.prototype.path = function () {
         const p = [];
         let r = this;
         while (r !== null) {
@@ -25,8 +27,9 @@ if (!("path" in Element.prototype)) {
         return p;
     };
 }
+
 if (!("getSafe" in Headers.prototype)) {
-    Headers.prototype.getSafe = function(name) {
+    Headers.prototype.getSafe = function (name) {
         if (!this.has(name)) return "";
         return this.get(name);
     };

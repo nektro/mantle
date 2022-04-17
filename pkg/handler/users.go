@@ -64,9 +64,7 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 	n := c.GetFormString("p_name")
 	v := r.Form.Get("p_value")
 	up := ws.UserPerms{}.From(user)
-	if n != "nickname" {
-		c.Assert(len(v) > 0, "400: missing form value p_value")
-	}
+	c.Assert(len(v) > 0, "400: missing form value p_value")
 	switch n {
 	case "nickname":
 		if user.UUID != u.UUID {

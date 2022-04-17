@@ -3,7 +3,7 @@
 set -e
 
 GOPATH=$(go env GOPATH)
-go get -v github.com/rakyll/statik
+go install github.com/rakyll/statik@latest
 $GOPATH/bin/statik -src="./www/" -f
 
 ./build_go.sh linux amd64

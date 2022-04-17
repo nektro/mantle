@@ -300,6 +300,7 @@ x-messages {
 x-msg-pane {
   display: block;
   overflow-y: auto;
+  width: 100%;
 }
 x-msg-pane > fieldset {
   border-width: 0;

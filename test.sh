@@ -3,10 +3,17 @@
 set -e
 set -x
 
+GOPATH=$(go env GOPATH)
 
 ########################
 #    Golang Testing    #
 ########################
+
+go install github.com/fzipp/gocyclo/cmd/gocyclo@latest
+go install golang.org/x/lint/golint@latest
+go install github.com/gordonklaus/ineffassign@latest
+go install github.com/client9/misspell/cmd/misspell@latest
+go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
 # https://golang.org/pkg/testing/
 go test
